@@ -6,7 +6,7 @@ This can create issues unless the team agrees on a branching strategy.
 
 We use a combination of long-term and short-term branches, and recognize origin as the "central" repository.
 This approach is neatly summarized in the blog post `A successful Git branching model
-`<http://nvie.com/posts/a-successful-git-branching-model/>`_ by Vincent Driessen.
+<http://nvie.com/posts/a-successful-git-branching-model/>`_ by Vincent Driessen.
 
 The following branching strategy is based on Vincent Driessen's outline. Under this strategy,
 all developers pull and push from a shared remote server named ``origin``. For most projects this
