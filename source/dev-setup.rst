@@ -63,7 +63,7 @@ With PostgreSQL installed, you'll want to make sure it runs every time your mach
 to start it running immediately::
 
     mkdir -p ~/Library/LaunchAgents
-    cp /usr/local/Cellar/postgresql/9.2.1/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+    cp /usr/local/Cellar/postgresql/$(postgres --version|cut -d' ' -f3)/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
     launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 Python
