@@ -84,6 +84,8 @@ home directory, and will not modify any paths by default.
 You can install Pythonz easily::
 
     curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+    echo "[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc" >> ~/.bash_profile
+    source $HOME/.pythonz/etc/bashrc
 
 or learn more at the Pythonz github page:
 
@@ -91,9 +93,9 @@ or learn more at the Pythonz github page:
 
 You should install three versions of Python for different projects::
 
-    pythonz install 3.4.2
+    pythonz install 3.4.3
     pythonz install 3.3.6
-    pythonz install 2.7.9
+    pythonz install 2.7.10
 
 Python Packages and Environments
 ''''''''''''''''''''''''''''''''
@@ -120,3 +122,18 @@ you wish)::
     export PROJECT_HOME=$HOME/Devel
     source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
     source ~/.bash_profile
+
+Creating a Python Virtual Environment
+'''''''''''''''''''''''''''''''''''''
+
+You can create a virtual environment using a version of Python installed
+from pythonz as follows::
+
+    mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+
+On Python versions >= 3.3 it's also possible to use Python's built-in
+``pyvenv`` to create virtual environments, but when working with several
+versions of Python it may be easier to use virtualenvwrapper to manage
+all virtual environments. For more information, see:
+
+    https://github.com/saghul/pythonz#recommended-way-to-use-a-pythonz-installed-version-of-python
