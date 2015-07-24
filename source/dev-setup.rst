@@ -34,7 +34,7 @@ A self-executing install script can be fetched and run simply, from the Homebrew
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-You can receive more information in the Homebrew documentation or see a full list of package's
+You can receive more information in the Homebrew documentation or see a full list of packages
 available once you've installed it.
 
 * Homebrew Docs: https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme
