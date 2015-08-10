@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    dev-setup
+   supported-clients
 
 
 Indices and tables
@@ -20,4 +21,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
