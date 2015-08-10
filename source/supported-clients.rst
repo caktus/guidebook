@@ -1,7 +1,7 @@
 Supported Browsers and Devices
 ##############################
 
-There are hundreds of browsers that have been released over the course of the Web’s lifetime. There are thousands of distinct versions between all of these different browsers. We will not be testing every project across thousands of individual test browsers, so we need to narrow down the selection to a concise set of browser versions that represent the largest possibly swath of the target user base.
+There are hundreds of browsers that have been released over the course of the Web’s lifetime. There are thousands of distinct versions between all of these different browsers. We will not be testing every project across thousands of individual test browsers, so we need to narrow down the selection to a concise set of browser versions that represent the largest possible swath of the target user base.
 
 Keep in mind that depending on the project the target user base will be made of people from different demographics, from different areas, with distinct technological patterns. The best set of browser versions to test may differ between projects based on the understanding of this user base.
 
