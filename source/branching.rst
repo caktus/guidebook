@@ -44,9 +44,9 @@ an issue that addresses the feature.
 
 Feature branches should always derive from ``develop``.  ``develop`` is the stable version of the
 new code, and you must ensure that your feature will play nice with the current development state.
-In git, you can create a branch, switch to it, and pick its parent branch all at once with the command:
+In git, you can create a branch, switch to it, and pick its parent branch all at once with the command::
 
-    git checkout -b myfeature develop
+    $ git checkout -b myfeature develop
 
 It is a good habit to branch this way, because developers often forget to checkout the branches they
 just created, and also may forget where they were before they cut a new branch. Both of these human
@@ -54,16 +54,16 @@ errors might cause merge headaches later.  You are allowed to create a feature b
 feature branch instead of ``develop``, if you are comfortable with the parent branch and have a reason
 to branch from it.  However, all feature branches must eventually merge back into ``develop`` or deleted.
 
-It's recommended practice to prefix the branch name with the issue number which it addresses. For example:
+It's recommended practice to prefix the branch name with the issue number which it addresses. For example::
 
-    git checkout -b 42-my-new-feature develop
+    $ git checkout -b 42-my-new-feature develop
 
 Now that your branch is created, develop against it. Make as many commits as you'd like, and even
-as many pushes to origin as you'd like.  For example:
+as many pushes to origin as you'd like.  For example::
 
-    git add .
-    git commit -m "refactored models to address issue #42"
-    git push origin 42-my-new-feature -u
+    $ git add .
+    $ git commit -m "refactored models to address issue #42"
+    $ git push origin 42-my-new-feature -u
 
 Commit messages should be descriptive. Where practical, note changed files, why you changed them, and
 other metadata (WIP, not yet tested, addresses issue #42, etc.)
@@ -100,16 +100,16 @@ Github presents a blue and white plus icon for adding line comments.
 When the reviewer agrees that the pull request is adequate, they should add a comment to the pull request.
 For fun, we typically add random emoticons such as ``:frog:``.
 
-By convention, the developer of the branch then merges it back into ``develop``, but other developers can do this step:
+By convention, the developer of the branch then merges it back into ``develop``, but other developers can do this step::
 
-    git checkout develop
-    git merge --no-ff 42-my-new-feature
+    $ git checkout develop
+    $ git merge --no-ff 42-my-new-feature
 
 Note that GitHub allows you to merge and delete a branch from within the Pull Request GUI.
 
 .. note::
 
-    The use of the `--no-ff` flag is not explicitly required. This flag ensures that the merge commit
+    The use of the ``--no-ff`` flag is not explicitly required. This flag ensures that the merge commit
     is created when merging the branch. Having a single merge commit makes it easier to rollback
     the entire branch of changes if needed. This alse has the advantage of preserving the branch information
     in the merge commit message which would otherwise be lost when the branch is deleted and
@@ -124,33 +124,87 @@ Recall that ``origin/develop`` and ``origin/master`` are the only long term bran
 branch should be as short-lived as possible while still accomplishing its purpose. Dead branches
 (exploratory, or failed attempts to address an issue), or feature branches that drag on a long time,
 cloud the picture for other developers. Since this feature branch is no longer needed, it can be deleted
-via the "delete this branch" button on GitHub, or via the command line:
+via the "delete this branch" button on GitHub, or via the command line::
 
-    git branch -d 42-my-new-feature
+    $ git branch -d 42-my-new-feature
 
 
-Hotfix branches
+Hotfix Branches
 ---------------
 
 A hotfix branch is an emergency branch mandated by a critical bug or security flaw in the production
 release. Hotfix branches always derive from ``origin/master``, and eventually merge back into
-``develop`` and ``master``:
+``develop`` and ``master``::
 
-    git checkout -b hotfix-2.0.1 master
+    $ git checkout -b hotfix-2.0.1 master
     # do the work neccessary to bump version numbers
-    git commit -a -m "Bumped version number to 2.0.1"
+    $ git commit -a -m "Bumped version number to 2.0.1"
 
-When the patch or bug fix has been applied to the code, you are ready to put it into ``master``:
+When the patch or bug fix has been applied to the code, you are ready to put it into ``master``::
 
-    git commit -m "Fixed severe production problem"
-    git checkout master
-    git merge --no-ff hotfix-2.0.1
-    git tag -a 2.0.1
-    git checkout develop
-    git merge --no-ff hotfix-2.0.1
-    git branch -d hotfix-2.0.1
+    $ git commit -m "Fixed severe production problem"
+    $ git checkout master
+    $ git merge --no-ff hotfix-2.0.1
+    $ git tag -a 2.0.1
+    $ git checkout develop
+    $ git merge --no-ff hotfix-2.0.1
+    $ git branch -d hotfix-2.0.1
 
 .. note::
 
-    As previously noted the `--no-ff` flag is not required but is recommended. See the previous
+    As previously noted the ``--no-ff`` flag is not required but is recommended. See the previous
     note for more information on the advantages of using this flag.
+
+
+Production Releases
+-------------------
+
+When a new production release is ready to be deployed, the latest work from ``develop`` is advanced
+to the ``master`` branch. It is recommended that releases are tagged. Tags might denote the version
+number for the release or the date of the release. Prior to tagging you ensure that all changes on
+master are included in develop::
+
+    $ git checkout master
+    $ git pull origin master
+    $ git checkout develop
+    $ git pull origin develop
+    $ git merge master
+
+This merge should be a no-op. If there are changes which were not previously merged to develop you need
+to ensure that develop is still running as expected before preceeding. While on the ``develop`` branch
+you should 
+
+- Update change log with release notes
+- Update internal version numbers if tracked in the code
+- Run test suite
+
+Changes between each release should be noted in a ``CHANGELOG`` or ``CHANGES`` file stored at the root of the repository.
+The format of this file is flexible. You may look at https://github.com/caktus/margarita/blob/develop/CHANGES.rst
+as an example. This uses headers to denote each released version along with the date it was released. Below the header
+is a bulletted list of items which were changed/added in the release. Ideally these would also reference
+the issue numbers along with these items.::
+
+    Release Notes
+
+    v1.0 - Aug 28, 2015
+    -------------------
+
+    - Added a great new feature (#12)
+    - Fixed an annoying bug (#11)
+
+It is not recommended to use any tool to automatically generate the change log from the git history. This file
+should be written by a human to be read by a human and should add additional context otherwise not already
+available in the git history.
+
+With these changes in place you should commit the release note changes and version changes and tag the release.::
+
+    $ git add <related files for change log and version numbers>
+    $ git commit -m "Note and version bump for release <version>"
+    $ git tag <version>
+    $ git checkout master
+    $ git merge develop
+    $ git push origin master --tags
+    $ git checkout develop
+    $ git push origin develop --tags
+
+With the changes and tags pushed to the central repository, you can proceed with the production deployment.
