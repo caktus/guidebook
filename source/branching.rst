@@ -25,6 +25,14 @@ By merging ``develop`` into ``master``, you are declaring a new release of the s
 Since all branches have equal weight to git, these are conventions. There are two types of short-term
 branches: ``feature`` and ``hotfix``.
 
+.. note::
+
+   A third kind of branch might be a non-critical bug fix. This is a fix which does not need to
+   be immediately applied to production and can wait until the next development release cycle. The
+   workflow for these fixes are effectively the same as developing a new feature so they are not
+   given any special status in this workflow documentation. When reading the workflow for the
+   feature branch development, keep in mind the same workflow applied for non-critical bug fixes.
+
 
 New Feature Branches
 --------------------
@@ -46,8 +54,7 @@ errors might cause merge headaches later.  You are allowed to create a feature b
 feature branch instead of ``develop``, if you are comfortable with the parent branch and have a reason
 to branch from it.  However, all feature branches must eventually merge back into ``develop`` or deleted.
 
-If the feature branch addresses a single issue, and is the only branch to address that issue, you
-can name the branch with the issue number as a mental cue. For example:
+It's recommended practice to prefix the branch name with the issue number which it addresses. For example:
 
     git checkout -b 42-my-new-feature develop
 
@@ -100,6 +107,15 @@ By convention, the developer of the branch then merges it back into ``develop``,
 
 Note that GitHub allows you to merge and delete a branch from within the Pull Request GUI.
 
+.. note::
+
+    The use of the `--no-ff` flag is not explicitly required. This flag ensures that the merge commit
+    is created when merging the branch. Having a single merge commit makes it easier to rollback
+    the entire branch of changes if needed. This alse has the advantage of preserving the branch information
+    in the merge commit message which would otherwise be lost when the branch is deleted and
+    replicates the merge behavior if the PR is merged in the Github UI. However, some projects might
+    prefer to keep a cleaner history by excluding the merge commits. That is ok as well as the developers
+    are in agreement and understand the trade-offs.
 
 Branch Lifespans
 -----------------
@@ -133,3 +149,8 @@ When the patch or bug fix has been applied to the code, you are ready to put it 
     git checkout develop
     git merge --no-ff hotfix-2.0.1
     git branch -d hotfix-2.0.1
+
+.. note::
+
+    As previously noted the `--no-ff` flag is not required but is recommended. See the previous
+    note for more information on the advantages of using this flag.
