@@ -13,6 +13,7 @@ Contents:
 
    dev-setup
    branching
+   supported-clients
 
 
 Indices and tables
@@ -21,4 +22,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
