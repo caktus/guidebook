@@ -126,6 +126,9 @@ branch should be as short-lived as possible while still accomplishing its purpos
 cloud the picture for other developers. Since this feature branch is no longer needed, it can be deleted
 via the "delete this branch" button on GitHub, or via the command line::
 
+    # Delete the remote branch
+    $ git push origin :42-my-new-feature
+    # Delete the local branch
     $ git branch -d 42-my-new-feature
 
 
@@ -178,7 +181,9 @@ you should
 - Update internal version numbers if tracked in the code
 - Run test suite
 
-Changes between each release should be noted in a ``CHANGELOG`` or ``CHANGES`` file stored at the root of the repository.
+Changes between each release should be noted in an obvious place in the repository such
+as a ``CHANGELOG`` or ``CHANGES`` file stored at the root or a ``docs/changes.rst`` or ``docs/releases.rst``
+file if there is a larger collection of documenation for the project.
 The format of this file is flexible. You may look at https://github.com/caktus/margarita/blob/develop/CHANGES.rst
 as an example. This uses headers to denote each released version along with the date it was released. Below the header
 is a bulletted list of items which were changed/added in the release. Ideally these would also reference
