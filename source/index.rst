@@ -13,6 +13,7 @@ Contents:
 
    dev-setup
    supported-clients
+   rds
 
 
 Indices and tables
