@@ -16,13 +16,14 @@ At a high level, we focus on:
 Workflow Diagram
 ----------------
 
-The following diagram illustrates two workflow aspects:
-
-* The **Task rows** highlight the typical tasks and skills needed for Caktus projects. They do not correspond directly to individual roles or that they should be followed sequentially. Project teams should self-assemble for the optimum configuration.
-* The **Phase columns** illustrate how the set of high level project tasks may evolve throughout a project life-cycle, starting after a Discovery Workshop. For example, static wireframes ideally progress to HTML Prototypes once core templates and user flows are established. Project teams, depending on project requirements, may elect to start with a later phase.
-
 .. figure:: _static/caktus_design_dev_workflow.png
   :target: _static/caktus_design_dev_workflow.png
   :alt: Caktus App Development Workflow
 
-  See `Task Details <https://docs.google.com/document/d/1vh4wzkOTP2al5X5hbDx7ct3NTnXjsOANWxt4wBghcI8/edit?usp=sharing>`_ for additional information.
+The above diagram illustrates the evolution of a typical project workflow:
+
+* The **Workshop** phase focuses on discovery and requirements gathering to establish a plan to begin development.
+* The **Task rows** highlight the typical tasks and skills needed for Caktus projects. They do not correspond directly to individual roles or that they should be followed sequentially. Project teams self-assemble for the optimum configuration.
+* The **Phase columns** illustrate how the set of high level project tasks may evolve throughout a project life-cycle. For example, static wireframes ideally progress to HTML Prototypes once core templates and user flows are established. Project teams, depending on project requirements, may elect to start with a later phase.
+
+See `Task Details <https://docs.google.com/document/d/1vh4wzkOTP2al5X5hbDx7ct3NTnXjsOANWxt4wBghcI8/edit?usp=sharing>`_ for additional information.
