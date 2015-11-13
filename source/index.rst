@@ -14,6 +14,7 @@ Contents:
    dev-setup
    branching
    supported-clients
+   workflow
 
 
 Indices and tables
