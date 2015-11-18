@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Machine Setup &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Branching Strategy" href="branching.html" />
+    <link rel="prev" title="Welcome to Caktus Developer Documentation’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="branching.html" title="Branching Strategy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Caktus Developer Documentation’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Caktus Developer Documentation 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-machine-setup">
+<h1>Developer Machine Setup<a class="headerlink" href="#developer-machine-setup" title="Permalink to this headline">¶</a></h1>
+<p>This document includes instructions on setting up pre-requisites for this project on a new machine.</p>
+<div class="section" id="mac-os-x">
+<h2>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h2>
+<p>Every developer machine is expected to include a few pre-requisites used by most or all projects.</p>
+<div class="section" id="command-line-tools">
+<h3>Command Line Tools<a class="headerlink" href="#command-line-tools" title="Permalink to this headline">¶</a></h3>
+<p>Before you install anything else you&#8217;ll need to install Apple&#8217;s own &#8216;Command Line Tools&#8217; package.
+This includes a base set of common command line programs used by developers, but not shipped by
+default in OSX. You may need to re-install this package after major upgrades to OSX.</p>
+<p>Apple does provide a simple utility for bootstrapping these tools and installing them:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+</pre></div>
+</div>
+<p>Get more information about the Command Line Tools directly from Apple:</p>
+<blockquote>
+<div><a class="reference external" href="https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/">https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/</a><a href="#id1"><span class="problematic" id="id2">DTS40014588-CH1-WHAT_IS_THE_COMMAND_LINE_TOOLS_PACKAGE_</span></a></div></blockquote>
+</div>
+<div class="section" id="homebrew">
+<h3>Homebrew<a class="headerlink" href="#homebrew" title="Permalink to this headline">¶</a></h3>
+<p>Homebrew is a project that provides automated download, compilation, and install of a wide range
+of developer and console tools for the Mac.</p>
+<p>A self-executing install script can be fetched and run simply, from the Homebrew documentation:</p>
+<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</pre></div>
+</div>
+<p>You can receive more information in the Homebrew documentation or see a full list of packages
+available once you&#8217;ve installed it.</p>
+<ul class="simple">
+<li>Homebrew Docs: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme">https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme</a></li>
+<li>Package List: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/Library/Formula">https://github.com/Homebrew/homebrew/tree/master/Library/Formula</a></li>
+</ul>
+</div>
+<div class="section" id="version-control">
+<h3>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
+<p>Install Mercurial and Git, the version control systems used by most
+projects to obtain and coordinate changes to the code base between all
+developers:</p>
+<div class="highlight-python"><div class="highlight"><pre>brew install git
+brew install mercurial
+</pre></div>
+</div>
+</div>
+<div class="section" id="postgresql">
+<h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
+<p>The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
+extensions:</p>
+<div class="highlight-python"><div class="highlight"><pre>brew install postgres
+brew install postgis
+</pre></div>
+</div>
+<p>With PostgreSQL installed, you&#8217;ll want to make sure it runs every time your machine comes up, and
+to start it running immediately:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkdir -p ~/Library/LaunchAgents
+cp /usr/local/Cellar/postgresql/$(postgres --version|cut -d&#39; &#39; -f3)/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
+launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+</pre></div>
+</div>
+</div>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Different projects require different versions of Python. Some projects may
+run on a wider range of Python versions and some may depend on very
+specific versions.</p>
+<p>It is recommended Mac users install the <cite>pythonz</cite> tool, which automates the
+download, install, and configuration of specific versions of Python. It is
+capable of installing either official versions of Python (from python.org)
+or alternate versions like PyPy, Stackless, and Jython.</p>
+<p>Pythonz will install everything into a hidden <cite>.pythonz/</cite> directory in your
+home directory, and will not modify any paths by default.</p>
+<p>You can install Pythonz easily:</p>
+<div class="highlight-python"><div class="highlight"><pre>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+echo &quot;[[ -s $HOME/.pythonz/etc/bashrc ]] &amp;&amp; source $HOME/.pythonz/etc/bashrc&quot; &gt;&gt; ~/.bash_profile
+source $HOME/.pythonz/etc/bashrc
+</pre></div>
+</div>
+<p>or learn more at the Pythonz github page:</p>
+<blockquote>
+<div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
+<p>You should install three versions of Python for different projects:</p>
+<div class="highlight-python"><div class="highlight"><pre>pythonz install 3.4.3
+pythonz install 3.3.6
+pythonz install 2.7.10
+</pre></div>
+</div>
+</div>
+<div class="section" id="python-packages-and-environments">
+<h3>Python Packages and Environments<a class="headerlink" href="#python-packages-and-environments" title="Permalink to this headline">¶</a></h3>
+<p>Finally, every project will use the tools <cite>pip</cite>, <cite>virtualenv</cite>, and
+<cite>virtualenvwrapper</cite> to manage sandboxes for each project and the Python
+packages required for each project installed into those sandboxes.</p>
+<p>You&#8217;ll install <cite>pip</cite> first, into your system Python that comes with OSX:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
+</pre></div>
+</div>
+<p>And, using pip, install <cite>virtualenvwrapper</cite> which will automatically
+install <cite>virtualenv</cite> as one of its dependencies:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper
+</pre></div>
+</div>
+<p>Virtualenv Wrapper requires some configuration to work with your local
+command line shell. You can copy and paste the code below to set this up
+in your Terminal. (You can also customize what you set PROJECT_HOME to, if
+you wish):</p>
+<div class="highlight-python"><div class="highlight"><pre>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Devel
+source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-python-virtual-environment">
+<h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
+<p>You can create a virtual environment using a version of Python installed
+from pythonz as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+</pre></div>
+</div>
+<p>On Python versions &gt;= 3.3 it&#8217;s also possible to use Python&#8217;s built-in
+<code class="docutils literal"><span class="pre">pyvenv</span></code> to create virtual environments, but when working with several
+versions of Python it may be easier to use virtualenvwrapper to manage
+all virtual environments. For more information, see:</p>
+<blockquote>
+<div><a class="reference external" href="https://github.com/saghul/pythonz#recommended-way-to-use-a-pythonz-installed-version-of-python">https://github.com/saghul/pythonz#recommended-way-to-use-a-pythonz-installed-version-of-python</a></div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Machine Setup</a><ul>
+<li><a class="reference internal" href="#mac-os-x">Mac OS X</a><ul>
+<li><a class="reference internal" href="#command-line-tools">Command Line Tools</a></li>
+<li><a class="reference internal" href="#homebrew">Homebrew</a></li>
+<li><a class="reference internal" href="#version-control">Version Control</a></li>
+<li><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
+<li><a class="reference internal" href="#python">Python</a></li>
+<li><a class="reference internal" href="#python-packages-and-environments">Python Packages and Environments</a></li>
+<li><a class="reference internal" href="#creating-a-python-virtual-environment">Creating a Python Virtual Environment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Caktus Developer Documentation&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="branching.html"
+                        title="next chapter">Branching Strategy</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/dev-setup.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/dev-setup.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
