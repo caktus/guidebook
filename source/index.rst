@@ -12,8 +12,10 @@ Contents:
    :maxdepth: 2
 
    dev-setup
-   supported-clients
+   branching
    rds
+   supported-clients
+   workflow
 
 
 Indices and tables
