@@ -13,6 +13,7 @@ Contents:
 
    dev-setup
    branching
+   rds
    supported-clients
    workflow
 
