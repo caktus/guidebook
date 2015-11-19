@@ -29,12 +29,22 @@ Each RDS instance has a master Postgres user created by AWS when the RDS
 instance is created. We store the credentials for that user in Lastpass, in a shared
 folder associated with the corresponding client.
 
+.. warning:
+
+    The ``master`` user for an RDS instance has a lot of permissions, but it
+    is *not* a Postgres superuser. You will trip over this from time to time.
+    Often you can workaround this by doing things like first changing the owner
+    of a Postgres resource to ``master``, doing what you need, then changing it
+    back.
+
+    The examples below try to take this into account.
+
 For each site or project, we create a separate Postgres user used for accessing
-its databases, that does not have privileges to create databases or users, or to
-access other databases. (The goal is that even if a server of that site or project
+its databases. That user does not have privileges to create databases or users, or to
+access other databases. The goal is that even if a server of that site or project
 is compromised, there should not be any credentials on that server that could
 access any other site's or project's data, or mess up anything else on the RDS
-instance.)
+instance.
 
 We also store each of these separate Postgres user's credentials in Lastpass
 in a shared folder associated with the corresponding client and
@@ -66,8 +76,13 @@ create the database user and database for the project during the initial deploy.
 We will not be able to do that when the database is on RDS, as the deploy
 will not have the credentials of the master Postgres user.
 
+As a corollary, since we'll typically remove that part of the deploy
+configuration for the project, we'll have to use the Postgres server
+on the host server (or elsewhere) for any Vagrant instance we might want
+to run the project in.
+
 So, we create the database user and database manually (or using
-some separate bit of automation).  And that will need to be done from one of
+some separate bit of automation).  And for RDS, that will need to be done from one of
 the EC2 instances. One approach would be to ssh into one of the servers and
 use the Postgres command line interface. Just be careful not to leave any
 credentials for the master user on that server. (If you want to be especially
@@ -79,12 +94,16 @@ line to do the things that will need to be done.
 Backups
 -------
 
-TBD!
+We will use the AWS backup utilities for RDS, making copies of automatic backups
+so we can store them as long as we want.  (The automatic ones have a maximum
+lifetime of 45 days.)
 
-(Do we just rely on the automatic backups on RDS, which are only kept up
-to 45 days; do we make "manual" (initiated when we choose) backups on RDS,
-which will be kept as long as we want; or do we want to make backups
-outside of RDS?)
+One wrinkle is that RDS backups are of the entire cluster, not a single database,
+and the only way to restore is to create a new RDS instance running the backup's data.
+
+So to restore a database, we'd restore the backup to create a new temporary
+RDS instance, dump the database(s) we want, restore the dumps to the actual
+RDS instances, then remove the temporary RDS instance.
 
 Practical tips
 ~~~~~~~~~~~~~~
@@ -176,9 +195,18 @@ Hstore is simpler, but you still have to use the master user::
 Grant read-only access to a database
 ------------------------------------
 
-    $ psql -c "GRANT CONNECT ON DATABASE $dbname TO $readonly_user;"
+Sometimes we want a user to only be able to read the database::
+
+    $ export PGUSER=$project_user
+    $ psql -c "GRANT CONNECT ON DATABASE $dbname TO master;" postgres
+    $ psql -c "GRANT ALL ON ALL TABLES IN SCHEMA PUBLIC TO master;" $dbname
+    $ export PGUSER=master
+    $ psql -c "GRANT CONNECT ON DATABASE $dbname TO $readonly_user;" postgres
+    $ export PGUSER=$project_user
     $ psql -c "GRANT SELECT ON ALL TABLES IN SCHEMA PUBLIC TO $readonly_user;" $dbname
 
+Be sure to test after doing this; without a superuser, getting all
+the permissions in place is very error-prone.
 
 Restore a dump to a new database
 --------------------------------
