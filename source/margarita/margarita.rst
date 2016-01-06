@@ -12,5 +12,4 @@ states.  It lives at https://github.com/caktus/margarita.
    states
    grains
    pillar
-   roles
    minions

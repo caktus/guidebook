@@ -4,6 +4,8 @@ Salt States
 SLS files
 ---------
 
+.. _base:
+
 base
 ~~~~
 
@@ -11,6 +13,8 @@ Installs packages like `build-essential` and `sudo` that all
 our servers need.
 
 No configuration.
+
+.. _elasticsearch:
 
 elasticsearch
 ~~~~~~~~~~~~~
@@ -28,7 +32,9 @@ Pillar configuration:
 
 Dependencies:
 
-* ``newrelic_npi`` (if ``elasticsearch_newrelic`` is True).
+* :ref:`newrelic_npi` (if ``elasticsearch_newrelic`` is True).
+
+.. _fail2ban:
 
 fail2ban
 ~~~~~~~~
@@ -36,6 +42,8 @@ fail2ban
 Installs and runs fail2ban.
 
 No configuration.
+
+.. _forward_logs:
 
 forward_logs
 ~~~~~~~~~~~~
@@ -48,10 +56,14 @@ Pillar configuration:
 * ``secrets:LOG_DESTINATION`` (string): The host:port to forward the messages to,
   e.g. "log3.example.com:12345".
 
+.. _locale.utf8:
+
 locale.utf8
 ~~~~~~~~~~~
 
 Sets the system locale, both ``LANG`` and ``LC_ALL``, to ``en_US.UTF-8``.
+
+.. _memcached:
 
 memcached
 ~~~~~~~~~
@@ -59,6 +71,8 @@ memcached
 Installs and runs memcached.
 
 Leaves all settings and configuration at their defaults.
+
+.. _newrelic_npi:
 
 newrelic_npi
 ~~~~~~~~~~~~
@@ -68,6 +82,8 @@ that can be used to easily install compatible plugins.
 
 This can be pre-reqed by other states but probably does not need to
 be included directly.
+
+.. _newrelic_sysmon:
 
 newrelic_sysmon
 ~~~~~~~~~~~~~~~
@@ -84,6 +100,8 @@ Pillar configuration:
 * ``secrets:NEW_RELIC_LICENSE_KEY`` (string): The license key of the New Relic
   account to use.
 
+.. _nginx:
+
 nginx
 ~~~~~
 
@@ -91,6 +109,8 @@ Install nginx, tweak the default configuration in the main config file,
 and remove the default site config that gets installed.
 
 Uses the Nginx PPA to get the latest stable version.
+
+.. _nginx.cert:
 
 nginx.cert
 ~~~~~~~~~~
@@ -100,17 +120,23 @@ for creating self-signed certificates for nginx.
 
 Dependencies:
 
-* nginx
+* :ref:`nginx`
+
+.. _nodejs:
 
 nodejs
 ~~~~~~
 
 Installs node, making sure there's a ``/usr/bin/node`` executable.
 
+.. _postfix:
+
 postfix
 ~~~~~~~
 
 Install and run postfix mail system.
+
+.. _postgresql:
 
 postgresql
 ~~~~~~~~~~
@@ -125,7 +151,9 @@ Pillar configuration:
 
 Dependencies:
 
-* locale.utf8
+* :ref:`locale.utf8`
+
+.. _project.cache:
 
 project.cache
 ~~~~~~~~~~~~~
@@ -136,8 +164,10 @@ Dependency on `memcached` state will also ensure memcached is installed.
 
 Dependencies:
 
-- memcached
-- ufw
+- :ref:`memcached`
+- :ref:`ufw`
+
+.. _project.db:
 
 project.db
 ~~~~~~~~~~
@@ -182,8 +212,10 @@ unless the role is ``db-master`` or ``db-slave``:
 
 Dependencies:
 
-- postgresql
-- ufw
+- :ref:`postgresql`
+- :ref:`ufw`
+
+.. _project.devs:
 
 project.devs
 ~~~~~~~~~~~~
@@ -208,7 +240,9 @@ public key file, one long line.)  E.g.::
 
 Dependencies:
 
-- users.groups
+- :ref:`users.groups`
+
+.. _project.dirs:
 
 project.dirs
 ~~~~~~~~~~~~
@@ -223,7 +257,9 @@ Directories are owned by the project user.
 
 Dependencies:
 
-- project.user
+- :ref:`project.user`
+
+.. _project.django:
 
 project.django
 ~~~~~~~~~~~~~~
@@ -235,9 +271,11 @@ Depends on other sls files that also do Django-related setup.
 
 Dependencies:
 
-  - project.user
-  - project.dirs
-  - project.venv
+- :ref:`project.user`
+- :ref:`project.dirs`
+- :ref:`project.venv`
+
+.. _project.queue:
 
 project.queue
 ~~~~~~~~~~~~~
@@ -255,8 +293,10 @@ Pillar configuration:
 
 Dependencies:
 
-- rabbitmq
-- ufw
+- :ref:`rabbitmq`
+- :ref:`ufw`
+
+.. _project.repo:
 
 project.repo
 ~~~~~~~~~~~~
@@ -284,16 +324,20 @@ Pillar configuration:
 
 Dependencies:
 
-- project.dirs
-- project.user
-- version-control
-- sshd.github
+- :ref:`project.dirs`
+- :ref:`project.user`
+- :ref:`version-control`
+- :ref:`sshd.github`
+
+.. _project.user:
 
 project.user
 ~~~~~~~~~~~~
 
 Create a local user named ``<project_name>`` and add it to the
 ``www-data`` group.
+
+.. _project.venv:
 
 project.venv
 ~~~~~~~~~~~~
@@ -307,9 +351,11 @@ Also installs ``ghostscript`` ?!?!?!
 
 Dependencies:
 
-- project.dirs
-- project.repo
-- python
+- :ref:`project.dirs`
+- :ref:`project.repo`
+- :ref:`python`
+
+.. _project.web.app:
 
 project.web.app
 ~~~~~~~~~~~~~~~~
@@ -319,13 +365,15 @@ commands like ``collectstatic`` and ``migrate``.
 
 Dependencies:
 
-- supervisor.pip
-- project.dirs
-- project.venv
-- project.django
-- postfix
-- ufw
-- nodejs
+- :ref:`supervisor.pip`
+- :ref:`project.dirs`
+- :ref:`project.venv`
+- :ref:`project.django`
+- :ref:`postfix`
+- :ref:`ufw`
+- :ref:`nodejs`
+
+.. _project.web.balancer:
 
 project.web.balancer
 ~~~~~~~~~~~~~~~~~~~~
@@ -351,11 +399,13 @@ Pillar configuration:
 
 Dependencies:
 
-- nginx
-- nginx.cert
-- ufw
-- project.dirs
+- :ref:`nginx`
+- :ref:`nginx.cert`
+- :ref:`ufw`
+- :ref:`project.dirs`
 
+
+.. _project.worker.beat:
 
 project.worker.beat
 ~~~~~~~~~~~~~~~~~~~~
@@ -364,9 +414,11 @@ Arrange for ``celery beat`` service to run for the project via supervisor.
 
 Dependencies:
 
-- supervisor.pip
-- project.dirs
-- project.venv
+- :ref:`supervisor.pip`
+- :ref:`project.dirs`
+- :ref:`project.venv`
+
+.. _project.worker.default:
 
 project.worker.default
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -375,10 +427,12 @@ Arrange for a ``celery worker`` service to run for the project via supervisor.
 
 Dependencies:
 
-- supervisor.pip
-- project.dirs
-- project.venv
-- postfix
+- :ref:`supervisor.pip`
+- :ref:`project.dirs`
+- :ref:`project.venv`
+- :ref:`postfix`
+
+.. _python:
 
 python
 ~~~~~~
@@ -391,12 +445,16 @@ help with building Pillow on 64bit systems.
 
 Also installs ``ghostscript`` ?!?!?!?!!
 
+.. _rabbitmq:
+
 rabbitmq
 ~~~~~~~~
 
 Install rabbitmq and make it run.
 
 Delete the default ``guest`` rabbitmq user.
+
+.. _salt.master:
 
 salt.master
 ~~~~~~~~~~~
@@ -405,12 +463,16 @@ Opens ports 4505 and 4506.
 
 Dependencies:
 
-- ufw
+- :ref:`ufw`
+
+.. _solr:
 
 solr
 ~~~~
 
 Installs ``openjdk-7-jre-headless``.
+
+.. _solr.project:
 
 solr.project
 ~~~~~~~~~~~~
@@ -422,7 +484,9 @@ Does not appear to arrange to run it.
 
 Dependencies:
 
-- solr
+- :ref:`solr`
+
+.. _sshd:
 
 sshd
 ~~~~
@@ -436,13 +500,17 @@ Opens port 22.
 
 Dependencies:
 
-- ufw
-- fail2ban
+- :ref:`ufw`
+- :ref:`fail2ban`
+
+.. _sshd.github:
 
 sshd.github
 ~~~~~~~~~~~
 
 Add ``github.com`` to the system known hosts file.
+
+.. _statsd:
 
 statsd
 ~~~~~~
@@ -452,8 +520,21 @@ for it to run on startup.
 
 Dependencies:
 
-- nodejs
-- version-control
+- :ref:`nodejs`
+- :ref:`version-control`
+
+.. _syslog:
+
+syslog
+~~~~~~
+
+Arrange to install rsyslog v8.5 or later.
+
+Configure it to load the `imfile` module so that other states
+can add rsyslog config files to tell rsyslog to monitor plain
+text log files.
+
+.. _sudo:
 
 sudo
 ~~~~
@@ -463,6 +544,8 @@ Arrange for sudo service to run.
 Update the ``sudoers`` config file to let users in group ``admin``
 do anything without a password.
 
+.. _supervisor:
+
 supervisor
 ~~~~~~~~~~
 
@@ -471,17 +554,23 @@ supervisor
 
 Install and run supervisor using its Debian/Ubuntu package.
 
+.. _supervisor.pip:
+
 supervisor.pip
 ~~~~~~~~~~~~~~
 
 Install and run supervisor after installing it globally using
 ``pip``, first uninstalling the packaged supervisor if necessary.
 
+.. _ufw:
+
 ufw
 ~~~~
 
 Install the ``ufw`` firewall package and set it to deny access
 by default.
+
+.. _unattended_upgrades:
 
 unattended_upgrades
 ~~~~~~~~~~~~~~~~~~~
@@ -500,10 +589,18 @@ Pillar configuration:
   not to ever upgrade this way. Can include both exact names of packages and regexes
   that match package names.
 
+Dependencies:
+
+- :ref:`syslog`
+
+.. _users.groups:
+
 users.groups
 ~~~~~~~~~~~~
 
 Create system user groups named ``admin`` and ``login``.
+
+.. _vagrant.user:
 
 vagrant.user
 ~~~~~~~~~~~~
@@ -514,7 +611,9 @@ can still login and do things as root.
 
 Dependencies:
 
-- users.groups
+- :ref:`users.groups`
+
+.. _version-control:
 
 version-control
 ~~~~~~~~~~~~~~~

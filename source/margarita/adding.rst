@@ -58,14 +58,46 @@ applied once to a given system.
         - match: grain
         - project.cache
 
+Roles
+-----
+
+A server's roles are configured by adding strings to the list named ``roles``
+in its grains, by editing ``/etc/salt/minion``.  Example::
+
+    grains:
+      environment: staging
+      roles:
+      - salt-master
+      - web
+      - worker
+      - balancer
+      - queue
+      - cache
+
+The roles primarily are used to select, in your project's ``top.sls`` file, which
+state files to include. But they're also used when configuring other servers which
+need, for example, to open firewall ports to allow other web servers to access
+a service.
 
 
 Making Margarita available to Salt
 ----------------------------------
 
 To be able to use the states from Margarita, we need to
-add the tree of files from Margarita somewhere
-that Salt looks for SLS files.
+add the tree of files from Margarita somewhere that Salt
+looks for SLS files, and control what version of Margarita
+to use.
+
+Margarita is versioned by tagging in git, so for example if
+you wanted to use Margarita version 1.2.0, you should check
+out tag ``1.2.0``.
+
+Margarita versions are documented in the latest CHANGES file
+here: https://github.com/caktus/margarita/blob/develop/CHANGES.rst
+
+When upgrading Margarita, always read that CHANGES file to see
+if there were backward-incompatible changes, or new features
+that you can enable.
 
 We've tried using Salt's gitfs support for this, but found it
 to be too unreliable in noticing updates, not to mention
@@ -116,6 +148,9 @@ directory at a given version, maybe something like this::
          - cwd: /srv/margarita
          - requires:
             - cmd: fetch_repo
+
+If using this, set the pillar variable ``margarita_version`` to the
+version you want to install, e.g. "1.2.0".
 
 Just be sure to restart the salt-master after Margarita is updated.
 We do that outside Salt after invoking this state, something
