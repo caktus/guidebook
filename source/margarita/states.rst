@@ -63,6 +63,8 @@ locale.utf8
 
 Sets the system locale, both ``LANG`` and ``LC_ALL``, to ``en_US.UTF-8``.
 
+No configuration.
+
 .. _memcached:
 
 memcached
@@ -71,6 +73,8 @@ memcached
 Installs and runs memcached.
 
 Leaves all settings and configuration at their defaults.
+
+No configuration.
 
 .. _newrelic_npi:
 
@@ -82,6 +86,8 @@ that can be used to easily install compatible plugins.
 
 This can be pre-reqed by other states but probably does not need to
 be included directly.
+
+No configuration.
 
 .. _newrelic_sysmon:
 
@@ -110,6 +116,8 @@ and remove the default site config that gets installed.
 
 Uses the Nginx PPA to get the latest stable version.
 
+No configuration.
+
 .. _nginx.cert:
 
 nginx.cert
@@ -122,6 +130,8 @@ Dependencies:
 
 * :ref:`nginx`
 
+No configuration.
+
 .. _nodejs:
 
 nodejs
@@ -129,12 +139,16 @@ nodejs
 
 Installs node, making sure there's a ``/usr/bin/node`` executable.
 
+No configuration.
+
 .. _postfix:
 
 postfix
 ~~~~~~~
 
 Install and run postfix mail system.
+
+No configuration.
 
 .. _postgresql:
 
@@ -160,12 +174,14 @@ project.cache
 
 Open the firewall for memcached from :ref:`app_minions <minions>`.
 
-Dependency on `memcached` state will also ensure memcached is installed.
+Dependency on :ref:`memcached` state will also ensure memcached is installed.
 
 Dependencies:
 
 - :ref:`memcached`
 - :ref:`ufw`
+
+No configuration.
 
 .. _project.db:
 
@@ -255,6 +271,10 @@ Arrange for the project's main directories to be created, e.g.
 
 Directories are owned by the project user.
 
+Pillar configuration:
+
+* ``project_name`` (string): Used to construct the paths.
+
 Dependencies:
 
 - :ref:`project.user`
@@ -275,6 +295,8 @@ Dependencies:
 - :ref:`project.dirs`
 - :ref:`project.venv`
 
+No configuration.
+
 .. _project.queue:
 
 project.queue
@@ -290,6 +312,7 @@ Open the firewall for rabbitmq access to other :ref:`app_minions <minions>` serv
 Pillar configuration:
 
 * ``secrets:BROKER_PASSWORD``: The password to set on the rabbitmq user.
+* ``project_name`` (string)
 
 Dependencies:
 
@@ -321,6 +344,7 @@ Pillar configuration:
   to use to access the repository.
 * ``repo:url`` (string): Git repository URL
 * ``repo:branch`` (string): Branch to check out. Optional; default is ``master``.
+* ``project_name`` (string)
 
 Dependencies:
 
@@ -337,6 +361,10 @@ project.user
 Create a local user named ``<project_name>`` and add it to the
 ``www-data`` group.
 
+Pillar configuration:
+
+* ``project_name`` (string)
+
 .. _project.venv:
 
 project.venv
@@ -347,7 +375,15 @@ and install Python requirements listed in
 ``/var/www/<project_name>/source/requirements/dev.txt`` if the
 environment is ``local``, and otherwise from ``production.txt``.
 
-Also installs ``ghostscript`` ?!?!?!
+.. note::
+
+    This also installs ``ghostscript``, even though :ref:`python` already does that.
+    We should fix that.
+
+Pillar configuration:
+
+* ``project_name`` (string)
+* ``python_version`` (string): version of python to use
 
 Dependencies:
 
@@ -362,6 +398,11 @@ project.web.app
 
 Arranges for gunicorn to run the Django server, and for running deploy-time
 commands like ``collectstatic`` and ``migrate``.
+
+Pillar configuration:
+
+* ``project_name``
+* ``less_version``: What version of the LESS CSS compilation tool to install.
 
 Dependencies:
 
@@ -404,13 +445,16 @@ Dependencies:
 - :ref:`ufw`
 - :ref:`project.dirs`
 
-
 .. _project.worker.beat:
 
 project.worker.beat
 ~~~~~~~~~~~~~~~~~~~~
 
 Arrange for ``celery beat`` service to run for the project via supervisor.
+
+Pillar configuration:
+
+* ``project_name``
 
 Dependencies:
 
@@ -424,6 +468,10 @@ project.worker.default
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Arrange for a ``celery worker`` service to run for the project via supervisor.
+
+Pillar configuration:
+
+* ``project_name``
 
 Dependencies:
 
@@ -443,7 +491,12 @@ are needed to install various Python packages like Pillow, as well
 as setuptools, pip, and virtualenv.  Also makes a few symlinks that
 help with building Pillow on 64bit systems.
 
-Also installs ``ghostscript`` ?!?!?!?!!
+(If you're wondering why it installs Ghostscript, that too is required
+by some of the imaging tools we sometimes install.)
+
+Pillar configuration:
+
+* ``python_version`` (string)
 
 .. _rabbitmq:
 
@@ -453,6 +506,8 @@ rabbitmq
 Install rabbitmq and make it run.
 
 Delete the default ``guest`` rabbitmq user.
+
+No configuration.
 
 .. _salt.master:
 
@@ -465,12 +520,16 @@ Dependencies:
 
 - :ref:`ufw`
 
+No configuration.
+
 .. _solr:
 
 solr
 ~~~~
 
 Installs ``openjdk-7-jre-headless``.
+
+No configuration.
 
 .. _solr.project:
 
@@ -485,6 +544,8 @@ Does not appear to arrange to run it.
 Dependencies:
 
 - :ref:`solr`
+
+No configuration.
 
 .. _sshd:
 
@@ -503,12 +564,16 @@ Dependencies:
 - :ref:`ufw`
 - :ref:`fail2ban`
 
+No configuration.
+
 .. _sshd.github:
 
 sshd.github
 ~~~~~~~~~~~
 
 Add ``github.com`` to the system known hosts file.
+
+No configuration.
 
 .. _statsd:
 
@@ -523,6 +588,8 @@ Dependencies:
 - :ref:`nodejs`
 - :ref:`version-control`
 
+No configuration.
+
 .. _syslog:
 
 syslog
@@ -534,6 +601,8 @@ Configure it to load the `imfile` module so that other states
 can add rsyslog config files to tell rsyslog to monitor plain
 text log files.
 
+No configuration.
+
 .. _sudo:
 
 sudo
@@ -544,6 +613,8 @@ Arrange for sudo service to run.
 Update the ``sudoers`` config file to let users in group ``admin``
 do anything without a password.
 
+No configuration.
+
 .. _supervisor:
 
 supervisor
@@ -553,6 +624,8 @@ supervisor
   Use ``supervisor.pip`` instead.
 
 Install and run supervisor using its Debian/Ubuntu package.
+
+No configuration.
 
 .. _supervisor.pip:
 
@@ -569,6 +642,8 @@ ufw
 
 Install the ``ufw`` firewall package and set it to deny access
 by default.
+
+No configuration.
 
 .. _unattended_upgrades:
 
@@ -600,6 +675,8 @@ users.groups
 
 Create system user groups named ``admin`` and ``login``.
 
+No configuration.
+
 .. _vagrant.user:
 
 vagrant.user
@@ -613,9 +690,13 @@ Dependencies:
 
 - :ref:`users.groups`
 
+No configuration.
+
 .. _version-control:
 
 version-control
 ~~~~~~~~~~~~~~~
 
 Install git, mercurial, and subversion.
+
+No configuration.
