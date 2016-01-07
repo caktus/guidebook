@@ -30,19 +30,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="dev-setup.html" title="Developer Machine Setup"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Caktus Developer Documentation 0.0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -66,6 +54,11 @@
 <li class="toctree-l2"><a class="reference internal" href="branching.html#production-releases">Production Releases</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rds.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rds.html#practical-tips">Practical tips</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers and Devices</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="supported-clients.html#major-browsers">Major Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported-clients.html#grading-system">Grading System</a></li>
@@ -75,6 +68,14 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="workflow.html#workflow-diagram">Workflow Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="margarita/adding.html">Adding Margarita to a project that uses Salt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/states.html">Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/grains.html">Grains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/pillar.html">Salt Pillar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/minions.html">Minions</a></li>
 </ul>
 </li>
 </ul>
@@ -100,10 +101,14 @@
 <li><a class="reference internal" href="#">Welcome to Caktus Developer Documentation&#8217;s documentation!</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
-
-  <h4>Next topic</h4>
-  <p class="topless"><a href="dev-setup.html"
-                        title="next chapter">Developer Machine Setup</a></p>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="dev-setup.html" title="next chapter">Developer Machine Setup</a></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -133,11 +138,11 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="_sources/index.txt"
-          rel="nofollow">Page source</a></li>
+          rel="nofollow">Page source</a>
     </div>
 
     

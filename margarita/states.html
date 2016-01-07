@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Salt States &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Margarita" href="margarita.html" />
+    <link rel="next" title="Grains" href="grains.html" />
+    <link rel="prev" title="Adding Margarita to a project that uses Salt" href="adding.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="salt-states">
+<h1>Salt States<a class="headerlink" href="#salt-states" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sls-files">
+<h2>SLS files<a class="headerlink" href="#sls-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base">
+<span id="id1"></span><h3>base<a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h3>
+<p>Installs packages like <cite>build-essential</cite> and <cite>sudo</cite> that all
+our servers need.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="elasticsearch">
+<span id="id2"></span><h3>elasticsearch<a class="headerlink" href="#elasticsearch" title="Permalink to this headline">¶</a></h3>
+<p>Adds a repo, installs, and arranges for the service to run at startup
+for elasticsearch.</p>
+<p>Always adds the elasticsearch-analysis-icu plugin.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">elasticsearch_version</span></code> (string):  E.g. &#8216;1.7&#8217;</li>
+<li><code class="docutils literal"><span class="pre">elasticsearch_newrelic</span></code> (boolean): Whether to use a newrelic plugin to monitor
+the elasticsearch service in more detail.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#newrelic-npi"><span>newrelic_npi</span></a> (if <code class="docutils literal"><span class="pre">elasticsearch_newrelic</span></code> is True).</li>
+</ul>
+</div>
+<div class="section" id="fail2ban">
+<span id="id3"></span><h3>fail2ban<a class="headerlink" href="#fail2ban" title="Permalink to this headline">¶</a></h3>
+<p>Installs and runs fail2ban.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="forward-logs">
+<span id="id4"></span><h3>forward_logs<a class="headerlink" href="#forward-logs" title="Permalink to this headline">¶</a></h3>
+<p>Arranges for all syslog messages to be copied to a remote server
+(e.g. Papertrail).</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">secrets:LOG_DESTINATION</span></code> (string): The host:port to forward the messages to,
+e.g. &#8220;log3.example.com:12345&#8221;.</li>
+</ul>
+</div>
+<div class="section" id="locale-utf8">
+<span id="id5"></span><h3>locale.utf8<a class="headerlink" href="#locale-utf8" title="Permalink to this headline">¶</a></h3>
+<p>Sets the system locale, both <code class="docutils literal"><span class="pre">LANG</span></code> and <code class="docutils literal"><span class="pre">LC_ALL</span></code>, to <code class="docutils literal"><span class="pre">en_US.UTF-8</span></code>.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="memcached">
+<span id="id6"></span><h3>memcached<a class="headerlink" href="#memcached" title="Permalink to this headline">¶</a></h3>
+<p>Installs and runs memcached.</p>
+<p>Leaves all settings and configuration at their defaults.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="newrelic-npi">
+<span id="id7"></span><h3>newrelic_npi<a class="headerlink" href="#newrelic-npi" title="Permalink to this headline">¶</a></h3>
+<p>Install the <a class="reference external" href="https://docs.newrelic.com/docs/plugins/plugins-new-relic/installing-plugins/installing-npi-compatible-plugin">New Relic Platform Installer</a>
+that can be used to easily install compatible plugins.</p>
+<p>This can be pre-reqed by other states but probably does not need to
+be included directly.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="newrelic-sysmon">
+<span id="id8"></span><h3>newrelic_sysmon<a class="headerlink" href="#newrelic-sysmon" title="Permalink to this headline">¶</a></h3>
+<p>Install and configure the NewRelic monitor for the whole system
+(monitors CPU, memory usage, etc.)</p>
+<p>Note that if the key is not set in pillar, this state is a no-op, so
+it&#8217;s safe to always include it and then just set the key on the
+systems where you want to monitor.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">secrets:NEW_RELIC_LICENSE_KEY</span></code> (string): The license key of the New Relic
+account to use.</li>
+</ul>
+</div>
+<div class="section" id="nginx">
+<span id="id9"></span><h3>nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
+<p>Install nginx, tweak the default configuration in the main config file,
+and remove the default site config that gets installed.</p>
+<p>Uses the Nginx PPA to get the latest stable version.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="nginx-cert">
+<span id="id10"></span><h3>nginx.cert<a class="headerlink" href="#nginx-cert" title="Permalink to this headline">¶</a></h3>
+<p>Installs (but does not run) a script, <code class="docutils literal"><span class="pre">/var/lib/nginx/generate-cert.sh</span></code>,
+for creating self-signed certificates for nginx.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#nginx"><span>nginx</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="nodejs">
+<span id="id11"></span><h3>nodejs<a class="headerlink" href="#nodejs" title="Permalink to this headline">¶</a></h3>
+<p>Installs node, making sure there&#8217;s a <code class="docutils literal"><span class="pre">/usr/bin/node</span></code> executable.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="postfix">
+<span id="id12"></span><h3>postfix<a class="headerlink" href="#postfix" title="Permalink to this headline">¶</a></h3>
+<p>Install and run postfix mail system.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="postgresql">
+<span id="id13"></span><h3>postgresql<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
+<p>Install the configured version of the Postgres database server.  For older
+versions, makes sure that UTF-8 locale is the default for the main cluster.
+(For newer versions, it comes set up that way.)</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. &#8220;9.4&#8221;.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#locale-utf8"><span>locale.utf8</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-cache">
+<span id="id14"></span><h3>project.cache<a class="headerlink" href="#project-cache" title="Permalink to this headline">¶</a></h3>
+<p>Open the firewall for memcached from <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
+<p>Dependency on <a class="reference internal" href="#memcached"><span>memcached</span></a> state will also ensure memcached is installed.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#memcached"><span>memcached</span></a></li>
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="project-db">
+<span id="id15"></span><h3>project.db<a class="headerlink" href="#project-db" title="Permalink to this headline">¶</a></h3>
+<p>Sets up a project user and database in Postgres.</p>
+<p>Updates Postgres server config to accept connections from
+<a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
+<p>Roles:</p>
+<ul>
+<li><p class="first">If role is <code class="docutils literal"><span class="pre">db-master</span></code> or <code class="docutils literal"><span class="pre">db-slave</span></code>, sets:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">wal_level</span> <span class="o">=</span> <span class="n">hot_standby</span>
+<span class="n">hot_standby</span> <span class="o">=</span> <span class="n">on</span>
+<span class="n">hot_standby_feedback</span> <span class="o">=</span> <span class="n">on</span>
+<span class="n">wal_keep_segments</span> <span class="o">=</span> <span class="mi">128</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Pillar configuration:</p>
+<p>The following configuration parameters in postgresql.conf can be
+set by putting a corresponding setting under <code class="docutils literal"><span class="pre">postgresql_config</span></code>
+in Pillar:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">max_connections</span></code>: default is 100.</li>
+<li><code class="docutils literal"><span class="pre">shared_buffers</span></code>: default is &#8220;24MB&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">work_mem</span></code>: default is &#8220;1MB&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">maintenance_work_mem</span></code>: default is &#8220;16MB&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">wal_buffers</span></code>: default is &#8220;-1&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">commit_delay</span></code>: default is 0.</li>
+<li><code class="docutils literal"><span class="pre">commit_siblings</span></code>: default is 5.</li>
+<li><code class="docutils literal"><span class="pre">checkpoint_segments</span></code>: default is 32</li>
+<li><code class="docutils literal"><span class="pre">checkpoint_timeout</span></code>: default is &#8220;10min&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">checkpoint_completion_target</span></code>: default is &#8216;0.9&#8217;.</li>
+<li><code class="docutils literal"><span class="pre">effective_cache_size</span></code>: default &#8220;128MB&#8221;.</li>
+<li><code class="docutils literal"><span class="pre">log_min_duration_statement</span></code>: default &#8220;250ms&#8221;.</li>
+</ul>
+<p>The following parameters can be set the same way, but are ignored
+unless the role is <code class="docutils literal"><span class="pre">db-master</span></code> or <code class="docutils literal"><span class="pre">db-slave</span></code>:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">max_wal_senders</span></code>: default is &#8216;0&#8217;</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#postgresql"><span>postgresql</span></a></li>
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-devs">
+<span id="id16"></span><h3>project.devs<a class="headerlink" href="#project-devs" title="Permalink to this headline">¶</a></h3>
+<p>Create local users on the server and give them ssh access.</p>
+<p>Pillar configuration:</p>
+<p>Create a <code class="docutils literal"><span class="pre">users</span></code> dictionary in the pillar. Each dictionary key
+should be a username. The value of that dictionary should be another
+dictionary, with one key <code class="docutils literal"><span class="pre">public_key</span></code> containing a list, each entry
+of which is a public SSH key for that user.  (Paste it in from their
+public key file, one long line.)  E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>users:
+  user1:
+    public_key:
+      - ssh-rsa ADFSDFSDFDFSDFSDF....DFSDFSDFSDF
+  user2:
+    public_key:
+      - ssh-rsa DFSUDFJSDJFSDJKF...SDFJSDKFSDF
+</pre></div>
+</div>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#users-groups"><span>users.groups</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-dirs">
+<span id="id17"></span><h3>project.dirs<a class="headerlink" href="#project-dirs" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for the project&#8217;s main directories to be created, e.g.
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;</span></code>,
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/log</span></code>,
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/ssh</span></code>, and
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/services</span></code>.</p>
+<p>Directories are owned by the project user.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code> (string): Used to construct the paths.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-django">
+<span id="id18"></span><h3>project.django<a class="headerlink" href="#project-django" title="Permalink to this headline">¶</a></h3>
+<p>Creates a <code class="docutils literal"><span class="pre">manage.sh</span></code> file in the project directory that invokes
+the Django management tool with the right settings.</p>
+<p>Depends on other sls files that also do Django-related setup.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="project-queue">
+<span id="id19"></span><h3>project.queue<a class="headerlink" href="#project-queue" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for rabbitmq server to be installed and run.</p>
+<p>Create rabbitmq user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;_&lt;environment&gt;</span></code>, with
+password BROKER_PASSWORD from secrets.</p>
+<p>Open the firewall for rabbitmq access to other <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a> servers.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">secrets:BROKER_PASSWORD</span></code>: The password to set on the rabbitmq user.</li>
+<li><code class="docutils literal"><span class="pre">project_name</span></code> (string)</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#rabbitmq"><span>rabbitmq</span></a></li>
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-repo">
+<span id="id20"></span><h3>project.repo<a class="headerlink" href="#project-repo" title="Permalink to this headline">¶</a></h3>
+<p>Checks out the appropriate version of the project source code to
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source</span></code>.  Or if environment is <code class="docutils literal"><span class="pre">local</span></code>,
+rsyncs from the current local directory to the source dir on vagrant.</p>
+<p>Create the <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source/.env</span></code> file containing all
+the environment settings needed to run the project.</p>
+<p>Create a wrapper script <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source/dotenv.sh</span></code>
+that sets up the environment from <code class="docutils literal"><span class="pre">.env</span></code> then runs another command.
+E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /var/www/project
+source/dotenv.sh env/bin/python source/manage.py shell
+</pre></div>
+</div>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">github_deploy_key</span></code> (string): Optional, contains text of the Github deploy key
+to use to access the repository.</li>
+<li><code class="docutils literal"><span class="pre">repo:url</span></code> (string): Git repository URL</li>
+<li><code class="docutils literal"><span class="pre">repo:branch</span></code> (string): Branch to check out. Optional; default is <code class="docutils literal"><span class="pre">master</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">project_name</span></code> (string)</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
+<li><a class="reference internal" href="#version-control"><span>version-control</span></a></li>
+<li><a class="reference internal" href="#sshd-github"><span>sshd.github</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-user">
+<span id="id21"></span><h3>project.user<a class="headerlink" href="#project-user" title="Permalink to this headline">¶</a></h3>
+<p>Create a local user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;</span></code> and add it to the
+<code class="docutils literal"><span class="pre">www-data</span></code> group.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code> (string)</li>
+</ul>
+</div>
+<div class="section" id="project-venv">
+<span id="id22"></span><h3>project.venv<a class="headerlink" href="#project-venv" title="Permalink to this headline">¶</a></h3>
+<p>Create a virtualenv for the project (at <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/env</span></code>)
+and install Python requirements listed in
+<code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source/requirements/dev.txt</span></code> if the
+environment is <code class="docutils literal"><span class="pre">local</span></code>, and otherwise from <code class="docutils literal"><span class="pre">production.txt</span></code>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This also installs <code class="docutils literal"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span>python</span></a> already does that.
+We should fix that.</p>
+</div>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code> (string)</li>
+<li><code class="docutils literal"><span class="pre">python_version</span></code> (string): version of python to use</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-repo"><span>project.repo</span></a></li>
+<li><a class="reference internal" href="#python"><span>python</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-web-app">
+<span id="id23"></span><h3>project.web.app<a class="headerlink" href="#project-web-app" title="Permalink to this headline">¶</a></h3>
+<p>Arranges for gunicorn to run the Django server, and for running deploy-time
+commands like <code class="docutils literal"><span class="pre">collectstatic</span></code> and <code class="docutils literal"><span class="pre">migrate</span></code>.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code></li>
+<li><code class="docutils literal"><span class="pre">less_version</span></code>: What version of the LESS CSS compilation tool to install.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+<li><a class="reference internal" href="#project-django"><span>project.django</span></a></li>
+<li><a class="reference internal" href="#postfix"><span>postfix</span></a></li>
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#nodejs"><span>nodejs</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-web-balancer">
+<span id="id24"></span><h3>project.web.balancer<a class="headerlink" href="#project-web-balancer" title="Permalink to this headline">¶</a></h3>
+<p>Arranges for nginx to serve static files for the project and to proxy
+other requests to the gunicorn servers.</p>
+<p>If either a key or certificate are not provided, will generate and use
+a self-signed key.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">http_auth</span></code> (dictionary): If provided, turn on HTTP Basic Auth on the site,
+and set up a password file for access using each key in the dictionary as a username
+and each corresponding value as that user&#8217;s password.</li>
+<li><code class="docutils literal"><span class="pre">ssl_key</span></code> (string): Contents of the SSL key to use.</li>
+<li><code class="docutils literal"><span class="pre">ssl_cert</span></code> (string): Contents of the SSL certificate to use.</li>
+<li><code class="docutils literal"><span class="pre">dhparam_numbits</span></code> (integer): How many bits to use when generating the DHE
+parameters. (optional, default 2048).  Generating the DHE file is a one-time
+task, so changing this parameter after it&#8217;s been generated will have no effect
+unless you manually remove <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/ssl/dhparams.pem</span></code>
+first.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#nginx"><span>nginx</span></a></li>
+<li><a class="reference internal" href="#nginx-cert"><span>nginx.cert</span></a></li>
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-worker-beat">
+<span id="id25"></span><h3>project.worker.beat<a class="headerlink" href="#project-worker-beat" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for <code class="docutils literal"><span class="pre">celery</span> <span class="pre">beat</span></code> service to run for the project via supervisor.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code></li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+</ul>
+</div>
+<div class="section" id="project-worker-default">
+<span id="id26"></span><h3>project.worker.default<a class="headerlink" href="#project-worker-default" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">project_name</span></code></li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+<li><a class="reference internal" href="#postfix"><span>postfix</span></a></li>
+</ul>
+</div>
+<div class="section" id="python">
+<span id="id27"></span><h3>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Installs the version of python specified in Pillar as
+<code class="docutils literal"><span class="pre">python_version</span></code>, along with a variety of dev libraries like <code class="docutils literal"><span class="pre">libjpeg8-dev</span></code> that
+are needed to install various Python packages like Pillow, as well
+as setuptools, pip, and virtualenv.  Also makes a few symlinks that
+help with building Pillow on 64bit systems.</p>
+<p>(If you&#8217;re wondering why it installs Ghostscript, that too is required
+by some of the imaging tools we sometimes install.)</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">python_version</span></code> (string)</li>
+</ul>
+</div>
+<div class="section" id="rabbitmq">
+<span id="id28"></span><h3>rabbitmq<a class="headerlink" href="#rabbitmq" title="Permalink to this headline">¶</a></h3>
+<p>Install rabbitmq and make it run.</p>
+<p>Delete the default <code class="docutils literal"><span class="pre">guest</span></code> rabbitmq user.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="salt-master">
+<span id="id29"></span><h3>salt.master<a class="headerlink" href="#salt-master" title="Permalink to this headline">¶</a></h3>
+<p>Opens ports 4505 and 4506.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="solr">
+<span id="id30"></span><h3>solr<a class="headerlink" href="#solr" title="Permalink to this headline">¶</a></h3>
+<p>Installs <code class="docutils literal"><span class="pre">openjdk-7-jre-headless</span></code>.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="solr-project">
+<span id="id31"></span><h3>solr.project<a class="headerlink" href="#solr-project" title="Permalink to this headline">¶</a></h3>
+<p>Installs Solr and copies the default stopwords file into its
+configuration.</p>
+<p>Does not appear to arrange to run it.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#solr"><span>solr</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="sshd">
+<span id="id32"></span><h3>sshd<a class="headerlink" href="#sshd" title="Permalink to this headline">¶</a></h3>
+<p>Install and run openssh client and server.</p>
+<p>Configure ssh server, disabling root login, and restricting access
+so only users in the <code class="docutils literal"><span class="pre">login</span></code> group may ssh into the server.</p>
+<p>Opens port 22.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#fail2ban"><span>fail2ban</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="sshd-github">
+<span id="id33"></span><h3>sshd.github<a class="headerlink" href="#sshd-github" title="Permalink to this headline">¶</a></h3>
+<p>Add <code class="docutils literal"><span class="pre">github.com</span></code> to the system known hosts file.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="statsd">
+<span id="id34"></span><h3>statsd<a class="headerlink" href="#statsd" title="Permalink to this headline">¶</a></h3>
+<p>Install statsd and provide basic default configuration, arranging
+for it to run on startup.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#nodejs"><span>nodejs</span></a></li>
+<li><a class="reference internal" href="#version-control"><span>version-control</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="syslog">
+<span id="id35"></span><h3>syslog<a class="headerlink" href="#syslog" title="Permalink to this headline">¶</a></h3>
+<p>Arrange to install rsyslog v8.5 or later.</p>
+<p>Configure it to load the <cite>imfile</cite> module so that other states
+can add rsyslog config files to tell rsyslog to monitor plain
+text log files.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="sudo">
+<span id="id36"></span><h3>sudo<a class="headerlink" href="#sudo" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for sudo service to run.</p>
+<p>Update the <code class="docutils literal"><span class="pre">sudoers</span></code> config file to let users in group <code class="docutils literal"><span class="pre">admin</span></code>
+do anything without a password.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="supervisor">
+<span id="id37"></span><h3>supervisor<a class="headerlink" href="#supervisor" title="Permalink to this headline">¶</a></h3>
+<div class="deprecated">
+<p><span class="versionmodified">Deprecated since version forever: </span>Use <code class="docutils literal"><span class="pre">supervisor.pip</span></code> instead.</p>
+</div>
+<p>Install and run supervisor using its Debian/Ubuntu package.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="supervisor-pip">
+<span id="id38"></span><h3>supervisor.pip<a class="headerlink" href="#supervisor-pip" title="Permalink to this headline">¶</a></h3>
+<p>Install and run supervisor after installing it globally using
+<code class="docutils literal"><span class="pre">pip</span></code>, first uninstalling the packaged supervisor if necessary.</p>
+</div>
+<div class="section" id="ufw">
+<span id="id39"></span><h3>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h3>
+<p>Install the <code class="docutils literal"><span class="pre">ufw</span></code> firewall package and set it to deny access
+by default.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="unattended-upgrades">
+<span id="id40"></span><h3>unattended_upgrades<a class="headerlink" href="#unattended-upgrades" title="Permalink to this headline">¶</a></h3>
+<p>Arrange for <code class="docutils literal"><span class="pre">apt</span></code> to install security updates weekly and
+notify someone of the results.</p>
+<p>Regardless of the configuration, will never update any <code class="docutils literal"><span class="pre">salt-*</span></code>
+packages.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">admin_email</span></code> (string): Required; email address to send notifications of
+the update results to</li>
+<li><code class="docutils literal"><span class="pre">unattended_upgrade_blacklist</span></code> (list of strings and regexes): Optional package name
+not to ever upgrade this way. Can include both exact names of packages and regexes
+that match package names.</li>
+</ul>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#syslog"><span>syslog</span></a></li>
+</ul>
+</div>
+<div class="section" id="users-groups">
+<span id="id41"></span><h3>users.groups<a class="headerlink" href="#users-groups" title="Permalink to this headline">¶</a></h3>
+<p>Create system user groups named <code class="docutils literal"><span class="pre">admin</span></code> and <code class="docutils literal"><span class="pre">login</span></code>.</p>
+<p>No configuration.</p>
+</div>
+<div class="section" id="vagrant-user">
+<span id="id42"></span><h3>vagrant.user<a class="headerlink" href="#vagrant-user" title="Permalink to this headline">¶</a></h3>
+<p>Add the <code class="docutils literal"><span class="pre">vagrant</span></code> user to the <code class="docutils literal"><span class="pre">admin</span></code> and <code class="docutils literal"><span class="pre">login</span></code> groups so that
+with our updated configuration for <code class="docutils literal"><span class="pre">ssh</span></code> and <code class="docutils literal"><span class="pre">sudo</span></code>, the vagrant user
+can still login and do things as root.</p>
+<p>Dependencies:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#users-groups"><span>users.groups</span></a></li>
+</ul>
+<p>No configuration.</p>
+</div>
+<div class="section" id="version-control">
+<span id="id43"></span><h3>version-control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
+<p>Install git, mercurial, and subversion.</p>
+<p>No configuration.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Salt States</a><ul>
+<li><a class="reference internal" href="#sls-files">SLS files</a><ul>
+<li><a class="reference internal" href="#base">base</a></li>
+<li><a class="reference internal" href="#elasticsearch">elasticsearch</a></li>
+<li><a class="reference internal" href="#fail2ban">fail2ban</a></li>
+<li><a class="reference internal" href="#forward-logs">forward_logs</a></li>
+<li><a class="reference internal" href="#locale-utf8">locale.utf8</a></li>
+<li><a class="reference internal" href="#memcached">memcached</a></li>
+<li><a class="reference internal" href="#newrelic-npi">newrelic_npi</a></li>
+<li><a class="reference internal" href="#newrelic-sysmon">newrelic_sysmon</a></li>
+<li><a class="reference internal" href="#nginx">nginx</a></li>
+<li><a class="reference internal" href="#nginx-cert">nginx.cert</a></li>
+<li><a class="reference internal" href="#nodejs">nodejs</a></li>
+<li><a class="reference internal" href="#postfix">postfix</a></li>
+<li><a class="reference internal" href="#postgresql">postgresql</a></li>
+<li><a class="reference internal" href="#project-cache">project.cache</a></li>
+<li><a class="reference internal" href="#project-db">project.db</a></li>
+<li><a class="reference internal" href="#project-devs">project.devs</a></li>
+<li><a class="reference internal" href="#project-dirs">project.dirs</a></li>
+<li><a class="reference internal" href="#project-django">project.django</a></li>
+<li><a class="reference internal" href="#project-queue">project.queue</a></li>
+<li><a class="reference internal" href="#project-repo">project.repo</a></li>
+<li><a class="reference internal" href="#project-user">project.user</a></li>
+<li><a class="reference internal" href="#project-venv">project.venv</a></li>
+<li><a class="reference internal" href="#project-web-app">project.web.app</a></li>
+<li><a class="reference internal" href="#project-web-balancer">project.web.balancer</a></li>
+<li><a class="reference internal" href="#project-worker-beat">project.worker.beat</a></li>
+<li><a class="reference internal" href="#project-worker-default">project.worker.default</a></li>
+<li><a class="reference internal" href="#python">python</a></li>
+<li><a class="reference internal" href="#rabbitmq">rabbitmq</a></li>
+<li><a class="reference internal" href="#salt-master">salt.master</a></li>
+<li><a class="reference internal" href="#solr">solr</a></li>
+<li><a class="reference internal" href="#solr-project">solr.project</a></li>
+<li><a class="reference internal" href="#sshd">sshd</a></li>
+<li><a class="reference internal" href="#sshd-github">sshd.github</a></li>
+<li><a class="reference internal" href="#statsd">statsd</a></li>
+<li><a class="reference internal" href="#syslog">syslog</a></li>
+<li><a class="reference internal" href="#sudo">sudo</a></li>
+<li><a class="reference internal" href="#supervisor">supervisor</a></li>
+<li><a class="reference internal" href="#supervisor-pip">supervisor.pip</a></li>
+<li><a class="reference internal" href="#ufw">ufw</a></li>
+<li><a class="reference internal" href="#unattended-upgrades">unattended_upgrades</a></li>
+<li><a class="reference internal" href="#users-groups">users.groups</a></li>
+<li><a class="reference internal" href="#vagrant-user">vagrant.user</a></li>
+<li><a class="reference internal" href="#version-control">version-control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="margarita.html">Margarita</a><ul>
+      <li>Previous: <a href="adding.html" title="previous chapter">Adding Margarita to a project that uses Salt</a></li>
+      <li>Next: <a href="grains.html" title="next chapter">Grains</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/margarita/states.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/margarita/states.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
