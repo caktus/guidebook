@@ -18,6 +18,7 @@ Contents:
    workflow
    upgrading-django
    margarita/margarita
+   frontend-packages
 
 
 Indices and tables
