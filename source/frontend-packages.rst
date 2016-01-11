@@ -178,6 +178,4 @@ Updating Your Project Setup
 When pulling changes in a project down to your local development environment,
 you'll need to update both backend and frontend packages:
 
-    pip install -U -r requirements/dev.txt
-    npm install
-    npm update
+    make update
