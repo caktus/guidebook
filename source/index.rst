@@ -18,6 +18,7 @@ Contents:
    workflow
    upgrading-django
    margarita/margarita
+   project-template-testing
    frontend-packages
 
 
