@@ -4,7 +4,7 @@ Frontend Packaging
 Caktus has adopted frontend packaging standards to make management of
 dependencies in frontend development as robust as they are in backend
 development. Javascript dependencies are configured and installed via
-a standard `package.json` configuration for each project and the NPM
+a standard ``package.json`` configuration for each project and the NPM
 tool as part of NodeJS 4.2 or newer. The tool Browserify is used to
 collect and combine all of a project's imported modules into a single
 bundle.
@@ -33,9 +33,9 @@ for NPM, and defining the initial set of package dependencies.
 
 You can download and add these from this documentation:
 
-* `gulpfile.js </_static/files/gulpfile.js>`__
+* `gulpfile.js <_static/files/gulpfile.js>`__
 
-* `package.json </_static/files/package.json>`__
+* `package.json <_static/files/package.json>`__
 
 and add them to the top level of your project. You'll need to modify
 both with the correct project name.
