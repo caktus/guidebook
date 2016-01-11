@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Django Project Template Testing Plans &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Frontend Packaging" href="frontend-packages.html" />
+    <link rel="prev" title="Minions" href="margarita/minions.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="django-project-template-testing-plans">
+<h1>Django Project Template Testing Plans<a class="headerlink" href="#django-project-template-testing-plans" title="Permalink to this headline">¶</a></h1>
+<p>Caktus relies on our <a class="reference external" href="https://github.com/caktus/django-project-template/">Django Project Template</a>
+which we roll improvements into when we learn new best practices in a project that we want to make
+part of our baseline. Unfortunately, testing changes to this project template is prohibitively
+difficult. The template itself is not a project that can be run, because it is only a valid
+project after the Django <code class="docutils literal"><span class="pre">startproject</span></code> command has processed it.</p>
+<p>We have developed both some improvements to the template and a plan for further improvements. You
+will find both of these documented here.</p>
+<div class="section" id="testing-changes">
+<h2>Testing Changes<a class="headerlink" href="#testing-changes" title="Permalink to this headline">¶</a></h2>
+<p>If you make any change to the project template you&#8217;ll need to test it before submitting a pull
+request and you&#8217;ll want reviewers of your pull request to be able to test it consistently, as well.</p>
+<p>To test changes, you&#8217;ll want to use the <code class="docutils literal"><span class="pre">startproject</span></code> command to create a new test project
+based on your current changes. Run this from the same directory you have your local copy of hte
+template.</p>
+<div class="highlight-python"><div class="highlight"><pre>django-admin.py startproject \
+  --template=django-project-template \
+  --extension=py,rst,yml \
+  --name=Makefile,gulpfile.js,package.json
+  dpttest
+</pre></div>
+</div>
+<p>If this was successful, continue setting up this temporary project to ensure your changes did
+not break the setup and utilization of a new project based on the template.</p>
+<div class="highlight-python"><div class="highlight"><pre>cd dpttest
+make setup
+workon dpttest
+npm run dev
+</pre></div>
+</div>
+<p>You should be able to bring up a blank page at <a class="reference external" href="http://localhost:8000">http://localhost:8000/</a>
+successfully.</p>
+<p>If you&#8217;ve made changes affecting deployment, you should also test this by following the vagrant
+setup instructions in this test project.</p>
+<p>When you are done testing, you should clean up the project.</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ..
+deactivate
+rm -rf dpttest
+dropdb dpttest
+rmvirtualenv dpttest
+</pre></div>
+</div>
+</div>
+<div class="section" id="future-improvements">
+<h2>Future Improvements<a class="headerlink" href="#future-improvements" title="Permalink to this headline">¶</a></h2>
+<p>The changes that make testing the project template faster are a start, but there&#8217;s still a lot we
+can do to make this process better in the future.</p>
+<div class="section" id="automation">
+<h3>Automation<a class="headerlink" href="#automation" title="Permalink to this headline">¶</a></h3>
+<p>Spinning up a temporary project from the template, running the server and test suite, and cleaning
+everything up is something that could be automated into a simple testing tool. This is something
+that would have to live outside the project template itself as its own small tool.</p>
+<p>This would benefit us the most if it included testing provision and deploy to a new vagrant box,
+and cleaned that box up as well.</p>
+</div>
+<div class="section" id="expanding-testable-surface">
+<h3>Expanding Testable Surface<a class="headerlink" href="#expanding-testable-surface" title="Permalink to this headline">¶</a></h3>
+<p>Right now it is feasible to do basic tests that a new project from the template can be setup and
+runs, but that doesn&#8217;t really exercise a lot about the setup. It would be ideal if we could
+perform deeper integration testing on the components we rely on, such as the database, cache, and
+celery.</p>
+<p>Our current proposal is to include a new app in the template that Caktus would maintain: a Django
+healthcheck app. This would serve up a predictable view that, when hit, would run a series of
+integration tests to verify the setup of a server was correct. It would perform operations on
+the database, write and read against memcache, and verify tasks sent to celery completed properly.</p>
+<p>This is an app that would be valuable for existing projects, but that also would make a much more
+complete verification of the infrastructure the template (and Margarita) sets up is configured
+correctly.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Django Project Template Testing Plans</a><ul>
+<li><a class="reference internal" href="#testing-changes">Testing Changes</a></li>
+<li><a class="reference internal" href="#future-improvements">Future Improvements</a><ul>
+<li><a class="reference internal" href="#automation">Automation</a></li>
+<li><a class="reference internal" href="#expanding-testable-surface">Expanding Testable Surface</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="margarita/minions.html" title="previous chapter">Minions</a></li>
+      <li>Next: <a href="frontend-packages.html" title="next chapter">Frontend Packaging</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/project-template-testing.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/project-template-testing.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
