@@ -16,6 +16,7 @@ Contents:
    rds
    supported-clients
    workflow
+   upgrading-django
    margarita/margarita
 
 
