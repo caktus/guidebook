@@ -19,6 +19,7 @@ Contents:
    upgrading-django
    margarita/margarita
    project-template-testing
+   frontend-packages
 
 
 Indices and tables
