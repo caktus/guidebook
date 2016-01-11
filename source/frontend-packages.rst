@@ -149,20 +149,37 @@ We can make this process a little easier, and we can also enforce some rules abo
 thanks to NPMs. When specifying package versions in ``package.json`` we can tell NPM about
 how we want it to interpret the version number we give.
 
-* ``1.2`` installs the newest ``1.2`` patch release
-* ``1.2.x`` or ``~1.2.3`` do the same, but the later defines the original minimum specified
-  when the package version was last pinned.
-* ``1`` or ``1.x`` or ``^1.2.3`` specify a minimum version, but allow any more recent *minor*
-  release such as ``1.3.0`` to be installed, if it is available.
+Version strings have the form "major.minor.patch".
+Parts can be omitted starting from the right, e.g.
+"1.2" is major 1, minor 2; and "1" is major 1.
 
-NPM dictates packages follow strict semver versioning rules, which instruct that patch
-releases should only include bugfixes and minor releases can include new functionality but
-must remain backwards compatible. Only major releases are allowed to break backwards
-compatibility.
+* Including ``x`` or ``*`` in the version string allows
+  that part of the version to be increased. E.g. ``1.2.x``
+  allows versions ``>= 1.2.0`` and ``< 1.3.0``.
 
-These rules are followed pretty well, but there are instances when a project might fail to
-follow the "no breaking changes in minor releases" rule, either mistakenly or intentionally.
-A package should be pinned with the ``~`` constraint if it may do this.
+There are some commonly used shorthand prefixes, ``~`` and
+``^``. These always mean at least the version as written,
+plus possibly newer versions, as follows.
+
+* Prefixing a version with ``~`` allows changes in the
+  patch-level if the specified version includes a minor
+  version, or in the minor version if only a major version
+  is specified. E.g.
+  ``~1.2.0`` means the same as ``1.2.*`` or ``1.2.x``,
+  ``~1.2.3`` means ``>= 1.2.3`` and ``< 1.3.0``, and
+  ``~1.2`` means ``>= 1.2.0`` and ``< 1.3.0``, and ``~1``
+  would mean ``>= 1.0.0 and <1.1.0``.
+
+* Prefixing a version with ``^`` allows changes that do
+  not modify the left-most non-zero digit in the version.
+  So ``^0.2.3` means ``>= 0.2.3`` and ``< 0.3``.  But
+  ``^0.0.3`` means exactly ``0.0.3``.
+
+We document these because they are very widely used
+and even inserted into ``package.json`` by the tools,
+but if you prefer when writing version specifications
+yourself, you can write them in the obvious more
+verbose way, e.g. ``>=1.2.3 <2.4.0``.
 
 You may have NPM update all packages to the latest versions within their constraints at any
 time::
