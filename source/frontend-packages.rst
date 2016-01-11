@@ -10,14 +10,14 @@ collect and combine all of a project's imported modules into a single
 bundle.
 
 Projects created with the Caktus Django Project Template after January
-8th, 2015 will come pre-configured with this setup. Older projects
+8th, 2016 will come pre-configured with this setup. Older projects
 would need to upgrade to Margarita 1.4.0 or newer and follow the
 `Frontend Packaging Upgrade Guide`_ below in order to use this setup.
 
 Frontend Packaging Upgrade Guide
 ================================
 
-If you're on a project created before January 8th, 2015 you'll need
+If you're on a project created before January 8th, 2016 you'll need
 to upgrade both your project and its version of
 `Margarita <https://github.com/caktusgroup/margarita>`__ in order to
 use these frontend packaging techniques.
