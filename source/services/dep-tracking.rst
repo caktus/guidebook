@@ -1,7 +1,7 @@
 Dependency Tracking
 ###################
 
-Projects rely heavily on often a large number of third-party packages, and those
+Projects often rely heavily on often a large number of third-party packages, and those
 packages hopefully continue to receive updates, bug fixes, optimizations, and
 new features. We want to be aware of those updates when they are available,
 especially when new available updates include security fixes that would be
@@ -12,19 +12,25 @@ Requires.io
 
 Our Python dependencies can be tracked with the requires.io tool.
 
-There are two modes to integrate with, depending on if you're using a public repository or a
-private one. If you're using a public repository, you can log into requires.io using your GitHub
-account.
+You'll need to register for an API account at `https://requires.io/ <https://requires.io/>`__ and
+pass a request to the sysadmin team to add the new username to our enterprise Requires.io account.
 
-You'll be presented with a list of available public repositories to navigate for all of your
-repositories. Navigate to your new project and click the "Activate" button. On the project details
-page choose the branch you'd like to show requirements for, preferably the master branch. You'll
-see a report of dependencies for this branch.
+To add your project to requires.io you'll need to register it, and you can find
+`instructions and an authentication token <https://requires.io/enterprise/Caktus/api/>`__ for the Caktus account.
 
-At the top of the page you'll see a requirements badge with a link "Show badge urls" which will
-expand to give you snippets you can add to the top of the project's README to show this badge
-on the github project page.
+1. Copy the token found under the Token header and copy it in the Travis CI settings for the
+   project as an environment variable named ``REQUIRES_IO_TOKEN``.
+2. Add the requirement ``requires.io`` to ``requirements/dev.txt``.
+3. Run ``pip install -U -r requirements/dev.txt`` to install the tool
+4. Set the Caktus token in your local ``.env``::
 
+    echo "REQUIRES_IO_TOKEN=<Token from API page>" > .env
+    source .env
+
+5. Register the new repository with the Caktus token::
+
+    requires.io update-repo -t $REQUIRES_IO_TOKEN \
+      -r <PROJECT_NAME> --private
 
 
 BitBound
@@ -47,3 +53,37 @@ When the analysis is complete go to the "Dependencies" section and you'll find a
 dependencies in the project. Snippets to add a badge reporting the current analysis of the project
 can be found on the right hand side. Copy and paste the appropriate snippet into the project's
 README file at the top, preferably beside the badge from the Requires.io service.
+
+GitHub Project Badges
+=====================
+
+To make monitoring the current state of projects easier we can embed a set of badges from third
+party services. The following template will include badges for Travis CI, Requires.io, and
+BitHound.
+
+.. code-block:: rst
+
+    +-----------------+------------------------+------------------------+
+    |                 | Develop                | Master                 |
+    +=================+========================+========================+
+    | Travis CI       | |badge-travis-develop| | |badge-travis-master|  |
+    +-----------------+------------------------+------------------------+
+    | Python Deps     | |badge-reqsio-develop| | |badge-reqsio-master|  |
+    +-----------------+------------------------+------------------------+
+    | Javascript Deps | |badge-bithnd-develop| |                        |
+    +-----------------+------------------------+------------------------+
+
+    .. |badge-travis-develop| image:: https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY.svg?token=TRAVIS_CI_TOKEN&branch=develop
+        :target: https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY
+
+    .. |badge-reqsio-develop| image:: https://requires.io/enterprise/Caktus/REPOSITORY/requirements.svg?branch=develop
+        :target: https://requires.io/enterprise/Caktus/REPOSITORY/requirements/?branch=develop
+
+    .. |badge-bithnd-develop| image:: BITHOUND_BADGE_IMAGE_URL
+        :target: https://www.bithound.io/github/ORGANIZATION/REPOSITORY/develop/dependencies/npm
+
+    .. |badge-travis-master| image:: https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY.svg?token=TRAVIS_CI_TOKEN&branch=master
+        :target: https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY
+
+    .. |badge-reqsio-master| image:: https://requires.io/enterprise/Caktus/REPOSITORY/requirements.svg?branch=master
+        :target: https://requires.io/enterprise/Caktus/REPOSITORY/requirements/?branch=master
