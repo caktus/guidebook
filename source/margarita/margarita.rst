@@ -10,6 +10,7 @@ states.  It lives at https://github.com/caktus/margarita.
 
    adding
    states
+   custom_states
    grains
    pillar
    minions
