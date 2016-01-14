@@ -1,7 +1,7 @@
 Dependency Tracking
 ###################
 
-Projects often rely heavily on often a large number of third-party packages, and those
+Projects often rely heavily on a large number of third-party packages, and those
 packages hopefully continue to receive updates, bug fixes, optimizations, and
 new features. We want to be aware of those updates when they are available,
 especially when new available updates include security fixes that would be
@@ -24,7 +24,7 @@ To add your project to requires.io you'll need to register it, and you can find
 3. Run ``pip install -U -r requirements/dev.txt`` to install the tool
 4. Set the Caktus token in your local ``.env``::
 
-    echo "REQUIRES_IO_TOKEN=<Token from API page>" > .env
+    echo "REQUIRES_IO_TOKEN=<Token from API page>" >> .env
     source .env
 
 5. Register the new repository with the Caktus token::
