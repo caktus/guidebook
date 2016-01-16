@@ -39,56 +39,74 @@ Prepare Repository
       ~/dev$ git clone git@github.com:caktus/django-project-template.git
       ~/dev$ ls
       django-project-template myproject
+      ~/dev$ cd myproject
+      ~/dev/myproject$
+
 
 #. Copy some important files and directory to our project:
 
    .. code-block:: bash
 
-      ~/dev$ mv fabfile.py fabfile.py.old
-      ~/dev$ cp django-project-template/fabfile.py myproject/
-      ~/dev$ cp django-project-template/Vagrantfile myproject/
-      ~/dev$ cp django-project-template/install_salt.sh myproject/
-      ~/dev$ cp django-project-template/conf/master.tmpl myproject/conf/
-      ~/dev$ rm myproject/conf/master.conf
-      ~/dev$ cp django-project-template/conf/gpg.tmpl myproject/conf/
+      ~/dev/myproject$ mv fabfile.py fabfile.py.old
+      ~/dev/myproject$ cp ../django-project-template/fabfile.py .
+      ~/dev/myproject$ cp ../django-project-template/Vagrantfile .
+      ~/dev/myproject$ cp ../django-project-template/install_salt.sh .
+      ~/dev/myproject$ cp ../django-project-template/conf/master.tmpl conf/
+      ~/dev/myproject$ rm conf/master.conf
+      ~/dev/myproject$ cp ../django-project-template/conf/gpg.tmpl conf/
 
 #. Edit fabfile.py:
 
    1. Make sure ``SALT_VERSION`` is ``2015.5.8``
    2. Change ``env.master`` in both the ``staging()`` and ``production()`` functions to be
-      correct (get the value from fabfile.py)
+      correct (get the value from fabfile.py.old)
 
 .. _upgrade-salt:
 
 Upgrade Salt
 ------------
 
-#. Uninstall salt. **Make sure you are using the new fabfile!**
+.. NOTE:: We will upgrade Salt on the staging machine. Once you have completed the upgrade process
+          and verified that it is working perfectly, you'll need to repeat the process for `updating
+          production`_. When you get to that point, our instructions will point you back here to
+          repeat the process for production. Just follow these instructions, replacing *staging*
+          with *production*.
+
+1. Fetch a copy of ``/etc/salt/minion`` from the server. We'll need which roles are currently being
+   used, so we can setup the same roles when we call ``setup_minion`` in step 5.
 
    .. code-block:: bash
 
-      fab -H 1.2.3.4 staging -- sudo apt-get remove salt-master salt-minion -y
-      fab -H 1.2.3.4 staging -- sudo apt-get autoremove -y
+      ~/dev/myproject$ scp 1.2.3.4:/etc/salt/minion old-minion.conf
+
+#. Uninstall salt. We're using the ``--force-yes`` parameter because salt packages are *held* on
+   some of our servers, so this is needed to allow uninstallation. **Make sure you are using the new
+   fabfile!**
+
+   .. code-block:: bash
+
+      ~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
 
 #. If you are on Ubuntu 12.04, run this command to enable backports, needed for python-gnupg:
 
    .. code-block:: bash
 
-      fab -H 1.2.3.4 staging -- sudo sed -i '/precise-backports/s/^# //g' /etc/apt/sources.list
+      ~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo sed -i '/precise-backports/s/^#//g' /etc/apt/sources.list
 
 #. Set up the salt master.
 
    .. code-block:: bash
 
-      fab staging setup_master
+      ~/dev/myproject$ fab staging setup_master
 
-#. Set up the salt minion.
+#. Set up the salt minion. Get the list of roles from the ``old-minion.conf`` you saved in step 1.
+   The example below shows all possible roles being assigned to this minion.
 
    .. code-block:: bash
 
-      fab -H 1.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+      ~/dev/myproject$ fab -H 1.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 
-   .. NOTE:: Make sure salt-master is in there. It seems to be not present in some projects, but
+   .. NOTE:: Make sure ``salt-master`` is in there. It seems to be absent in some projects, but
              if you're running everything on a single box it should be there.
 
 
@@ -99,7 +117,7 @@ Upgrade Margarita
 
    .. code-block:: yaml
 
-      margarita_version: 1.4.0
+      margarita_version: 1.5.0
       less_version: 1.5.1   # or whatever you're currently using
       postgres_version: 9.1 # or whatever you're currently using
 
@@ -108,15 +126,15 @@ Upgrade Margarita
 
    .. code-block:: bash
 
-      ~/dev$ mv myproject/conf/salt myproject/salt.old
-      ~/dev$ cp -r django-project-template/conf/salt myproject/conf/
+      ~/dev/myproject$ mv conf/salt salt.old
+      ~/dev/myproject$ cp -r ../django-project-template/conf/salt conf/
 
 #. Sync these states over to the server (do this separately from the actual deploy so that
    failures can be caught before actually trying to deploy)
 
    .. code-block:: bash
 
-      fab -f fabfile.py staging sync
+      ~/dev/myproject$ fab staging sync
 
 
 Single Deploy settings
@@ -254,8 +272,8 @@ Find the ``ALLOWED_HOSTS`` setting (probably in ``staging.py``) and change it to
    -ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(';')
    +ALLOWED_HOSTS = [os.environ['DOMAIN']]
 
-Frontend Improvments
---------------------
+Frontend Improvements
+---------------------
 
 Prepare for Calvin's frontend improvements. Add a *dummy* ``package.json`` which can be updated
 later. Until it is updated, the frontend improvements won't take effect:
@@ -281,11 +299,17 @@ later. Until it is updated, the frontend improvements won't take effect:
 
 Deploy!!!
 ---------
+
+Commit your changes and push them to a feature branch on github. Change the ``repo:branch`` value
+from *develop* to *your-feature-branch* in ``conf/pillar/staging.sls``. This tells salt to checkout
+*your-feature-branch*. Remember to change this back to *develop* when this entire process is
+successful and your code gets merged to *develop*.
+
 Here's the big test! Deploy:
 
 .. code-block:: bash
 
-   fab staging deploy
+   ~/dev/myproject$ fab staging deploy
 
 And of course that worked! If not, let us know so we can help.
 
@@ -295,11 +319,11 @@ Encrypt Secrets
 ---------------
 
 This must be done because the new fabfile has removed the *secrets-syncing* logic, so unsuspecting
-developers **will likely** stomp on each others secrets. Encrypting cannot  be done ``setup_master``
-has run successfully. We'll do staging now, but we can't do production until we've done
-``setup_master`` on production.
+developers **will likely** stomp on each others secrets. Encrypting cannot be done until
+``setup_master`` has run successfully. We'll do staging now, but we can't do production until we've
+run ``setup_master`` on production.
 
-1. Add this declaration to the top of env.sls::
+1. Add this declaration to the top of ``conf/pillar/staging/env.sls``::
 
      #!yaml|gpg
 
@@ -312,7 +336,7 @@ has run successfully. We'll do staging now, but we can't do production until we'
 
    .. code-block:: bash
 
-      fab staging encrypt:DB_PASSWORD='superSecretPassword'
+      ~/dev/myproject$ fab staging encrypt:DB_PASSWORD='superSecretPassword'
       "DB_PASSWORD": |-
         -----BEGIN PGP MESSAGE-----
         Version: GnuPG v1
@@ -333,7 +357,7 @@ has run successfully. We'll do staging now, but we can't do production until we'
 
    .. code-block:: bash
 
-      fab staging encrypt:github_key.priv
+      ~/dev/myproject$ fab staging encrypt:github_key.priv
 
    The encrypted version will then be in ``github_key.priv.asc``. Copy the content from that file
    into ``env.sls``.
@@ -342,14 +366,14 @@ has run successfully. We'll do staging now, but we can't do production until we'
 
    .. code-block:: bash
 
-      mv conf/pillar/staging/secrets.sls staging-secrets.sls
+      ~/dev/myproject$ mv conf/pillar/staging/secrets.sls staging-secrets.sls
 
 #. Rename ``env.sls``:
 
    .. code-block:: bash
 
-      mv conf/pillar/staging/env.sls conf/pillar/staging.sls
-      rmdir conf/pillar/staging
+      ~/dev/myproject$ mv conf/pillar/staging/env.sls conf/pillar/staging.sls
+      ~/dev/myproject$ rmdir conf/pillar/staging
 
 #. Update the ``conf/pillar/top.sls`` file:
 
@@ -367,11 +391,11 @@ has run successfully. We'll do staging now, but we can't do production until we'
       +    - staging
          'environment:production':
 
-#. Commit and redeploy:
+#. Commit, push, and redeploy:
 
    .. code-block:: bash
 
-      fab staging deploy
+      ~/dev/myproject$ fab staging deploy
 
 Miscellaneous work
 ------------------
@@ -400,6 +424,7 @@ At this point you hopefully have a working server, but there is still some work 
    * setup.cfg
    * .travis.yml (look at project.travis.yml)
 
+
 Updating Production
 -------------------
 
@@ -413,8 +438,8 @@ If staging updates successfully, these are a few steps you'll need to get produc
 
 #. Commit those changes and then run::
 
-     fab production sync
-     fab production deploy
+     ~/dev/myproject$ fab production sync
+     ~/dev/myproject$ fab production deploy
 
 
 Troubleshooting
@@ -426,8 +451,8 @@ we're not sure.
 
 * ``newrelic_license_key`` must be capitalized. Some projects have a secret for
   ``newrelic_license_key``, but the current margarita uses ``NEW_RELIC_LICENSE_KEY``
-* NewRelic settings may need adjusting, which you can do via environment variables (see the
-  margarita README for details)
+* NewRelic settings may need adjusting, which you can do via environment variables (see
+  other documentation in this repo for details).
 * If you get timeout errors during the first deploy, it may be because of a few different issues.
 
   * Low CPU/RAM servers might need the salt timeouts extended. Add ``timeout: 600`` to
@@ -441,14 +466,15 @@ we're not sure.
 
     That says port 4506 (DPT) is being blocked by the firewall. If so, run::
 
-      ufw allow salt
+      # ufw allow salt
 
-  If salt is installed, that will turn open up the ports that salt needs. Our deploy does that too,
-  but if the firewall is already running, then our salt state can't run. I'm still confused how this
-  problem happened on a server which had already been running salt successfully, but ¯\\_(ツ)_/¯.
-* *VAGRANT NOTE*: Make sure to undo the setting which syncs the conf folder to ``/srv`` on the VM,
-  because the project no longer expects that folder to be synced, so will run into problems trying
-  to change permissions on the files there.
+  If salt is installed, the command above will open up the ports that salt needs. Our deploy does
+  that too, but if the firewall is already running, then our salt state can't run. I'm still
+  confused how this problem happened on a server which had already been running salt successfully,
+  but ¯\\_(ツ)_/¯.
+* *VAGRANT NOTE*: Make sure to undo the ``Vagrantfile`` setting which syncs the conf folder to
+  ``/srv`` on the VM, because the project no longer expects that folder to be synced, so will run
+  into problems trying to change permissions on the files there.
 
   Change this::
 
@@ -463,5 +489,12 @@ we're not sure.
 
   .. code-block:: bash
 
-     fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
-     fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
+     ~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
+     ~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
+
+* If you see an error like the following, it means that your local ``conf`` directory has contents
+  that it shouldn't. Remove the file/directory in question locally and then rerun the sync command.
+
+  .. code-block:: bash
+
+     [54.234.112.22] out: mv: cannot move `/tmp/salt/local' to `/srv/local': Directory not empty
