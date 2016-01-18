@@ -140,6 +140,10 @@ or even plain CSS stylesheets
 
     @import (css) "node_modules/foo-widget/css/foo-widget.css";
 
+Each package might put the Less or CSS stylesheets in different locations under the path
+``node_modules/PACKAGE/``. Find the stylesheet you need and its location to determine the
+proper path.
+
 Modernizr
 '''''''''
 
