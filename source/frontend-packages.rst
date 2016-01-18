@@ -125,6 +125,21 @@ like
     @import "./base.less";
     @import "./header.less";
 
+Stylesheets might be distributed by NPM, either on their own or as part of a widget library.
+For example, bootstrap can be installed by NPM giving us both the interactive implementation of
+its widgets and also the bootstrap Less files. If you've installed a package with stylesheets
+from NPM, you can import those stylesheets in your ``index.less`` like so:
+
+.. code-block:: less
+
+    @import (less) "node_modules/bootstrap/less/bootstrap.less";
+
+or even plain CSS stylesheets
+
+.. code-block:: less
+
+    @import (css) "node_modules/foo-widget/css/foo-widget.css";
+
 Modernizr
 '''''''''
 
