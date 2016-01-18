@@ -117,6 +117,40 @@ The easiest way is to create a new file called ``deploy.py`` with this content:
 
 That should be refactored ASAP to get rid of the staging and production files.
 
+Set up logging to syslog
+------------------------
+
+Margarita's supervisord configuration is now configured to send all stdout and stderr log messages
+to syslog. Therefore we need to tell Django to stop logging to files, but instead to log to the
+console, which will then get picked up by supervisord and sent to syslog.
+
+1. In ``myproject/settings/base.py``, add a ``console`` handler to the ``LOGGING['handlers']``
+   setting:
+
+   .. code-block:: python
+
+      'console': {
+          'level': 'INFO',
+          'class': 'logging.StreamHandler',
+          'formatter': 'basic',
+      },
+
+#. In ``myproject/settings/base.py``, add a ``root`` handler to the ``LOGGING`` setting to use the
+   console handler. Note that ``root`` should be a top level key in the ``LOGGING`` dictionary:
+
+   .. code-block:: python
+
+      'root': {
+          'handlers': ['console', ],
+          'level': 'INFO',
+      },
+
+#. Remove any loggers which are logging to the ``file`` handler and remove the ``file`` handler
+   itself.
+
+#. Check the other settings files (``staging.py``, ``production.py``, ``dev.py`` and ``deploy.py``)
+   and make sure that none of them alter the ``LOGGING`` setting to use the ``file`` handler.
+
 Dotenv
 ------
 
