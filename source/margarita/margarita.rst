@@ -14,3 +14,4 @@ states.  It lives at https://github.com/caktus/margarita.
    grains
    pillar
    minions
+   upgrading
