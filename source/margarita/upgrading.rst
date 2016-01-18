@@ -132,7 +132,7 @@ console, which will then get picked up by supervisord and sent to syslog.
       'console': {
           'level': 'INFO',
           'class': 'logging.StreamHandler',
-          'formatter': 'basic',
+          'formatter': 'basic',  # Make sure to choose a formatter that is defined in your settings
       },
 
 #. In ``myproject/settings/base.py``, add a ``root`` handler to the ``LOGGING`` setting to use the
