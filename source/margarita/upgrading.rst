@@ -275,7 +275,24 @@ you should be able to get a server upgraded, but they **will** have to be done a
    be completely removed from your project.
 
    This part is difficult to generalize... Sorry. You kinda have to look in each state file and
-   make sure that service is properly accounted for in the new Margarita system.
+   make sure that service is properly accounted for in the new Margarita system. One thing that
+   helped me find customizations was to use the Github 'Compare Changes' functionality to see what
+   had changed in the ``conf`` directory since the initial commit.
+
+   A. Go to https://github.com/<orgname>/myproject/commits/develop/conf and find the initial commit.
+      Copy that commit hash to your clipboard.
+
+   #. Go to https://github.com/<orgname>/myproject/compare?expand=1 and enter that commit hash as
+      the 'base', leaving the 'compare' value as develop.
+
+   #. Depending on the size of your project, it may take a few seconds for the comparison to show up
+      and Github may complain that it can't show you all files. That should be ok...
+
+   #. Click on 'Files changed' to see all the changes and note any changes in files in the ``conf``
+      directory. Those are the changes that *may* be custom to your project and will need to be
+      re-enabled in the new ``conf/salt`` directory. Not all of them will need to be, so again,
+      you'll need to be somewhat familiar with what the current Margarita states do to see if you
+      actually do need to customize your project.
 
 #. Look at the following files in django-project-template to see if your project could benefit
    from any changes:
