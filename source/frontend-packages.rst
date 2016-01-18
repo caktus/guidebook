@@ -142,9 +142,8 @@ jQuery
 
 If you need the jQuery library accessible for script tags that might be in specific pages
 and won't be pulled in by the bundling process, then it might be prudent to keep the
-jquery library included by the existing ``<script>`` tag, and that's okay. You might
-keep the need to move this Javascript out of templates and into modules as part of
-improvements to make down the road.
+jquery library included by the existing ``<script>`` tag, and that's okay for now. You can
+move this JS out of the template in a future improvement.
 
 If you do not need this and only use jQuery within code you're already moving into
 modules, then jQuery can be a dependency imported by the new system. If you want to do
