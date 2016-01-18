@@ -9,7 +9,7 @@ about Margarita upgrades
 high level view of the changes required.
 
 This document is going to outline the steps involved in upgrading a project which is using the
-master branch of Margarita. We will be upgrading it to Margarita 1.4.0. Following this guide should
+master branch of Margarita. We will be upgrading it to Margarita 1.5.0. Following this guide should
 allow you to upgrade projects in a similar scenario. Projects which are already using a pinned
 version of Margarita should be able to upgrade by following the `Margarita release notes
 <https://github.com/caktus/margarita/blob/develop/CHANGES.rst>`_
@@ -22,15 +22,23 @@ you'll have to repeat that command once for each IP address in your fleet.
 Prepare Repository
 ------------------
 
-.. WARNING::
-   The new project template does not 'reconcile' secrets because it assumes that you have
+1. The new project template does not 'reconcile' secrets because it assumes that you have
    committed the encrypted versions to the repo, so syncing back-and-forth is not necessary. We
    haven't yet done that step for our project, so we need to be very careful about our secrets.
    Make sure to sync them (by doing a deploy or running ``fab get_secrets``) before going any
    further.
 
+   .. code-block:: bash
 
-1. Get useful files from the new project template. Clone the `Django Project Template
+      ~/dev/myproject$ fab staging get_secrets
+      ~/dev/myproject$ fab production get_secrets
+
+   .. NOTE:: Different projects have different ways of getting secrets (i.e. the ``get_secrets``
+             function has changed over time), so if the above doesn't work, you can always ssh onto
+             the servers and fetch the ``secrets.sls`` files. They should be somewhere under
+             ``/srv/pillar``)
+
+#. Get useful files from the new project template. Clone the `Django Project Template
    <https://github.com/caktus/django-project-template>`_ repo  into a directory adjacent to ours, so
    we can easily copy files we need:
 
@@ -57,9 +65,9 @@ Prepare Repository
 
 #. Edit fabfile.py:
 
-   1. Make sure ``SALT_VERSION`` is ``2015.5.8``
+   1. Make sure ``SALT_VERSION`` is ``2015.5.8``. (We know Margarita 1.5.0 works with Salt 2015.5.8).
    2. Change ``env.master`` in both the ``staging()`` and ``production()`` functions to be
-      correct (get the value from fabfile.py.old)
+      correct (get the value from fabfile.py.old).
 
 
 Upgrade Margarita
@@ -81,6 +89,13 @@ Upgrade Margarita
       ~/dev/myproject$ mv conf/salt salt.old
       ~/dev/myproject$ cp -r ../django-project-template/conf/salt conf/
 
+#. Compare ``salt.old/top.sls`` to ``conf/salt/top.sls``. If the old version has states not
+   mentioned in the new version, then check if each of those missing states is available in
+   `Margarita <https://github.com/caktus/margarita>`_. If it is, add the state name to
+   ``conf/salt/top.sls``, and your project will use the Margarita state. You may need to configure
+   the state in the pillar. If it is not available in Margarita, add the state name to
+   ``conf/salt/top.sls`` and move the old project's custom state file(s) from ``salt.old/`` to
+   ``conf/salt/``.
 
 Single Deploy settings
 ----------------------
@@ -159,8 +174,8 @@ Dotenv
       +++ b/manage.py
       @@ -4,2 +4,5 @@ import sys
 
-      +import dotenv
-      +dotenv.read_dotenv()
+      +from <myproject> import load_env
+      +load_env.load_env()
       +
        if __name__ == "__main__":
 
@@ -308,7 +323,7 @@ correctly.
    .. code-block:: bash
 
       ~/dev/myproject$ fab vagrant setup_master
-      ~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant setup_minion setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+      ~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
       ~/dev/myproject$ fab vagrant deploy
 
 #. If that works, you should see your site at https://margarita.example.com.
@@ -381,8 +396,8 @@ Upgrade Salt
 Sync
 ----
 
-#. Sync these states over to the server (do this separately from the actual deploy so that
-   failures can be caught before actually trying to deploy)
+#. Sync these states over to the server. We do this separately from the actual deploy so that
+   failures can be caught before actually trying to deploy.
 
    .. code-block:: bash
 
@@ -542,7 +557,7 @@ we're not sure.
 
   and then restart the VM. If you are using the new ``Vagrantfile``, you shouldn't need to do that.
 
-* *VAGRANT NOTE:* Remove the ``source`` and ``public`` symlinks as we rsync now rather than symlink.
+* *VAGRANT NOTE*: Remove the ``source`` and ``public`` symlinks as we rsync now rather than symlink.
 
   .. code-block:: bash
 
