@@ -40,13 +40,152 @@ You can download and add these from this documentation:
 and add them to the top level of your project. You'll need to modify
 both with the correct project name.
 
-Finally, you can add these extra lines to your ``.gitignore``::
+Now, you can add these extra lines to your ``.gitignore``::
 
     node_modules
     */static/js/bundle.js
     */static/css
 
-**TODO** Finish the upgrade section. It is incomplete.
+You probably have existing Javascript and stylesheets to move into the new
+build system. The next sections will cover each of these.
+
+Migrating Existing Setup
+------------------------
+
+You'll have several pieces of the old setup to migrate to the new setup.
+
+Django Compressor
+'''''''''''''''''
+
+Because we no longer use Django Compressor to process frontend assets, you can
+remove the dependency from ``requirements/base.txt`` and your settings ``base.py``
+module. If you have this ``STATICFILES_FINDERS``::
+
+    STATICFILES_FINDERS = (
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'compressor.finders.CompressorFinder',
+    )
+
+Then you can safely remove the entire setting and leave the defaults. If your
+project has defined any other finders, then only remove the one from ``compressor``.
+
+Remove it also from ``INSTALLED_APPS`` and remove ``COMPRESS_PRECOMPILERS``. Check
+your settings for any other place to remove references to it.
+
+You'll need to remove compressor from the ``base.html`` where it is used to
+include both Javascript and Less stylesheets. Remove the ``{% load compressor %}``
+line at the top of the template. We'll change the compressor tags for
+the Javascript first, which should currently look like this::
+
+    {% compress js %}
+        <script src="{% static 'js/site.js' %}"></script>
+    {% endcompress %}
+
+but, this may include more than one script tag. If it does, you'll need to follow
+the section on `Existing Javascript` to migrate them to a bundle. This line will be
+replaced with one tag loading our combined bundle of all project Javascript::
+
+    <script src="{% static 'js/bundle.js' %}"></script>
+
+The section using compressor to compile Less stylesheets will also be replaced, from
+this::
+
+    {% if debug %}
+        <link rel="stylesheet/less" type="text/css" media="all" href="{% static 'less/site.less' %}">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.5.1/less.min.js"></script>
+    {% else %}
+        {% compress css %}
+            <link rel="stylesheet" type="text/less" media="all" href="{% static 'less/site.less' %}">
+        {% endcompress %}
+    {% endif %}
+
+to this::
+
+    <link rel="stylesheet" media="all" href="{% static 'css/bundle.css' %}">
+
+Existing javascript
+'''''''''''''''''''
+
+If you have a frontend-light project that has only a single JS file, rename it to
+``static/js/index.js`` in the project. If you have multiple scripts, you'll need
+to create this file and import the different scripts in your project. (Read the
+section below on `Using Frontend Packages`)
+
+Existing Stylesheets
+''''''''''''''''''''
+
+If you have a single stylesheet you'll need to rename it ``less/index.less`` and if you have
+multiple you'll need to create this single stylesheet and, within it, import other stylesheets
+like
+
+.. code-block:: less
+
+    @import "./states.less";
+    @import "./base.less";
+    @import "./header.less";
+
+Stylesheets might be distributed by NPM, either on their own or as part of a widget library.
+For example, bootstrap can be installed by NPM giving us both the interactive implementation of
+its widgets and also the bootstrap Less files. If you've installed a package with stylesheets
+from NPM, you can import those stylesheets in your ``index.less`` like so:
+
+.. code-block:: less
+
+    @import (less) "node_modules/bootstrap/less/bootstrap.less";
+
+or even plain CSS stylesheets
+
+.. code-block:: less
+
+    @import (css) "node_modules/foo-widget/css/foo-widget.css";
+
+Each package might put the Less or CSS stylesheets in different locations under the path
+``node_modules/PACKAGE/``. Find the stylesheet you need and its location to determine the
+proper path.
+
+Modernizr
+'''''''''
+
+Your project likely includes a copy of Modernizr, but the new frontend setup builds
+a recent copy of this (and is configurable), so we can change this line::
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js"></script>
+
+to this::
+
+    <script src="{% static 'libs/modernizr.js' %}"></script>
+
+jQuery
+''''''
+
+If you need the jQuery library accessible for script tags that might be in specific pages
+and won't be pulled in by the bundling process, then it might be prudent to keep the
+jquery library included by the existing ``<script>`` tag, and that's okay for now. You can
+move this JS out of the template in a future improvement.
+
+If you do not need this and only use jQuery within code you're already moving into
+modules, then jQuery can be a dependency imported by the new system. If you want to do
+this, remove the jQuery ``<script>`` tag and then install jQuery (whatever version is
+appropriate for you)::
+
+    npm install --save-dev jquery@2.2.0
+
+If you need jQuery to be globally available, you can add this line to the top of your
+``index.js`` under the imports::
+
+    window.jQuery = window.$ = require('jquery')
+
+Any modules which use jQuery *should* avoid the global and import the library within
+that module.
+
+.. code-block:: javascript
+
+    import 'jQuery';
+
+    jQuery.fn.plugin = function() {
+        ...
+    }
 
 Using Frontend Packages
 =======================
