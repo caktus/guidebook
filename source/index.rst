@@ -21,6 +21,7 @@ Contents:
    project-template-testing
    frontend-packages
    services/index
+   deploy/index
 
 
 Indices and tables
