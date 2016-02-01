@@ -20,7 +20,7 @@ Contents:
    margarita/margarita
    project-template-testing
    frontend-packages
-   services/dep-tracking
+   services/index
 
 
 Indices and tables
