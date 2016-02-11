@@ -465,7 +465,7 @@ Deploy!!!
 And of course that worked! If not, let us know so we can help.
 
 Keep a close eye on your logs (especially the supervisord ones). If you see celery having difficulty
-connection to RabbitMQ, see the :ref:`Troubleshooting <troubleshooting>` section below.
+connecting to RabbitMQ, see the :ref:`Troubleshooting <troubleshooting>` section below.
 
 
 .. _encrypt-secrets:
