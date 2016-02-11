@@ -464,6 +464,9 @@ Deploy!!!
 
 And of course that worked! If not, let us know so we can help.
 
+Keep a close eye on your logs (especially the supervisord ones). If you see celery having difficulty
+connection to RabbitMQ, see the :ref:`Troubleshooting <troubleshooting>` section below.
+
 
 .. _encrypt-secrets:
 
@@ -560,6 +563,8 @@ If you get this far and everything is working then it's time to celebrate!! Make
 *develop* and *master* branches are properly updated with the changes in *your-feature-branch* and
 that ``repo.branch`` is set to the correct value in ``conf/pillar/<environment>.sls``.
 
+.. _troubleshooting:
+
 Troubleshooting
 ---------------
 
@@ -621,3 +626,41 @@ we're not sure.
   .. code-block:: bash
 
      [54.234.112.22] out: mv: cannot move `/tmp/salt/local' to `/srv/local': Directory not empty
+
+* After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
+  connecting to RabbitMQ::
+
+     Feb 11 14:21:39 myproject supervisord:  myproject-celery-beat [2016-02-11 14:21:39,811:
+     ERROR/MainProcess] beat: Connection error: [Errno 104] Connection reset by peer. Trying again
+     in 2.0 seconds...
+
+  To fix, you'll need to delete and recreate the RabbitMQ user.
+
+  .. code-block:: bash
+
+     $ sudo rabbitmqctl list_users
+     Listing users ...
+     myproject_production []
+     $ sudo rabbitmqctl delete_user myproject_production
+     Deleting user "myproject_production" ...
+     $ sudo salt '*' state.sls project.queue
+     myproject.example.com:
+      Name: deb http://www.rabbitmq.com/debian/ testing main - Function: pkgrepo.managed - Result: Clean
+      Name: rabbitmq-server - Function: pkg.latest - Result: Clean
+      Name: /etc/rabbitmq/rabbitmq.config - Function: file.managed - Result: Clean
+      Name: rabbitmq-server - Function: service.running - Result: Clean
+      Name: guest - Function: rabbitmq_user.absent - Result: Clean
+      Name: ufw - Function: pkg.installed - Result: Clean
+      Name: ufw - Function: service.running - Result: Clean
+      Name: firewall_policy - Function: ufw.default - Result: Changed
+      Name: firewall_status - Function: ufw.enabled - Result: Changed
+      Name: epicallieshq_production - Function: rabbitmq_vhost.present - Result: Clean
+      Name: epicallieshq_production - Function: rabbitmq_user.present - Result: Changed
+      Name: 5672 - Function: ufw.allow - Result: Clean
+
+     Summary
+     -------------
+     Succeeded: 12 (changed=3)
+     Failed:     0
+     -------------
+     Total states run:     12
