@@ -469,6 +469,8 @@ failures can be caught before actually trying to deploy.</p>
 </pre></div>
 </div>
 <p>And of course that worked! If not, let us know so we can help.</p>
+<p>Keep a close eye on your logs (especially the supervisord ones). If you see celery having difficulty
+connection to RabbitMQ, see the <a class="reference internal" href="#troubleshooting"><span>Troubleshooting</span></a> section below.</p>
 </div>
 <div class="section" id="encrypt-secrets">
 <span id="id2"></span><h2>Encrypt Secrets<a class="headerlink" href="#encrypt-secrets" title="Permalink to this headline">¶</a></h2>
@@ -555,7 +557,7 @@ machine.</p>
 that <code class="docutils literal"><span class="pre">repo.branch</span></code> is set to the correct value in <code class="docutils literal"><span class="pre">conf/pillar/&lt;environment&gt;.sls</span></code>.</p>
 </div>
 <div class="section" id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<span id="id3"></span><h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>Here are some issues that may or may not come up during your upgrade. As we find new issues, we
 should update the docs above (if they are general), or add them here, if they aren&#8217;t general or
 we&#8217;re not sure.</p>
@@ -611,6 +613,43 @@ into problems trying to change permissions on the files there.</p>
 <li><p class="first">If you see an error like the following, it means that your local <code class="docutils literal"><span class="pre">conf</span></code> directory has contents
 that it shouldn&#8217;t. Remove the file/directory in question locally and then rerun the sync command.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="o">[</span>54.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
+</pre></div>
+</div>
+</li>
+<li><p class="first">After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
+connecting to RabbitMQ:</p>
+<div class="highlight-python"><div class="highlight"><pre>Feb 11 14:21:39 myproject supervisord:  myproject-celery-beat [2016-02-11 14:21:39,811:
+ERROR/MainProcess] beat: Connection error: [Errno 104] Connection reset by peer. Trying again
+in 2.0 seconds...
+</pre></div>
+</div>
+<p>To fix, you&#8217;ll need to delete and recreate the RabbitMQ user.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo rabbitmqctl list_users
+Listing users ...
+myproject_production <span class="o">[]</span>
+<span class="nv">$ </span>sudo rabbitmqctl delete_user myproject_production
+Deleting user <span class="s2">&quot;myproject_production&quot;</span> ...
+<span class="nv">$ </span>sudo salt <span class="s1">&#39;*&#39;</span> state.sls project.queue
+myproject.example.com:
+ Name: deb http://www.rabbitmq.com/debian/ testing main - Function: pkgrepo.managed - Result: Clean
+ Name: rabbitmq-server - Function: pkg.latest - Result: Clean
+ Name: /etc/rabbitmq/rabbitmq.config - Function: file.managed - Result: Clean
+ Name: rabbitmq-server - Function: service.running - Result: Clean
+ Name: guest - Function: rabbitmq_user.absent - Result: Clean
+ Name: ufw - Function: pkg.installed - Result: Clean
+ Name: ufw - Function: service.running - Result: Clean
+ Name: firewall_policy - Function: ufw.default - Result: Changed
+ Name: firewall_status - Function: ufw.enabled - Result: Changed
+ Name: epicallieshq_production - Function: rabbitmq_vhost.present - Result: Clean
+ Name: epicallieshq_production - Function: rabbitmq_user.present - Result: Changed
+ Name: <span class="m">5672</span> - Function: ufw.allow - Result: Clean
+
+Summary
+-------------
+Succeeded: <span class="m">12</span> <span class="o">(</span><span class="nv">changed</span><span class="o">=</span>3<span class="o">)</span>
+Failed:     0
+-------------
+Total states run:     12
 </pre></div>
 </div>
 </li>

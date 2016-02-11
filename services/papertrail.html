@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Papertrail &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
+    <link rel="prev" title="Dependency Tracking" href="dep-tracking.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="papertrail">
+<h1>Papertrail<a class="headerlink" href="#papertrail" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Add the <a class="reference internal" href="../margarita/states.html#forward-logs"><span>forward_logs</span></a> state to your <code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code> file. We want this to be on all
+servers so it should go in the <code class="docutils literal"><span class="pre">*</span></code> section:</p>
+<div class="highlight-yaml"><div class="highlight"><pre><span class="s">&#39;*&#39;</span><span class="p-Indicator">:</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">base</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sudo</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sshd</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">sshd.github</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">locale.utf8</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">newrelic_sysmon</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">project.devs</span>
+<span class="hll"><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">forward_logs</span>
+</span></pre></div>
+</div>
+</li>
+<li><p class="first">Create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to get a
+Papertrail account.</p>
+</li>
+<li><p class="first">Once you have an account, find out our Papertrail instance&#8217;s <a class="reference external" href="https://papertrailapp.com/systems/setup">hostname and port</a>.</p>
+</li>
+<li><p class="first">Encrypt those values as a <code class="docutils literal"><span class="pre">LOG_DESTINATION</span></code> secret:</p>
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject<span class="nv">$ </span>fab staging encrypt:LOG_DESTINATION<span class="o">=</span><span class="s1">&#39;blah.papertrail.com:12345&#39;</span>
+<span class="s2">&quot;LOG_DESTINATION&quot;</span>: <span class="p">|</span>-
+  -----BEGIN PGP MESSAGE-----
+  Version: GnuPG v1
+
+  hIwDi3G8b0sD8fkBA/4kMuhn2YmdKhyy99Xi3Nn6XOUmY/oikyU1AF68ynHfywNd
+  zcu8xcA0iHhj/eK7dDvC9eE94xUNNoPkddU+J6ulzhEIzQFWndD5YCO1WyHWLYbq
+  N48BPaiUHWoiWFKA4aApPJHPfiV6JJUxiwHadhoAseOQw94ce75fUqbe4RiXrNJS
+  ATFNQz0dtCF8H0VhYBUYHvF7yHuhZVeOqgTT93B0tDGCy9rq47Dq3PnjityrFuAL
+  TLNW7zsjjEuA1P6HZ8xwRqYwSJ4MF8tkXDUX3Q++cGlW6w<span class="o">==</span>
+  <span class="o">=</span>w3nx
+  -----END PGP MESSAGE-----
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add that secret to your <code class="docutils literal"><span class="pre">conf/pillar/staging.sls</span></code> file and deploy:</p>
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject<span class="nv">$ </span>fab staging deploy
+</pre></div>
+</div>
+</li>
+<li><p class="first">Repeat the same process for production.</p>
+</li>
+<li><p class="first">After the deploy, you should be able to verify a couple things.</p>
+<ol class="upperalpha simple">
+<li>All logs from gunicorn, celery and nginx (among others) should now be piped to
+<code class="docutils literal"><span class="pre">/var/log/syslog</span></code> on the server.</li>
+<li>You should see those same logs in the <a class="reference external" href="https://papertrailapp.com/events">All Systems</a> log.</li>
+</ol>
+</li>
+<li><p class="first">Visit the <a class="reference external" href="https://papertrailapp.com/dashboard">dashboard</a> to create a new group for your
+systems, or to add them to other appropriate groups.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="dep-tracking.html" title="previous chapter">Dependency Tracking</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/services/papertrail.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/services/papertrail.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
