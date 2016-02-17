@@ -193,7 +193,7 @@ an external SMTP server.
 Node
 ----
 
-For projects that use Node, we currently install v4 from
+For projects that use Node, we currently install v4.2 (LTS) from
 deb.nodesource.com. (The Ubuntu LTS packages are way too
 old.)
 

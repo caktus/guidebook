@@ -22,7 +22,7 @@ The Twelve-Factor app `calls these deploys <http://12factor.net/config>`_.
 `Instance`: In at least one case, we've run a project on one domain
 with multiple independent sets of user accounts and data (accessed
 at different URLs under the domain). We refer to each of those as
-an instance.
+an instance. Sometimes this is refered to as `multitenancy`.
 
 `Role`: Each system in an environment plays one or more roles, meaning
 that it provides some service to the environment. Example roles include
