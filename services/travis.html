@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Travis CI &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
+    <link rel="prev" title="New Relic" href="new-relic.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="travis-ci">
+<h1>Travis CI<a class="headerlink" href="#travis-ci" title="Permalink to this headline">¶</a></h1>
+<p>The project template now has a Travis CI template that you can copy for your project. Once you have
+completed the initial project setup (i.e. the items in README.rst), do the following:</p>
+<ol class="arabic">
+<li><p class="first">Rename the template to <code class="docutils literal"><span class="pre">.travis.yml</span></code>. (Note: The existing file named <code class="docutils literal"><span class="pre">.travis.yml</span></code> in the
+project template is for testing the template itself, so it is fine to overwrite it):</p>
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject<span class="nv">$ </span>mv project.travis.yml .travis.yml
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you don&#8217;t have one already, <a class="reference external" href="https://travis-ci.org">create a Travis CI account</a>, being sure
+to link it to your Caktus github account.</p>
+</li>
+<li><p class="first">Find your project on your <a class="reference external" href="https://travis-ci.org/profile/">profile page</a>. Any repos that you
+have admin access to, across organizations, should be visible there. You may need to refresh your
+list by clicking the &#8216;Sync account&#8217; button, especially if the repo was created very recently.
+Enable your repo on this page.</p>
+</li>
+<li><p class="first">Review the <code class="docutils literal"><span class="pre">.travis.yml</span></code> template that you copied. Update it to match the specifics of your
+project (e.g. Python version, PostgreSQL version). Some settings are commented out and can be
+uncommented if they apply to your project. The one section that WILL need to be updated is the
+notifications section. See below.</p>
+</li>
+<li><p class="first">Set up HipChat notifications.</p>
+<ol class="upperalpha">
+<li><p class="first">Obtain a HipChat API token and Room ID. You may be able to get this by clicking on the &#8216;...&#8217;
+button in the upper right-hand corner of your HipChat room page, and then clicking on
+&#8216;Integrations...&#8217; and then clicking on the &#8216;Travis CI&#8217; button. If you don&#8217;t have access,
+create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to
+get one.</p>
+</li>
+<li><p class="first">Install the <code class="docutils literal"><span class="pre">travis</span></code> command line tool: <a class="reference external" href="https://github.com/travis-ci/travis.rb#installation">https://github.com/travis-ci/travis.rb#installation</a></p>
+</li>
+<li><p class="first">Use the HipChat API token and Room ID obtained in step A to generate an encrypted token:</p>
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject<span class="nv">$ </span>travis encrypt &lt;api_token@room_id&gt;
+Please add the following to your .travis.yml file:
+
+  secure: <span class="s2">&quot;... long encrypted value ...&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Copy that value into the place indicated in the template <code class="docutils literal"><span class="pre">.travis.yml</span></code> file.</p>
+</li>
+<li><p class="first">Since the value is encrypted, it is safe for this to be in a public github repo.</p>
+</li>
+</ol>
+</li>
+<li><p class="first">Commit the changes to your <code class="docutils literal"><span class="pre">.travis.yml</span></code> file and push that commit to github. That should
+trigger a build and you should see the result of that build in your HipChat room, once complete.</p>
+</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="new-relic.html" title="previous chapter">New Relic</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/services/travis.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/services/travis.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
