@@ -3,9 +3,13 @@ New Relic
 
 To enable New Relic monitoring for an environment:
 
-#. Get a license key. This can be found by clicking on 'Account Settings' from the dropdown menu at
-   the upper right corner of the web interface. If you don't have access to New Relic or are unsure
-   of which New Relic subaccount to use, create a `support request
+#. Get a license key. This can be found in the New Relic web interface. We have multiple
+   subaccounts, some of which are free and some of which cost money to use, so make sure you first
+   select the correct subaccount. Log in to New Relic and click on the dropdown menu in the upper
+   right corner. Use the 'Switch account' submenu to choose your subaccount. Once you have
+   switched to your subaccount, go back to the dropdown menu and click on 'Account settings'. The
+   license key will be listed on that page. If you don't have access to New Relic or are unsure of
+   which New Relic subaccount to use, create a `support request
    <https://caktus.atlassian.net/servicedesk/customer/portal/3>`_
 
 #. Generate an encrypted variable ``NEW_RELIC_LICENSE_KEY`` containing the license key for each
@@ -32,7 +36,7 @@ To enable New Relic monitoring for an environment:
 
       # <environment>.sls
       secrets:
-        NEW_RELIC_LICENSE_KEY: |-
+        "NEW_RELIC_LICENSE_KEY": |-
           -----BEGIN PGP MESSAGE-----
           -----END PGP MESSAGE-----
 
@@ -45,7 +49,6 @@ To enable New Relic monitoring for an environment:
 
       # project.sls
       env:
-        NEW_RELIC_LOG: "/var/www/myproject/log/agent.log"
         NEW_RELIC_MONITOR_MODE: "false"
 
       # <environment>.sls
@@ -72,7 +75,7 @@ To enable New Relic monitoring for an environment:
       # project.sls or <environment>.sls
       elasticsearch_newrelic: true
 
-   The plugin will get setup automatically if that pillar setting is present, and you are
+   The plugin will get set up automatically if that pillar setting is present, and you are
    using the ``elasticsearch`` margarita state in your ``top.sls`` file.
 
 #. Add state ``newrelic_sysmon`` to your Salt ``top.sls`` in the ``base`` section (for all servers).
