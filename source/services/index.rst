@@ -9,3 +9,4 @@ This document explains how to add various external services to your project.
    dep-tracking
    papertrail
    new-relic
+   travis
