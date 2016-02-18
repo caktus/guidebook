@@ -16,7 +16,7 @@ Operating system
 Our server operating system of choice is Ubuntu Server LTS.
 For new projects, we'll use the most recent LTS release.
 
-We won't necessarily update older projects that might be on
+We won't necessarily update projects that might be on
 an older LTS release, as long as they're still getting
 security updates and we don't need some feature that's only
 available on a newer release.
@@ -24,8 +24,8 @@ available on a newer release.
 System updates
 --------------
 
-We have started enabling automated updates using Ubuntu's
-support for that. For now we're only enabling them for
+We have started enabling automated updates on some projects
+using Ubuntu's support for that. For now we're only enabling them for
 security updates, not all software, and we're also
 blocking updates for Salt and other packages that can
 be problematic if upgraded without first testing that

@@ -135,7 +135,6 @@ should look at for configuration values:
   * DB_PASSWORD: password for database user. (secret)
   * DOMAIN: hostname from the site's URL
   * ENVIRONMENT: name of the environment
-  * NEW_RELIC_LOG: e.g. "/var/log/newrelic/agent.log"
   * NEW_RELIC_APP_NAME: e.g. "myproject <environment>"
   * NEW_RELIC_LICENSE_KEY: This is the license key for the New Relic account to use for monitoring.
     If provided, turn on New Relic monitoring. (secret)
