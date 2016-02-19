@@ -58,6 +58,29 @@ these gives you a config file like::
       }
     }
 
+If your project is based off the Caktus project template, it probably uses
+React as well as the JSX component-specification DSL; and it probably also
+uses Babel to preprocess both. Because JSDoc can use your existing Babel
+setup, it takes very little additional work to ensure that JSDoc can read
+your code. You will need the ``jsdoc-babel`` plugin::
+
+    npm install --save-dev jsdoc-babel
+
+And you will need to add lines to your config file to add the plugin and to
+get JSDoc to recognize ``.jsx`` files as well as ``.js`` ones::
+
+    {
+      "plugins": ["node_modules/jsdoc-babel"],
+      "source": {
+        "includePattern": ".+\\.jsx?$",
+        /* ... */
+      },
+      /* ... */
+    }
+
+That's it. Assuming Babel is correctly configured to process your JSX code,
+JSDoc will now be able to handle it, too.
+
 Once the configuration file is set up, you can generate a JSDoc site from your
 JS by running this command (assuming ``./node_modules/.bin`` is in your
 ``$PATH``)::
