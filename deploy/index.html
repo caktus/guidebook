@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>External Services &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Deploying Django projects &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,8 +24,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="next" title="Github" href="github.html" />
-    <link rel="prev" title="Frontend Packaging" href="../frontend-packages.html" />
+    <link rel="next" title="Deployed Architecture" href="deployed-systems.html" />
+    <link rel="prev" title="Travis CI" href="../services/travis.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
@@ -38,24 +38,35 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="external-services">
-<h1>External Services<a class="headerlink" href="#external-services" title="Permalink to this headline">¶</a></h1>
-<p>This document explains how to add various external services to your project.</p>
+  <div class="section" id="deploying-django-projects">
+<h1>Deploying Django projects<a class="headerlink" href="#deploying-django-projects" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we talk about two things:</p>
+<ol class="arabic simple">
+<li>The typical architecture of deployed sites</li>
+<li>The interface between our deploy system and our project code -
+what the code in our projects and our deploy system expect
+from each other.</li>
+</ol>
+<p>Our deploy system follows many (but not all) of the principles of
+<a class="reference external" href="http://12factor.net/">the Twelve-Factor App</a>. If you
+haven&#8217;t come across those before, I suggest you take a look,
+think through the implications, then come back here.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="github.html">Github</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="github.html#private-repos">Private Repos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deployed-systems.html">Deployed Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deployed-systems.html#operating-system">Operating system</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployed-systems.html#handling-web-requests">Handling web requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployed-systems.html#asynchronous-work">Asynchronous work</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deployed-systems.html#misc-services">Misc. services</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dep-tracking.html">Dependency Tracking</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dep-tracking.html#requires-io">Requires.io</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dep-tracking.html#bitbound">BitBound</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dep-tracking.html#github-project-badges">GitHub Project Badges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="system-deploy-interface.html">Interface between the deploy system and projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system-deploy-interface.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-deploy-interface.html#directories">Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-deploy-interface.html#python-dependencies">Python Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system-deploy-interface.html#configuration">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="papertrail.html">Papertrail</a></li>
-<li class="toctree-l1"><a class="reference internal" href="new-relic.html">New Relic</a></li>
-<li class="toctree-l1"><a class="reference internal" href="travis.html">Travis CI</a></li>
 </ul>
 </div>
 </div>
@@ -69,15 +80,15 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../frontend-packages.html" title="previous chapter">Frontend Packaging</a></li>
-      <li>Next: <a href="github.html" title="next chapter">Github</a></li>
+      <li>Previous: <a href="../services/travis.html" title="previous chapter">Travis CI</a></li>
+      <li>Next: <a href="deployed-systems.html" title="next chapter">Deployed Architecture</a></li>
   </ul></li>
 </ul>
 </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/index.txt"
+      <li><a href="../_sources/deploy/index.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -106,7 +117,7 @@
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="../_sources/services/index.txt"
+      <a href="../_sources/deploy/index.txt"
           rel="nofollow">Page source</a>
     </div>
 

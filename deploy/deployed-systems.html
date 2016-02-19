@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Deployed Architecture &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Deploying Django projects" href="index.html" />
+    <link rel="next" title="Interface between the deploy system and projects" href="system-deploy-interface.html" />
+    <link rel="prev" title="Deploying Django projects" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="deployed-architecture">
+<h1>Deployed Architecture<a class="headerlink" href="#deployed-architecture" title="Permalink to this headline">¶</a></h1>
+<p>Let&#8217;s start with an overview of some typical architectures for
+our deployed sites.</p>
+<p>Note that depending on the expected
+traffic of a site, we might run everything on one
+server, or spread services out onto different servers
+(e.g. web servers, celery workers, database master,
+cache, etc.).</p>
+<div class="section" id="operating-system">
+<h2>Operating system<a class="headerlink" href="#operating-system" title="Permalink to this headline">¶</a></h2>
+<p>Our server operating system of choice is Ubuntu Server LTS.
+For new projects, we&#8217;ll use the most recent LTS release.</p>
+<p>We won&#8217;t necessarily update projects that might be on
+an older LTS release, as long as they&#8217;re still getting
+security updates and we don&#8217;t need some feature that&#8217;s only
+available on a newer release.</p>
+<div class="section" id="system-updates">
+<h3>System updates<a class="headerlink" href="#system-updates" title="Permalink to this headline">¶</a></h3>
+<p>We have started enabling automated updates on some projects
+using Ubuntu&#8217;s support for that. For now we&#8217;re only enabling them for
+security updates, not all software, and we&#8217;re also
+blocking updates for Salt and other packages that can
+be problematic if upgraded without first testing that
+nothing breaks.</p>
+</div>
+<div class="section" id="firewalls">
+<h3>Firewalls<a class="headerlink" href="#firewalls" title="Permalink to this headline">¶</a></h3>
+<p>We use <code class="docutils literal"><span class="pre">ufw</span></code> to manage the firewall on our servers,
+blocking all incoming ports by default and only opening
+ports for the services that server is providing.</p>
+<p>When deploying to AWS, we can go further and set up the
+server security groups so that, for example, only the
+load balancer can connect to our web server ports.</p>
+</div>
+<div class="section" id="system-users">
+<h3>System users<a class="headerlink" href="#system-users" title="Permalink to this headline">¶</a></h3>
+<p>We create a user on each system, named for the project.  We use it to
+run our Django processes and to own files and directories that need to
+be written to at run-time.</p>
+<p>On some projects though, we&#8217;ll create a separate user to run the
+processes. That user only needs write access to the media directory,
+and everything else can be read-only.</p>
+<p>Each developer who is allowed to run deploys has a user account
+on each system, authorized by ssh public key, and enabled for
+passwordless sudo.  The deploy process connects to systems using
+ssh and the developer&#8217;s account, then uses sudo to make updates.</p>
+<p>We typically deploy to Ubuntu, where root by default has no password,
+and we don&#8217;t set one. We also disable ssh&#8217;ing into the systems
+as root. The only way to get root access is to ssh as another
+user and then use sudo.</p>
+</div>
+<div class="section" id="software-installation">
+<h3>Software installation<a class="headerlink" href="#software-installation" title="Permalink to this headline">¶</a></h3>
+<p>For non-Python software, and the Python interpreters, we install using
+<cite>apt</cite> packages, even if we have to add a non-Canonical repository
+in order to get the version we want.  This means we don&#8217;t
+need to worry about configuration, arranging for services to
+run at startup, etc., except where we want to change something
+from the default behavior.</p>
+<p>For Python packages/libraries, we install everything using Pip
+into a virtualenv. We do not try to use the system packages
+for Python packages even if they exist.</p>
+<p>We manage our Django processes (gunicorn, celery beat, celery
+workers) using supervisor. We currently <cite>pip install</cite> supervisor
+systemwide. We might change that soon, as the next Ubuntu LTS
+version appears to have the most recent supervisor included as
+a system package.</p>
+</div>
+</div>
+<div class="section" id="handling-web-requests">
+<h2>Handling web requests<a class="headerlink" href="#handling-web-requests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="load-balancing">
+<h3>Load balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline">¶</a></h3>
+<p>For sites that need load balancing, we typically
+use AWS Elastic Load Balancer. We put the public SSL certificate
+on the load balancers, have ELB accept both port 80 and port 443
+requests, and forward them on the corresponding port to our
+backend servers.</p>
+<p>For sites that force SSL, the backend servers are responsible
+for responding to port 80 requests with a redirect to the SSL
+URL of the site.</p>
+<p>When not on AWS, we&#8217;ve used haproxy for load balancing and
+failover.</p>
+</div>
+<div class="section" id="web-server">
+<h3>Web server<a class="headerlink" href="#web-server" title="Permalink to this headline">¶</a></h3>
+<p>Our servers use <cite>nginx</cite> to receive incoming requests. Requests
+not addressed to a known domain are failed immediately with a
+444 status. Static files are served directly by nginx. Other
+requests are proxied to gunicorn.</p>
+<p>For sites that force SSL, requests to port 80 are redirected to
+the corresponding <code class="docutils literal"><span class="pre">https</span></code> URL by nginx, and nginx adds headers such as
+<code class="docutils literal"><span class="pre">Strict-Transport-Security</span></code>.</p>
+</div>
+<div class="section" id="static-files">
+<h3>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h3>
+<p>For most projects, we serve our static files using Nginx. On
+some, we store static and media files on S3 and let AWS serve
+them.</p>
+<p><a class="reference external" href="https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/">This blog post</a>
+has more details.</p>
+</div>
+<div class="section" id="django-http-service">
+<h3>Django HTTP service<a class="headerlink" href="#django-http-service" title="Permalink to this headline">¶</a></h3>
+<p>Django processes that serve HTTP requests are run using
+gunicorn.  Nginx proxies requests to gunicorn over a local
+TCP or Unix socket.</p>
+</div>
+</div>
+<div class="section" id="asynchronous-work">
+<h2>Asynchronous work<a class="headerlink" href="#asynchronous-work" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="django-workers">
+<h3>Django workers<a class="headerlink" href="#django-workers" title="Permalink to this headline">¶</a></h3>
+<p>For asynchronous work, we use Celery&#8217;s worker daemon.</p>
+</div>
+<div class="section" id="queue">
+<h3>Queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h3>
+<p>We use rabbitmq to queue asynchronous work.</p>
+</div>
+</div>
+<div class="section" id="misc-services">
+<h2>Misc. services<a class="headerlink" href="#misc-services" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="caching">
+<h3>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h3>
+<p>Depending on the project, we might use memcached, redis,
+or both for caching.</p>
+<p>memcached is good for caching responses and data.</p>
+<p>redis is good for a session store, since it&#8217;s fast but
+persistent.</p>
+</div>
+<div class="section" id="database-server">
+<h3>Database server<a class="headerlink" href="#database-server" title="Permalink to this headline">¶</a></h3>
+<p>We always use PostgreSQL as our database. On most sites, we run the
+server on one system. On sites with high load or that need high
+availability, we run replicas on other systems, and can send read-only
+database requests to them to relieve traffic on the master server.</p>
+<p>In some projects, we use Amazon RDS to host the PostgreSQL service.</p>
+</div>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>We are moving toward consolidating all of our logging into the
+local syslog, and then forwarding it to a log monitoring
+service such as Papertrail. That both lets us set up alerts
+that notify us when certain things show up in the logs,
+and to have a central place to go where we can view and
+search all the logs.</p>
+<p>For processes managed by supervisor, we just configure them
+to log to stdout, then have supervisor pass that to syslog.
+For other processes, we either configure them to log to
+syslog, or use rsyslog&#8217;s <cite>imfile</cite> input plugin to monitor
+their text log files and pull them into syslog.</p>
+<p>Then we can configure rsyslog to forward log messages
+to Papertrail.</p>
+</div>
+<div class="section" id="monitoring">
+<h3>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h3>
+<p>Our primary way of monitoring deployed servers is
+New Relic, using the
+<a class="reference external" href="https://docs.newrelic.com/docs/servers/new-relic-servers-linux">New Relic system monitoring agent</a>,
+the <a class="reference external" href="http://newrelic.com/python">Python agent</a>,
+and sometimes the ElasticSearch plugin.</p>
+</div>
+<div class="section" id="email">
+<h3>Email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ll install postfix as a backup for outgoing mail, but usually
+if a project is sending email, we&#8217;ll configure Django to use
+an external SMTP server.</p>
+</div>
+<div class="section" id="node">
+<h3>Node<a class="headerlink" href="#node" title="Permalink to this headline">¶</a></h3>
+<p>For projects that use Node, we currently install v4.2 (LTS) from
+deb.nodesource.com. (The Ubuntu LTS packages are way too
+old.)</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Deployed Architecture</a><ul>
+<li><a class="reference internal" href="#operating-system">Operating system</a><ul>
+<li><a class="reference internal" href="#system-updates">System updates</a></li>
+<li><a class="reference internal" href="#firewalls">Firewalls</a></li>
+<li><a class="reference internal" href="#system-users">System users</a></li>
+<li><a class="reference internal" href="#software-installation">Software installation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#handling-web-requests">Handling web requests</a><ul>
+<li><a class="reference internal" href="#load-balancing">Load balancing</a></li>
+<li><a class="reference internal" href="#web-server">Web server</a></li>
+<li><a class="reference internal" href="#static-files">Static files</a></li>
+<li><a class="reference internal" href="#django-http-service">Django HTTP service</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#asynchronous-work">Asynchronous work</a><ul>
+<li><a class="reference internal" href="#django-workers">Django workers</a></li>
+<li><a class="reference internal" href="#queue">Queue</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#misc-services">Misc. services</a><ul>
+<li><a class="reference internal" href="#caching">Caching</a></li>
+<li><a class="reference internal" href="#database-server">Database server</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
+<li><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li><a class="reference internal" href="#email">Email</a></li>
+<li><a class="reference internal" href="#node">Node</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Deploying Django projects</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Deploying Django projects</a></li>
+      <li>Next: <a href="system-deploy-interface.html" title="next chapter">Interface between the deploy system and projects</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/deploy/deployed-systems.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="../_sources/deploy/deployed-systems.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
