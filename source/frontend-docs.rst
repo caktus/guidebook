@@ -21,44 +21,54 @@ that your comments are as informative and immediately comprehensible as possible
 JSDoc installation and basic setup
 ==================================
 
-JSDoc can be added to an existing project as an npm dependency::
+JSDoc can be added to an existing project as an npm dependency. To take advantage
+of JSDoc 3.4's native support for ECMAScript 2015, install a version of JSDoc
+later than 3.4.0::
 
-    npm install jsdoc --save-dev
+    npm install jsdoc^3.4.0 --save-dev
 
 For most projects, you will want to create a configuration file that will
 tell JSDoc such things as which files to ignore, which plugins to use, etc.
 Full instructions can be found `on the JSDoc site <http://usejsdoc.org/about-configuring-jsdoc.html>`_.
 
-Once the configuration file is set up, you can generate a JSDoc site from your
-JS by running this command::
+One important step is to `create a configuration file <http://usejsdoc.org/about-configuring-jsdoc.html#configuration-file>`_.
+Our recommended practice is to call it ``.jsdoc.json`` and to place it in your root
+project directory (alongside other config files like ``.gitignore``, ``.babelrc``, etc).
+This configuration file specifies the plugins JSDoc will use, among other things.
 
-    node ./node_modules/jsdoc/jsdoc.js -c name-of-config-file.json -r path/to/js -d output/dir
-
-If your project uses ECMAScript 2015 with Babel, you need to use
-the ``jsdoc-babel`` plugin::
-
-    npm install jsdoc@3.3.x jsdoc-babel --save-dev
-
-You will then need to set up your configuration file to include ``jsdoc-babel``::
+In your config file, you can set up the source and destination directories
+that JSDoc will look through as it crawls your JS code and builds the documentation
+site. In projects created with our project template, the source dir will look
+like ``project_name/static/js``; we recommend ``docs/js`` as the output dir.
+You'll also want to enable the ``recurse`` option so that your entire source tree
+will be scanned. If your JavaScript build output is located in the same directory
+as your source, you will also want to throw in an ``excludePattern``. Including
+these gives you a config file like::
 
     {
-      "plugins": ["node_modules/jsdoc-babel"]
+      "source": {
+        "excludePattern": "bundle\\.js",
+        "include": [
+          "project_name/static/js"
+        ]
+      },
+      "opts": {
+        "recurse": true,
+        "destination": "docs/js"
+      }
     }
 
-Assuming Babel is configured properly (i.e. that you have a valid .babelrc
-file tailored to your project's needs), JSDoc should "just work" after the
-Babel plugin is included.
+Once the configuration file is set up, you can generate a JSDoc site from your
+JS by running this command (assuming ``./node_modules/.bin`` is in your
+``$PATH``)::
+
+    jsdoc -c .jsdoc.json
+
+That's it! Your JSDoc documentation will have been deposited in ``./docs/js``.
 
 JSDoc is not a library and doesn't expose a full-featured API. For that
 reason, to use JSDoc from within your build process, it should be treated as
-just another command line program to be run.
-
-In Gulp, for instance, you can run the above command by means of Node's
-``child_process``, like so::
-
-    gulp.task('jsdoc', function (cb) {
-      child_exec('node ./node_modules/jsdoc/jsdoc.js -c ./name-of-config-file.json -r ./path/to/js -d ./output/dir', undefined, cb);
-    });
+just another command line program to be run using Node's ``child_process``.
 
 JSDoc: suggested comment style
 ==============================
@@ -90,36 +100,6 @@ For the full details of what JSDoc is capable of, see `the JSDoc website <http:/
 
 Examples
 ========
-
-Basic configuration file
-------------------------
-
-For an ES6-enabled project using JSX syntax for React components and
-Babel transpilation, a minimal JSDoc configuration file would look
-like this::
-
-    {
-      "plugins": ["node_modules/jsdoc-babel"],
-      "source": {
-        "includePattern": ".+\\.jsx?(doc)?$"
-      }
-    }
-
-The corresponding ``.babelrc`` file would look like this::
-
-    {
-      "presets": ["es2015"],
-      "plugins": [
-        "syntax-jsx",
-        "transform-react-jsx"
-      ]
-    }
-
-Assuming the configuration file is called ``conf.json``, the app's
-code lives in the directory ``./app``, and the desired output directory
-is ``./out``, JSDoc can be called like so::
-
-    node ./node_modules/jsdoc/jsdoc.js -r ./app -c ./conf.json -d ./out
 
 Comment style
 -------------
@@ -174,6 +154,11 @@ an explicit link to its documentation::
     compareMatches (models) {
       this.set('comparing_matches', new PossibleMatchesCollection(models));
     }
+
+**Important**: note that ``@method`` gives the name of the class and the
+method. If you don't do this and just say ``@method`` (which the JSDoc docs
+say you can do), assuming your method is an ECMAScript 2015 class method,
+JSDoc will not generate documentation for your method.
 
 A callback for an event can be documented like this. This doc comment
 indicates that the function is to be used as a callback by declaring
