@@ -63,12 +63,25 @@ and we don't set one. We also disable ssh'ing into the systems
 as root. The only way to get root access is to ssh as another
 user and then use sudo.
 
-Process management
-------------------
+Software installation
+---------------------
+
+For non-Python software, and the Python interpreters, we install using
+`apt` packages, even if we have to add a non-Canonical repository
+in order to get the version we want.  This means we don't
+need to worry about configuration, arranging for services to
+run at startup, etc., except where we want to change something
+from the default behavior.
+
+For Python packages/libraries, we install everything using Pip
+into a virtualenv. We do not try to use the system packages
+for Python packages even if they exist.
 
 We manage our Django processes (gunicorn, celery beat, celery
-workers) using supervisor.
-
+workers) using supervisor. We currently `pip install` supervisor
+systemwide. We might change that soon, as the next Ubuntu LTS
+version appears to have the most recent supervisor included as
+a system package.
 
 Handling web requests
 ~~~~~~~~~~~~~~~~~~~~~
