@@ -5,21 +5,12 @@ Every project needs a source code repository and we usually use Github to host o
 that you'll be creating the repo in the Caktus organization, but the process is the same for any
 other organization... you'll just need the permissions to do so.
 
-#. First, let's set up a new project locally using the Django Project Template:
+#. Once you have your project set up locally, initialize your git repository and commit your files:
 
    .. code-block:: bash
 
-      $ mkvirtualenv -p `which python3` myproject
-      (myproject)$ pip install Django
-      ... Django installs ...
-      (myproject)$ django-admin.py startproject \
-        --template=https://github.com/caktus/django-project-template/zipball/master \
-        --extension=py,rst,yml \
-        --name=Makefile,gulpfile.js,package.json
-        myproject
-      (myproject)$ cd myproject
-      (myproject)~/myproject$ git init
-      (myproject)~/myproject$ git commit -m "Initial project template setup"
+      ~/myproject$ git init
+      ~/myproject$ git commit -m "Initial project setup"
 
 #. You'll need a Github account and your account must have been added to the `Developers
    <https://github.com/orgs/caktus/teams/developers>`_ team in the Caktus organization. Ask another
@@ -43,13 +34,13 @@ other organization... you'll just need the permissions to do so.
 
    .. code-block:: bash
 
-      (myproject)~/myproject$ git remote add origin https://github.com/caktus/myproject.git
-      (myproject)~/myproject$ git push -u origin master
+      ~/myproject$ git remote add origin https://github.com/caktus/myproject.git
+      ~/myproject$ git push -u origin master
 
 #. Review the 'Settings' tab to configure the repository to your preferences:
 
    A. Manage outside collaborators.
-   #. Link Github to other services.
+   #. Link Github to other services (such as HipChat, Travis CI, etc.)
    #. Manage branches. You can set the default branch to 'develop' and enable branch protection
       which can prevent force pushes to certain branches, or require Travis CI to run successfully
       on a PR before it gets merged, for example.
