@@ -204,6 +204,8 @@ Roles:
 
 Pillar configuration:
 
+* ``secrets:DB_PASSWORD`` (string): Password to assign to the project's Postgres user.
+
 The following configuration parameters in postgresql.conf can be
 set by putting a corresponding setting under ``postgresql_config``
 in Pillar:
@@ -305,13 +307,13 @@ project.queue
 Arrange for rabbitmq server to be installed and run.
 
 Create rabbitmq user named ``<project_name>_<environment>``, with
-password BROKER_PASSWORD from secrets.
+password ``BROKER_PASSWORD`` from secrets.
 
 Open the firewall for rabbitmq access to other :ref:`app_minions <minions>` servers.
 
 Pillar configuration:
 
-* ``secrets:BROKER_PASSWORD``: The password to set on the rabbitmq user.
+* ``secrets:BROKER_PASSWORD``: (string) The password to set on the rabbitmq user.
 * ``project_name`` (string)
 
 Dependencies:
@@ -337,6 +339,11 @@ E.g.::
 
     cd /var/www/project
     source/dotenv.sh env/bin/python source/manage.py shell
+
+Note that any pillar variable you create inside the ``env`` dictionary or the ``secrets`` dictionary
+will be added to the ``.env`` file and the ``dotenv.sh`` script. Both gunicorn and celery are
+launched with the ``dotenv.sh`` wrapper, so all of those variables will be available as environment
+variables to all of the web and worker processes.
 
 Pillar configuration:
 
@@ -485,11 +492,16 @@ Dependencies:
 python
 ~~~~~~
 
-Installs the version of python specified in Pillar as
-``python_version``, along with a variety of dev libraries like ``libjpeg8-dev`` that
-are needed to install various Python packages like Pillow, as well
-as setuptools, pip, and virtualenv.  Also makes a few symlinks that
-help with building Pillow on 64bit systems.
+Installs the version of python specified in Pillar as ``python_version``, along with a variety of
+dev libraries like ``libjpeg8-dev`` that are needed to install various Python packages like Pillow,
+as well as setuptools, pip, and virtualenv. You can manually specify additional header packages that
+are needed by adding them as a list in the ``python_headers`` pillar variable. This state also makes
+a few symlinks that help with building Pillow on 64bit systems.
+
+If you are using Python 2.7, you can set ``python_backport`` to ``True`` which will enable the
+Python 2.7.9+ backport for network security enhancements. See
+https://www.python.org/dev/peps/pep-0466/. This setting has no effect if you are not using Python
+2.7.
 
 (If you're wondering why it installs Ghostscript, that too is required
 by some of the imaging tools we sometimes install.)
@@ -497,6 +509,8 @@ by some of the imaging tools we sometimes install.)
 Pillar configuration:
 
 * ``python_version`` (string)
+* ``python_backport`` (boolean)
+* ``python_headers`` (list) List of additional apt packages to be installed.
 
 .. _rabbitmq:
 
