@@ -509,7 +509,7 @@ by some of the imaging tools we sometimes install.)
 Pillar configuration:
 
 * ``python_version`` (string)
-* ``python_backport`` (boolean)
+* ``python_backport`` (Boolean)
 * ``python_headers`` (list) List of additional apt packages to be installed.
 
 .. _rabbitmq:
