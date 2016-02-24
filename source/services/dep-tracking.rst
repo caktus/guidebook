@@ -33,12 +33,12 @@ To add your project to requires.io you'll need to register it, and you can find
       -r <PROJECT_NAME> --private
 
 
-BitBound
+BitHound
 ========
 
-Our Javascript dependencies can be tracked with BitBound.
+Our Javascript dependencies can be tracked with BitHound.
 
-To setup a new project with BitBound, first `log into service <https://www.bithound.io/>`__ with
+To setup a new project with BitHound, first `log into service <https://www.bithound.io/>`__ with
 your Caktus GitHub account. Navigate to your list of repositories by clicking on your avatar in
 the upper right corner and clicking on "Repositories". Click the button labeled "Add Projects",
 which will take you to a list of all organizations you have access to and their repositories.
