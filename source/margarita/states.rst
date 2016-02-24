@@ -544,11 +544,7 @@ No configuration.
 redis-master
 ~~~~~~~~~~~~
 
-Install redis server and make it listen on all interfaces.
-
-Does not open firewall for redis though, since redis has no auth.
-If you need to access redis from other servers, open the firewall
-just for those servers using :ref:`ufw`.
+Install redis server and make it listen on localhost only.
 
 No configuration or dependencies.
 
