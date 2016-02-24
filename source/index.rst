@@ -22,6 +22,7 @@ Contents:
    frontend-packages
    services/index
    deploy/index
+   testing/index
 
 
 Indices and tables
