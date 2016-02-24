@@ -167,6 +167,19 @@ Dependencies:
 
 * :ref:`locale.utf8`
 
+.. _postgresql.client:
+
+postgresql.client
+~~~~~~~~~~~~~~~~~
+
+Install the configured version of the Postgres database client.
+
+Pillar configuration:
+
+* ``postgres_version`` (string): Postgres version to install, e.g. "9.4".
+
+No dependencies.
+
 .. _project.cache:
 
 project.cache
@@ -382,6 +395,9 @@ and install Python requirements listed in
 ``/var/www/<project_name>/source/requirements/dev.txt`` if the
 environment is ``local``, and otherwise from ``production.txt``.
 
+If a New Relic key is configured, ensures the ``newrelic`` agent package
+is installed in the virtual env.
+
 .. note::
 
     This also installs ``ghostscript``, even though :ref:`python` already does that.
@@ -522,6 +538,19 @@ Install rabbitmq and make it run.
 Delete the default ``guest`` rabbitmq user.
 
 No configuration.
+
+.. _redis-master:
+
+redis-master
+~~~~~~~~~~~~
+
+Install redis server and make it listen on all interfaces.
+
+Does not open firewall for redis though, since redis has no auth.
+If you need to access redis from other servers, open the firewall
+just for those servers using :ref:`ufw`.
+
+No configuration or dependencies.
 
 .. _salt.master:
 
