@@ -25,11 +25,11 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="up" title="Margarita" href="margarita.html" />
-    <link rel="next" title="Grains" href="grains.html" />
+    <link rel="next" title="Custom Salt States" href="custom_states.html" />
     <link rel="prev" title="Adding Margarita to a project that uses Salt" href="adding.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -181,6 +181,9 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 </li>
 </ul>
 <p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">secrets:DB_PASSWORD</span></code> (string): Password to assign to the project&#8217;s Postgres user.</li>
+</ul>
 <p>The following configuration parameters in postgresql.conf can be
 set by putting a corresponding setting under <code class="docutils literal"><span class="pre">postgresql_config</span></code>
 in Pillar:</p>
@@ -266,11 +269,11 @@ the Django management tool with the right settings.</p>
 <span id="id19"></span><h3>project.queue<a class="headerlink" href="#project-queue" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for rabbitmq server to be installed and run.</p>
 <p>Create rabbitmq user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;_&lt;environment&gt;</span></code>, with
-password BROKER_PASSWORD from secrets.</p>
+password <code class="docutils literal"><span class="pre">BROKER_PASSWORD</span></code> from secrets.</p>
 <p>Open the firewall for rabbitmq access to other <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a> servers.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">secrets:BROKER_PASSWORD</span></code>: The password to set on the rabbitmq user.</li>
+<li><code class="docutils literal"><span class="pre">secrets:BROKER_PASSWORD</span></code>: (string) The password to set on the rabbitmq user.</li>
 <li><code class="docutils literal"><span class="pre">project_name</span></code> (string)</li>
 </ul>
 <p>Dependencies:</p>
@@ -293,6 +296,10 @@ E.g.:</p>
 source/dotenv.sh env/bin/python source/manage.py shell
 </pre></div>
 </div>
+<p>Note that any pillar variable you create inside the <code class="docutils literal"><span class="pre">env</span></code> dictionary or the <code class="docutils literal"><span class="pre">secrets</span></code> dictionary
+will be added to the <code class="docutils literal"><span class="pre">.env</span></code> file and the <code class="docutils literal"><span class="pre">dotenv.sh</span></code> script. Both gunicorn and celery are
+launched with the <code class="docutils literal"><span class="pre">dotenv.sh</span></code> wrapper, so all of those variables will be available as environment
+variables to all of the web and worker processes.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">github_deploy_key</span></code> (string): Optional, contains text of the Github deploy key
@@ -419,16 +426,22 @@ first.</li>
 </div>
 <div class="section" id="python">
 <span id="id27"></span><h3>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<p>Installs the version of python specified in Pillar as
-<code class="docutils literal"><span class="pre">python_version</span></code>, along with a variety of dev libraries like <code class="docutils literal"><span class="pre">libjpeg8-dev</span></code> that
-are needed to install various Python packages like Pillow, as well
-as setuptools, pip, and virtualenv.  Also makes a few symlinks that
-help with building Pillow on 64bit systems.</p>
+<p>Installs the version of python specified in Pillar as <code class="docutils literal"><span class="pre">python_version</span></code>, along with a variety of
+dev libraries like <code class="docutils literal"><span class="pre">libjpeg8-dev</span></code> that are needed to install various Python packages like Pillow,
+as well as setuptools, pip, and virtualenv. You can manually specify additional header packages that
+are needed by adding them as a list in the <code class="docutils literal"><span class="pre">python_headers</span></code> pillar variable. This state also makes
+a few symlinks that help with building Pillow on 64bit systems.</p>
+<p>If you are using Python 2.7, you can set <code class="docutils literal"><span class="pre">python_backport</span></code> to <code class="docutils literal"><span class="pre">True</span></code> which will enable the
+Python 2.7.9+ backport for network security enhancements. See
+<a class="reference external" href="https://www.python.org/dev/peps/pep-0466/">https://www.python.org/dev/peps/pep-0466/</a>. This setting has no effect if you are not using Python
+2.7.</p>
 <p>(If you&#8217;re wondering why it installs Ghostscript, that too is required
 by some of the imaging tools we sometimes install.)</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">python_version</span></code> (string)</li>
+<li><code class="docutils literal"><span class="pre">python_backport</span></code> (Boolean)</li>
+<li><code class="docutils literal"><span class="pre">python_headers</span></code> (list) List of additional apt packages to be installed.</li>
 </ul>
 </div>
 <div class="section" id="rabbitmq">
@@ -632,7 +645,7 @@ can still login and do things as root.</p>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="margarita.html">Margarita</a><ul>
       <li>Previous: <a href="adding.html" title="previous chapter">Adding Margarita to a project that uses Salt</a></li>
-      <li>Next: <a href="grains.html" title="next chapter">Grains</a></li>
+      <li>Next: <a href="custom_states.html" title="next chapter">Custom Salt States</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -665,8 +678,8 @@ can still login and do things as root.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="../_sources/margarita/states.txt"
