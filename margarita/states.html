@@ -29,7 +29,7 @@
     <link rel="prev" title="Adding Margarita to a project that uses Salt" href="adding.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">  
@@ -153,8 +153,17 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <li><a class="reference internal" href="#locale-utf8"><span>locale.utf8</span></a></li>
 </ul>
 </div>
+<div class="section" id="postgresql-client">
+<span id="id14"></span><h3>postgresql.client<a class="headerlink" href="#postgresql-client" title="Permalink to this headline">¶</a></h3>
+<p>Install the configured version of the Postgres database client.</p>
+<p>Pillar configuration:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. &#8220;9.4&#8221;.</li>
+</ul>
+<p>No dependencies.</p>
+</div>
 <div class="section" id="project-cache">
-<span id="id14"></span><h3>project.cache<a class="headerlink" href="#project-cache" title="Permalink to this headline">¶</a></h3>
+<span id="id15"></span><h3>project.cache<a class="headerlink" href="#project-cache" title="Permalink to this headline">¶</a></h3>
 <p>Open the firewall for memcached from <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
 <p>Dependency on <a class="reference internal" href="#memcached"><span>memcached</span></a> state will also ensure memcached is installed.</p>
 <p>Dependencies:</p>
@@ -165,7 +174,7 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <p>No configuration.</p>
 </div>
 <div class="section" id="project-db">
-<span id="id15"></span><h3>project.db<a class="headerlink" href="#project-db" title="Permalink to this headline">¶</a></h3>
+<span id="id16"></span><h3>project.db<a class="headerlink" href="#project-db" title="Permalink to this headline">¶</a></h3>
 <p>Sets up a project user and database in Postgres.</p>
 <p>Updates Postgres server config to accept connections from
 <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
@@ -213,7 +222,7 @@ unless the role is <code class="docutils literal"><span class="pre">db-master</s
 </ul>
 </div>
 <div class="section" id="project-devs">
-<span id="id16"></span><h3>project.devs<a class="headerlink" href="#project-devs" title="Permalink to this headline">¶</a></h3>
+<span id="id17"></span><h3>project.devs<a class="headerlink" href="#project-devs" title="Permalink to this headline">¶</a></h3>
 <p>Create local users on the server and give them ssh access.</p>
 <p>Pillar configuration:</p>
 <p>Create a <code class="docutils literal"><span class="pre">users</span></code> dictionary in the pillar. Each dictionary key
@@ -236,7 +245,7 @@ public key file, one long line.)  E.g.:</p>
 </ul>
 </div>
 <div class="section" id="project-dirs">
-<span id="id17"></span><h3>project.dirs<a class="headerlink" href="#project-dirs" title="Permalink to this headline">¶</a></h3>
+<span id="id18"></span><h3>project.dirs<a class="headerlink" href="#project-dirs" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for the project&#8217;s main directories to be created, e.g.
 <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;</span></code>,
 <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/log</span></code>,
@@ -253,7 +262,7 @@ public key file, one long line.)  E.g.:</p>
 </ul>
 </div>
 <div class="section" id="project-django">
-<span id="id18"></span><h3>project.django<a class="headerlink" href="#project-django" title="Permalink to this headline">¶</a></h3>
+<span id="id19"></span><h3>project.django<a class="headerlink" href="#project-django" title="Permalink to this headline">¶</a></h3>
 <p>Creates a <code class="docutils literal"><span class="pre">manage.sh</span></code> file in the project directory that invokes
 the Django management tool with the right settings.</p>
 <p>Depends on other sls files that also do Django-related setup.</p>
@@ -266,7 +275,7 @@ the Django management tool with the right settings.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="project-queue">
-<span id="id19"></span><h3>project.queue<a class="headerlink" href="#project-queue" title="Permalink to this headline">¶</a></h3>
+<span id="id20"></span><h3>project.queue<a class="headerlink" href="#project-queue" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for rabbitmq server to be installed and run.</p>
 <p>Create rabbitmq user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;_&lt;environment&gt;</span></code>, with
 password <code class="docutils literal"><span class="pre">BROKER_PASSWORD</span></code> from secrets.</p>
@@ -283,7 +292,7 @@ password <code class="docutils literal"><span class="pre">BROKER_PASSWORD</span>
 </ul>
 </div>
 <div class="section" id="project-repo">
-<span id="id20"></span><h3>project.repo<a class="headerlink" href="#project-repo" title="Permalink to this headline">¶</a></h3>
+<span id="id21"></span><h3>project.repo<a class="headerlink" href="#project-repo" title="Permalink to this headline">¶</a></h3>
 <p>Checks out the appropriate version of the project source code to
 <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source</span></code>.  Or if environment is <code class="docutils literal"><span class="pre">local</span></code>,
 rsyncs from the current local directory to the source dir on vagrant.</p>
@@ -317,7 +326,7 @@ to use to access the repository.</li>
 </ul>
 </div>
 <div class="section" id="project-user">
-<span id="id21"></span><h3>project.user<a class="headerlink" href="#project-user" title="Permalink to this headline">¶</a></h3>
+<span id="id22"></span><h3>project.user<a class="headerlink" href="#project-user" title="Permalink to this headline">¶</a></h3>
 <p>Create a local user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;</span></code> and add it to the
 <code class="docutils literal"><span class="pre">www-data</span></code> group.</p>
 <p>Pillar configuration:</p>
@@ -326,11 +335,13 @@ to use to access the repository.</li>
 </ul>
 </div>
 <div class="section" id="project-venv">
-<span id="id22"></span><h3>project.venv<a class="headerlink" href="#project-venv" title="Permalink to this headline">¶</a></h3>
+<span id="id23"></span><h3>project.venv<a class="headerlink" href="#project-venv" title="Permalink to this headline">¶</a></h3>
 <p>Create a virtualenv for the project (at <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/env</span></code>)
 and install Python requirements listed in
 <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source/requirements/dev.txt</span></code> if the
 environment is <code class="docutils literal"><span class="pre">local</span></code>, and otherwise from <code class="docutils literal"><span class="pre">production.txt</span></code>.</p>
+<p>If a New Relic key is configured, ensures the <code class="docutils literal"><span class="pre">newrelic</span></code> agent package
+is installed in the virtual env.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This also installs <code class="docutils literal"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span>python</span></a> already does that.
@@ -349,7 +360,7 @@ We should fix that.</p>
 </ul>
 </div>
 <div class="section" id="project-web-app">
-<span id="id23"></span><h3>project.web.app<a class="headerlink" href="#project-web-app" title="Permalink to this headline">¶</a></h3>
+<span id="id24"></span><h3>project.web.app<a class="headerlink" href="#project-web-app" title="Permalink to this headline">¶</a></h3>
 <p>Arranges for gunicorn to run the Django server, and for running deploy-time
 commands like <code class="docutils literal"><span class="pre">collectstatic</span></code> and <code class="docutils literal"><span class="pre">migrate</span></code>.</p>
 <p>Pillar configuration:</p>
@@ -369,7 +380,7 @@ commands like <code class="docutils literal"><span class="pre">collectstatic</sp
 </ul>
 </div>
 <div class="section" id="project-web-balancer">
-<span id="id24"></span><h3>project.web.balancer<a class="headerlink" href="#project-web-balancer" title="Permalink to this headline">¶</a></h3>
+<span id="id25"></span><h3>project.web.balancer<a class="headerlink" href="#project-web-balancer" title="Permalink to this headline">¶</a></h3>
 <p>Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.</p>
 <p>If either a key or certificate are not provided, will generate and use
@@ -396,7 +407,7 @@ first.</li>
 </ul>
 </div>
 <div class="section" id="project-worker-beat">
-<span id="id25"></span><h3>project.worker.beat<a class="headerlink" href="#project-worker-beat" title="Permalink to this headline">¶</a></h3>
+<span id="id26"></span><h3>project.worker.beat<a class="headerlink" href="#project-worker-beat" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for <code class="docutils literal"><span class="pre">celery</span> <span class="pre">beat</span></code> service to run for the project via supervisor.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
@@ -410,7 +421,7 @@ first.</li>
 </ul>
 </div>
 <div class="section" id="project-worker-default">
-<span id="id26"></span><h3>project.worker.default<a class="headerlink" href="#project-worker-default" title="Permalink to this headline">¶</a></h3>
+<span id="id27"></span><h3>project.worker.default<a class="headerlink" href="#project-worker-default" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
@@ -425,7 +436,7 @@ first.</li>
 </ul>
 </div>
 <div class="section" id="python">
-<span id="id27"></span><h3>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<span id="id28"></span><h3>python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>Installs the version of python specified in Pillar as <code class="docutils literal"><span class="pre">python_version</span></code>, along with a variety of
 dev libraries like <code class="docutils literal"><span class="pre">libjpeg8-dev</span></code> that are needed to install various Python packages like Pillow,
 as well as setuptools, pip, and virtualenv. You can manually specify additional header packages that
@@ -445,13 +456,18 @@ by some of the imaging tools we sometimes install.)</p>
 </ul>
 </div>
 <div class="section" id="rabbitmq">
-<span id="id28"></span><h3>rabbitmq<a class="headerlink" href="#rabbitmq" title="Permalink to this headline">¶</a></h3>
+<span id="id29"></span><h3>rabbitmq<a class="headerlink" href="#rabbitmq" title="Permalink to this headline">¶</a></h3>
 <p>Install rabbitmq and make it run.</p>
 <p>Delete the default <code class="docutils literal"><span class="pre">guest</span></code> rabbitmq user.</p>
 <p>No configuration.</p>
 </div>
+<div class="section" id="redis-master">
+<span id="id30"></span><h3>redis-master<a class="headerlink" href="#redis-master" title="Permalink to this headline">¶</a></h3>
+<p>Install redis server and make it listen on localhost only.</p>
+<p>No configuration or dependencies.</p>
+</div>
 <div class="section" id="salt-master">
-<span id="id29"></span><h3>salt.master<a class="headerlink" href="#salt-master" title="Permalink to this headline">¶</a></h3>
+<span id="id31"></span><h3>salt.master<a class="headerlink" href="#salt-master" title="Permalink to this headline">¶</a></h3>
 <p>Opens ports 4505 and 4506.</p>
 <p>Dependencies:</p>
 <ul class="simple">
@@ -460,12 +476,12 @@ by some of the imaging tools we sometimes install.)</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="solr">
-<span id="id30"></span><h3>solr<a class="headerlink" href="#solr" title="Permalink to this headline">¶</a></h3>
+<span id="id32"></span><h3>solr<a class="headerlink" href="#solr" title="Permalink to this headline">¶</a></h3>
 <p>Installs <code class="docutils literal"><span class="pre">openjdk-7-jre-headless</span></code>.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="solr-project">
-<span id="id31"></span><h3>solr.project<a class="headerlink" href="#solr-project" title="Permalink to this headline">¶</a></h3>
+<span id="id33"></span><h3>solr.project<a class="headerlink" href="#solr-project" title="Permalink to this headline">¶</a></h3>
 <p>Installs Solr and copies the default stopwords file into its
 configuration.</p>
 <p>Does not appear to arrange to run it.</p>
@@ -476,7 +492,7 @@ configuration.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="sshd">
-<span id="id32"></span><h3>sshd<a class="headerlink" href="#sshd" title="Permalink to this headline">¶</a></h3>
+<span id="id34"></span><h3>sshd<a class="headerlink" href="#sshd" title="Permalink to this headline">¶</a></h3>
 <p>Install and run openssh client and server.</p>
 <p>Configure ssh server, disabling root login, and restricting access
 so only users in the <code class="docutils literal"><span class="pre">login</span></code> group may ssh into the server.</p>
@@ -489,12 +505,12 @@ so only users in the <code class="docutils literal"><span class="pre">login</spa
 <p>No configuration.</p>
 </div>
 <div class="section" id="sshd-github">
-<span id="id33"></span><h3>sshd.github<a class="headerlink" href="#sshd-github" title="Permalink to this headline">¶</a></h3>
+<span id="id35"></span><h3>sshd.github<a class="headerlink" href="#sshd-github" title="Permalink to this headline">¶</a></h3>
 <p>Add <code class="docutils literal"><span class="pre">github.com</span></code> to the system known hosts file.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="statsd">
-<span id="id34"></span><h3>statsd<a class="headerlink" href="#statsd" title="Permalink to this headline">¶</a></h3>
+<span id="id36"></span><h3>statsd<a class="headerlink" href="#statsd" title="Permalink to this headline">¶</a></h3>
 <p>Install statsd and provide basic default configuration, arranging
 for it to run on startup.</p>
 <p>Dependencies:</p>
@@ -505,7 +521,7 @@ for it to run on startup.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="syslog">
-<span id="id35"></span><h3>syslog<a class="headerlink" href="#syslog" title="Permalink to this headline">¶</a></h3>
+<span id="id37"></span><h3>syslog<a class="headerlink" href="#syslog" title="Permalink to this headline">¶</a></h3>
 <p>Arrange to install rsyslog v8.5 or later.</p>
 <p>Configure it to load the <cite>imfile</cite> module so that other states
 can add rsyslog config files to tell rsyslog to monitor plain
@@ -513,14 +529,14 @@ text log files.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="sudo">
-<span id="id36"></span><h3>sudo<a class="headerlink" href="#sudo" title="Permalink to this headline">¶</a></h3>
+<span id="id38"></span><h3>sudo<a class="headerlink" href="#sudo" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for sudo service to run.</p>
 <p>Update the <code class="docutils literal"><span class="pre">sudoers</span></code> config file to let users in group <code class="docutils literal"><span class="pre">admin</span></code>
 do anything without a password.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="supervisor">
-<span id="id37"></span><h3>supervisor<a class="headerlink" href="#supervisor" title="Permalink to this headline">¶</a></h3>
+<span id="id39"></span><h3>supervisor<a class="headerlink" href="#supervisor" title="Permalink to this headline">¶</a></h3>
 <div class="deprecated">
 <p><span class="versionmodified">Deprecated since version forever: </span>Use <code class="docutils literal"><span class="pre">supervisor.pip</span></code> instead.</p>
 </div>
@@ -528,18 +544,18 @@ do anything without a password.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="supervisor-pip">
-<span id="id38"></span><h3>supervisor.pip<a class="headerlink" href="#supervisor-pip" title="Permalink to this headline">¶</a></h3>
+<span id="id40"></span><h3>supervisor.pip<a class="headerlink" href="#supervisor-pip" title="Permalink to this headline">¶</a></h3>
 <p>Install and run supervisor after installing it globally using
 <code class="docutils literal"><span class="pre">pip</span></code>, first uninstalling the packaged supervisor if necessary.</p>
 </div>
 <div class="section" id="ufw">
-<span id="id39"></span><h3>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h3>
+<span id="id41"></span><h3>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h3>
 <p>Install the <code class="docutils literal"><span class="pre">ufw</span></code> firewall package and set it to deny access
 by default.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="unattended-upgrades">
-<span id="id40"></span><h3>unattended_upgrades<a class="headerlink" href="#unattended-upgrades" title="Permalink to this headline">¶</a></h3>
+<span id="id42"></span><h3>unattended_upgrades<a class="headerlink" href="#unattended-upgrades" title="Permalink to this headline">¶</a></h3>
 <p>Arrange for <code class="docutils literal"><span class="pre">apt</span></code> to install security updates weekly and
 notify someone of the results.</p>
 <p>Regardless of the configuration, will never update any <code class="docutils literal"><span class="pre">salt-*</span></code>
@@ -558,12 +574,12 @@ that match package names.</li>
 </ul>
 </div>
 <div class="section" id="users-groups">
-<span id="id41"></span><h3>users.groups<a class="headerlink" href="#users-groups" title="Permalink to this headline">¶</a></h3>
+<span id="id43"></span><h3>users.groups<a class="headerlink" href="#users-groups" title="Permalink to this headline">¶</a></h3>
 <p>Create system user groups named <code class="docutils literal"><span class="pre">admin</span></code> and <code class="docutils literal"><span class="pre">login</span></code>.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="vagrant-user">
-<span id="id42"></span><h3>vagrant.user<a class="headerlink" href="#vagrant-user" title="Permalink to this headline">¶</a></h3>
+<span id="id44"></span><h3>vagrant.user<a class="headerlink" href="#vagrant-user" title="Permalink to this headline">¶</a></h3>
 <p>Add the <code class="docutils literal"><span class="pre">vagrant</span></code> user to the <code class="docutils literal"><span class="pre">admin</span></code> and <code class="docutils literal"><span class="pre">login</span></code> groups so that
 with our updated configuration for <code class="docutils literal"><span class="pre">ssh</span></code> and <code class="docutils literal"><span class="pre">sudo</span></code>, the vagrant user
 can still login and do things as root.</p>
@@ -574,7 +590,7 @@ can still login and do things as root.</p>
 <p>No configuration.</p>
 </div>
 <div class="section" id="version-control">
-<span id="id43"></span><h3>version-control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
+<span id="id45"></span><h3>version-control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
 <p>Install git, mercurial, and subversion.</p>
 <p>No configuration.</p>
 </div>
@@ -604,6 +620,7 @@ can still login and do things as root.</p>
 <li><a class="reference internal" href="#nodejs">nodejs</a></li>
 <li><a class="reference internal" href="#postfix">postfix</a></li>
 <li><a class="reference internal" href="#postgresql">postgresql</a></li>
+<li><a class="reference internal" href="#postgresql-client">postgresql.client</a></li>
 <li><a class="reference internal" href="#project-cache">project.cache</a></li>
 <li><a class="reference internal" href="#project-db">project.db</a></li>
 <li><a class="reference internal" href="#project-devs">project.devs</a></li>
@@ -619,6 +636,7 @@ can still login and do things as root.</p>
 <li><a class="reference internal" href="#project-worker-default">project.worker.default</a></li>
 <li><a class="reference internal" href="#python">python</a></li>
 <li><a class="reference internal" href="#rabbitmq">rabbitmq</a></li>
+<li><a class="reference internal" href="#redis-master">redis-master</a></li>
 <li><a class="reference internal" href="#salt-master">salt.master</a></li>
 <li><a class="reference internal" href="#solr">solr</a></li>
 <li><a class="reference internal" href="#solr-project">solr.project</a></li>
@@ -678,8 +696,8 @@ can still login and do things as root.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
       <a href="../_sources/margarita/states.txt"
