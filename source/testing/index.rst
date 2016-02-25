@@ -81,7 +81,7 @@ Test the failure cases
 Don't just test that the code works when everything is fine.
 Verify that it does something sane when problems occur.
 
-If you're testing an API, give it invalid areguments. If you're
+If you're testing an API, give it invalid arguments. If you're
 testing a form submission, provide bad input and make sure the
 followup page has the right error messages. If you have code that
 sends email, what happens if the mail server is temporarily
@@ -120,15 +120,44 @@ If you find yourself doing a lot of refactoring, building utility
 libraries, etc, the tests might be overdesigned. See if they can
 be simplified.  Of course, that's not always possible.
 
-Keep in mind that common code can easily be moved to `setUp`
-and `tearDown`, but also remember that `tearDown` only runs if
-the test is successful.
+Keep in mind that common code can easily be moved to ``setUp``
+and ``tearDown``.
 
 Also take a look at
 `subtests <https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests>`_,
 which are new in unittest with Python 3.4. They make it easy to run the same
 test over a list of data and provide a useful result if some data passes
 and other data fails.
+
+Clean up files after tests
+++++++++++++++++++++++++++
+
+Unlike database changes, changes to files on the test system are
+not automatically cleaned up after a test.
+
+If your test is creating files explicitly, it's not hard
+to clean up in the ``tearDown`` method. But when testing things
+like file uploads, Django is creating files that your test is
+not directly aware of. You might want to use a custom
+test runner to set up a temporary media directory when testing starts
+and clean it up when done. See
+`MEDIA_ROOT and Django Tests <https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/>`_
+
+Debugging when tests fail
++++++++++++++++++++++++++
+
+When a test assertion fails, sometimes it's not obvious why. Most
+assertion methods have an optional argument you can use to add output
+when the assertion fails. For example::
+
+    self.assertTrue(form.is_valid(), form.errors)
+
+will not only assert that your form is valid, but print the errors as
+part of the failure message if it's not.
+
+I wouldn't spend the time to add this kind of failure output to every assertion,
+but it can be incredibly useful to add this temporarily when a test is failing
+mysteriously.
 
 Bug fixes and testing
 +++++++++++++++++++++
@@ -166,6 +195,7 @@ If tests seem to be taking too long, here are some things to look for:
 * Use `subtests <https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests>`_
   in Python 3.4+ to run many similar tests with a single setup and teardown.
 * Mock out expensive processing that isn't the actual behavior being tested.
+* See if you can move logic out of views and test it without having to call the views.
 * Keep the size of test data to the minimum needed for the test.
 * Model methods can sometimes be tested without ever saving the model instance
   to the database.
@@ -174,6 +204,10 @@ If tests seem to be taking too long, here are some things to look for:
   when testing.
 * Use Continuous Integration to automatically run the whole test suite when changes are
   made, even if developers might have skipped it.
+* In Django 1.8 and up, consider using
+  `setUpTestData <https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.TestCase.setUpTestData>`_
+  to set up your test data for an entire TestCase class one time.  Just be very careful not to
+  modify any of that data during the tests.
 
 Specific Cases
 ~~~~~~~~~~~~~~
@@ -217,6 +251,13 @@ References:
 
 * `Django: Writing and running tests <https://docs.djangoproject.com/en/stable/topics/testing/overview/#module-django.test.client>`_
 
+Testing forms
++++++++++++++
+
+Testing views will inherently test some of your forms, but it's an expensive
+way to do it. It's much better to do the thorough testing of your forms using
+separate tests.
+
 How to test database behaviors
 ++++++++++++++++++++++++++++++
 
@@ -230,10 +271,11 @@ work on a real database, because some behaviors can only be replicated
 accurately with a full round trip of the SQL.
 
 The Django test runner provides facilities that create a new database
-just for the testsand run migrations to create all the tables your
-applications need, and your test suites can create and remove test
-data in their ``setUp`` and ``tearDown`` methods. This can be
-invaluable, but also comes at a cost in test run time.
+just for the tests and run migrations to create all the tables your
+applications need. Your tests can create and remove test
+data in their ``setUp`` and ``tearDown`` methods, and at the end of
+each test, the runner will roll back all database changes that the test
+made. This can be invaluable, but also comes at a cost in test run time.
 
 Inheriting from ``django.test.TestCase`` will run your tests in a
 database transaction, and require the test database building, in order
@@ -273,52 +315,12 @@ References:
   out-of-date with behavior of current versions of Django (1.9 as I write this), so
   skip ahead to slide 13 and continue from there.
 
-How to test Django template tags
-++++++++++++++++++++++++++++++++
+Testing Django template tags
+++++++++++++++++++++++++++++
 
-Testing template tags is an often overlooked and difficult aspect of
-testing in Django apps, but if you break up the logic right, you can
-actually test your custom tags easily.
-
-As an example, testing separately the parsing of a tag::
-
-    @patch('django.template.Variable')
-    def test_tag(self, Variable):
-        parser = Mock()
-        token = Mock(methods=['split_contents'])
-
-        token.split_contents.return_value = (
-            'link_to_email', 'bob@company.com')
-        node = LinkToEmail.tag(parser, token)
-
-        self.assertEqual(node.email, Variable.return_value)
-        assert not node.obfuscate
-
-And the rendering of the tag as a second test::
-
-    class ContextMock(dict):
-        autoescape = object()
-
-    @patch('django.template.loader.get_template')
-    @patch('django.template.Context')
-    def test_link_to_email_render(self, get_template, Context):
-        template = get_template.return_value
-        node = LinkToEmail(obfuscate=False, email=Mock())
-        node.email.resolve.return_value = 'bob@company.com'
-
-        context = ContextMock({
-            'email': Mock(),
-            'obfuscate': Mock(),
-        })
-
-        node.render(context)
-        template.render.assert_called_with(context.return_value)
-
-        args, kwargs = context.call_args
-        assert kwargs['autoescape'] is context.autoescape
-        assert args[0]['email'] is context['email']
-        assert args[0]['obfuscate'] is context['obfuscate']
-
+It's easy to overlook testing any custom template tags in the project,
+but they need to be tested too.  These references go into detail
+about how to test template tags.
 
 References:
 
@@ -348,6 +350,7 @@ Good things to mock include:
 * 3rd party libraries
 * Other applications
 * Routines depending on the time of day
+* Logging (at least to test that it is happening correctly)
 
 Similar to mocking, you can override Django settings for a single test
 or test case using the
@@ -397,6 +400,30 @@ which will arrange for a real HTTP server to be running for the test browser to 
 requests to.  Follow that link for a complete example of writing a Django test
 using Selenium.
 
+Testing management commands
++++++++++++++++++++++++++++
+
+Don't overlook testing your management commands. You can call them from tests using
+`call_command() <https://docs.djangoproject.com/en/stable/topics/testing/tools/#topics-testing-management-commands>`_.
+
+Keep in mind that the logic for a management command doesn't need to live in the
+command's handler method. I often write a utility method that's part of the
+project, and then the management command just calls it. That kind of management
+command hardly needs testing, so long as the underlying utility is well tested.
+
+Testing migrations
+++++++++++++++++++
+
+Do migrations need to be tested? Sometimes. Your typical "add another field" migration
+probably doesn't need testing. But data migrations do need to be tested. One approach
+is to migrate back to the migration preceding the migration we want to test, set up
+some data, migrate forward to the migration under test, then verify the data has
+been migrated correctly.
+
+Here's a blog post with code and more detailed explanations:
+
+`Testing Django Migrations <https://www.caktusgroup.com/blog/2016/02/02/writing-unit-tests-django-migrations/>`_.
+
 Running tests
 -------------
 
@@ -435,10 +462,6 @@ there are changes.
 See http://caktus.github.io/developer-documentation/services/travis.html
 for help using Travis CI with Caktus Django projects.
 
-References:
-
-* `unittest-xml-reporting <https://pypi.python.org/pypi/unittest-xml-reporting/>`_
-
 Coverage
 --------
 
@@ -454,25 +477,7 @@ your current coverage rating and set this as a requirement for any new
 code -- no change is allowed which reduces test coverage. Over time,
 you'll your project’s code coverage to a reasonable level.
 
-As one example of how to use this, the `django_nose` project includes
-simple settings in your Django project to enable running all your
-tests through coverage and generating reports for you automatically::
-
-    INSTALLED_APPS = (
-        # ...
-        'django_nose',
-    )
-
-    # Use nose to run all tests
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-    # Tell nose to measure coverage on the 'foo' and 'bar' apps
-    NOSE_ARGS = [
-        '--with-coverage',
-        '--cover-package=foo,bar',
-    ]
-
-Another approach is to use a script to run your tests::
+An easy approach is to use a script to run your tests::
 
     #!/usr/bin/env bash
     set -e
@@ -482,10 +487,9 @@ Another approach is to use a script to run your tests::
     coverage run manage.py test --keepdb "$@"
     coverage report -m --fail-under 80
 
-
-Coverage is often combined with CI tools to require that builds meet
-certain coverage requirements in order to succeed, or in order to
-merge branches.
+Notice the ``--fail-under 80`` when generating the coverage report,
+which will fail the test if coverage drops below 80%. That number can
+be gradually increased over the life of the project.
 
 References:
 
