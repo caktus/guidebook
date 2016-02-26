@@ -269,13 +269,13 @@ Find the ``ALLOWED_HOSTS`` setting (probably in ``staging.py``) and change it to
 Frontend Improvements
 ---------------------
 
-Prepare for Calvin's frontend improvements. Add a *dummy* ``package.json`` which can be updated
-later. Until it is updated, the frontend improvements won't take effect:
+Prepare for Calvin's frontend improvements. Add a *dummy* ``package.json`` in the top level of the
+repo which can be updated later. Until it is updated, the frontend improvements won't take effect:
 
 .. code-block:: json
 
    {
-     "name": "",
+     "name": "myproject",
      "version": "0.0.0",
      "description": "",
      "main": "",
@@ -301,7 +301,8 @@ you should be able to get a server upgraded, but they **will** have to be done a
 1. Port any useful functions in ``fabfile.py.old`` to the new fabfile, then remove the old one.
 
 #. Get a copy of the ``Makefile`` from the project template, porting any functions in your existing
-   one to the new one, if needed.
+   one to the new one, if needed. Replace any instance of ``{{ project_name }}`` in the Makefile
+   with your actual project name (e.g. ``myproject``).
 
 #. Review everything in ``salt.old`` to see which pieces are specific to your project and need to
    be added back into salt. If any of it is generally useful (i.e. setting up a service that
@@ -343,16 +344,12 @@ Vagrant Smoke Test
 Now, we're going to create a fresh Vagrant VM just to make sure that our current repository deploys
 correctly.
 
-#. Edit ``conf/pillar/local/env.sls`` to look like this:
+#. Edit ``conf/pillar/local.sls`` to look like this:
 
    .. code-block:: yaml
 
       environment: local
       domain: margarita.example.com
-
-#. Edit ``conf/pillar/local/secrets.sls`` to look like this:
-
-   .. code-block:: yaml
 
       secrets:
         DB_PASSWORD: "dbPassword"
@@ -575,7 +572,7 @@ we're not sure.
 * ``newrelic_license_key`` must be capitalized. Some projects have a secret for
   ``newrelic_license_key``, but the current margarita uses ``NEW_RELIC_LICENSE_KEY``
 
-* NewRelic settings may need adjusting, which you can do via environment variables (see
+* New Relic settings may need adjusting, which you can do via environment variables (see
   other documentation in this repo for details).
 
 * If you get timeout errors during the first deploy, it may be because of a few different issues.
