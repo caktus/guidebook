@@ -28,7 +28,7 @@
     <link rel="prev" title="Developer Machine Setup" href="dev-setup.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -80,7 +80,7 @@ In git, you can create a branch, switch to it, and pick its parent branch all at
 just created, and also may forget where they were before they cut a new branch. Both of these human
 errors might cause merge headaches later.  You are allowed to create a feature branch from another
 feature branch instead of <code class="docutils literal"><span class="pre">develop</span></code>, if you are comfortable with the parent branch and have a reason
-to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal"><span class="pre">develop</span></code> or deleted.</p>
+to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal"><span class="pre">develop</span></code> or be deleted.</p>
 <p>It&#8217;s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ git checkout -b 42-my-new-feature develop
 </pre></div>
@@ -132,10 +132,10 @@ $ git merge --no-ff 42-my-new-feature
 <p class="first admonition-title">Note</p>
 <p class="last">The use of the <code class="docutils literal"><span class="pre">--no-ff</span></code> flag is not explicitly required. This flag ensures that the merge commit
 is created when merging the branch. Having a single merge commit makes it easier to rollback
-the entire branch of changes if needed. This alse has the advantage of preserving the branch information
+the entire branch of changes if needed. This also has the advantage of preserving the branch information
 in the merge commit message which would otherwise be lost when the branch is deleted and
 replicates the merge behavior if the PR is merged in the Github UI. However, some projects might
-prefer to keep a cleaner history by excluding the merge commits. That is ok as well as the developers
+prefer to keep a cleaner history by excluding the merge commits. That is ok as long as the developers
 are in agreement and understand the trade-offs.</p>
 </div>
 </div>
@@ -288,8 +288,8 @@ $ git push origin develop --tags
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/branching.txt"

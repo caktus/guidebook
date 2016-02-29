@@ -50,10 +50,10 @@ We also store each of these separate Postgres user's credentials in Lastpass
 in a shared folder associated with the corresponding client and
 project.
 
-If a single site/project uses multiple databases, it is up the developers' discretion
-whether to set up multiple users or a single user. However, using multiple users from
-the same site does not appear to add any security over using a single user, since all
-the credentials in use will be available on the servers.
+If a single site/project uses multiple databases, it is up to the developers'
+discretion whether to set up multiple users or a single user. However, using
+multiple users from the same site does not appear to add any security over using a
+single user, since all the credentials in use will be available on the servers.
 
 Security and access to RDS servers
 ----------------------------------
