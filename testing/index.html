@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="prev" title="Interface between the deploy system and projects" href="../deploy/system-deploy-interface.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>Best practices for testing Django projects</p>
+<div class="section" id="writing-tests">
+<h2>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="principles">
+<h3>Principles<a class="headerlink" href="#principles" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="small-well-defined-applications">
+<h4>Small, well-defined applications<a class="headerlink" href="#small-well-defined-applications" title="Permalink to this headline">¶</a></h4>
+<p>Small applications lend themselves to more coherent test suites. When
+each application solves a specific problem, you can verify it&#8217;s done
+correctly with a smaller set of specific tests across that
+application. A large monolithic app is much harder to test, as it
+makes the lines between components less defined and the interactions
+you need to test much harder to understand.</p>
+<p>Each Django application should solve a specific problem and have well
+defined boundaries. We can test those boundaries, and this helps us
+both define what any one application is responsible for and also to
+know what we need to test within it.</p>
+<p>Application boundaries exist as many things:</p>
+<ul class="simple">
+<li>URLs handled by the application</li>
+<li>The views mapped by those URLs and the different ways they could be hit</li>
+<li>Public methods on Manager and Model classes</li>
+<li>Template tags</li>
+<li>Utility functions</li>
+<li>Application-specific Settings</li>
+</ul>
+<p>It usually makes sense to roughly group these different kinds of
+boundaries into different sets of test cases for each application.</p>
+</div>
+<div class="section" id="unit-tests-versus-functional-or-integration-tests">
+<h4>Unit tests versus functional or integration tests<a class="headerlink" href="#unit-tests-versus-functional-or-integration-tests" title="Permalink to this headline">¶</a></h4>
+<p>A <cite>unit test</cite> validates one small, specific, isolated behavior - the smaller
+the better.  For example, if you were testing the <code class="docutils literal"><span class="pre">sum</span></code> built-in function,
+you might write a series of unit tests that pass in different arguments and
+see what the result is.</p>
+<p>A <cite>functional</cite> or <cite>integration</cite> test validates a higher-level behavior,
+often something visible to a user. For example, you might test that
+after a user has voted on an issue, they are not allowed to vote again.</p>
+<p>Both kinds of tests are important and should be included.
+But it&#8217;s important to be aware when writing a test whether it&#8217;s supposed to
+be a unit test or functional test. Tests that are hybrids of the two types
+tend not to be very good at either role.</p>
+</div>
+<div class="section" id="coding-for-testability">
+<h4>Coding for testability<a class="headerlink" href="#coding-for-testability" title="Permalink to this headline">¶</a></h4>
+<p>When coding, keep testing in mind. For
+example, break functionality down into small, more easily tested functions.
+This is similar to the advice above to keep applications small, only on
+a smaller scale.</p>
+<p>Don&#8217;t be afraid to refactor code if you find it hard to write tests for it.</p>
+</div>
+<div class="section" id="test-the-behavior-not-the-implementation">
+<h4>Test the behavior, not the implementation<a class="headerlink" href="#test-the-behavior-not-the-implementation" title="Permalink to this headline">¶</a></h4>
+<p>Try to treat the code being tested as a black box
+with an API, and only test the behavior of that API, not the details
+of what&#8217;s inside the black box. If that&#8217;s difficult, consider whether
+that code&#8217;s interface could be improved.</p>
+<p>Unfortunately, it&#8217;s difficult to both follow this advice, and use
+techniques like mocking to isolate what&#8217;s being tested. Each case
+is a judgment call.</p>
+</div>
+<div class="section" id="test-the-failure-cases">
+<h4>Test the failure cases<a class="headerlink" href="#test-the-failure-cases" title="Permalink to this headline">¶</a></h4>
+<p>Don&#8217;t just test that the code works when everything is fine.
+Verify that it does something sane when problems occur.</p>
+<p>If you&#8217;re testing an API, give it invalid arguments. If you&#8217;re
+testing a form submission, provide bad input and make sure the
+followup page has the right error messages. If you have code that
+sends email, what happens if the mail server is temporarily
+unreachable?  Think about how things can fail.</p>
+<p>Use some judgment, of course. When accepting input from humans,
+we can almost guarantee they won&#8217;t always provide valid input, and
+we definitely want to test that our code behaves reasonably. On
+the other hand, you might decide that the only way your database
+might be unavailable would be if there was a major problem at the
+data center, in which case it&#8217;s unlikely any requests can get to
+your site anyway, so there&#8217;s no point testing that case.</p>
+</div>
+<div class="section" id="only-test-your-project-s-own-code">
+<h4>Only test your project&#8217;s own code<a class="headerlink" href="#only-test-your-project-s-own-code" title="Permalink to this headline">¶</a></h4>
+<p>There&#8217;s no need to write tests in your own project that could only
+fail if some code external to your project doesn&#8217;t work correctly.
+Assume that the Python standard library, Django, and other Python packages
+you might be depending on do work correctly. It&#8217;s enough work
+writing comprehensive tests for your own project.</p>
+</div>
+<div class="section" id="output-from-tests">
+<h4>Output from tests<a class="headerlink" href="#output-from-tests" title="Permalink to this headline">¶</a></h4>
+<p>A successful test should produce no output. The test runner will
+let us know if it passed. Any additional output from a successful
+test is just distracting.</p>
+</div>
+<div class="section" id="dry-tests">
+<h4>DRY tests<a class="headerlink" href="#dry-tests" title="Permalink to this headline">¶</a></h4>
+<p>As for any programming, consider factoring out common code from
+tests. But keep in mind that the best tests are short and simple.
+If you find yourself doing a lot of refactoring, building utility
+libraries, etc, the tests might be overdesigned. See if they can
+be simplified.  Of course, that&#8217;s not always possible.</p>
+<p>Keep in mind that common code can easily be moved to <code class="docutils literal"><span class="pre">setUp</span></code>
+and <code class="docutils literal"><span class="pre">tearDown</span></code>.</p>
+<p>Also take a look at
+<a class="reference external" href="https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests">subtests</a>,
+which are new in unittest with Python 3.4. They make it easy to run the same
+test over a list of data and provide a useful result if some data passes
+and other data fails.</p>
+</div>
+<div class="section" id="clean-up-files-after-tests">
+<h4>Clean up files after tests<a class="headerlink" href="#clean-up-files-after-tests" title="Permalink to this headline">¶</a></h4>
+<p>Unlike database changes, changes to files on the test system are
+not automatically cleaned up after a test.</p>
+<p>If your test is creating files explicitly, it&#8217;s not hard
+to clean up in the <code class="docutils literal"><span class="pre">tearDown</span></code> method. But when testing things
+like file uploads, Django is creating files that your test is
+not directly aware of. You might want to use a custom
+test runner to set up a temporary media directory when testing starts
+and clean it up when done. See
+<a class="reference external" href="https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/">MEDIA_ROOT and Django Tests</a></p>
+</div>
+<div class="section" id="debugging-when-tests-fail">
+<h4>Debugging when tests fail<a class="headerlink" href="#debugging-when-tests-fail" title="Permalink to this headline">¶</a></h4>
+<p>When a test assertion fails, sometimes it&#8217;s not obvious why. Most
+assertion methods have an optional argument you can use to add output
+when the assertion fails. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>will not only assert that your form is valid, but print the errors as
+part of the failure message if it&#8217;s not.</p>
+<p>I wouldn&#8217;t spend the time to add this kind of failure output to every assertion,
+but it can be incredibly useful to add this temporarily when a test is failing
+mysteriously.</p>
+</div>
+<div class="section" id="bug-fixes-and-testing">
+<h4>Bug fixes and testing<a class="headerlink" href="#bug-fixes-and-testing" title="Permalink to this headline">¶</a></h4>
+<p>When addressing a bug, use this workflow:</p>
+<ul class="simple">
+<li>Add a test that fails due to the bug, but should pass
+once the bug is fixed.</li>
+<li>Make the necessary changes to make the test pass.</li>
+</ul>
+<p>This ensures that you understand the problem, that it&#8217;s a real problem,
+that the fix solves the problem, and that this particular bug won&#8217;t come back.</p>
+</div>
+<div class="section" id="test-driven-development">
+<h4>Test-Driven Development<a class="headerlink" href="#test-driven-development" title="Permalink to this headline">¶</a></h4>
+<p>There&#8217;s a school of thought that writing tests first and then the code
+to make them pass is a good way to develop all the time. It&#8217;s called Test-Driven
+Development.  That is a vast oversimplification, of course.</p>
+<p>Caktus does not mandate TDD, but if you&#8217;re interested, there&#8217;s
+a link to a whole book about it in the &#8220;Further reading&#8221; section
+below.</p>
+</div>
+<div class="section" id="speeding-up-tests">
+<h4>Speeding up tests<a class="headerlink" href="#speeding-up-tests" title="Permalink to this headline">¶</a></h4>
+<p>A test that is too slow will not be run by developers, making it pointless.
+If tests seem to be taking too long, here are some things to look for:</p>
+<ul class="simple">
+<li>In Django 1.8 and up, use the
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-option---keepdb">&#8211;keepdb</a>
+test option to re-use the test database across test runs.</li>
+<li>Avoid fixtures.</li>
+<li>Use <a class="reference external" href="https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests">subtests</a>
+in Python 3.4+ to run many similar tests with a single setup and teardown.</li>
+<li>Mock out expensive processing that isn&#8217;t the actual behavior being tested.</li>
+<li>See if you can move logic out of views and test it without having to call the views.</li>
+<li>Keep the size of test data to the minimum needed for the test.</li>
+<li>Model methods can sometimes be tested without ever saving the model instance
+to the database.</li>
+<li>Use
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/#speeding-up-the-tests">faster password hashing algorithms</a>
+when testing.</li>
+<li>Use Continuous Integration to automatically run the whole test suite when changes are
+made, even if developers might have skipped it.</li>
+<li>In Django 1.8 and up, consider using
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.TestCase.setUpTestData">setUpTestData</a>
+to set up your test data for an entire TestCase class one time.  Just be very careful not to
+modify any of that data during the tests.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="specific-cases">
+<h3>Specific Cases<a class="headerlink" href="#specific-cases" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="how-to-test-urls-and-views">
+<h4>How to test URLs and views<a class="headerlink" href="#how-to-test-urls-and-views" title="Permalink to this headline">¶</a></h4>
+<p>Unfortunately, there isn’t really a good way to separate the testing
+of URL routing and the actual views, but thankfully that works out
+fine in practice. When you look at a view, you should be able to
+enumerate each type of request it&#8217;s going to receive, and you can
+probably cover each of these in a separate small test.</p>
+<p>The test client is a very helpful utility Django provides to simulate
+a specific URL being hit, to send POST or GET data along with the
+request, and assert about the results usefully. The test client
+returns the Response object of the view, which even carries the
+context of any template rendering used in the view, which can be very
+helpful in testing exactly what went into rendering the response,
+without resorting to messy and error prone tests against the rendered
+HTML.</p>
+<p>Another useful tool is Django&#8217;s
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/advanced/#the-request-factory">RequestFactory</a>,
+which can be used to create a Request object that can be passed
+directly to any view, bypassing the URL routing &amp; middleware
+processes to speed things up.</p>
+<p>If bypassing middleware completely breaks things for a particular
+view, you can call specific middleware yourself on the request object first.</p>
+<p>Nevertheless, unit testing views is hard due to how many dependencies
+they introduce.
+The most valuable way to help testing views is to reduce the amount of
+code within views in the first place. Pushing functionality of
+business data logic into models and user data into forms can reduce
+most views to little more than glue connecting simpler components you
+can separately test much easier.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/#module-django.test.client">Django: Writing and running tests</a></li>
+</ul>
+</div>
+<div class="section" id="testing-forms">
+<h4>Testing forms<a class="headerlink" href="#testing-forms" title="Permalink to this headline">¶</a></h4>
+<p>Testing views will inherently test some of your forms, but it&#8217;s an expensive
+way to do it. It&#8217;s much better to do the thorough testing of your forms using
+separate tests.</p>
+</div>
+<div class="section" id="how-to-test-database-behaviors">
+<h4>How to test database behaviors<a class="headerlink" href="#how-to-test-database-behaviors" title="Permalink to this headline">¶</a></h4>
+<p>Your application’s <code class="docutils literal"><span class="pre">models.py</span></code> should contain all of its database
+interaction, and its associated test suite will need to verify these
+are working properly. You need to test that query helpers, like
+manager methods, are giving you the right results given expected
+database contents, and that models validate, save, and are properly
+updated by other helpers. All of these require tests that actually
+work on a real database, because some behaviors can only be replicated
+accurately with a full round trip of the SQL.</p>
+<p>The Django test runner provides facilities that create a new database
+just for the tests and run migrations to create all the tables your
+applications need. Your tests can create and remove test
+data in their <code class="docutils literal"><span class="pre">setUp</span></code> and <code class="docutils literal"><span class="pre">tearDown</span></code> methods, and at the end of
+each test, the runner will roll back all database changes that the test
+made. This can be invaluable, but also comes at a cost in test run time.</p>
+<p>Inheriting from <code class="docutils literal"><span class="pre">django.test.TestCase</span></code> will run your tests in a
+database transaction, and require the test database building, in order
+to run the tests. Tests directly using <code class="docutils literal"><span class="pre">unittest.TestCase</span></code>, however,
+will run like any other Python unittests and avoid these extra
+database tests. Distinguishing which test cases you need the database
+support for can help you speed up your test run time, and also better
+frame which areas of your application are responsible for database
+behaviors and which are not.</p>
+<p>Be aware, though, that if database access creeps into a test that
+isn&#8217;t using <code class="docutils literal"><span class="pre">django.test.TestCase</span></code>, it will make permanent
+changes to the test database and often break unrelated tests that
+assume a pristine database.  This can be very hard to debug.
+It&#8217;s a good idea to add some protection
+against this. For example, see <a class="reference external" href="http://carljm.github.io/django-testing-slides/#29">slide 29 of Carl Meyer&#8217;s talk
+on django testing</a>
+for a way to immediately cause tests to fail if they access the
+database when they weren&#8217;t expected to.</p>
+<p>A note on data fixtures: Django provides a feature for adding test
+data from JSON or other formats, but in practice we’ve found this to
+be an impractical tool and advise against it. Problems include
+difficulties updating your fixtures when data schemas and requirements
+change; and the disconnect between reading your test code and your
+test data. Instead, tests that create data programmatically in the
+setUp() or test methods will give you tests that are easier to read,
+easier to setup, and in most cases continue to function during schema
+changes.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/">Django: Writing and running tests</a></li>
+<li>Carl J Meyer: Testing and Django <a class="reference external" href="http://carljm.github.com/django-testing-slides/">slides</a>
+and <a class="reference external" href="http://www.youtube.com/watch?v=ickNQcNXiS4">video</a>. Unfortunately,
+the first part (slides 2-12) is
+out-of-date with behavior of current versions of Django (1.9 as I write this), so
+skip ahead to slide 13 and continue from there.</li>
+</ul>
+</div>
+<div class="section" id="testing-django-template-tags">
+<h4>Testing Django template tags<a class="headerlink" href="#testing-django-template-tags" title="Permalink to this headline">¶</a></h4>
+<p>It&#8217;s easy to overlook testing any custom template tags in the project,
+but they need to be tested too.  These references go into detail
+about how to test template tags.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-1.html">How To Test Django Template Tags - Part 1</a></li>
+<li><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-2.html">How To Test Django Template Tags - Part 2</a></li>
+</ul>
+</div>
+<div class="section" id="what-to-mock-and-when">
+<h4>What to mock and when<a class="headerlink" href="#what-to-mock-and-when" title="Permalink to this headline">¶</a></h4>
+<p>One of the most commonly used tools in writing Python and Django tests
+these days is the mock library, which provides an extremely simple and
+flexible way of faking parts of your code.</p>
+<p>This lets you test specific areas of an application, while assuring
+other pieces it depends on act correctly for the conditions you want
+to test.  It also lets you run tests without depending on external
+services or expensive computation that the behavior depends on
+normally.</p>
+<p>This lets your tests focus which parts of the code they actually
+cover, and a failing test is a much more narrow path to the code it
+alerts you to.</p>
+<p>Good things to mock include:</p>
+<ul class="simple">
+<li>Routines which do anything with network or IO access. This also speeds up tests considerably!</li>
+<li>3rd party libraries</li>
+<li>Other applications</li>
+<li>Routines depending on the time of day</li>
+<li>Logging (at least to test that it is happening correctly)</li>
+</ul>
+<p>Similar to mocking, you can override Django settings for a single test
+or test case using the
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.override_settings">override_settings</a>
+decorator.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.voidspace.org.uk/python/mock/">Mock - Mocking and Testing Library</a> (standalone Mock library for Python pre-3.3)</li>
+<li><a class="reference external" href="http://sinonjs.org/">Testing Javascript</a></li>
+<li><a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html#module-unittest.mock">unittest.mock — mock object library</a> (Mock in Python 3.3+)</li>
+</ul>
+</div>
+<div class="section" id="factories">
+<h4>Factories<a class="headerlink" href="#factories" title="Permalink to this headline">¶</a></h4>
+<p>Factories are utilities that can provide random but valid test objects.
+They allow test writers to focus on the important parts of the test data,
+and not clutter tests with lots of other boilerplate just to end up with
+valid test objects.</p>
+<p>We typically use <a class="reference external" href="http://factoryboy.readthedocs.org/en/latest/">Factory Boy</a>,
+which has good Django support.</p>
+</div>
+<div class="section" id="testing-the-front-end">
+<h4>Testing the front-end<a class="headerlink" href="#testing-the-front-end" title="Permalink to this headline">¶</a></h4>
+<p>Part of testing is making sure the site works right in a browser. If a site
+is purely HTML and CSS with no Javascript in the browser, then you can get away
+with testing using the Django test client and examining the HTML in the
+responses. But fewer and fewer sites run without Javascript.</p>
+<p><a class="reference external" href="http://www.seleniumhq.org/">Selenium</a> is a tool we can use to run a real or simulated browser,
+drive interaction with our site, and verify the correct behavior.</p>
+<p>Selenium has problems, admittedly. It&#8217;s hard to write Selenium tests that
+pass consistently, partly because you always have to keep in mind that
+it takes time for an action taken on the test browser, like clicking
+an element, to finish with whatever behavior it triggered before you can
+test for it. Tests also tend to be fragile as layouts change.</p>
+<p>But Selenium seems to be the best tool we have right now for front-end
+testing.</p>
+<p>Test cases to use for Selenium should inherit from
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/tools/#liveservertestcase">LiveServerTestCase</a>,
+which will arrange for a real HTTP server to be running for the test browser to make
+requests to.  Follow that link for a complete example of writing a Django test
+using Selenium.</p>
+</div>
+<div class="section" id="testing-management-commands">
+<h4>Testing management commands<a class="headerlink" href="#testing-management-commands" title="Permalink to this headline">¶</a></h4>
+<p>Don&#8217;t overlook testing your management commands. You can call them from tests using
+<a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/tools/#topics-testing-management-commands">call_command()</a>.</p>
+<p>Keep in mind that the logic for a management command doesn&#8217;t need to live in the
+command&#8217;s handler method. I often write a utility method that&#8217;s part of the
+project, and then the management command just calls it. That kind of management
+command hardly needs testing, so long as the underlying utility is well tested.</p>
+</div>
+<div class="section" id="testing-migrations">
+<h4>Testing migrations<a class="headerlink" href="#testing-migrations" title="Permalink to this headline">¶</a></h4>
+<p>Do migrations need to be tested? Sometimes. Your typical &#8220;add another field&#8221; migration
+probably doesn&#8217;t need testing. But data migrations do need to be tested. One approach
+is to migrate back to the migration preceding the migration we want to test, set up
+some data, migrate forward to the migration under test, then verify the data has
+been migrated correctly.</p>
+<p>Here&#8217;s a blog post with code and more detailed explanations:</p>
+<p><a class="reference external" href="https://www.caktusgroup.com/blog/2016/02/02/writing-unit-tests-django-migrations/">Testing Django Migrations</a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="discovery-and-running">
+<h3>Discovery and Running<a class="headerlink" href="#discovery-and-running" title="Permalink to this headline">¶</a></h3>
+<p>Both Django and Python’s standard library include test runners, and
+there are numerous others available from the community. The most
+popular third party runner is probably Nose, which also has a
+Django-specific extension, django_nose.</p>
+<p>Regardless of the runner you use, an increasingly popular step is to
+run all your tests with the tox utility, which allows you to define a
+number of environments you want to test and will run your test suite
+across all of them. This lets you ensure a code base works correctly
+not only for your local Python and Django version, for example, but
+across multiple versions and combinations of versions you want to
+support. Even for internal projects where you control the versions
+deployed to, this can be invaluable when preparing for dependency
+upgrades, such as migrating to a new Django release.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/2/library/unittest.html">unittest — Unit testing framework</a></li>
+<li><a class="reference external" href="http://docs.python.org/2/library/unittest.html#test-discovery">Test Discovery</a></li>
+<li><a class="reference external" href="https://nose.readthedocs.org/en/latest/">Nose</a></li>
+<li><a class="reference external" href="https://github.com/jbalogh/django-nose">django-nose</a></li>
+</ul>
+</div>
+<div class="section" id="continuous-integration">
+<h3>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Permalink to this headline">¶</a></h3>
+<p>Continuous Integration (CI) is a term we mis-use to refer to
+automatically running our test suite on our project whenever
+there are changes.</p>
+<p>See <a class="reference external" href="http://caktus.github.io/developer-documentation/services/travis.html">http://caktus.github.io/developer-documentation/services/travis.html</a>
+for help using Travis CI with Caktus Django projects.</p>
+</div>
+</div>
+<div class="section" id="coverage">
+<h2>Coverage<a class="headerlink" href="#coverage" title="Permalink to this headline">¶</a></h2>
+<p>With either an existing code base or a new project, you want to be
+sure as much of your code as possible is being tested. Rather than
+guessing, the coverage.py tool makes tracking test coverage easy. It
+runs any command, usually your test runner, and creates a report of
+every line of code executed, and the percentage of each module that
+was actually run during your test execution. You can monitor your
+project&#8217;s test coverage, and make sure added new code doesn’t reduce
+your coverage. A good strategy with existing code bases is to find
+your current coverage rating and set this as a requirement for any new
+code &#8211; no change is allowed which reduces test coverage. Over time,
+you&#8217;ll your project’s code coverage to a reasonable level.</p>
+<p>An easy approach is to use a script to run your tests:</p>
+<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env bash
+set -e
+
+flake8
+coverage erase
+coverage run manage.py test --keepdb &quot;$@&quot;
+coverage report -m --fail-under 80
+</pre></div>
+</div>
+<p>Notice the <code class="docutils literal"><span class="pre">--fail-under</span> <span class="pre">80</span></code> when generating the coverage report,
+which will fail the test if coverage drops below 80%. That number can
+be gradually increased over the life of the project.</p>
+<p>References:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://pypi.python.org/pypi/coverage">coverage tool for Python</a></li>
+<li><a class="reference external" href="https://django-testing-docs.readthedocs.org/en/latest/coverage.html">Measuring Coverage</a></li>
+</ul>
+</div>
+<div class="section" id="further-reading">
+<h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Harry J. W. Percival: <a class="reference external" href="http://shop.oreilly.com/product/0636920029533.do">Test-Driven Development With Python</a></li>
+<li>Karen M. Tracey: <a class="reference external" href="https://www.packtpub.com/web-development/django-11-testing-and-debugging">Django 1.1 Testing and Debugging</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing</a><ul>
+<li><a class="reference internal" href="#writing-tests">Writing tests</a><ul>
+<li><a class="reference internal" href="#principles">Principles</a><ul>
+<li><a class="reference internal" href="#small-well-defined-applications">Small, well-defined applications</a></li>
+<li><a class="reference internal" href="#unit-tests-versus-functional-or-integration-tests">Unit tests versus functional or integration tests</a></li>
+<li><a class="reference internal" href="#coding-for-testability">Coding for testability</a></li>
+<li><a class="reference internal" href="#test-the-behavior-not-the-implementation">Test the behavior, not the implementation</a></li>
+<li><a class="reference internal" href="#test-the-failure-cases">Test the failure cases</a></li>
+<li><a class="reference internal" href="#only-test-your-project-s-own-code">Only test your project&#8217;s own code</a></li>
+<li><a class="reference internal" href="#output-from-tests">Output from tests</a></li>
+<li><a class="reference internal" href="#dry-tests">DRY tests</a></li>
+<li><a class="reference internal" href="#clean-up-files-after-tests">Clean up files after tests</a></li>
+<li><a class="reference internal" href="#debugging-when-tests-fail">Debugging when tests fail</a></li>
+<li><a class="reference internal" href="#bug-fixes-and-testing">Bug fixes and testing</a></li>
+<li><a class="reference internal" href="#test-driven-development">Test-Driven Development</a></li>
+<li><a class="reference internal" href="#speeding-up-tests">Speeding up tests</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#specific-cases">Specific Cases</a><ul>
+<li><a class="reference internal" href="#how-to-test-urls-and-views">How to test URLs and views</a></li>
+<li><a class="reference internal" href="#testing-forms">Testing forms</a></li>
+<li><a class="reference internal" href="#how-to-test-database-behaviors">How to test database behaviors</a></li>
+<li><a class="reference internal" href="#testing-django-template-tags">Testing Django template tags</a></li>
+<li><a class="reference internal" href="#what-to-mock-and-when">What to mock and when</a></li>
+<li><a class="reference internal" href="#factories">Factories</a></li>
+<li><a class="reference internal" href="#testing-the-front-end">Testing the front-end</a></li>
+<li><a class="reference internal" href="#testing-management-commands">Testing management commands</a></li>
+<li><a class="reference internal" href="#testing-migrations">Testing migrations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#running-tests">Running tests</a><ul>
+<li><a class="reference internal" href="#discovery-and-running">Discovery and Running</a></li>
+<li><a class="reference internal" href="#continuous-integration">Continuous Integration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#coverage">Coverage</a></li>
+<li><a class="reference internal" href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../deploy/system-deploy-interface.html" title="previous chapter">Interface between the deploy system and projects</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/testing/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/testing/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
