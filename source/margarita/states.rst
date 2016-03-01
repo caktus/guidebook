@@ -445,14 +445,49 @@ project.web.balancer
 Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.
 
-If either a key or certificate are not provided, will generate and use
-a self-signed key.
+Set ``letsencrypt: true`` in the pillar configuration to
+use `letsencrypt.org <https://letsencrypt.org>`_ to generate a certificate
+that will be trusted by all major browsers, and to renew it periodically.
+But this can only work if there's a single web server and the domain points
+directly at it. (You might still be able to use `letsencrypt` some other way.)
+
+Note: to switch to letsencrypt from another certificate, it should be
+enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
+But the reverse is not true: if you want to switch from letsencrypt
+to self-signed, you'll want to manually remove the self-signed ssl
+files before turning off letsencrypt and running another deploy.
+
+If you already have a certificate you want to use, you can provide it
+in the pillar configuration; see below.
+
+If ``letenscrypt`` is not set and either a key or certificate are not
+provided, the deploy will generate and use a self-signed key.
+
+The nginx configuration redirects non-SSL requests to the corresponding
+`https` URL, and sets the ``Strict-Transport-Security`` header to a
+very long time.
+
+This state can also set up basic Auth for a site if ``http_auth`` is set
+(see configuration below).
+
+If there are multiple hosts with the `web` role, then each nginx
+will be configured to proxy requests to Django workers on all the
+`web` hosts. I guess if we didn't put a load balancer in front of our
+web servers, we could just point our DNS at one of
+them and it would spread the load across all of them.
 
 Pillar configuration:
 
 * ``http_auth`` (dictionary): If provided, turn on HTTP Basic Auth on the site,
   and set up a password file for access using each key in the dictionary as a username
   and each corresponding value as that user's password.
+* ``domain`` (string): The web server, and if relevant the SSL certificate, will
+  be configured to use this domain name.
+* ``letsencrypt`` (boolean): If True, use `letsencrypt.org <https://letsencrypt.org>`_
+  to get a certificate.
+* ``admin_email`` (email address): If ``letsencrypt`` is true, this is required to
+  provide an email address for `letsencrypt.org <https://letsencrypt.org>`_ to use.
+  This should be a dev team group email address, not an individual's email address.
 * ``ssl_key`` (string): Contents of the SSL key to use.
 * ``ssl_cert`` (string): Contents of the SSL certificate to use.
 * ``dhparam_numbits`` (integer): How many bits to use when generating the DHE
