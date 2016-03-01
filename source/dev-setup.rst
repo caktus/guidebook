@@ -55,6 +55,8 @@ PostgreSQL
 
 The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
 extensions::
+*note that "brew install postgis" will install the latest version of postgis along with the latest
+version of potstgres
 
     brew install postgres
     brew install postgis
