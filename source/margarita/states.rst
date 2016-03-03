@@ -488,6 +488,7 @@ Pillar configuration:
 * ``admin_email`` (email address): If ``letsencrypt`` is true, this is required to
   provide an email address for `letsencrypt.org <https://letsencrypt.org>`_ to use.
   This should be a dev team group email address, not an individual's email address.
+  This address does not need to be in the site's domain.
 * ``ssl_key`` (string): Contents of the SSL key to use.
 * ``ssl_cert`` (string): Contents of the SSL certificate to use.
 * ``dhparam_numbits`` (integer): How many bits to use when generating the DHE
