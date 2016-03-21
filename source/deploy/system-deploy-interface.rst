@@ -55,9 +55,10 @@ Python Dependencies
 The deploy system will set up a virtual environment and use it to
 run the Django processes of the project.
 
-The file ``requirements/production.txt`` from the code is used to
-``pip install`` the project's dependencies into the virtual environment
-during the deploy.
+The project's dependencies are added to the virtual environment during
+the deploy by running ``pip install`` from a file. By default requirements are
+installed from ``requirements/dev.txt`` for Vagrant and ``requirements/production.txt``
+for all other deploy environments.
 
 Configuration
 ~~~~~~~~~~~~~
