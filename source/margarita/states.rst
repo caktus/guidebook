@@ -391,7 +391,8 @@ project.venv
 ~~~~~~~~~~~~
 
 Create a virtualenv for the project (at ``/var/www/<project_name>/env``)
-and install Python requirements listed in
+and install Python requirements listed ``requirements_file``. By default,
+requirements will be installed from
 ``/var/www/<project_name>/source/requirements/dev.txt`` if the
 environment is ``local``, and otherwise from ``production.txt``.
 
@@ -407,6 +408,8 @@ Pillar configuration:
 
 * ``project_name`` (string)
 * ``python_version`` (string): version of python to use
+* ``requirements_file`` (string): path to the project requirements file
+  (relative to the project root)
 
 Dependencies:
 
