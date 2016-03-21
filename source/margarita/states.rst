@@ -391,7 +391,7 @@ project.venv
 ~~~~~~~~~~~~
 
 Create a virtualenv for the project (at ``/var/www/<project_name>/env``)
-and install Python requirements listed ``requirements_file``. By default,
+and install Python requirements listed in ``requirements_file``. By default,
 requirements will be installed from
 ``/var/www/<project_name>/source/requirements/dev.txt`` if the
 environment is ``local``, and otherwise from ``production.txt``.
