@@ -45,7 +45,7 @@
 <div class="section" id="ufw">
 <span id="id1"></span><h2>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h2>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>ufw_policy:
+<div class="highlight-python"><div class="highlight"><pre><span></span>ufw_policy:
   ufw.default:
     - policy: deny
 
@@ -63,7 +63,7 @@ ufw.allow:
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-python"><div class="highlight"><pre>ssh:
+<div class="highlight-python"><div class="highlight"><pre><span></span>ssh:
   ufw.allow:
     - name: &#39;22&#39;
     - enabled: true
@@ -76,7 +76,7 @@ ufw.allow:
 and forwarding to syslog.</p>
 <p>See: <a class="reference external" href="http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html">http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html</a></p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>watch_my_log:
+<div class="highlight-python"><div class="highlight"><pre><span></span>watch_my_log:
   watchlog.file:
     - name: watch_my_log
     - path: /path/to/file.log
@@ -190,7 +190,7 @@ state, but you can add the usual universal ones like
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
