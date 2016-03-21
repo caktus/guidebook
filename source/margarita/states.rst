@@ -363,7 +363,7 @@ Pillar configuration:
 * ``github_deploy_key`` (string): Optional, contains text of the Github deploy key
   to use to access the repository.
 * ``repo:url`` (string): Git repository URL
-* ``repo:branch`` (string): Branch to check out. Optional; default is ``master``.
+* ``branch`` (string): Branch to check out. Optional; the default is ``master``.
 * ``project_name`` (string)
 
 Dependencies:
