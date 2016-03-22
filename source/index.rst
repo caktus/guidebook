@@ -23,6 +23,7 @@ Contents:
    services/index
    deploy/index
    testing/index
+   aws
 
 
 Indices and tables
