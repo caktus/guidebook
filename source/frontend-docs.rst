@@ -109,7 +109,7 @@ conventions:
 * Create a doc comment for every module, class, function / method, and event.
 * For every function / method doc comment, include:
     * A prose description of the function's purpose
-    * ``@param`` tags each expected parameter, including:
+    * ``@param`` tags for each expected parameter, including:
         * name
         * type
         * prose description
@@ -118,6 +118,7 @@ conventions:
     * ``@returns`` tag giving the function's return value, including:
         * type
         * prose description
+        * separate ``@param`` entries for expected properties on returned Objects
     * ``@fires`` tags indicating events fired within the function body
 * If a function is a callback:
     * Declare its doc comment with ``@callback``
