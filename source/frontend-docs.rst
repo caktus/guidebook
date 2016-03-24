@@ -134,8 +134,12 @@ Examples
 Comment style
 -------------
 
-An ES6 module can be documented by adding a JSDoc comment to its
-constructor. This comment includes a brief prose description of
+An ES6 class can be documented by adding a JSDoc comment to its
+constructor. Note that while this JSDoc comment is applied to the constructor
+method, it will be treated as documentation for the class itself and listed
+in the doc index as such.
+
+The class documentation comment includes a brief prose description of
 the class's nature; it explicitly identifies the function as a
 constructor using ``@constructs``; it spells out the type of its single
 required parameter, ``options``, and the attribute ``id`` that it
@@ -144,7 +148,7 @@ requires; and it uses ``@see`` to link to the docs for the method
 
     export default class ShowMatches extends Model {
       /**
-       * Create a new app state model.
+       * The app state model.
        *
        * @constructs ShowMatches
        * @param {Object} options - initialization options for app.
