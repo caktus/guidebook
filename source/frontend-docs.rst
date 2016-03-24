@@ -31,8 +31,7 @@ For most projects, you will want to create a configuration file that will
 tell JSDoc such things as which files to ignore, which plugins to use, etc.
 Full instructions can be found `on the JSDoc site <http://usejsdoc.org/about-configuring-jsdoc.html>`_.
 
-One important step is to `create a configuration file <http://usejsdoc.org/about-configuring-jsdoc.html#configuration-file>`_.
-Our recommended practice is to call it ``.jsdoc.json`` and to place it in your root
+Our recommended practice is to call the configuration file ``.jsdoc.json`` and to place it in your root
 project directory (alongside other config files like ``.gitignore``, ``.babelrc``, etc).
 This configuration file specifies the plugins JSDoc will use, among other things.
 
