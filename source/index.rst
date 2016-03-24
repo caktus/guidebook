@@ -13,8 +13,10 @@ Contents:
 
    dev-setup
    branching
+   rds
    supported-clients
    workflow
+   margarita/margarita
 
 
 Indices and tables
