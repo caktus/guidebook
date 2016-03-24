@@ -185,7 +185,7 @@ an explicit link to its documentation::
       this.set('comparing_matches', new PossibleMatchesCollection(models));
     }
 
-**Important**: note that ``@method`` gives the name of the class and the
+.. caution:: Note that ``@method`` gives the name of the class and the
 method. If you don't do this and just say ``@method`` (which the JSDoc docs
 say you can do), assuming your method is an ECMAScript 2015 class method,
 JSDoc will not generate documentation for your method.
