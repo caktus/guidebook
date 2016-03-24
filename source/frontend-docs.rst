@@ -134,6 +134,12 @@ Examples
 Comment style
 -------------
 
+An ES6 module can be documented by adding a JSDoc comment with the
+``@module`` tag with the identifier for the module (e.g. ``@module foo/bar``
+for a module loaded with ``import * as fooBar from 'foo/bar'``)::
+
+    /** @module foo/bar */
+
 An ES6 class can be documented by adding a JSDoc comment to its
 constructor. Note that while this JSDoc comment is applied to the constructor
 method, it will be treated as documentation for the class itself and listed
