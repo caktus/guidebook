@@ -35,14 +35,21 @@ Our recommended practice is to call the configuration file ``.jsdoc.json`` and t
 project directory (alongside other config files like ``.gitignore``, ``.babelrc``, etc).
 This configuration file specifies the plugins JSDoc will use, among other things.
 
-In your config file, you can set up the source and destination directories
-that JSDoc will look through as it crawls your JS code and builds the documentation
-site. In projects created with our project template, the source dir will look
-like ``project_name/static/js``; we recommend ``docs/js`` as the output dir.
-You'll also want to enable the ``recurse`` option so that your entire source tree
-will be scanned. If your JavaScript build output is located in the same directory
-as your source, you will also want to throw in an ``excludePattern``. Including
-these gives you a config file like::
+In your config file, you can set up the source directories
+that JSDoc will look through as it crawls your JS code, as well as the output
+directory into which it will place the documentation site it builds.
+In projects created with our project template, the source dir will look
+like ``project_name/static/js``; we recommend ``docs/js`` as the dir for docs output.
+
+Caveats:
+
+* You'll also want to enable the ``recurse`` option so that your entire source tree
+will be scanned.
+* If your site's JavaScript build output is located in the same directory
+as its source, you will also want to throw in an ``excludePattern`` so that only
+source JS is crawled.
+
+Following our recommendations gives you a config file like::
 
     {
       "source": {
