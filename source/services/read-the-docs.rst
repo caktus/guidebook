@@ -54,4 +54,13 @@ access.
 According to the RTD `privacy controls <http://docs.readthedocs.org/en/latest/privacy.html>`_,
 you can set a level of "private", but it just hides the project
 from lists and searches. Anyone with the URL can still view
-the documentation.
+the documentation. You will need to decide case-by-case whether
+this is good enough for your project.
+
+I don't know a solution as simple as RTD for hosting
+access-controlled documentation. Please update this
+documentation if you find any.
+
+In any case, you can always build your doc and then put
+the files under ``_build/html`` onto a static file web
+server with whatever access controls you like.
