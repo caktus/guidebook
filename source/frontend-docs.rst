@@ -128,8 +128,8 @@ conventions:
 
 For the full details of what JSDoc is capable of, see `the JSDoc website <http://usejsdoc.org/>`_.
 
-Examples
-========
+Additional Usage
+================
 
 Comment style
 -------------
