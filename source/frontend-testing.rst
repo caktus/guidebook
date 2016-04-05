@@ -12,7 +12,7 @@ These choices are still being experimented with, and developers should feel
 free to suggest revisions if they're found to perform poorly in practice.
 
 
-Testing libraries: overview
+Testing Libraries: Overview
 ###########################
 
 Mocha
@@ -141,7 +141,7 @@ numbers here represent percentages::
     }))
 
 
-Testing our stack
+Testing Our Stack
 #################
 
 The following front-end tools are bundled in the project template and represents
@@ -166,7 +166,7 @@ tests that take these technologies into account:
 * special techniques and gotchas related to writing tests for React components and Flux
   applications
 
-ES2015 Mocha tests with Gulp and Babel
+ES2015 Mocha Tests With Gulp and Babel
 --------------------------------------
 
 Transpiling ES2015 code is already a standard part of Caktus's front-end process.
@@ -196,7 +196,7 @@ project sets up Babel to transpile ES2015 and JSX::
 This allows us to not only write and test ES2015 and JSX applications but to write
 our tests themselves in ES2015 and JSX.
 
-React tests with jsdom
+React Tests With jsdom
 ----------------------
 
 React and the `React test utilities <https://facebook.github.io/react/docs/test-utils.html>`_
@@ -235,12 +235,12 @@ including an ``afterEach`` call that tidies it up::
       });
      });
 
-React testing tips
+React Testing Tips
 ------------------
 
 Here are a few gotchas and tips for writing React tests with Mocha.
 
-Stateless functional components need to be wrapped
+Stateless Functional Components Need to be Wrapped
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 React encourages you to define your React components as plain JavaScript
@@ -264,7 +264,7 @@ Then you can test it with the test utils as usual::
       // ...
      });
 
-Avoid race conditions by using callbacks
+Avoid Race Conditions by Using Callbacks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you're testing whether a React component updates in some way after some state
@@ -287,7 +287,7 @@ into the appropriate React component lifecycle method::
       A.triggerStateChangeThatAffectsYourComponent();
     });
 
-Testing server interactions
+Testing Server Interactions
 ---------------------------
 
 Figuring out how to mock jQuery AJAX requests is a work in progress. For now,
@@ -312,7 +312,7 @@ request results in your test setup (and restore them afterwards)::
       });
     });
 
-Testing with immutable data
+Testing With Immutable Data
 ---------------------------
 
 Stores created with the `Flux utilities <https://facebook.github.io/flux/docs/flux-utils.html>`_
