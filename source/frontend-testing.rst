@@ -1,16 +1,17 @@
 Front-end Testing Practices
 ###########################
 
-This documentation reflects the present state of our knowledge of how to test
+This documentation collections the present state of our knowledge of how to test
 front-end JavaScript code.
 
-It also reflects a series of choices that were basically arbitrary because of
-the lack of anything like a standard or clear best choice (e.g. the
-decision to use one test runner or assertion library over alternatives).
+Because the JS ecosystem lacks anything like a standard set of libraries or
+even clear best choices (e.g. a clear reason to choose one test runner or
+assertion library over alternatives), it reflects a set of choices that were
+basically arbitrary.
 
-These choices are still being experimented with, and developers should feel
-free to suggest revisions if they're found to perform poorly in practice.
-
+As we experiment with this setup in real-world projects, developers should
+feel free to revise the set of tools if the ones recommended here prove to be
+inadequate, as well as to add new tips, tricks, and best practices to these docs.
 
 Testing Libraries: Overview
 ###########################
@@ -25,11 +26,12 @@ a framework for writing and executing tests and lets you choose other libraries
 to meet those needs.
 
 To create a Mocha test that will be recognized by our Gulp build process,
-create a file with the extension ``.spec.js`` and place it in a ``test/`` subdir
+create a file with a filename in the form ``test_*.js`` and place it in a ``test/`` subdir
 of the project's JS dir (i.e. in ``project_name/static/js/test/``).
 
 Tests describing some value are wrapped in a callback passed to ``describe``,
-containing individual test cases created with calls to ``it``::
+containing individual test cases created with calls to ``it``. Your test spec
+``project_foo/static/js/test/test_Something.js`` might look like::
 
     describe('Something', function () {
       it('returns foo', function () {
@@ -52,8 +54,8 @@ structure of your app::
       });
     });
 
-This structure can be reflected in the nesting structure of the output you get
-when you run tests, with certain test reporters.
+When you run Mocha tests using the ``spec`` reporter, this nested structure
+will be reflected in the way your test results are displayed.
 
 One handy feature of Mocha is its simple handling of asynchronous tests. To
 test async code, just include a callback as a parameter to the callback in
@@ -68,8 +70,8 @@ your ``it()`` call and invoke that callback when the test is complete::
       });
     });
 
-Because callbacks are ubiquitous in JavaScript apps, this easy handling of async
-testing makes Mocha a very attractive test library.
+Because callbacks are used all over the place in JavaScript apps, this easy
+handling of async testing makes Mocha a very attractive test library.
 
 Chai
 ----
@@ -101,6 +103,21 @@ all available::
     assert.property(baz, 'qux');
     assert.lengthOf(baz.qux, 3);
 
+Assertions work more or less like assert method calls in the Python ``unittest``
+framework. A failed assertion results in a failed test; execution of the test
+halts at the point of the failed assertion, and the test runner will output
+a traceback along these lines::
+
+    1) AppController updates its child component when the store changes:
+       AssertionError: expected 5 to equal 4
+        at EventEmitter.<anonymous> (test_AppController.js:30:14)
+        at EventedClass.(anonymous function) [as componentDidUpdate] (LifecycleEmitter.js:28:22)
+        at CallbackQueue.assign.notifyAll (node_modules/react/lib/CallbackQueue.js:65:22)
+        at ReactReconcileTransaction.ON_DOM_READY_QUEUEING.close (node_modules/react/lib/ReactReconcileTransaction.js:81:26)
+        at ReactReconcileTransaction.Mixin.closeAll (node_modules/react/lib/Transaction.js:202:25)
+        at ReactReconcileTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:149:16)
+        at ReactUpdatesFlushTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:136:20)
+
 Sinon
 -----
 
@@ -115,7 +132,9 @@ Sinon is an extremely feature-rich library, including:
 * `fake XHR and servers <http://sinonjs.org/docs/#server>`_
 * much, much more
 
-Consult the Sinon docks for details on those features that meet your needs.
+In fact, Sinon is so feature-rich (and its abilities are still so untested in
+real-world Caktus projects) that we can't cover its features here.
+Please consult the Sinon docs for details.
 
 istanbul & isparta
 ------------------
@@ -123,7 +142,7 @@ istanbul & isparta
 For test coverage, we use the libraries `istanbul <https://www.npmjs.com/package/istanbul>`_
 and `isparta <https://www.npmjs.com/package/isparta>`_.
 
-This is handled inside our the Gulp build process included in the project template.
+This is handled inside the Gulp build process included in the project template.
 It will check your tests' coverage of statements, branches, functions, and lines found in
 the ``app/`` subdir of the project's JS dir (i.e. in ``project_name/static/js/app/``).
 
@@ -199,10 +218,18 @@ our tests themselves in ES2015 and JSX.
 React Tests With jsdom
 ----------------------
 
+A very large amount of front-end JS is concerned about mutating DOM state. This
+code generally assumes that there is a global name ``document`` that points at
+a DOM. When it runs in the browser, this is a safe assumption. But when it runs
+in Node, as it does when we run tests with Mocha, it is not. This makes it
+a little tricky to test DOM-mutating code with Mocha.
+
 React and the `React test utilities <https://facebook.github.io/react/docs/test-utils.html>`_
-both assume that the global name ``document`` points to a DOM. This will be
-available when we run our code in a browser, but when running it in Node, it
-will not be. This poses difficulties for testing React components.
+are a good example of libraries in our stack that raise this issue.
+Both of these assume that the global name ``document`` points to a DOM. In fact,
+if ``document`` doesn't already point to a DOM when the libraries are imported,
+all attempts to use them in the module that imports them will fail: they need
+that DOM to be there when they're loaded.
 
 `jsdom <https://www.npmjs.com/package/jsdom>`_ to the rescue! jsdom is a JavaScript
 implementation of the DOM API. It allows us to create a fake DOM and assign it
@@ -216,6 +243,11 @@ by including it in the ``require`` option of the Mocha Gulp plugin call::
           'jsdom-global/register'
         ]
       }))
+
+This solves the problem of making the DOM available prior to importing React
+and the React test utils. Mocha will run ``jsdom-global/register`` before
+attempting to run any tests. This ensures that React will get what it needs
+from ``document``.
 
 Once set up in this way, Mocha will happily run tests that include statements
 like these, which require the presence of a DOM at ``document``::
@@ -272,20 +304,59 @@ change happens, in general you won't be able to check for the update right after
 running the code that's supposed to trigger it, because that update will happen
 asynchronously.
 
-To check for changes like that, use an async test and inject the ``done`` callback
-into the appropriate React component lifecycle method::
+To check for changes like that, you should use an async test and inject the
+``done`` callback into the appropriate React component lifecycle method.
 
-    it('updates when the store changes', (done) => {
-      let old_componentDidUpdate = YourComponent.prototype.componentDidUpdate;
-      YourComponent.prototype.componentDidUpdate = () => {
-        // this lifecycle method will be called when the update has happened
-        YourComponent.prototype.componentDidUpdate = old_componentDidUpdate;
-        done();
-      };
+An easy way to do that is to create a utility function that wraps your React
+component and provides access to an EventEmitter that fires an event whenever
+your component's lifecycle methods are called::
 
-      TestUtils.renderIntoDocument(<YourComponent />);
-      A.triggerStateChangeThatAffectsYourComponent();
+    import React from 'react';
+    import { EventEmitter } from 'events';
+
+    const LIFECYCLE_METHODS = [
+      'componentWillMount'
+      , 'componentDidMount'
+      , 'componentWillReceiveProps'
+      , 'shouldComponentUpdate'
+      , 'componentWillUpdate'
+      , 'componentDidUpdate'
+      , 'componentWillUnmount'
+    ];
+
+    export default function LifecycleEmitter (Component) {
+      class EventedClass extends Component {
+        constructor () {
+          super();
+          this.lifecycle = new EventEmitter();
+        }
+      }
+
+      for (let fn of LIFECYCLE_METHODS) {
+        EventedClass.prototype[fn] = function () {
+          let rv = null;
+          if (typeof Component.prototype[fn] === 'function') {
+            rv = Component.prototype[fn].apply(this, arguments);
+          }
+          this.lifecycle.emit(fn);
+          return rv;
+        }
+      }
+
+      return EventedClass;
+    }
+
+
+With this LifecycleEmitter class wrapper in hand, you can write tests for
+lifecycle method events like so::
+
+    it('emits an event when componentDidUpdate fires', (done) => {
+      let Wrapped = LifecycleEmitter(YourComponent);
+      let c = TestUtils.renderIntoDocument(<YourComponent />);
+      c.lifecycle.once('componentDidUpdate', done);
+      Actions.triggerComponentUpdate();
     });
+
 
 Testing Server Interactions
 ---------------------------
