@@ -403,3 +403,108 @@ count the number of key-value pairs in the immutable Map returned from this Stor
 
 See the `Immutable.js docs <https://facebook.github.io/immutable-js/docs/>`_ for
 more info on how to work with key types like Map, Seq, and Collection.
+
+Example: testing a React component
+----------------------------------
+
+To show how this all hangs together, here is a fully worked-through example of
+a test spec for a simple React component.
+
+Let's write a test for a very simple React component: a stateless functional
+component called ``AppList`` that takes a list of data and renders a ``<ul>``
+with a ``<li>`` for each data point.
+
+The code for this component looks like::
+
+    import React from 'react';
+
+    export default function AppList ({ items }) {
+      return (
+        <ul>
+          { items.map((item) => <li key={ item.id }>{ item.text }</li>) }
+        </ul>
+      );
+    }
+
+We're going to be interested in verifying that this function renders data
+correctly. Because this is a unit test, we're testing this in isolation from
+whatever it is that generates the data, increments the app state in a way that
+sends data down the pipeline, and so on.
+
+So first, let's create some fake data and put it in a ``constants.js`` file
+in a directory adjoining our tests. Our component will expect to see an immutable
+List value, so we create the fake data like so::
+
+    import { List } from 'immutable';
+
+    export const DATA_LIST = List([
+      {
+        id: 'fooId'
+        , text: 'fooText'
+      }
+      , {
+        id: 'barId'
+        , text: 'barText'
+      }
+      , {
+        id: 'bazId'
+        , text: 'bazText'
+      }
+    ]);
+
+Now we create a file ``test_AppList.js`` in our specs directory and do some
+basic, predictable setup:
+
+* A whole bunch of predictable imports:
+    * This test will use JSX and will test a React component, so we need to import
+      React and the React test utils.
+    * We're testing a stateless functional component, so we need to import
+      ``react-functional`` to wrap it in order to be able to test it.
+    * The fake data we just created.
+    * Our assertion library.
+    * The component itself.
+* Teardown for component tests:
+    * DOM cleanup performed after each test.
+* Basic structure for the test case.
+
+This gives us the skeleton of a test module::
+
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import TestUtils from 'react-addons-test-utils';
+    import functional from 'react-functional';
+    import { DATA_LIST } from '../../util/constants.js';
+    import { assert } from 'chai';
+    import AppList from '../../../app/components/views/AppList.js';
+
+    let WrappedAppList = functional(AppList);
+
+    describe('AppList', () => {
+      afterEach(() => {
+        /**
+         * Basic cleanup:
+         * * unmounts React components from the DOM root
+         * * wipes the HTML content of the ``body`` element for good measure
+         */
+        ReactDOM.unmountComponentAtNode(document.body);
+        document.body.innerHTML = '';
+      });
+    });
+
+Now we can write a test. Let's check that when our fake data is passed to the
+component, the result is a list with three items (corresponding to the three
+data points)::
+
+    it('generates the right list from its data', () => {
+      let al = TestUtils.renderIntoDocument(<WrappedAppList items={ DATA_LIST } />);
+      let lis = TestUtils.scryRenderedDOMComponentsWithTag(al, 'li');
+      assert.equal(3, lis.length);
+    });
+
+Now we can do ``npm test`` from the command line and verify that our component
+does what we think it does.
+
+    AppList
+      ✓ generates the right list from its data
+
+Success!
