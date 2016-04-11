@@ -52,7 +52,7 @@ It is a good habit to branch this way, because developers often forget to checko
 just created, and also may forget where they were before they cut a new branch. Both of these human
 errors might cause merge headaches later.  You are allowed to create a feature branch from another
 feature branch instead of ``develop``, if you are comfortable with the parent branch and have a reason
-to branch from it.  However, all feature branches must eventually merge back into ``develop`` or deleted.
+to branch from it.  However, all feature branches must eventually merge back into ``develop`` or be deleted.
 
 It's recommended practice to prefix the branch name with the issue number which it addresses. For example::
 
@@ -111,10 +111,10 @@ Note that GitHub allows you to merge and delete a branch from within the Pull Re
 
     The use of the ``--no-ff`` flag is not explicitly required. This flag ensures that the merge commit
     is created when merging the branch. Having a single merge commit makes it easier to rollback
-    the entire branch of changes if needed. This alse has the advantage of preserving the branch information
+    the entire branch of changes if needed. This also has the advantage of preserving the branch information
     in the merge commit message which would otherwise be lost when the branch is deleted and
     replicates the merge behavior if the PR is merged in the Github UI. However, some projects might
-    prefer to keep a cleaner history by excluding the merge commits. That is ok as well as the developers
+    prefer to keep a cleaner history by excluding the merge commits. That is ok as long as the developers
     are in agreement and understand the trade-offs.
 
 Branch Lifespans
@@ -175,7 +175,7 @@ master are included in develop::
 
 This merge should be a no-op. If there are changes which were not previously merged to develop you need
 to ensure that develop is still running as expected before preceeding. While on the ``develop`` branch
-you should 
+you should
 
 - Update change log with release notes
 - Update internal version numbers if tracked in the code

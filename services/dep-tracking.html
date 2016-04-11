@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dependency Tracking &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
+    <link rel="next" title="Papertrail" href="papertrail.html" />
+    <link rel="prev" title="Github" href="github.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dependency-tracking">
+<h1>Dependency Tracking<a class="headerlink" href="#dependency-tracking" title="Permalink to this headline">¶</a></h1>
+<p>Projects often rely heavily on a large number of third-party packages, and those
+packages hopefully continue to receive updates, bug fixes, optimizations, and
+new features. We want to be aware of those updates when they are available,
+especially when new available updates include security fixes that would be
+particularly important for us to update in our projects.</p>
+<div class="section" id="requires-io">
+<h2>Requires.io<a class="headerlink" href="#requires-io" title="Permalink to this headline">¶</a></h2>
+<p>Our Python dependencies can be tracked with the requires.io tool.</p>
+<p>You&#8217;ll need to register for an API account at <a class="reference external" href="https://requires.io/">https://requires.io/</a> and
+pass a request to the sysadmin team to add the new username to our enterprise Requires.io account.</p>
+<p>To add your project to requires.io you&#8217;ll need to register it, and you can find
+<a class="reference external" href="https://requires.io/enterprise/Caktus/api/">instructions and an authentication token</a> for the Caktus account.</p>
+<ol class="arabic">
+<li><p class="first">Copy the token found under the Token header and copy it in the Travis CI settings for the
+project as an environment variable named <code class="docutils literal"><span class="pre">REQUIRES_IO_TOKEN</span></code>.</p>
+</li>
+<li><p class="first">Add the requirement <code class="docutils literal"><span class="pre">requires.io</span></code> to <code class="docutils literal"><span class="pre">requirements/dev.txt</span></code>.</p>
+</li>
+<li><p class="first">Run <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">-r</span> <span class="pre">requirements/dev.txt</span></code> to install the tool</p>
+</li>
+<li><p class="first">Set the Caktus token in your local <code class="docutils literal"><span class="pre">.env</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>echo &quot;REQUIRES_IO_TOKEN=&lt;Token from API page&gt;&quot; &gt;&gt; .env
+source .env
+</pre></div>
+</div>
+</li>
+<li><p class="first">Register the new repository with the Caktus token:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>requires.io update-repo -t $REQUIRES_IO_TOKEN \
+  -r &lt;PROJECT_NAME&gt; --private
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="bithound">
+<h2>BitHound<a class="headerlink" href="#bithound" title="Permalink to this headline">¶</a></h2>
+<p>Our Javascript dependencies can be tracked with BitHound.</p>
+<p>To setup a new project with BitHound, first <a class="reference external" href="https://www.bithound.io/">log into service</a> with
+your Caktus GitHub account. Navigate to your list of repositories by clicking on your avatar in
+the upper right corner and clicking on &#8220;Repositories&#8221;. Click the button labeled &#8220;Add Projects&#8221;,
+which will take you to a list of all organizations you have access to and their repositories.</p>
+<p>Select the appropriate organization first and then enter the name of the repository in the filter
+box. Click &#8220;Add Project&#8221;.</p>
+<p>You&#8217;ll be taken to the project Dashboard, where you&#8217;ll see an analysis of the project running.
+This step might take some time to complete, depending on work load and the size of the project.</p>
+<p>When the analysis is complete go to the &#8220;Dependencies&#8221; section and you&#8217;ll find a report of all NPM
+dependencies in the project. Snippets to add a badge reporting the current analysis of the project
+can be found on the right hand side. Copy and paste the appropriate snippet into the project&#8217;s
+README file at the top, preferably beside the badge from the Requires.io service.</p>
+</div>
+<div class="section" id="github-project-badges">
+<h2>GitHub Project Badges<a class="headerlink" href="#github-project-badges" title="Permalink to this headline">¶</a></h2>
+<p>To make monitoring the current state of projects easier we can embed a set of badges from third
+party services. The following template will include badges for Travis CI, Requires.io, and
+BitHound.</p>
+<div class="highlight-rst"><div class="highlight"><pre><span></span>+-----------------+------------------------+------------------------+
+<span class="o">|</span>                 | Develop                | Master                 |
++=================+========================+========================+
+<span class="o">|</span> Travis CI       | |badge-travis-develop| | |badge-travis-master|  |
++-----------------+------------------------+------------------------+
+<span class="o">|</span> Python Deps     | |badge-reqsio-develop| | |badge-reqsio-master|  |
++-----------------+------------------------+------------------------+
+<span class="o">|</span> Javascript Deps | |badge-bithnd-develop| |                        |
++-----------------+------------------------+------------------------+
+
+<span class="p">..</span> <span class="nt">|badge-travis-develop|</span> <span class="ow">image</span><span class="p">::</span> https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY.svg?token=TRAVIS_CI_TOKEN&amp;branch=develop
+    <span class="nc">:target:</span> <span class="nf">https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY</span>
+
+<span class="p">..</span> <span class="nt">|badge-reqsio-develop|</span> <span class="ow">image</span><span class="p">::</span> https://requires.io/enterprise/Caktus/REPOSITORY/requirements.svg?branch=develop
+    <span class="nc">:target:</span> <span class="nf">https://requires.io/enterprise/Caktus/REPOSITORY/requirements/?branch=develop</span>
+
+<span class="p">..</span> <span class="nt">|badge-bithnd-develop|</span> <span class="ow">image</span><span class="p">::</span> BITHOUND_BADGE_IMAGE_URL
+    <span class="nc">:target:</span> <span class="nf">https://www.bithound.io/github/ORGANIZATION/REPOSITORY/develop/dependencies/npm</span>
+
+<span class="p">..</span> <span class="nt">|badge-travis-master|</span> <span class="ow">image</span><span class="p">::</span> https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY.svg?token=TRAVIS_CI_TOKEN&amp;branch=master
+    <span class="nc">:target:</span> <span class="nf">https://magnum.travis-ci.com/ORGANIZATION/REPOSITORY</span>
+
+<span class="p">..</span> <span class="nt">|badge-reqsio-master|</span> <span class="ow">image</span><span class="p">::</span> https://requires.io/enterprise/Caktus/REPOSITORY/requirements.svg?branch=master
+    <span class="nc">:target:</span> <span class="nf">https://requires.io/enterprise/Caktus/REPOSITORY/requirements/?branch=master</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dependency Tracking</a><ul>
+<li><a class="reference internal" href="#requires-io">Requires.io</a></li>
+<li><a class="reference internal" href="#bithound">BitHound</a></li>
+<li><a class="reference internal" href="#github-project-badges">GitHub Project Badges</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="github.html" title="previous chapter">Github</a></li>
+      <li>Next: <a href="papertrail.html" title="next chapter">Papertrail</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/services/dep-tracking.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/services/dep-tracking.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -28,25 +28,10 @@
     <link rel="prev" title="Welcome to Caktus Developer Documentation’s documentation!" href="index.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="branching.html" title="Branching Strategy"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Welcome to Caktus Developer Documentation’s documentation!"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Caktus Developer Documentation 0.0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -65,7 +50,7 @@
 This includes a base set of common command line programs used by developers, but not shipped by
 default in OSX. You may need to re-install this package after major upgrades to OSX.</p>
 <p>Apple does provide a simple utility for bootstrapping these tools and installing them:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
 </pre></div>
 </div>
 <p>Get more information about the Command Line Tools directly from Apple:</p>
@@ -77,7 +62,7 @@ default in OSX. You may need to re-install this package after major upgrades to 
 <p>Homebrew is a project that provides automated download, compilation, and install of a wide range
 of developer and console tools for the Mac.</p>
 <p>A self-executing install script can be fetched and run simply, from the Homebrew documentation:</p>
-<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </pre></div>
 </div>
 <p>You can receive more information in the Homebrew documentation or see a full list of packages
@@ -92,7 +77,7 @@ available once you&#8217;ve installed it.</p>
 <p>Install Mercurial and Git, the version control systems used by most
 projects to obtain and coordinate changes to the code base between all
 developers:</p>
-<div class="highlight-python"><div class="highlight"><pre>brew install git
+<div class="highlight-python"><div class="highlight"><pre><span></span>brew install git
 brew install mercurial
 </pre></div>
 </div>
@@ -101,13 +86,13 @@ brew install mercurial
 <h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
 <p>The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
 extensions:</p>
-<div class="highlight-python"><div class="highlight"><pre>brew install postgres
+<div class="highlight-python"><div class="highlight"><pre><span></span>brew install postgres
 brew install postgis
 </pre></div>
 </div>
 <p>With PostgreSQL installed, you&#8217;ll want to make sure it runs every time your machine comes up, and
 to start it running immediately:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir -p ~/Library/LaunchAgents
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkdir -p ~/Library/LaunchAgents
 cp /usr/local/Cellar/postgresql/$(postgres --version|cut -d&#39; &#39; -f3)/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 </pre></div>
@@ -125,7 +110,7 @@ or alternate versions like PyPy, Stackless, and Jython.</p>
 <p>Pythonz will install everything into a hidden <cite>.pythonz/</cite> directory in your
 home directory, and will not modify any paths by default.</p>
 <p>You can install Pythonz easily:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+<div class="highlight-python"><div class="highlight"><pre><span></span>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 echo &quot;[[ -s $HOME/.pythonz/etc/bashrc ]] &amp;&amp; source $HOME/.pythonz/etc/bashrc&quot; &gt;&gt; ~/.bash_profile
 source $HOME/.pythonz/etc/bashrc
 </pre></div>
@@ -134,7 +119,7 @@ source $HOME/.pythonz/etc/bashrc
 <blockquote>
 <div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
 <p>You should install three versions of Python for different projects:</p>
-<div class="highlight-python"><div class="highlight"><pre>pythonz install 3.4.3
+<div class="highlight-python"><div class="highlight"><pre><span></span>pythonz install 3.4.3
 pythonz install 3.3.6
 pythonz install 2.7.10
 </pre></div>
@@ -146,19 +131,19 @@ pythonz install 2.7.10
 <cite>virtualenvwrapper</cite> to manage sandboxes for each project and the Python
 packages required for each project installed into those sandboxes.</p>
 <p>You&#8217;ll install <cite>pip</cite> first, into your system Python that comes with OSX:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo easy_install pip
 </pre></div>
 </div>
 <p>And, using pip, install <cite>virtualenvwrapper</cite> which will automatically
 install <cite>virtualenv</cite> as one of its dependencies:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo pip install virtualenvwrapper
 </pre></div>
 </div>
 <p>Virtualenv Wrapper requires some configuration to work with your local
 command line shell. You can copy and paste the code below to set this up
 in your Terminal. (You can also customize what you set PROJECT_HOME to, if
 you wish):</p>
-<div class="highlight-python"><div class="highlight"><pre>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
+<div class="highlight-python"><div class="highlight"><pre><span></span>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
@@ -169,7 +154,7 @@ source ~/.bash_profile
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
 <p>You can create a virtual environment using a version of Python installed
 from pythonz as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+<div class="highlight-python"><div class="highlight"><pre><span></span>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
 </pre></div>
 </div>
 <p>On Python versions &gt;= 3.3 it&#8217;s also possible to use Python&#8217;s built-in
@@ -204,13 +189,15 @@ all virtual environments. For more information, see:</p>
 </ul>
 </li>
 </ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Welcome to Caktus Developer Documentation&#8217;s documentation!</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="branching.html"
-                        title="next chapter">Branching Strategy</a></p>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Caktus Developer Documentation&#8217;s documentation!</a></li>
+      <li>Next: <a href="branching.html" title="next chapter">Branching Strategy</a></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -239,12 +226,12 @@ all virtual environments. For more information, see:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/dev-setup.txt"
-          rel="nofollow">Page source</a></li>
+          rel="nofollow">Page source</a>
     </div>
 
     

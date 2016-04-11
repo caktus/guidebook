@@ -167,6 +167,19 @@ Dependencies:
 
 * :ref:`locale.utf8`
 
+.. _postgresql.client:
+
+postgresql.client
+~~~~~~~~~~~~~~~~~
+
+Install the configured version of the Postgres database client.
+
+Pillar configuration:
+
+* ``postgres_version`` (string): Postgres version to install, e.g. "9.4".
+
+No dependencies.
+
 .. _project.cache:
 
 project.cache
@@ -203,6 +216,8 @@ Roles:
     wal_keep_segments = 128
 
 Pillar configuration:
+
+* ``secrets:DB_PASSWORD`` (string): Password to assign to the project's Postgres user.
 
 The following configuration parameters in postgresql.conf can be
 set by putting a corresponding setting under ``postgresql_config``
@@ -305,13 +320,13 @@ project.queue
 Arrange for rabbitmq server to be installed and run.
 
 Create rabbitmq user named ``<project_name>_<environment>``, with
-password BROKER_PASSWORD from secrets.
+password ``BROKER_PASSWORD`` from secrets.
 
 Open the firewall for rabbitmq access to other :ref:`app_minions <minions>` servers.
 
 Pillar configuration:
 
-* ``secrets:BROKER_PASSWORD``: The password to set on the rabbitmq user.
+* ``secrets:BROKER_PASSWORD``: (string) The password to set on the rabbitmq user.
 * ``project_name`` (string)
 
 Dependencies:
@@ -338,12 +353,17 @@ E.g.::
     cd /var/www/project
     source/dotenv.sh env/bin/python source/manage.py shell
 
+Note that any pillar variable you create inside the ``env`` dictionary or the ``secrets`` dictionary
+will be added to the ``.env`` file and the ``dotenv.sh`` script. Both gunicorn and celery are
+launched with the ``dotenv.sh`` wrapper, so all of those variables will be available as environment
+variables to all of the web and worker processes.
+
 Pillar configuration:
 
 * ``github_deploy_key`` (string): Optional, contains text of the Github deploy key
   to use to access the repository.
 * ``repo:url`` (string): Git repository URL
-* ``repo:branch`` (string): Branch to check out. Optional; default is ``master``.
+* ``branch`` (string): Branch to check out. Optional; the default is ``master``.
 * ``project_name`` (string)
 
 Dependencies:
@@ -371,9 +391,13 @@ project.venv
 ~~~~~~~~~~~~
 
 Create a virtualenv for the project (at ``/var/www/<project_name>/env``)
-and install Python requirements listed in
+and install Python requirements listed in ``requirements_file``. By default,
+requirements will be installed from
 ``/var/www/<project_name>/source/requirements/dev.txt`` if the
 environment is ``local``, and otherwise from ``production.txt``.
+
+If a New Relic key is configured, ensures the ``newrelic`` agent package
+is installed in the virtual env.
 
 .. note::
 
@@ -384,6 +408,8 @@ Pillar configuration:
 
 * ``project_name`` (string)
 * ``python_version`` (string): version of python to use
+* ``requirements_file`` (string): path to the project requirements file
+  (relative to the project root)
 
 Dependencies:
 
@@ -422,14 +448,50 @@ project.web.balancer
 Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.
 
-If either a key or certificate are not provided, will generate and use
-a self-signed key.
+Set ``letsencrypt: true`` in the pillar configuration to
+use `letsencrypt.org <https://letsencrypt.org>`_ to generate a certificate
+that will be trusted by all major browsers, and to renew it periodically.
+But this can only work if there's a single web server and the domain points
+directly at it. (You might still be able to use `letsencrypt` some other way.)
+
+Note: to switch to letsencrypt from another certificate, it should be
+enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
+But the reverse is not true: if you want to switch from letsencrypt
+to self-signed, you'll want to manually remove the self-signed ssl
+files before turning off letsencrypt and running another deploy.
+
+If you already have a certificate you want to use, you can provide it
+in the pillar configuration; see below.
+
+If ``letenscrypt`` is not set and either a key or certificate are not
+provided, the deploy will generate and use a self-signed key.
+
+The nginx configuration redirects non-SSL requests to the corresponding
+`https` URL, and sets the ``Strict-Transport-Security`` header to a
+very long time.
+
+This state can also set up basic Auth for a site if ``http_auth`` is set
+(see configuration below).
+
+If there are multiple hosts with the `web` role, then each nginx
+will be configured to proxy requests to Django workers on all the
+`web` hosts. I guess if we didn't put a load balancer in front of our
+web servers, we could just point our DNS at one of
+them and it would spread the load across all of them.
 
 Pillar configuration:
 
 * ``http_auth`` (dictionary): If provided, turn on HTTP Basic Auth on the site,
   and set up a password file for access using each key in the dictionary as a username
   and each corresponding value as that user's password.
+* ``domain`` (string): The web server, and if relevant the SSL certificate, will
+  be configured to use this domain name.
+* ``letsencrypt`` (boolean): If True, use `letsencrypt.org <https://letsencrypt.org>`_
+  to get a certificate.
+* ``admin_email`` (email address): If ``letsencrypt`` is true, this is required to
+  provide an email address for `letsencrypt.org <https://letsencrypt.org>`_ to use.
+  This should be a dev team group email address, not an individual's email address.
+  This address does not need to be in the site's domain.
 * ``ssl_key`` (string): Contents of the SSL key to use.
 * ``ssl_cert`` (string): Contents of the SSL certificate to use.
 * ``dhparam_numbits`` (integer): How many bits to use when generating the DHE
@@ -485,11 +547,16 @@ Dependencies:
 python
 ~~~~~~
 
-Installs the version of python specified in Pillar as
-``python_version``, along with a variety of dev libraries like ``libjpeg8-dev`` that
-are needed to install various Python packages like Pillow, as well
-as setuptools, pip, and virtualenv.  Also makes a few symlinks that
-help with building Pillow on 64bit systems.
+Installs the version of python specified in Pillar as ``python_version``, along with a variety of
+dev libraries like ``libjpeg8-dev`` that are needed to install various Python packages like Pillow,
+as well as setuptools, pip, and virtualenv. You can manually specify additional header packages that
+are needed by adding them as a list in the ``python_headers`` pillar variable. This state also makes
+a few symlinks that help with building Pillow on 64bit systems.
+
+If you are using Python 2.7, you can set ``python_backport`` to ``True`` which will enable the
+Python 2.7.9+ backport for network security enhancements. See
+https://www.python.org/dev/peps/pep-0466/. This setting has no effect if you are not using Python
+2.7.
 
 (If you're wondering why it installs Ghostscript, that too is required
 by some of the imaging tools we sometimes install.)
@@ -497,6 +564,8 @@ by some of the imaging tools we sometimes install.)
 Pillar configuration:
 
 * ``python_version`` (string)
+* ``python_backport`` (Boolean)
+* ``python_headers`` (list) List of additional apt packages to be installed.
 
 .. _rabbitmq:
 
@@ -508,6 +577,15 @@ Install rabbitmq and make it run.
 Delete the default ``guest`` rabbitmq user.
 
 No configuration.
+
+.. _redis-master:
+
+redis-master
+~~~~~~~~~~~~
+
+Install redis server and make it listen on localhost only.
+
+No configuration or dependencies.
 
 .. _salt.master:
 

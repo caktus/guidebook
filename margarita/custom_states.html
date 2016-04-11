@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Custom Salt States &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Margarita" href="margarita.html" />
+    <link rel="next" title="Grains" href="grains.html" />
+    <link rel="prev" title="Salt States" href="states.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="custom-salt-states">
+<h1>Custom Salt States<a class="headerlink" href="#custom-salt-states" title="Permalink to this headline">¶</a></h1>
+<p>These are new states you can use in your SLS files after installing Margarita.</p>
+<div class="section" id="ufw">
+<span id="id1"></span><h2>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h2>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ufw_policy:
+  ufw.default:
+    - policy: deny
+
+ufw_status:
+  ufw.enabled:
+    - enabled: true
+
+ufw.allow:
+  - enabled: true
+  - proto: tcp
+  - names:
+     - &#39;22&#39;
+     - &#39;80&#39;
+     - &#39;443&#39;
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ssh:
+  ufw.allow:
+    - name: &#39;22&#39;
+    - enabled: true
+</pre></div>
+</div>
+</div>
+<div class="section" id="watchlog">
+<span id="id2"></span><h2>watchlog<a class="headerlink" href="#watchlog" title="Permalink to this headline">¶</a></h2>
+<p>Custom state for monitoring plaintext log files
+and forwarding to syslog.</p>
+<p>See: <a class="reference external" href="http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html">http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html</a></p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>watch_my_log:
+  watchlog.file:
+    - name: watch_my_log
+    - path: /path/to/file.log
+    - enable: true|false
+    - tag: my_log
+    - facility: local0
+    - severity: info
+    - requires:
+      - syslog
+</pre></div>
+</div>
+<p>This works by creating a new conf.d file for
+<a class="reference external" href="http://www.rsyslog.com">rsyslog</a>
+(if enable is true) or removing one if it exists (if enable
+is false). The name of the file is always <code class="docutils literal"><span class="pre">&lt;name&gt;.conf</span></code> and it
+goes in the <code class="docutils literal"><span class="pre">/etc/rsyslog.d/</span></code> directory. If anything is changed,
+rsyslog is told to reload.</p>
+<p>At least rsyslog v8 must be installed. The state checks for
+this and will return an error otherwise.  Also, the <code class="docutils literal"><span class="pre">imfile</span></code>
+rsyslog module must be loaded. The state checks for this too,
+and will include the expected syntax in the error message if
+the check fails.</p>
+<p>There&#8217;s a Margarita state <a class="reference internal" href="states.html#syslog"><span>syslog</span></a> that will ensure both of
+those requirements are met; just make your state depend on
+that.</p>
+<div class="section" id="required-parameters">
+<h3>Required parameters<a class="headerlink" href="#required-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Name: name of the state like for any Salt state. Used to derive
+the name of the rsyslog config file to create.</p>
+<p>Path: Path to the log file to monitor. The filename part can
+include wildcards (e.g. <code class="docutils literal"><span class="pre">/var/log/myapp/*.log</span></code>), but not any
+intermediate parts (you can&#8217;t use <code class="docutils literal"><span class="pre">/var/log/*/error.log</span></code>).</p>
+<p>Enable: <code class="docutils literal"><span class="pre">true</span></code> to ensure monitoring is set up. <code class="docutils literal"><span class="pre">false</span></code>
+to ensure monitoring is not set up.</p>
+<p>If you don&#8217;t want a log monitored anymore, don&#8217;t just delete
+the state; change <code class="docutils literal"><span class="pre">enable</span></code> to false, apply the state to the
+systems where the log was being monitored so that the config
+file gets removed, and only then delete the state from your
+config.</p>
+<p>Facilities: &#8216;local0&#8217;, &#8216;local1&#8217;, &#8216;local2&#8217;, &#8216;local3&#8217;, &#8216;local4&#8217;,
+&#8216;local5&#8217;, &#8216;local6&#8217;, &#8216;local7&#8217;.  (Or any other syslog facility,
+but the others are supposed to be reserved for specific
+uses.)</p>
+<p>Severities: &#8216;emerg&#8217;, &#8216;alert&#8217;, &#8216;crit&#8217;, &#8216;err&#8217;, &#8216;warning&#8217;,
+&#8216;notice&#8217;, &#8216;info&#8217;, &#8216;debug&#8217;.</p>
+<p>Tag: Any string (probably not a good idea to include spaces though).</p>
+</div>
+<div class="section" id="optional-parameters">
+<h3>Optional parameters<a class="headerlink" href="#optional-parameters" title="Permalink to this headline">¶</a></h3>
+<p>There are no optional parameters that are specific to this
+state, but you can add the usual universal ones like
+<code class="docutils literal"><span class="pre">requires</span></code>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Custom Salt States</a><ul>
+<li><a class="reference internal" href="#ufw">ufw</a></li>
+<li><a class="reference internal" href="#watchlog">watchlog</a><ul>
+<li><a class="reference internal" href="#required-parameters">Required parameters</a></li>
+<li><a class="reference internal" href="#optional-parameters">Optional parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="margarita.html">Margarita</a><ul>
+      <li>Previous: <a href="states.html" title="previous chapter">Salt States</a></li>
+      <li>Next: <a href="grains.html" title="next chapter">Grains</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/margarita/custom_states.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/margarita/custom_states.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

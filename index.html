@@ -27,22 +27,10 @@
     <link rel="next" title="Developer Machine Setup" href="dev-setup.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="dev-setup.html" title="Developer Machine Setup"
-             accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">Caktus Developer Documentation 0.0.1 documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -66,6 +54,11 @@
 <li class="toctree-l2"><a class="reference internal" href="branching.html#production-releases">Production Releases</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rds.html#policies">Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rds.html#practical-tips">Practical tips</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers and Devices</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="supported-clients.html#major-browsers">Major Browsers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="supported-clients.html#grading-system">Grading System</a></li>
@@ -75,6 +68,59 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="workflow.html#workflow-diagram">Workflow Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading-django.html">Upgrading Django</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-django.html#one-major-version-at-a-time">One major version at a time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-django.html#release-notes">Release notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-django.html#the-check-command">The check command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-django.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading-django.html#third-party-packages">Third party packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="margarita/adding.html">Adding Margarita to a project that uses Salt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/states.html">Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/custom_states.html">Custom Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/grains.html">Grains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/pillar.html">Salt Pillar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/minions.html">Minions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="margarita/upgrading.html">Upgrading Margarita</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="project-template-testing.html">Django Project Template Testing Plans</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="project-template-testing.html#testing-changes">Testing Changes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="project-template-testing.html#future-improvements">Future Improvements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-packages.html">Frontend Packaging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="frontend-packages.html#frontend-packaging-upgrade-guide">Frontend Packaging Upgrade Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend-packages.html#using-frontend-packages">Using Frontend Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend-packages.html#installing-new-packages">Installing New Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend-packages.html#upgrading-existing-packages">Upgrading Existing Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frontend-packages.html#updating-your-project-setup">Updating Your Project Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">External Services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/github.html">Github</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dep-tracking.html">Dependency Tracking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/papertrail.html">Papertrail</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/new-relic.html">New Relic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/read-the-docs.html">Read The Docs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/travis.html">Travis CI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/smtp.html">SMTP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">Deploying Django projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="deploy/deployed-systems.html">Deployed Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy/system-deploy-interface.html">Interface between the deploy system and projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing/index.html#writing-tests">Writing tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/index.html#running-tests">Running tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/index.html#coverage">Coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing/index.html#further-reading">Further reading</a></li>
 </ul>
 </li>
 </ul>
@@ -100,10 +146,14 @@
 <li><a class="reference internal" href="#">Welcome to Caktus Developer Documentation&#8217;s documentation!</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
-
-  <h4>Next topic</h4>
-  <p class="topless"><a href="dev-setup.html"
-                        title="next chapter">Developer Machine Setup</a></p>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="dev-setup.html" title="next chapter">Developer Machine Setup</a></li>
+  </ul></li>
+</ul>
+</div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -132,12 +182,12 @@
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/index.txt"
-          rel="nofollow">Page source</a></li>
+          rel="nofollow">Page source</a>
     </div>
 
     
