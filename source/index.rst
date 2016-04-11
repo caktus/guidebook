@@ -16,7 +16,13 @@ Contents:
    rds
    supported-clients
    workflow
+   upgrading-django
    margarita/margarita
+   project-template-testing
+   frontend-packages
+   services/index
+   deploy/index
+   testing/index
 
 
 Indices and tables

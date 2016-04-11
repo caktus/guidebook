@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Github &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
+    <link rel="next" title="Dependency Tracking" href="dep-tracking.html" />
+    <link rel="prev" title="External Services" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="github">
+<h1>Github<a class="headerlink" href="#github" title="Permalink to this headline">¶</a></h1>
+<p>Every project needs a source code repository and we usually use Github to host ours. This assumes
+that you&#8217;ll be creating the repo in the Caktus organization, but the process is the same for any
+other organization... you&#8217;ll just need the permissions to do so.</p>
+<ol class="arabic">
+<li><p class="first">Once you have your project set up locally, initialize your git repository and commit your files:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/myproject$ git init
+~/myproject$ git commit -m <span class="s2">&quot;Initial project setup&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You&#8217;ll need a Github account and your account must have been added to the <a class="reference external" href="https://github.com/orgs/caktus/teams/developers">Developers</a> team in the Caktus organization. Ask another
+developer, or create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to accomplish that.</p>
+</li>
+<li><p class="first"><a class="reference external" href="https://github.com/organizations/caktus/repositories/new">Create a new repo</a>. This will walk
+you through creating a repo.</p>
+<ol class="upperalpha simple">
+<li>Leave the &#8216;Initialize this repository with a README&#8217; checkbox <strong>unchecked</strong>, as you&#8217;ll most likely
+be importing a repo.</li>
+<li>Don&#8217;t worry about the .gitignore and LICENSE dropdowns. Our project template has its own
+.gitignore and while it&#8217;s convenient to add a LICENSE here, it would be easier to just add
+that to your existing repo.</li>
+</ol>
+</li>
+<li><p class="first">Click the &#8216;Create repo&#8217; button, which will take you to a page with various instructions depending
+on your situation. We&#8217;ll use the second set of instructions, labelled, &#8216;...or push an existing
+repository from the command line&#8217;. Replace <code class="docutils literal"><span class="pre">myproject</span></code> with the name of your newly created
+project.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/myproject$ git remote add origin https://github.com/caktus/myproject.git
+~/myproject$ git push -u origin master
+</pre></div>
+</div>
+</li>
+<li><p class="first">Review the &#8216;Settings&#8217; tab to configure the repository to your preferences:</p>
+<ol class="upperalpha simple">
+<li>Manage outside collaborators.</li>
+<li>Link Github to other services (such as HipChat, Travis CI, etc.)</li>
+<li>Manage branches. You can set the default branch to &#8216;develop&#8217; and enable branch protection
+which can prevent force pushes to certain branches, or require Travis CI to run successfully
+on a PR before it gets merged, for example.</li>
+</ol>
+</li>
+</ol>
+<div class="section" id="private-repos">
+<h2>Private Repos<a class="headerlink" href="#private-repos" title="Permalink to this headline">¶</a></h2>
+<p>If you created a private repo, you&#8217;ll need to make sure that your deployment servers are allowed to
+check out your code. Once your staging server is up and running, follow <a class="reference external" href="https://github.com/caktus/django-project-template/blob/master/docs/provisioning.rst#github-deploy-keys">our instructions for
+setting up the deploy key</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Github</a><ul>
+<li><a class="reference internal" href="#private-repos">Private Repos</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">External Services</a></li>
+      <li>Next: <a href="dep-tracking.html" title="next chapter">Dependency Tracking</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/services/github.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/services/github.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

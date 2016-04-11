@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Upgrading Django &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Margarita" href="margarita/margarita.html" />
+    <link rel="prev" title="App Development Workflow" href="workflow.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="upgrading-django">
+<h1>Upgrading Django<a class="headerlink" href="#upgrading-django" title="Permalink to this headline">¶</a></h1>
+<p>Django routinely releases new versions containing bug and
+security fixes, and not infrequently new major versions with
+interesting new features that we want to use.</p>
+<p>Upgrading an existing project to use a newer version of
+Django is always a little different, but there are some
+principles that are almost always helpful.</p>
+<div class="section" id="one-major-version-at-a-time">
+<h2>One major version at a time<a class="headerlink" href="#one-major-version-at-a-time" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;re multiple major versions behind, do the Django upgrade one
+major version at a time, working through all the upgrade notes for
+one release and resolving all issues before moving on to the
+next Django major version.</p>
+<p>It&#8217;s okay to jump straight to the last available minor release
+of a major version though.</p>
+</div>
+<div class="section" id="release-notes">
+<h2>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<p>Even for minor Django upgrades, you should always read the
+release notes.</p>
+<p>They don&#8217;t make these easy to find, but they&#8217;re consistently linked
+to from the very last line of the table of contents for that major
+version&#8217;s documentation. E.g. for 1.9.x releases, go to
+<a class="reference external" href="https://docs.djangoproject.com/en/1.9/">https://docs.djangoproject.com/en/1.9/</a>, scroll all the way to the
+bottom, and in the last line in the page body (ignoring the page
+footer), there&#8217;s a link to &#8220;Release notes and upgrading instructions&#8221;.</p>
+</div>
+<div class="section" id="the-check-command">
+<h2>The check command<a class="headerlink" href="#the-check-command" title="Permalink to this headline">¶</a></h2>
+<p>The command <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">check</span></code> is great for pointing
+out possible incompabilities.  Run it before upgrading, fix
+any reported issues, then run it again after upgrading and fix
+any new issues.</p>
+<p>Another handy one is <code class="docutils literal"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">check</span> <span class="pre">--deploy</span></code>.
+It suggests ways to improve your settings for greater security,
+including ways to enable new security features that might be
+available after upgrading.</p>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>Run your tests before and after upgrading. Fix any deprecation
+warnings before upgrading. Fix any new ones after upgrading.
+And of course, fix any test failures.</p>
+<p>There&#8217;s an environment variable you can set that will
+turn particular warnings into errors. My current setting
+looks like this; adapt as needed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>export PYTHONWARNINGS=error:RuntimeWarning,error:RemovedInDjango18Warning,\
+error:RemovedInDjango19Warning,error:RemovedInDjango110Warning
+</pre></div>
+</div>
+<p>(all one long line)</p>
+</div>
+<div class="section" id="third-party-packages">
+<h2>Third party packages<a class="headerlink" href="#third-party-packages" title="Permalink to this headline">¶</a></h2>
+<p>For major version upgrades of Django, it&#8217;s almost inevitable that
+you&#8217;ll have to upgrade at least some third-party packages as well.
+Some, like <code class="docutils literal"><span class="pre">django-debug-toolbar</span></code>, seem to need upgrading almost
+every time.</p>
+<p>This is where a complete test suite is invaluable to find these
+problems before deploying.</p>
+<p>Once I identify that a problem seems to be caused by a third-party
+package, I typically just <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">package-name</span></code> and
+try the test again. If that fixes it, I look to see what version
+of the package I ended up with, and update the requirements file
+to that version. Otherwise I head for the third-party package&#8217;s
+documentation, and sometimes their issue tracker, to see if I can
+find more information on the problem.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Upgrading Django</a><ul>
+<li><a class="reference internal" href="#one-major-version-at-a-time">One major version at a time</a></li>
+<li><a class="reference internal" href="#release-notes">Release notes</a></li>
+<li><a class="reference internal" href="#the-check-command">The check command</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#third-party-packages">Third party packages</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="workflow.html" title="previous chapter">App Development Workflow</a></li>
+      <li>Next: <a href="margarita/margarita.html" title="next chapter">Margarita</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/upgrading-django.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/upgrading-django.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
