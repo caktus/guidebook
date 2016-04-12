@@ -29,7 +29,7 @@
     <link rel="prev" title="Margarita" href="margarita.html" />
    
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
   <body role="document">  
@@ -130,7 +130,7 @@ applied once to a given system.</p>
 <h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
 <p>A server&#8217;s roles are configured by adding strings to the list named <code class="docutils literal"><span class="pre">roles</span></code>
 in its grains, by editing <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  Example:</p>
-<div class="highlight-python"><div class="highlight"><pre>grains:
+<div class="highlight-python"><div class="highlight"><pre><span></span>grains:
   environment: staging
   roles:
   - salt-master
@@ -167,7 +167,7 @@ inconvenient for test and development.</p>
 directory on the Salt master, and add that directory to
 the file roots.  So part of your <code class="docutils literal"><span class="pre">/etc/salt/master</span></code> file
 might look like:</p>
-<div class="highlight-python"><div class="highlight"><pre>fileserver_backend:
+<div class="highlight-python"><div class="highlight"><pre><span></span>fileserver_backend:
   - roots
 
 file_roots:
@@ -178,7 +178,7 @@ file_roots:
 </div>
 <p>Then you might have a Salt state to put Margarita into that
 directory at a given version, maybe something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>git-install:
+<div class="highlight-python"><div class="highlight"><pre><span></span>git-install:
   pkg.installed:
     - name: git-core
 
@@ -214,7 +214,7 @@ version you want to install, e.g. &#8220;1.2.0&#8221;.</p>
 <p>Just be sure to restart the salt-master after Margarita is updated.
 We do that outside Salt after invoking this state, something
 like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo salt -G &#39;roles:salt-master&#39; state.sls margarita
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo salt -G &#39;roles:salt-master&#39; state.sls margarita
 sudo service salt-master restart
 </pre></div>
 </div>
@@ -279,8 +279,8 @@ works.)</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="../_sources/margarita/adding.txt"

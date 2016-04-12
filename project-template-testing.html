@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Frontend Packaging" href="frontend-packages.html" />
-    <link rel="prev" title="Minions" href="margarita/minions.html" />
+    <link rel="prev" title="Upgrading Margarita" href="margarita/upgrading.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -54,7 +54,7 @@ request and you&#8217;ll want reviewers of your pull request to be able to test 
 <p>To test changes, you&#8217;ll want to use the <code class="docutils literal"><span class="pre">startproject</span></code> command to create a new test project
 based on your current changes. Run this from the same directory you have your local copy of hte
 template.</p>
-<div class="highlight-python"><div class="highlight"><pre>django-admin.py startproject \
+<div class="highlight-python"><div class="highlight"><pre><span></span>django-admin.py startproject \
   --template=django-project-template \
   --extension=py,rst,yml \
   --name=Makefile,gulpfile.js,package.json
@@ -63,7 +63,7 @@ template.</p>
 </div>
 <p>If this was successful, continue setting up this temporary project to ensure your changes did
 not break the setup and utilization of a new project based on the template.</p>
-<div class="highlight-python"><div class="highlight"><pre>cd dpttest
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd dpttest
 make setup
 workon dpttest
 npm run dev
@@ -74,7 +74,7 @@ successfully.</p>
 <p>If you&#8217;ve made changes affecting deployment, you should also test this by following the vagrant
 setup instructions in this test project.</p>
 <p>When you are done testing, you should clean up the project.</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ..
+<div class="highlight-python"><div class="highlight"><pre><span></span>cd ..
 deactivate
 rm -rf dpttest
 dropdb dpttest
@@ -133,7 +133,7 @@ correctly.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="margarita/minions.html" title="previous chapter">Minions</a></li>
+      <li>Previous: <a href="margarita/upgrading.html" title="previous chapter">Upgrading Margarita</a></li>
       <li>Next: <a href="frontend-packages.html" title="next chapter">Frontend Packaging</a></li>
   </ul></li>
 </ul>
@@ -166,7 +166,7 @@ correctly.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.3</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

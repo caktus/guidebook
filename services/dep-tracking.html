@@ -24,7 +24,9 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="prev" title="Frontend Packaging" href="../frontend-packages.html" />
+    <link rel="up" title="External Services" href="index.html" />
+    <link rel="next" title="Papertrail" href="papertrail.html" />
+    <link rel="prev" title="Github" href="github.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -60,23 +62,23 @@ project as an environment variable named <code class="docutils literal"><span cl
 <li><p class="first">Run <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">-r</span> <span class="pre">requirements/dev.txt</span></code> to install the tool</p>
 </li>
 <li><p class="first">Set the Caktus token in your local <code class="docutils literal"><span class="pre">.env</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>echo &quot;REQUIRES_IO_TOKEN=&lt;Token from API page&gt;&quot; &gt;&gt; .env
+<div class="highlight-python"><div class="highlight"><pre><span></span>echo &quot;REQUIRES_IO_TOKEN=&lt;Token from API page&gt;&quot; &gt;&gt; .env
 source .env
 </pre></div>
 </div>
 </li>
 <li><p class="first">Register the new repository with the Caktus token:</p>
-<div class="highlight-python"><div class="highlight"><pre>requires.io update-repo -t $REQUIRES_IO_TOKEN \
+<div class="highlight-python"><div class="highlight"><pre><span></span>requires.io update-repo -t $REQUIRES_IO_TOKEN \
   -r &lt;PROJECT_NAME&gt; --private
 </pre></div>
 </div>
 </li>
 </ol>
 </div>
-<div class="section" id="bitbound">
-<h2>BitBound<a class="headerlink" href="#bitbound" title="Permalink to this headline">¶</a></h2>
-<p>Our Javascript dependencies can be tracked with BitBound.</p>
-<p>To setup a new project with BitBound, first <a class="reference external" href="https://www.bithound.io/">log into service</a> with
+<div class="section" id="bithound">
+<h2>BitHound<a class="headerlink" href="#bithound" title="Permalink to this headline">¶</a></h2>
+<p>Our Javascript dependencies can be tracked with BitHound.</p>
+<p>To setup a new project with BitHound, first <a class="reference external" href="https://www.bithound.io/">log into service</a> with
 your Caktus GitHub account. Navigate to your list of repositories by clicking on your avatar in
 the upper right corner and clicking on &#8220;Repositories&#8221;. Click the button labeled &#8220;Add Projects&#8221;,
 which will take you to a list of all organizations you have access to and their repositories.</p>
@@ -94,7 +96,7 @@ README file at the top, preferably beside the badge from the Requires.io service
 <p>To make monitoring the current state of projects easier we can embed a set of badges from third
 party services. The following template will include badges for Travis CI, Requires.io, and
 BitHound.</p>
-<div class="highlight-rst"><div class="highlight"><pre>+-----------------+------------------------+------------------------+
+<div class="highlight-rst"><div class="highlight"><pre><span></span>+-----------------+------------------------+------------------------+
 <span class="o">|</span>                 | Develop                | Master                 |
 +=================+========================+========================+
 <span class="o">|</span> Travis CI       | |badge-travis-develop| | |badge-travis-master|  |
@@ -133,7 +135,7 @@ BitHound.</p>
   <ul>
 <li><a class="reference internal" href="#">Dependency Tracking</a><ul>
 <li><a class="reference internal" href="#requires-io">Requires.io</a></li>
-<li><a class="reference internal" href="#bitbound">BitBound</a></li>
+<li><a class="reference internal" href="#bithound">BitHound</a></li>
 <li><a class="reference internal" href="#github-project-badges">GitHub Project Badges</a></li>
 </ul>
 </li>
@@ -142,7 +144,10 @@ BitHound.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../frontend-packages.html" title="previous chapter">Frontend Packaging</a></li>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="github.html" title="previous chapter">Github</a></li>
+      <li>Next: <a href="papertrail.html" title="next chapter">Papertrail</a></li>
+  </ul></li>
   </ul></li>
 </ul>
 </div>
@@ -174,8 +179,8 @@ BitHound.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="../_sources/services/dep-tracking.txt"

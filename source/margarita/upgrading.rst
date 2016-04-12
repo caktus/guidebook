@@ -269,13 +269,13 @@ Find the ``ALLOWED_HOSTS`` setting (probably in ``staging.py``) and change it to
 Frontend Improvements
 ---------------------
 
-Prepare for Calvin's frontend improvements. Add a *dummy* ``package.json`` which can be updated
-later. Until it is updated, the frontend improvements won't take effect:
+Prepare for Calvin's frontend improvements. Add a *dummy* ``package.json`` in the top level of the
+repo which can be updated later. Until it is updated, the frontend improvements won't take effect:
 
 .. code-block:: json
 
    {
-     "name": "",
+     "name": "myproject",
      "version": "0.0.0",
      "description": "",
      "main": "",
@@ -301,7 +301,8 @@ you should be able to get a server upgraded, but they **will** have to be done a
 1. Port any useful functions in ``fabfile.py.old`` to the new fabfile, then remove the old one.
 
 #. Get a copy of the ``Makefile`` from the project template, porting any functions in your existing
-   one to the new one, if needed.
+   one to the new one, if needed. Replace any instance of ``{{ project_name }}`` in the Makefile
+   with your actual project name (e.g. ``myproject``).
 
 #. Review everything in ``salt.old`` to see which pieces are specific to your project and need to
    be added back into salt. If any of it is generally useful (i.e. setting up a service that
@@ -343,16 +344,12 @@ Vagrant Smoke Test
 Now, we're going to create a fresh Vagrant VM just to make sure that our current repository deploys
 correctly.
 
-#. Edit ``conf/pillar/local/env.sls`` to look like this:
+#. Edit ``conf/pillar/local.sls`` to look like this:
 
    .. code-block:: yaml
 
       environment: local
       domain: margarita.example.com
-
-#. Edit ``conf/pillar/local/secrets.sls`` to look like this:
-
-   .. code-block:: yaml
 
       secrets:
         DB_PASSWORD: "dbPassword"
@@ -464,6 +461,9 @@ Deploy!!!
 
 And of course that worked! If not, let us know so we can help.
 
+Keep a close eye on your logs (especially the supervisord ones). If you see celery having difficulty
+connecting to RabbitMQ, see the :ref:`Troubleshooting <troubleshooting>` section below.
+
 
 .. _encrypt-secrets:
 
@@ -560,6 +560,8 @@ If you get this far and everything is working then it's time to celebrate!! Make
 *develop* and *master* branches are properly updated with the changes in *your-feature-branch* and
 that ``repo.branch`` is set to the correct value in ``conf/pillar/<environment>.sls``.
 
+.. _troubleshooting:
+
 Troubleshooting
 ---------------
 
@@ -570,7 +572,7 @@ we're not sure.
 * ``newrelic_license_key`` must be capitalized. Some projects have a secret for
   ``newrelic_license_key``, but the current margarita uses ``NEW_RELIC_LICENSE_KEY``
 
-* NewRelic settings may need adjusting, which you can do via environment variables (see
+* New Relic settings may need adjusting, which you can do via environment variables (see
   other documentation in this repo for details).
 
 * If you get timeout errors during the first deploy, it may be because of a few different issues.
@@ -621,3 +623,41 @@ we're not sure.
   .. code-block:: bash
 
      [54.234.112.22] out: mv: cannot move `/tmp/salt/local' to `/srv/local': Directory not empty
+
+* After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
+  connecting to RabbitMQ::
+
+     Feb 11 14:21:39 myproject supervisord:  myproject-celery-beat [2016-02-11 14:21:39,811:
+     ERROR/MainProcess] beat: Connection error: [Errno 104] Connection reset by peer. Trying again
+     in 2.0 seconds...
+
+  To fix, you'll need to delete and recreate the RabbitMQ user.
+
+  .. code-block:: bash
+
+     $ sudo rabbitmqctl list_users
+     Listing users ...
+     myproject_production []
+     $ sudo rabbitmqctl delete_user myproject_production
+     Deleting user "myproject_production" ...
+     $ sudo salt '*' state.sls project.queue
+     myproject.example.com:
+      Name: deb http://www.rabbitmq.com/debian/ testing main - Function: pkgrepo.managed - Result: Clean
+      Name: rabbitmq-server - Function: pkg.latest - Result: Clean
+      Name: /etc/rabbitmq/rabbitmq.config - Function: file.managed - Result: Clean
+      Name: rabbitmq-server - Function: service.running - Result: Clean
+      Name: guest - Function: rabbitmq_user.absent - Result: Clean
+      Name: ufw - Function: pkg.installed - Result: Clean
+      Name: ufw - Function: service.running - Result: Clean
+      Name: firewall_policy - Function: ufw.default - Result: Changed
+      Name: firewall_status - Function: ufw.enabled - Result: Changed
+      Name: epicallieshq_production - Function: rabbitmq_vhost.present - Result: Clean
+      Name: epicallieshq_production - Function: rabbitmq_user.present - Result: Changed
+      Name: 5672 - Function: ufw.allow - Result: Clean
+
+     Summary
+     -------------
+     Succeeded: 12 (changed=3)
+     Failed:     0
+     -------------
+     Total states run:     12
