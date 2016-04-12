@@ -26,7 +26,7 @@
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="SMTP" href="smtp.html" />
-    <link rel="prev" title="New Relic" href="new-relic.html" />
+    <link rel="prev" title="Read The Docs" href="read-the-docs.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -46,7 +46,7 @@ completed the initial project setup (i.e. the items in README.rst), do the follo
 <ol class="arabic">
 <li><p class="first">Rename the template to <code class="docutils literal"><span class="pre">.travis.yml</span></code>. (Note: The existing file named <code class="docutils literal"><span class="pre">.travis.yml</span></code> in the
 project template is for testing the template itself, so it is fine to overwrite it):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ mv project.travis.yml .travis.yml
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject$ mv project.travis.yml .travis.yml
 </pre></div>
 </div>
 </li>
@@ -74,7 +74,7 @@ get one.</p>
 <li><p class="first">Install the <code class="docutils literal"><span class="pre">travis</span></code> command line tool: <a class="reference external" href="https://github.com/travis-ci/travis.rb#installation">https://github.com/travis-ci/travis.rb#installation</a></p>
 </li>
 <li><p class="first">Use the HipChat API token and Room ID obtained in step A to generate an encrypted token:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ travis encrypt &lt;api_token@room_id&gt;
+<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject$ travis encrypt &lt;api_token@room_id&gt;
 Please add the following to your .travis.yml file:
 
   secure: <span class="s2">&quot;... long encrypted value ...&quot;</span>
@@ -103,7 +103,7 @@ trigger a build and you should see the result of that build in your HipChat room
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html">External Services</a><ul>
-      <li>Previous: <a href="new-relic.html" title="previous chapter">New Relic</a></li>
+      <li>Previous: <a href="read-the-docs.html" title="previous chapter">Read The Docs</a></li>
       <li>Next: <a href="smtp.html" title="next chapter">SMTP</a></li>
   </ul></li>
   </ul></li>
@@ -137,7 +137,7 @@ trigger a build and you should see the result of that build in your HipChat room
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

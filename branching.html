@@ -73,7 +73,7 @@ an issue that addresses the feature.</p>
 <p>Feature branches should always derive from <code class="docutils literal"><span class="pre">develop</span></code>.  <code class="docutils literal"><span class="pre">develop</span></code> is the stable version of the
 new code, and you must ensure that your feature will play nice with the current development state.
 In git, you can create a branch, switch to it, and pick its parent branch all at once with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b myfeature develop
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout -b myfeature develop
 </pre></div>
 </div>
 <p>It is a good habit to branch this way, because developers often forget to checkout the branches they
@@ -82,12 +82,12 @@ errors might cause merge headaches later.  You are allowed to create a feature b
 feature branch instead of <code class="docutils literal"><span class="pre">develop</span></code>, if you are comfortable with the parent branch and have a reason
 to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal"><span class="pre">develop</span></code> or be deleted.</p>
 <p>It&#8217;s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b 42-my-new-feature develop
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout -b 42-my-new-feature develop
 </pre></div>
 </div>
 <p>Now that your branch is created, develop against it. Make as many commits as you&#8217;d like, and even
 as many pushes to origin as you&#8217;d like.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git add .
+<div class="highlight-python"><div class="highlight"><pre>$ git add .
 $ git commit -m &quot;refactored models to address issue #42&quot;
 $ git push origin 42-my-new-feature -u
 </pre></div>
@@ -123,7 +123,7 @@ Github presents a blue and white plus icon for adding line comments.</p>
 <p>When the reviewer agrees that the pull request is adequate, they should add a comment to the pull request.
 For fun, we typically add random emoticons such as <code class="docutils literal"><span class="pre">:frog:</span></code>.</p>
 <p>By convention, the developer of the branch then merges it back into <code class="docutils literal"><span class="pre">develop</span></code>, but other developers can do this step:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout develop
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout develop
 $ git merge --no-ff 42-my-new-feature
 </pre></div>
 </div>
@@ -146,7 +146,7 @@ branch should be as short-lived as possible while still accomplishing its purpos
 (exploratory, or failed attempts to address an issue), or feature branches that drag on a long time,
 cloud the picture for other developers. Since this feature branch is no longer needed, it can be deleted
 via the &#8220;delete this branch&#8221; button on GitHub, or via the command line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span># Delete the remote branch
+<div class="highlight-python"><div class="highlight"><pre># Delete the remote branch
 $ git push origin :42-my-new-feature
 # Delete the local branch
 $ git branch -d 42-my-new-feature
@@ -158,13 +158,13 @@ $ git branch -d 42-my-new-feature
 <p>A hotfix branch is an emergency branch mandated by a critical bug or security flaw in the production
 release. Hotfix branches always derive from <code class="docutils literal"><span class="pre">origin/master</span></code>, and eventually merge back into
 <code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b hotfix-2.0.1 master
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout -b hotfix-2.0.1 master
 # do the work neccessary to bump version numbers
 $ git commit -a -m &quot;Bumped version number to 2.0.1&quot;
 </pre></div>
 </div>
 <p>When the patch or bug fix has been applied to the code, you are ready to put it into <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git commit -m &quot;Fixed severe production problem&quot;
+<div class="highlight-python"><div class="highlight"><pre>$ git commit -m &quot;Fixed severe production problem&quot;
 $ git checkout master
 $ git merge --no-ff hotfix-2.0.1
 $ git tag -a 2.0.1
@@ -185,7 +185,7 @@ note for more information on the advantages of using this flag.</p>
 to the <code class="docutils literal"><span class="pre">master</span></code> branch. It is recommended that releases are tagged. Tags might denote the version
 number for the release or the date of the release. Prior to tagging you ensure that all changes on
 master are included in develop:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout master
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout master
 $ git pull origin master
 $ git checkout develop
 $ git pull origin develop
@@ -207,7 +207,7 @@ The format of this file is flexible. You may look at <a class="reference externa
 as an example. This uses headers to denote each released version along with the date it was released. Below the header
 is a bulletted list of items which were changed/added in the release. Ideally these would also reference
 the issue numbers along with these items.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Release Notes
+<div class="highlight-python"><div class="highlight"><pre>Release Notes
 
 v1.0 - Aug 28, 2015
 -------------------
@@ -220,7 +220,7 @@ v1.0 - Aug 28, 2015
 should be written by a human to be read by a human and should add additional context otherwise not already
 available in the git history.</p>
 <p>With these changes in place you should commit the release note changes and version changes and tag the release.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ git add &lt;related files for change log and version numbers&gt;
+<div class="highlight-python"><div class="highlight"><pre>$ git add &lt;related files for change log and version numbers&gt;
 $ git commit -m &quot;Note and version bump for release &lt;version&gt;&quot;
 $ git tag &lt;version&gt;
 $ git checkout master
@@ -288,7 +288,7 @@ $ git push origin develop --tags
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

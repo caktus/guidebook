@@ -163,7 +163,7 @@ and clean it up when done. See
 <p>When a test assertion fails, sometimes it&#8217;s not obvious why. Most
 assertion methods have an optional argument you can use to add output
 when the assertion fails. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will not only assert that your form is valid, but print the errors as
@@ -456,7 +456,7 @@ your current coverage rating and set this as a requirement for any new
 code &#8211; no change is allowed which reduces test coverage. Over time,
 you&#8217;ll your project’s code coverage to a reasonable level.</p>
 <p>An easy approach is to use a script to run your tests:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>#!/usr/bin/env bash
+<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env bash
 set -e
 
 flake8
@@ -569,7 +569,7 @@ be gradually increased over the life of the project.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
