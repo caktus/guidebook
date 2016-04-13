@@ -25,7 +25,7 @@ JSDoc can be added to an existing project as an npm dependency. To take advantag
 of JSDoc 3.4's native support for ECMAScript 2015, install JSDoc version
 3.4.0 or later::
 
-    npm install jsdoc^3.4.0 --save-dev
+    npm install jsdoc@^3.4.0 --save-dev
 
 For most projects, you will want to create a configuration file that will
 tell JSDoc such things as which files to ignore, which plugins to use, etc.
