@@ -1,5 +1,5 @@
-Front-end Testing Practices
-###########################
+Front-end JavaScript Testing Practices
+======================================
 
 This documentation collections the present state of our knowledge of how to test
 front-end JavaScript code.
@@ -14,10 +14,10 @@ feel free to revise the set of tools if the ones recommended here prove to be
 inadequate, as well as to add new tips, tricks, and best practices to these docs.
 
 Testing Libraries: Overview
-###########################
+---------------------------
 
 Mocha
------
+~~~~~
 
 `Mocha <https://mochajs.org/#features>`_ is a simple and modular test library.
 Unlike `Jasmine <http://jasmine.github.io/>`_, Mocha doesn't come with an
@@ -74,7 +74,7 @@ Because callbacks are used all over the place in JavaScript apps, this easy
 handling of async testing makes Mocha a very attractive test library.
 
 Chai
-----
+~~~~
 
 To make assertions within our tests, we use the library `Chai <http://chaijs.com/>`_.
 The main benefit of Chai is that we don't really have to choose between any of
@@ -119,7 +119,7 @@ a traceback along these lines::
         at ReactUpdatesFlushTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:136:20)
 
 Sinon
------
+~~~~~
 
 For mocks, stubs, and spies, we turn to `Sinon <http://sinonjs.org/>`_, which is
 something like the standard JS library in the field.
@@ -137,7 +137,7 @@ real-world Caktus projects) that we can't cover its features here.
 Please consult the Sinon docs for details.
 
 istanbul & isparta
-------------------
+~~~~~~~~~~~~~~~~~~
 
 For test coverage, we use the libraries `istanbul <https://www.npmjs.com/package/istanbul>`_
 and `isparta <https://www.npmjs.com/package/isparta>`_.
@@ -161,7 +161,7 @@ numbers here represent percentages::
 
 
 Testing Our Stack
-#################
+-----------------
 
 The following front-end tools are bundled in the project template and represents
 our basic stack for future projects:
@@ -186,7 +186,7 @@ tests that take these technologies into account:
   applications
 
 ES2015 Mocha Tests With Gulp and Babel
---------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Transpiling ES2015 code is already a standard part of Caktus's front-end process.
 We can take advantage of the hard work that goes into this code preprocessing
@@ -215,8 +215,8 @@ project sets up Babel to transpile ES2015 and JSX::
 This allows us to not only write and test ES2015 and JSX applications but to write
 our tests themselves in ES2015 and JSX.
 
-React Tests With jsdom
-----------------------
+DOM Mutation Tests With jsdom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A very large amount of front-end JS is concerned about mutating DOM state. This
 code generally assumes that there is a global name ``document`` that points at
@@ -268,12 +268,12 @@ including an ``afterEach`` call that tidies it up::
      });
 
 React Testing Tips
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Here are a few gotchas and tips for writing React tests with Mocha.
 
 Stateless Functional Components Need to be Wrapped
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 React encourages you to define your React components as plain JavaScript
 functions with no side effects. These are called
@@ -297,7 +297,7 @@ Then you can test it with the test utils as usual::
      });
 
 Avoid Race Conditions by Using Callbacks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++
 
 If you're testing whether a React component updates in some way after some state
 change happens, in general you won't be able to check for the update right after
@@ -359,7 +359,7 @@ lifecycle method events like so::
 
 
 Testing Server Interactions
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Figuring out how to mock jQuery AJAX requests is a work in progress. For now,
 try to avoid using those.
@@ -384,7 +384,7 @@ request results in your test setup (and restore them afterwards)::
     });
 
 Testing With Immutable Data
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Stores created with the `Flux utilities <https://facebook.github.io/flux/docs/flux-utils.html>`_
 use `Immutable.js <https://facebook.github.io/immutable-js/>`_ data structures
