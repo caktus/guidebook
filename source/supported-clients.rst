@@ -58,7 +58,7 @@ Microsoft   Edge                    14              **A**
 Microsoft   Edge                    13              B
 Microsoft   Edge                    12              B
 Microsoft   Internet Explorer       11              **A**
-Microsoft   Internet Explorer       10              **B**
+Microsoft   Internet Explorer       10              C
 Microsoft   Internet Explorer       9               C
 Microsoft   Internet Explorer       8 and below     D
 =========   ===================     ===========     =====
