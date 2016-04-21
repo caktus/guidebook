@@ -55,7 +55,7 @@ Google      Chrome for Android      49              B
 Google      Android Browser         4.2-4.3         C
 Google      Android Browser         2.3-4.1         C
 Microsoft   Edge                    14              **A**
-Microsoft   Edge                    13              **A**
+Microsoft   Edge                    13              B
 Microsoft   Edge                    12              B
 Microsoft   Internet Explorer       11              **A**
 Microsoft   Internet Explorer       10              **B**
