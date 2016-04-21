@@ -42,17 +42,21 @@ Browsers
 =========   ===================     ===========     =====
 Vendor      Browser                 Version(s)      Grade
 =========   ===================     ===========     =====
-Google      Chrome                  44              **A**
-Google      Chrome                  43              **A**
-Mozilla     Firefox                 39              **A**
-Mozilla     Firefox                 38              **A**
-Apple       Safari                  8               **A**
-Apple       Safari                  7               B
-Apple       Safari Mobile           8               **A**
-Google      Chrome for Android      42              B
+Google      Chrome                  50              **A**
+Google      Chrome                  49              **A**
+Mozilla     Firefox                 45              **A**
+Mozilla     Firefox                 44              **A**
+Apple       Safari                  9               **A**
+Apple       Safari                  8               B
+Apple       Safari                  7               C
+Apple       Safari Mobile           9               **A**
+Apple       Safari Mobile           8               B
+Google      Chrome for Android      49              B
 Google      Android Browser         4.2-4.3         C
 Google      Android Browser         2.3-4.1         C
-Microsoft   Edge                    1               **A**
+Microsoft   Edge                    14              **A**
+Microsoft   Edge                    13              **A**
+Microsoft   Edge                    12              B
 Microsoft   Internet Explorer       11              **A**
 Microsoft   Internet Explorer       10              **B**
 Microsoft   Internet Explorer       9               C
