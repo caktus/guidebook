@@ -377,7 +377,10 @@ which has good Django support.
 Testing the front-end
 +++++++++++++++++++++
 
-Part of testing is making sure the site works right in a browser. If a site
+Part of testing front-end code is writing unit tests for front-end JavaScript.
+For details on how to do that, see the `front-end JS docs <./frontend.html>`_.
+
+Another part of testing is making sure the site works right in a browser. If a site
 is purely HTML and CSS with no Javascript in the browser, then you can get away
 with testing using the Django test client and examining the HTML in the
 responses. But fewer and fewer sites run without Javascript.

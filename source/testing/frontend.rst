@@ -1,5 +1,5 @@
-Front-end Testing Practices
-###########################
+Front-end JavaScript Testing Practices
+======================================
 
 This documentation collections the present state of our knowledge of how to test
 front-end JavaScript code.
@@ -14,10 +14,10 @@ feel free to revise the set of tools if the ones recommended here prove to be
 inadequate, as well as to add new tips, tricks, and best practices to these docs.
 
 Testing Libraries: Overview
-###########################
+---------------------------
 
 Mocha
------
+~~~~~
 
 `Mocha <https://mochajs.org/#features>`_ is a simple and modular test library.
 Unlike `Jasmine <http://jasmine.github.io/>`_, Mocha doesn't come with an
@@ -36,12 +36,12 @@ containing individual test cases created with calls to ``it``. Your test spec
     describe('Something', function () {
       it('returns foo', function () {
         // assertion code goes here ...
-      });
+      })
 
       it('does not return bar', function () {
         // assertion code goes here ...
-      });
-    });
+      })
+    })
 
 ``describe`` calls can be nested, allowing you to represent the hierarchical
 structure of your app::
@@ -50,9 +50,9 @@ structure of your app::
       describe('YourClass', function () {
         describe('yourMethod', function () {
           //...
-        });
-      });
-    });
+        })
+      })
+    })
 
 When you run Mocha tests using the ``spec`` reporter, this nested structure
 will be reflected in the way your test results are displayed.
@@ -65,16 +65,16 @@ your ``it()`` call and invoke that callback when the test is complete::
       it('completes the async operation asyncFoo', function (done) {
         asyncFoo(function () {
           // assertions go here ...
-          done(); // the test will only pass when this line runs
-        });
-      });
-    });
+          done() // the test will only pass when this line runs
+        })
+      })
+    })
 
 Because callbacks are used all over the place in JavaScript apps, this easy
 handling of async testing makes Mocha a very attractive test library.
 
 Chai
-----
+~~~~
 
 To make assertions within our tests, we use the library `Chai <http://chaijs.com/>`_.
 The main benefit of Chai is that we don't really have to choose between any of
@@ -82,26 +82,26 @@ the various assertion styles that are popular in the JS world. Chai makes them
 all available::
 
     // "should" style
-    chai.should();
+    chai.should()
 
-    foo.should.be.a('string');
-    foo.should.equal('bar');
-    baz.should.have.property('qux').with.length(3);
+    foo.should.be.a('string')
+    foo.should.equal('bar')
+    baz.should.have.property('qux').with.length(3)
 
     // "expect" style
-    var expect = chai.expect;
+    var expect = chai.expect
 
-    expect(foo).to.be.a('string');
-    expect(foo).to.equal('bar');
-    expect(baz).to.have.property('qux').with.length(3);
+    expect(foo).to.be.a('string')
+    expect(foo).to.equal('bar')
+    expect(baz).to.have.property('qux').with.length(3)
 
     // "assert" style
-    var assert = chai.assert;
+    var assert = chai.assert
 
-    assert.typeOf(foo, 'string');
-    assert.equal(foo, 'bar');
-    assert.property(baz, 'qux');
-    assert.lengthOf(baz.qux, 3);
+    assert.typeOf(foo, 'string')
+    assert.equal(foo, 'bar')
+    assert.property(baz, 'qux')
+    assert.lengthOf(baz.qux, 3)
 
 Assertions work more or less like assert method calls in the Python ``unittest``
 framework. A failed assertion results in a failed test; execution of the test
@@ -119,7 +119,7 @@ a traceback along these lines::
         at ReactUpdatesFlushTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:136:20)
 
 Sinon
------
+~~~~~
 
 For mocks, stubs, and spies, we turn to `Sinon <http://sinonjs.org/>`_, which is
 something like the standard JS library in the field.
@@ -136,8 +136,58 @@ In fact, Sinon is so feature-rich (and its abilities are still so untested in
 real-world Caktus projects) that we can't cover its features here.
 Please consult the Sinon docs for details.
 
+babel-plugin-rewire
+~~~~~~~~~~~~~~~~~~~
+
+Many values we are interested in testing may be defined in terms of named values
+that are inaccessible from an outside module. For example, a class definition
+may contain references to values imported from another module by an ES2015 import
+statement, or it may use functions defined in the top-level module scope.
+Because the names are external to the class definition and the values in question
+may not be directly accessible to outside modules, testing such a definition
+in isolation is tricky.
+
+Enter `babel-plugin-rewire <https://github.com/speedskater/babel-plugin-rewire>`_,
+a Babel plugin that adds methods to modules to make it possible to mock names
+used in the module.
+
+Say, for example, that we want to test the behavior of ``MyFancyWrapperComponent``
+in isolation from ``ChildComponent``::
+
+    import ChildComponent from 'child-component-module'
+
+    export default class MyFancyWrapperComponent extends React.Component {
+
+        render () {
+            return (
+                <div className="wrapper-style">
+                    <ChildComponent { ...this.props } />
+                </div>
+            )
+        }
+    }
+
+Using ``babel-plugin-rewire``, we can write our test as follows, using the
+rewire API to change the value of the name ``ChildComponent`` and to return
+it to its "real" value afterwards::
+
+    import ComponentToTest from 'my-fancy-wrapper-component-module'
+
+    describe('MyFancyWrapperComponent', () => {
+        before(() => {
+            ComponentToTest.__Rewire__('ChildComponent', class extends React.Component {
+                render () { return <div { ...this.props }></div> }
+            })
+        })
+
+        after(() => {
+            ComponentToTest.__ResetDependency__('ChildComponent')
+        })
+        /* ... */
+    })
+
 istanbul & isparta
-------------------
+~~~~~~~~~~~~~~~~~~
 
 For test coverage, we use the libraries `istanbul <https://www.npmjs.com/package/istanbul>`_
 and `isparta <https://www.npmjs.com/package/isparta>`_.
@@ -161,7 +211,7 @@ numbers here represent percentages::
 
 
 Testing Our Stack
-#################
+-----------------
 
 The following front-end tools are bundled in the project template and represents
 our basic stack for future projects:
@@ -186,7 +236,7 @@ tests that take these technologies into account:
   applications
 
 ES2015 Mocha Tests With Gulp and Babel
---------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Transpiling ES2015 code is already a standard part of Caktus's front-end process.
 We can take advantage of the hard work that goes into this code preprocessing
@@ -196,9 +246,9 @@ This comes out clearly in the actual test command, handled by Gulp, which
 transpiles our code using Babel behind the scenes. Our Gulp test task begins::
 
     gulp.task('test', function () {
-        require('babel-core/register');
+        require('babel-core/register')
         // ...
-    });
+    })
 
 ``babel-core/register``, when imported, causes all imports within the scope to
 be run through Babel. The result is that ES2015 and JSX files used by the Mocha
@@ -215,8 +265,8 @@ project sets up Babel to transpile ES2015 and JSX::
 This allows us to not only write and test ES2015 and JSX applications but to write
 our tests themselves in ES2015 and JSX.
 
-React Tests With jsdom
-----------------------
+DOM Mutation Tests With jsdom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A very large amount of front-end JS is concerned about mutating DOM state. This
 code generally assumes that there is a global name ``document`` that points at
@@ -252,28 +302,28 @@ from ``document``.
 Once set up in this way, Mocha will happily run tests that include statements
 like these, which require the presence of a DOM at ``document``::
 
-    TestUtils.renderIntoDocument(<AppController />);
+    TestUtils.renderIntoDocument(<AppController />)
 
 You should make sure to clean up your fake DOM after tests that use one by
 including an ``afterEach`` call that tidies it up::
 
-    import ReactDOM from 'react-dom';
+    import ReactDOM from 'react-dom'
     //...
 
     describe('YourTestCase', () => {
       afterEach(() => {
-        ReactDOM.unmountComponentAtNode(document.body);
-        document.body.innerHTML = '';
-      });
-     });
+        ReactDOM.unmountComponentAtNode(document.body)
+        document.body.innerHTML = ''
+      })
+     })
 
 React Testing Tips
-------------------
+~~~~~~~~~~~~~~~~~~
 
 Here are a few gotchas and tips for writing React tests with Mocha.
 
 Stateless Functional Components Need to be Wrapped
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++
 
 React encourages you to define your React components as plain JavaScript
 functions with no side effects. These are called
@@ -287,17 +337,17 @@ to test certain behaviors (e.g. checking their output after a state update).
 To do these things, use the ``react-functional`` library to wrap your component.
 Then you can test it with the test utils as usual::
 
-    import functional from 'react-functional';
+    import functional from 'react-functional'
     //...
 
     describe('StatelessComponent', () => {
-      let WrappedComponent = functional(StatelessComponent);
-      TestUtils.renderIntoDocument(<WrappedComponent />);
+      let WrappedComponent = functional(StatelessComponent)
+      TestUtils.renderIntoDocument(<WrappedComponent />)
       // ...
-     });
+     })
 
 Avoid Race Conditions by Using Callbacks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++
 
 If you're testing whether a React component updates in some way after some state
 change happens, in general you won't be able to check for the update right after
@@ -311,8 +361,8 @@ An easy way to do that is to create a utility function that wraps your React
 component and provides access to an EventEmitter that fires an event whenever
 your component's lifecycle methods are called::
 
-    import React from 'react';
-    import { EventEmitter } from 'events';
+    import React from 'react'
+    import { EventEmitter } from 'events'
 
     const LIFECYCLE_METHODS = [
       'componentWillMount'
@@ -322,28 +372,28 @@ your component's lifecycle methods are called::
       , 'componentWillUpdate'
       , 'componentDidUpdate'
       , 'componentWillUnmount'
-    ];
+    ]
 
     export default function LifecycleEmitter (Component) {
       class EventedClass extends Component {
         constructor () {
-          super();
-          this.lifecycle = new EventEmitter();
+          super()
+          this.lifecycle = new EventEmitter()
         }
       }
 
       for (let fn of LIFECYCLE_METHODS) {
         EventedClass.prototype[fn] = function () {
-          let rv = null;
+          let rv = null
           if (typeof Component.prototype[fn] === 'function') {
-            rv = Component.prototype[fn].apply(this, arguments);
+            rv = Component.prototype[fn].apply(this, arguments)
           }
-          this.lifecycle.emit(fn);
-          return rv;
+          this.lifecycle.emit(fn)
+          return rv
         }
       }
 
-      return EventedClass;
+      return EventedClass
     }
 
 
@@ -351,15 +401,15 @@ With this LifecycleEmitter class wrapper in hand, you can write tests for
 lifecycle method events like so::
 
     it('emits an event when componentDidUpdate fires', (done) => {
-      let Wrapped = LifecycleEmitter(YourComponent);
-      let c = TestUtils.renderIntoDocument(<YourComponent />);
-      c.lifecycle.once('componentDidUpdate', done);
-      Actions.triggerComponentUpdate();
-    });
+      let Wrapped = LifecycleEmitter(YourComponent)
+      let c = TestUtils.renderIntoDocument(<YourComponent />)
+      c.lifecycle.once('componentDidUpdate', done)
+      Actions.triggerComponentUpdate()
+    })
 
 
 Testing Server Interactions
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Figuring out how to mock jQuery AJAX requests is a work in progress. For now,
 try to avoid using those.
@@ -375,16 +425,15 @@ request results in your test setup (and restore them afterwards)::
       beforeEach(() => {
         fetchMock
           .mock('/path/to/test_data.json', DATA)
-        ;
-      });
+      })
 
       afterEach(() => {
-        fetchMock.restore();
-      });
-    });
+        fetchMock.restore()
+      })
+    })
 
 Testing With Immutable Data
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Stores created with the `Flux utilities <https://facebook.github.io/flux/docs/flux-utils.html>`_
 use `Immutable.js <https://facebook.github.io/immutable-js/>`_ data structures
@@ -397,9 +446,9 @@ Here, for example, you can use the ``count`` method of immutable collections to
 count the number of key-value pairs in the immutable Map returned from this Store::
 
     it('has three items on inspection', () => {
-      let items = YourStore.getState();
-      assert.equal(3, items.count());
-    });
+      let items = YourStore.getState()
+      assert.equal(3, items.count())
+    })
 
 See the `Immutable.js docs <https://facebook.github.io/immutable-js/docs/>`_ for
 more info on how to work with key types like Map, Seq, and Collection.
@@ -416,14 +465,14 @@ with a ``<li>`` for each data point.
 
 The code for this component looks like::
 
-    import React from 'react';
+    import React from 'react'
 
     export default function AppList ({ items }) {
       return (
         <ul>
           { items.map((item) => <li key={ item.id }>{ item.text }</li>) }
         </ul>
-      );
+      )
     }
 
 We're going to be interested in verifying that this function renders data
@@ -435,7 +484,7 @@ So first, let's create some fake data and put it in a ``constants.js`` file
 in a directory adjoining our tests. Our component will expect to see an immutable
 List value, so we create the fake data like so::
 
-    import { List } from 'immutable';
+    import { List } from 'immutable'
 
     export const DATA_LIST = List([
       {
@@ -450,7 +499,7 @@ List value, so we create the fake data like so::
         id: 'bazId'
         , text: 'bazText'
       }
-    ]);
+    ])
 
 Now we create a file ``test_AppList.js`` in our specs directory and do some
 basic, predictable setup:
@@ -469,15 +518,15 @@ basic, predictable setup:
 
 This gives us the skeleton of a test module::
 
-    import React from 'react';
-    import ReactDOM from 'react-dom';
-    import TestUtils from 'react-addons-test-utils';
-    import functional from 'react-functional';
-    import { DATA_LIST } from '../../util/constants.js';
-    import { assert } from 'chai';
-    import AppList from '../../../app/components/views/AppList.js';
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import TestUtils from 'react-addons-test-utils'
+    import functional from 'react-functional'
+    import { DATA_LIST } from '../../util/constants.js'
+    import { assert } from 'chai'
+    import AppList from '../../../app/components/views/AppList.js'
 
-    let WrappedAppList = functional(AppList);
+    let WrappedAppList = functional(AppList)
 
     describe('AppList', () => {
       afterEach(() => {
@@ -486,20 +535,20 @@ This gives us the skeleton of a test module::
          * * unmounts React components from the DOM root
          * * wipes the HTML content of the ``body`` element for good measure
          */
-        ReactDOM.unmountComponentAtNode(document.body);
-        document.body.innerHTML = '';
-      });
-    });
+        ReactDOM.unmountComponentAtNode(document.body)
+        document.body.innerHTML = ''
+      })
+    })
 
 Now we can write a test. Let's check that when our fake data is passed to the
 component, the result is a list with three items (corresponding to the three
 data points)::
 
     it('generates the right list from its data', () => {
-      let al = TestUtils.renderIntoDocument(<WrappedAppList items={ DATA_LIST } />);
-      let lis = TestUtils.scryRenderedDOMComponentsWithTag(al, 'li');
-      assert.equal(3, lis.length);
-    });
+      let al = TestUtils.renderIntoDocument(<WrappedAppList items={ DATA_LIST } />)
+      let lis = TestUtils.scryRenderedDOMComponentsWithTag(al, 'li')
+      assert.equal(3, lis.length)
+    })
 
 Now we can do ``npm test`` from the command line and verify that our component
 does what we think it does.
