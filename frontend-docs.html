@@ -24,6 +24,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="External Services" href="services/index.html" />
+    <link rel="prev" title="Frontend Packaging" href="frontend-packages.html" />
    
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -58,7 +60,7 @@ that your comments are as informative and immediately comprehensible as possible
 <p>JSDoc can be added to an existing project as an npm dependency. To take advantage
 of JSDoc 3.4&#8217;s native support for ECMAScript 2015, install JSDoc version
 3.4.0 or later:</p>
-<div class="highlight-python"><div class="highlight"><pre>npm install jsdoc@^3.4.0 --save-dev
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="n">jsdoc</span><span class="o">@^</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">0</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>For most projects, you will want to create a configuration file that will
@@ -81,7 +83,7 @@ like <code class="docutils literal"><span class="pre">project_name/static/js</sp
 as its source, you will also want to throw in an <code class="docutils literal"><span class="pre">excludePattern</span></code> so that only
 source JS is crawled.</p>
 <p>Following our recommendations gives you a config file like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s2">&quot;excludePattern&quot;</span><span class="p">:</span> <span class="s2">&quot;bundle</span><span class="se">\\</span><span class="s2">.js&quot;</span><span class="p">,</span>
     <span class="s2">&quot;include&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -100,19 +102,19 @@ React as well as the JSX component-specification DSL; and it probably also
 uses Babel to preprocess both. Because JSDoc can use your existing Babel
 setup, it takes very little additional work to ensure that JSDoc can read
 your code. You will need the <code class="docutils literal"><span class="pre">jsdoc-babel</span></code> plugin:</p>
-<div class="highlight-python"><div class="highlight"><pre>npm install --save-dev jsdoc-babel
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">jsdoc</span><span class="o">-</span><span class="n">babel</span>
 </pre></div>
 </div>
 <p>And you will need to add lines to your config file to add the plugin and to
 get JSDoc to recognize <code class="docutils literal"><span class="pre">.jsx</span></code> files as well as <code class="docutils literal"><span class="pre">.js</span></code> ones:</p>
-<div class="highlight-python"><div class="highlight"><pre>{
-  &quot;plugins&quot;: [&quot;node_modules/jsdoc-babel&quot;],
-  &quot;source&quot;: {
-    &quot;includePattern&quot;: &quot;.+\\.jsx?$&quot;,
-    /* ... */
-  },
-  /* ... */
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;node_modules/jsdoc-babel&quot;</span><span class="p">],</span>
+  <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;includePattern&quot;</span><span class="p">:</span> <span class="s2">&quot;.+</span><span class="se">\\</span><span class="s2">.jsx?$&quot;</span><span class="p">,</span>
+    <span class="o">/*</span> <span class="o">...</span> <span class="o">*/</span>
+  <span class="p">},</span>
+  <span class="o">/*</span> <span class="o">...</span> <span class="o">*/</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>That&#8217;s it. Assuming Babel is correctly configured to process your JSX code,
@@ -120,7 +122,7 @@ JSDoc will now be able to handle it, too.</p>
 <p>Once the configuration file is set up, you can generate a JSDoc site from your
 JS by running this command (assuming <code class="docutils literal"><span class="pre">./node_modules/.bin</span></code> is in your
 <code class="docutils literal"><span class="pre">$PATH</span></code>):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">jsdoc</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span><span class="n">jsdoc</span><span class="o">.</span><span class="n">json</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">jsdoc</span> <span class="o">-</span><span class="n">c</span> <span class="o">.</span><span class="n">jsdoc</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
 <p>That&#8217;s it! Your JSDoc documentation will have been deposited in <code class="docutils literal"><span class="pre">./docs/js</span></code>.</p>
@@ -192,7 +194,7 @@ context for interpreting the comment.</p>
 <p>An ES6 module can be documented by adding a JSDoc comment with the
 <code class="docutils literal"><span class="pre">&#64;module</span></code> tag with the identifier for the module (e.g. <code class="docutils literal"><span class="pre">&#64;module</span> <span class="pre">foo/bar</span></code>
 for a module loaded with <code class="docutils literal"><span class="pre">import</span> <span class="pre">*</span> <span class="pre">as</span> <span class="pre">fooBar</span> <span class="pre">from</span> <span class="pre">'foo/bar'</span></code>):</p>
-<div class="highlight-python"><div class="highlight"><pre>/** @module foo/bar */
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/**</span> <span class="nd">@module</span> <span class="n">foo</span><span class="o">/</span><span class="n">bar</span> <span class="o">*/</span>
 </pre></div>
 </div>
 <p>An ES6 class can be documented by adding a JSDoc comment to its
@@ -205,24 +207,24 @@ constructor using <code class="docutils literal"><span class="pre">&#64;construc
 required parameter, <code class="docutils literal"><span class="pre">options</span></code>, and the attribute <code class="docutils literal"><span class="pre">id</span></code> that it
 requires; and it uses <code class="docutils literal"><span class="pre">&#64;see</span></code> to link to the docs for the method
 <code class="docutils literal"><span class="pre">appSetup</span></code> which does the constructor&#8217;s heavy lifting:</p>
-<div class="highlight-python"><div class="highlight"><pre>export default class ShowMatches extends Model {
-  /**
-   * The app state model.
-   *
-   * @constructs ShowMatches
-   * @param {Object} options - initialization options for app.
-   * @param {string} options.id - ID of dataset.
-   *
-   * @see ShowMatches#appSetup
-   */
-  constructor (options, ...rest) {
-    super(options, ...rest);
-    this.__options__ = options;
-    this.appSetup(options);
-  }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">default</span> <span class="k">class</span> <span class="nc">ShowMatches</span> <span class="n">extends</span> <span class="n">Model</span> <span class="p">{</span>
+  <span class="o">/**</span>
+   <span class="o">*</span> <span class="n">The</span> <span class="n">app</span> <span class="n">state</span> <span class="n">model</span><span class="o">.</span>
+   <span class="o">*</span>
+   <span class="o">*</span> <span class="nd">@constructs</span> <span class="n">ShowMatches</span>
+   <span class="o">*</span> <span class="nd">@param</span> <span class="p">{</span><span class="n">Object</span><span class="p">}</span> <span class="n">options</span> <span class="o">-</span> <span class="n">initialization</span> <span class="n">options</span> <span class="k">for</span> <span class="n">app</span><span class="o">.</span>
+   <span class="o">*</span> <span class="nd">@param</span> <span class="p">{</span><span class="n">string</span><span class="p">}</span> <span class="n">options</span><span class="o">.</span><span class="n">id</span> <span class="o">-</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">dataset</span><span class="o">.</span>
+   <span class="o">*</span>
+   <span class="o">*</span> <span class="nd">@see</span> <span class="n">ShowMatches</span><span class="c1">#appSetup</span>
+   <span class="o">*/</span>
+  <span class="n">constructor</span> <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="o">...</span><span class="n">rest</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="o">...</span><span class="n">rest</span><span class="p">);</span>
+    <span class="n">this</span><span class="o">.</span><span class="n">__options__</span> <span class="o">=</span> <span class="n">options</span><span class="p">;</span>
+    <span class="n">this</span><span class="o">.</span><span class="n">appSetup</span><span class="p">(</span><span class="n">options</span><span class="p">);</span>
+  <span class="p">}</span>
 
-  // ...
-}
+  <span class="o">//</span> <span class="o">...</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This example of a JSDoc comment for a method on this class contains
@@ -234,19 +236,19 @@ of that type; it indicates via <code class="docutils literal"><span class="pre">
 fires an event, and it links to the docs for that event; and it
 uses <code class="docutils literal"><span class="pre">&#64;see</span></code> to accompany the reference to <code class="docutils literal"><span class="pre">PossibleMatches</span></code> with
 an explicit link to its documentation:</p>
-<div class="highlight-python"><div class="highlight"><pre>/**
- * Method called to compare a collection of potential matches, triggered
- * by the PossibleMatches view.
- *
- * @method ShowMatches#compareMatches
- * @param {module:models/PossibleMatch.PossibleMatch[]} matches - set of
- *     matches to compare
- * @fires ShowMatches#event:change:comparing_matches
- * @see module:views/PossibleMatches
- */
-compareMatches (models) {
-  this.set(&#39;comparing_matches&#39;, new PossibleMatchesCollection(models));
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="n">Method</span> <span class="n">called</span> <span class="n">to</span> <span class="n">compare</span> <span class="n">a</span> <span class="n">collection</span> <span class="n">of</span> <span class="n">potential</span> <span class="n">matches</span><span class="p">,</span> <span class="n">triggered</span>
+ <span class="o">*</span> <span class="n">by</span> <span class="n">the</span> <span class="n">PossibleMatches</span> <span class="n">view</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@method</span> <span class="n">ShowMatches</span><span class="c1">#compareMatches</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="p">{</span><span class="n">module</span><span class="p">:</span><span class="n">models</span><span class="o">/</span><span class="n">PossibleMatch</span><span class="o">.</span><span class="n">PossibleMatch</span><span class="p">[]}</span> <span class="n">matches</span> <span class="o">-</span> <span class="nb">set</span> <span class="n">of</span>
+ <span class="o">*</span>     <span class="n">matches</span> <span class="n">to</span> <span class="n">compare</span>
+ <span class="o">*</span> <span class="nd">@fires</span> <span class="n">ShowMatches</span><span class="c1">#event:change:comparing_matches</span>
+ <span class="o">*</span> <span class="nd">@see</span> <span class="n">module</span><span class="p">:</span><span class="n">views</span><span class="o">/</span><span class="n">PossibleMatches</span>
+ <span class="o">*/</span>
+<span class="n">compareMatches</span> <span class="p">(</span><span class="n">models</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">this</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;comparing_matches&#39;</span><span class="p">,</span> <span class="n">new</span> <span class="n">PossibleMatchesCollection</span><span class="p">(</span><span class="n">models</span><span class="p">));</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition caution">
@@ -261,16 +263,16 @@ indicates that the function is to be used as a callback by declaring
 it with <code class="docutils literal"><span class="pre">&#64;callback</span></code>. It specifies the event it listens for using <code class="docutils literal"><span class="pre">&#64;listens</span></code>.
 Finally, since executing the callback also triggers an event, it
 specifies that event with <code class="docutils literal"><span class="pre">&#64;fires</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>/**
- * Handles the changing of the set of potential matches being compared.
- *
- * @callback ShowMatches#changeComparingMatches
- * @listens ShowMatches#event:change:comparing_matches
- * @fires ShowMatches#event:change:active_master_view
- */
-changeComparingMatches () {
-  this.set(&#39;active_master_view&#39;, &#39;possible-matches-detail&#39;);
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="n">Handles</span> <span class="n">the</span> <span class="n">changing</span> <span class="n">of</span> <span class="n">the</span> <span class="nb">set</span> <span class="n">of</span> <span class="n">potential</span> <span class="n">matches</span> <span class="n">being</span> <span class="n">compared</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@callback</span> <span class="n">ShowMatches</span><span class="c1">#changeComparingMatches</span>
+ <span class="o">*</span> <span class="nd">@listens</span> <span class="n">ShowMatches</span><span class="c1">#event:change:comparing_matches</span>
+ <span class="o">*</span> <span class="nd">@fires</span> <span class="n">ShowMatches</span><span class="c1">#event:change:active_master_view</span>
+ <span class="o">*/</span>
+<span class="n">changeComparingMatches</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">this</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;active_master_view&#39;</span><span class="p">,</span> <span class="s1">&#39;possible-matches-detail&#39;</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Custom or otherwise app-relevant events can be documented in
@@ -279,15 +281,15 @@ the name of the event with <code class="docutils literal"><span class="pre">&#64
 passed to its event listeners with <code class="docutils literal"><span class="pre">&#64;param</span></code> (i.e. the callback for
 <code class="docutils literal"><span class="pre">change:new_id</span></code> should take two arguments, <code class="docutils literal"><span class="pre">app</span></code> and <code class="docutils literal"><span class="pre">new_id_p</span></code>,
 whose types and significance are spelled out here):</p>
-<div class="highlight-python"><div class="highlight"><pre>/**
- * Event representing the process of assigning a new ID to the current
- * active Person record.
- *
- * @event ShowMatches#event:change:new_id
- * @param {ShowMatches} app - the changing app
- * @param {Promise} new_id_p - promise representing the HTTP request to
- *     assign a new ID to the current active Person
- */
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/**</span>
+ <span class="o">*</span> <span class="n">Event</span> <span class="n">representing</span> <span class="n">the</span> <span class="n">process</span> <span class="n">of</span> <span class="n">assigning</span> <span class="n">a</span> <span class="n">new</span> <span class="n">ID</span> <span class="n">to</span> <span class="n">the</span> <span class="n">current</span>
+ <span class="o">*</span> <span class="n">active</span> <span class="n">Person</span> <span class="n">record</span><span class="o">.</span>
+ <span class="o">*</span>
+ <span class="o">*</span> <span class="nd">@event</span> <span class="n">ShowMatches</span><span class="c1">#event:change:new_id</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="p">{</span><span class="n">ShowMatches</span><span class="p">}</span> <span class="n">app</span> <span class="o">-</span> <span class="n">the</span> <span class="n">changing</span> <span class="n">app</span>
+ <span class="o">*</span> <span class="nd">@param</span> <span class="p">{</span><span class="n">Promise</span><span class="p">}</span> <span class="n">new_id_p</span> <span class="o">-</span> <span class="n">promise</span> <span class="n">representing</span> <span class="n">the</span> <span class="n">HTTP</span> <span class="n">request</span> <span class="n">to</span>
+ <span class="o">*</span>     <span class="n">assign</span> <span class="n">a</span> <span class="n">new</span> <span class="n">ID</span> <span class="n">to</span> <span class="n">the</span> <span class="n">current</span> <span class="n">active</span> <span class="n">Person</span>
+ <span class="o">*/</span>
 </pre></div>
 </div>
 </div>
@@ -316,6 +318,8 @@ whose types and significance are spelled out here):</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="frontend-packages.html" title="previous chapter">Frontend Packaging</a></li>
+      <li>Next: <a href="services/index.html" title="next chapter">External Services</a></li>
   </ul></li>
 </ul>
 </div>
@@ -334,9 +338,6 @@ whose types and significance are spelled out here):</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -347,7 +348,7 @@ whose types and significance are spelled out here):</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
