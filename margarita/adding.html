@@ -130,15 +130,15 @@ applied once to a given system.</p>
 <h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
 <p>A server&#8217;s roles are configured by adding strings to the list named <code class="docutils literal"><span class="pre">roles</span></code>
 in its grains, by editing <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
-  <span class="n">environment</span><span class="p">:</span> <span class="n">staging</span>
-  <span class="n">roles</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span>
-  <span class="o">-</span> <span class="n">web</span>
-  <span class="o">-</span> <span class="n">worker</span>
-  <span class="o">-</span> <span class="n">balancer</span>
-  <span class="o">-</span> <span class="n">queue</span>
-  <span class="o">-</span> <span class="n">cache</span>
+<div class="highlight-python"><div class="highlight"><pre>grains:
+  environment: staging
+  roles:
+  - salt-master
+  - web
+  - worker
+  - balancer
+  - queue
+  - cache
 </pre></div>
 </div>
 <p>The roles primarily are used to select, in your project&#8217;s <code class="docutils literal"><span class="pre">top.sls</span></code> file, which
@@ -167,46 +167,46 @@ inconvenient for test and development.</p>
 directory on the Salt master, and add that directory to
 the file roots.  So part of your <code class="docutils literal"><span class="pre">/etc/salt/master</span></code> file
 might look like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fileserver_backend</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">roots</span>
+<div class="highlight-python"><div class="highlight"><pre>fileserver_backend:
+  - roots
 
-<span class="n">file_roots</span><span class="p">:</span>
-  <span class="n">base</span><span class="p">:</span>
-    <span class="o">-</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">salt</span>
-    <span class="o">-</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
+file_roots:
+  base:
+    - /srv/salt
+    - /srv/margarita
 </pre></div>
 </div>
 <p>Then you might have a Salt state to put Margarita into that
 directory at a given version, maybe something like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">install</span><span class="p">:</span>
-  <span class="n">pkg</span><span class="o">.</span><span class="n">installed</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
+<div class="highlight-python"><div class="highlight"><pre>git-install:
+  pkg.installed:
+    - name: git-core
 
-<span class="n">clone_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">caktus</span><span class="o">/</span><span class="n">margarita</span><span class="o">.</span><span class="n">git</span> <span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">unless</span><span class="p">:</span> <span class="n">test</span> <span class="o">-</span><span class="n">e</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span><span class="o">/.</span><span class="n">git</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-       <span class="o">-</span> <span class="n">pkg</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">install</span>
+clone_repo:
+  cmd.run:
+     - name: git clone https://github.com/caktus/margarita.git margarita
+     - user: root
+     - unless: test -e /srv/margarita/.git
+     - cwd: /srv
+     - requires:
+       - pkg: git-install
 
-<span class="n">fetch_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">clone_repo</span>
-        <span class="o">-</span> <span class="n">pkg</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">install</span>
+fetch_repo:
+  cmd.run:
+     - name: git fetch origin
+     - user: root
+     - cwd: /srv/margarita
+     - requires:
+        - cmd: clone_repo
+        - pkg: git-install
 
-<span class="n">reset_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span> <span class="p">{{</span> <span class="n">pillar</span><span class="p">[</span><span class="s1">&#39;margarita_version&#39;</span><span class="p">]</span> <span class="p">}}</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">fetch_repo</span>
+reset_repo:
+  cmd.run:
+     - name: git reset --hard {{ pillar[&#39;margarita_version&#39;] }}
+     - user: root
+     - cwd: /srv/margarita
+     - requires:
+        - cmd: fetch_repo
 </pre></div>
 </div>
 <p>If using this, set the pillar variable <code class="docutils literal"><span class="pre">margarita_version</span></code> to the
@@ -214,8 +214,8 @@ version you want to install, e.g. &#8220;1.2.0&#8221;.</p>
 <p>Just be sure to restart the salt-master after Margarita is updated.
 We do that outside Salt after invoking this state, something
 like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">salt</span> <span class="o">-</span><span class="n">G</span> <span class="s1">&#39;roles:salt-master&#39;</span> <span class="n">state</span><span class="o">.</span><span class="n">sls</span> <span class="n">margarita</span>
-<span class="n">sudo</span> <span class="n">service</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span> <span class="n">restart</span>
+<div class="highlight-python"><div class="highlight"><pre>sudo salt -G &#39;roles:salt-master&#39; state.sls margarita
+sudo service salt-master restart
 </pre></div>
 </div>
 <p>(Note: the Margarita salt state above could be simplified using
@@ -266,6 +266,9 @@ works.)</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -276,7 +279,7 @@ works.)</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

@@ -50,7 +50,7 @@
 This includes a base set of common command line programs used by developers, but not shipped by
 default in OSX. You may need to re-install this package after major upgrades to OSX.</p>
 <p>Apple does provide a simple utility for bootstrapping these tools and installing them:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
 </pre></div>
 </div>
 <p>Get more information about the Command Line Tools directly from Apple:</p>
@@ -62,7 +62,7 @@ default in OSX. You may need to re-install this package after major upgrades to 
 <p>Homebrew is a project that provides automated download, compilation, and install of a wide range
 of developer and console tools for the Mac.</p>
 <p>A self-executing install script can be fetched and run simply, from the Homebrew documentation:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </pre></div>
 </div>
 <p>You can receive more information in the Homebrew documentation or see a full list of packages
@@ -72,13 +72,21 @@ available once you&#8217;ve installed it.</p>
 <li>Package List: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/Library/Formula">https://github.com/Homebrew/homebrew/tree/master/Library/Formula</a></li>
 </ul>
 </div>
+<div class="section" id="openssl">
+<h3>OpenSSL<a class="headerlink" href="#openssl" title="Permalink to this headline">¶</a></h3>
+<p>There are known incompatibilies with the OpenSSL library shipped with OSX, but Homebrew gives us
+a more up-to-date version to link against. We need to both install and force-link this one:</p>
+<blockquote>
+<div>brew install openssl
+brew link openssl &#8211;force</div></blockquote>
+</div>
 <div class="section" id="version-control">
 <h3>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
 <p>Install Mercurial and Git, the version control systems used by most
 projects to obtain and coordinate changes to the code base between all
 developers:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
-<span class="n">brew</span> <span class="n">install</span> <span class="n">mercurial</span>
+<div class="highlight-python"><div class="highlight"><pre>brew install git
+brew install mercurial
 </pre></div>
 </div>
 </div>
@@ -86,13 +94,13 @@ developers:</p>
 <h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
 <p>The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
 extensions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">postgres</span>
-<span class="n">brew</span> <span class="n">install</span> <span class="n">postgis</span>
+<div class="highlight-python"><div class="highlight"><pre>brew install postgres
+brew install postgis
 </pre></div>
 </div>
 <p>With PostgreSQL installed, you&#8217;ll want to make sure it runs every time your machine comes up, and
 to start it running immediately:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>mkdir -p ~/Library/LaunchAgents
+<div class="highlight-python"><div class="highlight"><pre>mkdir -p ~/Library/LaunchAgents
 cp /usr/local/Cellar/postgresql/$(postgres --version|cut -d&#39; &#39; -f3)/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 </pre></div>
@@ -110,7 +118,7 @@ or alternate versions like PyPy, Stackless, and Jython.</p>
 <p>Pythonz will install everything into a hidden <cite>.pythonz/</cite> directory in your
 home directory, and will not modify any paths by default.</p>
 <p>You can install Pythonz easily:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+<div class="highlight-python"><div class="highlight"><pre>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 echo &quot;[[ -s $HOME/.pythonz/etc/bashrc ]] &amp;&amp; source $HOME/.pythonz/etc/bashrc&quot; &gt;&gt; ~/.bash_profile
 source $HOME/.pythonz/etc/bashrc
 </pre></div>
@@ -119,9 +127,9 @@ source $HOME/.pythonz/etc/bashrc
 <blockquote>
 <div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
 <p>You should install three versions of Python for different projects:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pythonz</span> <span class="n">install</span> <span class="mf">3.4</span><span class="o">.</span><span class="mi">3</span>
-<span class="n">pythonz</span> <span class="n">install</span> <span class="mf">3.3</span><span class="o">.</span><span class="mi">6</span>
-<span class="n">pythonz</span> <span class="n">install</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">10</span>
+<div class="highlight-python"><div class="highlight"><pre>pythonz install 2.7.11
+pythonz install 3.4.4
+pythonz install 3.5.1
 </pre></div>
 </div>
 </div>
@@ -131,19 +139,19 @@ source $HOME/.pythonz/etc/bashrc
 <cite>virtualenvwrapper</cite> to manage sandboxes for each project and the Python
 packages required for each project installed into those sandboxes.</p>
 <p>You&#8217;ll install <cite>pip</cite> first, into your system Python that comes with OSX:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">easy_install</span> <span class="n">pip</span>
+<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
 </pre></div>
 </div>
 <p>And, using pip, install <cite>virtualenvwrapper</cite> which will automatically
 install <cite>virtualenv</cite> as one of its dependencies:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span>
+<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper --ignore-installed six
 </pre></div>
 </div>
 <p>Virtualenv Wrapper requires some configuration to work with your local
 command line shell. You can copy and paste the code below to set this up
 in your Terminal. (You can also customize what you set PROJECT_HOME to, if
 you wish):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
+<div class="highlight-python"><div class="highlight"><pre>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
@@ -154,7 +162,7 @@ source ~/.bash_profile
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
 <p>You can create a virtual environment using a version of Python installed
 from pythonz as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
 </pre></div>
 </div>
 <p>On Python versions &gt;= 3.3 it&#8217;s also possible to use Python&#8217;s built-in
@@ -179,6 +187,7 @@ all virtual environments. For more information, see:</p>
 <li><a class="reference internal" href="#mac-os-x">Mac OS X</a><ul>
 <li><a class="reference internal" href="#command-line-tools">Command Line Tools</a></li>
 <li><a class="reference internal" href="#homebrew">Homebrew</a></li>
+<li><a class="reference internal" href="#openssl">OpenSSL</a></li>
 <li><a class="reference internal" href="#version-control">Version Control</a></li>
 <li><a class="reference internal" href="#postgresql">PostgreSQL</a></li>
 <li><a class="reference internal" href="#python">Python</a></li>
@@ -213,6 +222,9 @@ all virtual environments. For more information, see:</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -223,7 +235,7 @@ all virtual environments. For more information, see:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

@@ -47,15 +47,15 @@ running <code class="docutils literal"><span class="pre">salt-master</span></cod
 referred to collectively as <em>minions</em>.</p>
 <p>What each minion does is defined by editing the list of <em>roles</em> in the
 minion&#8217;s salt configuration file <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  E.g.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
-  <span class="n">environment</span><span class="p">:</span> <span class="n">staging</span>
-  <span class="n">roles</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span>
-  <span class="o">-</span> <span class="n">web</span>
-  <span class="o">-</span> <span class="n">worker</span>
-  <span class="o">-</span> <span class="n">balancer</span>
-  <span class="o">-</span> <span class="n">queue</span>
-  <span class="o">-</span> <span class="n">cache</span>
+<div class="highlight-python"><div class="highlight"><pre>grains:
+  environment: staging
+  roles:
+  - salt-master
+  - web
+  - worker
+  - balancer
+  - queue
+  - cache
 </pre></div>
 </div>
 <p>The minion with this <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code> file is playing a lot
@@ -111,6 +111,9 @@ that server can connect to this one.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -121,7 +124,7 @@ that server can connect to this one.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
