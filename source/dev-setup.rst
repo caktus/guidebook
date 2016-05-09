@@ -40,6 +40,15 @@ available once you've installed it.
 * Homebrew Docs: https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme
 * Package List: https://github.com/Homebrew/homebrew/tree/master/Library/Formula
 
+OpenSSL
+'''''''
+
+There are known incompatibilies with the OpenSSL library shipped with OSX, but Homebrew gives us
+a more up-to-date version to link against. We need to both install and force-link this one:
+
+    brew install openssl
+    brew link openssl --force
+
 Version Control
 '''''''''''''''
 
@@ -93,9 +102,9 @@ or learn more at the Pythonz github page:
 
 You should install three versions of Python for different projects::
 
-    pythonz install 3.4.3
-    pythonz install 3.3.6
-    pythonz install 2.7.10
+    pythonz install 2.7.11
+    pythonz install 3.4.4
+    pythonz install 3.5.1
 
 Python Packages and Environments
 ''''''''''''''''''''''''''''''''
@@ -111,7 +120,7 @@ You'll install `pip` first, into your system Python that comes with OSX::
 And, using pip, install `virtualenvwrapper` which will automatically
 install `virtualenv` as one of its dependencies::
 
-    sudo pip install virtualenvwrapper
+    sudo pip install virtualenvwrapper --ignore-installed six
 
 Virtualenv Wrapper requires some configuration to work with your local
 command line shell. You can copy and paste the code below to set this up
