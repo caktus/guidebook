@@ -5,8 +5,9 @@ The project template now has a Circle CI template that you can use for your proj
 benefit over Travis CI is that it works for private non-Caktus repos. Once you have
 completed the initial project setup (i.e. the items in README.rst), do the following:
 
-1. If you don't have one already, `create a Circle CI account <https://circleci.com/>`_, being sure
-   to link it to your Caktus github account.
+1. If you don't have one already, `create a Circle CI account. <https://circleci.com/>`_ Circle CI
+   uses Github accounts for authentication, so when you sign up, be sure to sign up with your Caktus
+   github account.
 
 #. Find your project on the `projects page <https://circleci.com/add-projects>`_. Any repos that you
    have admin access to, across organizations, should be visible there. You may need to refresh your
@@ -26,7 +27,8 @@ completed the initial project setup (i.e. the items in README.rst), do the follo
    #. Obtain the HipChat API token for Circle CI. Click on the '...' button in the upper right-hand
       corner of your HipChat room page, then click on 'Integrations...', then click on the
       'Installed' button to filter by already-installed integrations. You should see Circle CI
-      listed there. Click on it and you will find the Token.
+      listed there. Click on it and you will find the Token. If you don't have access, create a
+      `support request <https://caktus.atlassian.net/servicedesk/customer/portal/3>`_ to get one.
 
    #. Navigate in Circle CI to your project and then click on the 'settings' icon in the upper
       right which should take you to project settings. Click on 'Chat Notifications' and fill in the
