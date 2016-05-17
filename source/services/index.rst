@@ -11,5 +11,6 @@ This document explains how to add various external services to your project.
    papertrail
    new-relic
    read-the-docs
+   circle-ci
    travis
    smtp
