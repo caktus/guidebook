@@ -44,7 +44,7 @@ OpenSSL
 '''''''
 
 There are known incompatibilies with the OpenSSL library shipped with OSX, but Homebrew gives us
-a more up-to-date version to link against. We need to both install and force-link this one:
+a more up-to-date version to link against. We need to both install and force-link this one::
 
     brew install openssl
     brew link openssl --force
@@ -138,7 +138,7 @@ Creating a Python Virtual Environment
 You can create a virtual environment using a version of Python installed
 from pythonz as follows::
 
-    mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+    mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
 
 On Python versions >= 3.3 it's also possible to use Python's built-in
 ``pyvenv`` to create virtual environments, but when working with several
