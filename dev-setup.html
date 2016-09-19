@@ -76,9 +76,10 @@ available once you&#8217;ve installed it.</p>
 <h3>OpenSSL<a class="headerlink" href="#openssl" title="Permalink to this headline">¶</a></h3>
 <p>There are known incompatibilies with the OpenSSL library shipped with OSX, but Homebrew gives us
 a more up-to-date version to link against. We need to both install and force-link this one:</p>
-<blockquote>
-<div>brew install openssl
-brew link openssl &#8211;force</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>brew install openssl
+brew link openssl --force
+</pre></div>
+</div>
 </div>
 <div class="section" id="version-control">
 <h3>Version Control<a class="headerlink" href="#version-control" title="Permalink to this headline">¶</a></h3>
@@ -162,7 +163,7 @@ source ~/.bash_profile
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
 <p>You can create a virtual environment using a version of Python installed
 from pythonz as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.3) my-virtualenv-name
+<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
 </pre></div>
 </div>
 <p>On Python versions &gt;= 3.3 it&#8217;s also possible to use Python&#8217;s built-in
