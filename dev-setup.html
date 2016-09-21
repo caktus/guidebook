@@ -128,7 +128,9 @@ source $HOME/.pythonz/etc/bashrc
 <blockquote>
 <div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
 <p>You should install three versions of Python for different projects:</p>
-<div class="highlight-python"><div class="highlight"><pre>pythonz install 2.7.11
+<div class="highlight-python"><div class="highlight"><pre>LDFLAGS=&quot;-L$(brew --prefix openssl)/lib&quot;
+CFLAGS=&quot;-I$(brew --prefix openssl)/include&quot;
+pythonz install 2.7.11
 pythonz install 3.4.4
 pythonz install 3.5.1
 </pre></div>
