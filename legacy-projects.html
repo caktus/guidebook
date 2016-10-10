@@ -1,0 +1,348 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Converting legacy projects to the project template &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Testing" href="testing/index.html" />
+    <link rel="prev" title="Interface between the deploy system and projects" href="deploy/system-deploy-interface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="converting-legacy-projects-to-the-project-template">
+<h1>Converting legacy projects to the project template<a class="headerlink" href="#converting-legacy-projects-to-the-project-template" title="Permalink to this headline">¶</a></h1>
+<p>The project template represents our standard setup for new projects, as well as
+our standard suite of build tools for local development. When we
+are taking over maintenance of a project or otherwise handling infrastructure
+upgrades for an existing project, we often want to port that project&#8217;s
+deployment setup over to our project template&#8217;s setup in order to make
+it consistent with our other projects.</p>
+<p>This document gives an overview of the components that need to be pulled
+over from the project template in order to make that happen.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Porting over to the project template involves copying a lot of files.</p>
+<p>The easiest way to prepare these files for copying is to start a new
+project using the project template with the same name as the target
+project. This will be called the <strong>DPT base</strong> in these docs.</p>
+</div>
+<div class="section" id="provisioning-and-deployment">
+<h2>Provisioning and deployment<a class="headerlink" href="#provisioning-and-deployment" title="Permalink to this headline">¶</a></h2>
+<p>The main reason the project template is useful is arguably its tools for
+provisioning and deploying to servers. This section identifies the files
+that need to be copied and configuration that needs to be done to take
+advantage of these.</p>
+<div class="section" id="files-and-requirements">
+<h3>Files and requirements<a class="headerlink" href="#files-and-requirements" title="Permalink to this headline">¶</a></h3>
+<p>Copy over the following files from the DPT base:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">fabfile.py</span></code>: the Fabric script used to automate provisioning and
+deployment.</li>
+<li><code class="docutils literal"><span class="pre">install_salt.sh</span></code>: used by Fabric when setting up the Salt master
+during provisioning. If this file is not located in the same dir
+as <code class="docutils literal"><span class="pre">fabfile.py</span></code>, provisioning will fail with a cryptic error message.</li>
+<li><code class="docutils literal"><span class="pre">Makefile</span></code>: used for generating certain secrets (among other things not
+related to provisioning and deployment). This includes running
+<code class="docutils literal"><span class="pre">make</span> <span class="pre">generate-secret</span></code> to create a <code class="docutils literal"><span class="pre">SECRET_KEY</span></code> and running
+<code class="docutils literal"><span class="pre">make</span> <span class="pre">&lt;env&gt;-deploy-key</span></code> to produce a keypair for the environment you
+are provisioning.</li>
+<li><code class="docutils literal"><span class="pre">conf/</span></code> (entire directory): the Salt states and Pillar variables
+used to provision and deploy. See below for details.</li>
+</ul>
+<p>Requirements files must also be adjusted to accommodate this deployment
+setup. Look through <code class="docutils literal"><span class="pre">requirements/deploy.txt</span></code> in your DPT base and
+ensure that its contents are all included in a requirement file in your
+target project:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">PyYAML</span><span class="o">==</span><span class="mf">3.11</span>
+<span class="n">Fabric</span><span class="o">==</span><span class="mf">1.10</span><span class="o">.</span><span class="mi">2</span>
+<span class="c1"># Required by Fabric</span>
+<span class="n">paramiko</span><span class="o">==</span><span class="mf">1.15</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">pycrypto</span><span class="o">==</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">ecdsa</span><span class="o">==</span><span class="mf">0.13</span>
+
+<span class="n">newrelic</span>
+</pre></div>
+</div>
+<p>With these files in place and requirements installed, assuming that your
+project is 100% compliant with the baseline dependencies found in the
+DPT base, you should be able to follow the instructions in the
+django-project-template provisioning documentation to set up a server.</p>
+<p>Be sure to also add <code class="docutils literal"><span class="pre">.priv</span></code> to your <code class="docutils literal"><span class="pre">.gitignore</span></code> so that private
+keys generated during the provisioning process are not accidentally
+tracked.</p>
+</div>
+<div class="section" id="salt-states-and-margarita">
+<h3>Salt states and Margarita<a class="headerlink" href="#salt-states-and-margarita" title="Permalink to this headline">¶</a></h3>
+<p>Assuming your project is not 100% compliant with the baseline
+dependencies found in the DPT base, most of the modifications you will
+want to make will happen in the <code class="docutils literal"><span class="pre">conf/salt/</span></code> directory of your
+project.</p>
+<p>By default, projects will pull in Salt states from
+<a class="reference external" href="https://github.com/caktus/margarita">Margarita</a>. This includes the
+core app state <code class="docutils literal"><span class="pre">project/web/app.sls</span></code>, which handles critical tasks
+like setting up Gunicorn, preparing static assets, and running
+migrations.</p>
+<p><strong>Warning</strong>: ensure that you are using a branch of Margarita that is
+appropriate for the server you&#8217;re deploying to. If your server has
+Ubuntu 16.04, make sure to use the <code class="docutils literal"><span class="pre">xenial</span></code> branch of Margarita, which
+you can set in <code class="docutils literal"><span class="pre">conf/pillar/project.sls</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">margarita_version</span><span class="p">:</span> <span class="n">origin</span><span class="o">/</span><span class="n">xenial</span>
+</pre></div>
+</div>
+<p>If you want to override any Margarita states, you will need to create a
+Salt state in your project whose location matches up with the Margarita
+state&#8217;s location in the tree. For example, to replace Margarita&#8217;s
+<code class="docutils literal"><span class="pre">project/web/app.sls</span></code>, create a file
+<code class="docutils literal"><span class="pre">conf/salt/project/web/app.sls</span></code>. You will need to copy over all the
+content of the Margarita state that you <em>do</em> want to keep, alongside
+your own additions.</p>
+<p>Examples of deviations from Margarita that you might want to implement:</p>
+<ul class="simple">
+<li>Your project uses Compass instead of Less. The <code class="docutils literal"><span class="pre">less</span></code> command in
+<code class="docutils literal"><span class="pre">app.sls</span></code> is therefore not needed, and instead you will need to add a
+Compass command and its dependencies.</li>
+<li>Your project uses MySQL instead of Postgres. The <code class="docutils literal"><span class="pre">db/init.sls</span></code> will
+need to be replaced with something MySQL-appropriate, and a
+configuration file will have to be included as well.</li>
+</ul>
+</div>
+<div class="section" id="working-with-roles">
+<h3>Working with roles<a class="headerlink" href="#working-with-roles" title="Permalink to this headline">¶</a></h3>
+<p>When provisioning a server, you will need to set it up for various roles.
+These roles, and the Salt states associated with them, are specified in
+<code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code>. This is the file that you must modify to prune away
+unneeded states or to add new roles.</p>
+<p>For example, if your project uses Solr, you will want to add a Solr-related
+role to <code class="docutils literal"><span class="pre">top.sls</span></code>, something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;roles:solr&#39;</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">match</span><span class="p">:</span> <span class="n">grain</span>
+  <span class="o">-</span> <span class="n">solr</span><span class="o">.</span><span class="n">project</span>
+</pre></div>
+</div>
+<p>Once you add a role, you will need to update <code class="docutils literal"><span class="pre">fabfile.py</span></code> by adding a new
+entry to the <code class="docutils literal"><span class="pre">VALID_ROLES</span></code> variable:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first docutils">
+<dt>VALID_ROLES = (</dt>
+<dd>#  ...
+&#8216;solr&#8217;,</dd>
+</dl>
+<p class="last">)</p>
+</dd>
+</dl>
+<p>If you want to add optional states to existing roles, <code class="docutils literal"><span class="pre">top.sls</span></code> is also
+where you would do that. For example, if adding Paper Trail to a project, you
+will want to add <code class="docutils literal"><span class="pre">forward_logs</span></code> to some role (most likely <code class="docutils literal"><span class="pre">'*'</span></code>).</p>
+</div>
+<div class="section" id="configuration-variables-and-secrets">
+<h3>Configuration, variables, and secrets<a class="headerlink" href="#configuration-variables-and-secrets" title="Permalink to this headline">¶</a></h3>
+<p>As you add, remove, or change states or roles, you will probably need to change
+some associated configuration values.</p>
+<p>Many of these are located in <code class="docutils literal"><span class="pre">conf/pillar/*.sls</span></code>. In particular, <code class="docutils literal"><span class="pre">project.sls</span></code>
+defines a number of values that will be used by Salt during provisioning and
+deployment.</p>
+<p>For example, the base <code class="docutils literal"><span class="pre">project.sls</span></code> set a <code class="docutils literal"><span class="pre">less_version</span></code> variable used
+for specifying the version of the Less compiler to use. If you are using Compass
+instead, you will want to set a <code class="docutils literal"><span class="pre">compass_version</span></code> variable and use it in
+the appropriate Salt state (e.g. <code class="docutils literal"><span class="pre">app.sls</span></code>) like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">compass</span><span class="p">:</span>
+  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">compass</span> <span class="o">--</span><span class="n">version</span> <span class="s1">&#39;{{ pillar[&quot;compass_version&quot;] }}&#39;</span>
+    <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
+    <span class="o">-</span> <span class="n">unless</span><span class="p">:</span> <span class="s1">&#39;which compass &amp; compass --version | grep {{ pillar[&quot;compass_version&quot;] }}&#39;</span>
+    <span class="o">-</span> <span class="n">require</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">pkg</span><span class="p">:</span> <span class="n">ruby</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Various interesting Salt states are activated by the inclusion of settings in
+<code class="docutils literal"><span class="pre">project.sls</span></code>. For example, to enable [Letsencrypt](<a class="reference external" href="https://letsencrypt.org/">https://letsencrypt.org/</a>)
+on your project, you need to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> to <code class="docutils literal"><span class="pre">true</span></code> and include a
+<code class="docutils literal"><span class="pre">admin_email</span></code> value:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">letsencrypt</span><span class="p">:</span> <span class="n">true</span>
+
+<span class="n">admin_email</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">project</span><span class="o">&gt;-</span><span class="n">team</span><span class="nd">@caktusgroup</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+<p>Environment configuration and secrets also go in <code class="docutils literal"><span class="pre">conf/pillar/</span></code>, e.g.
+<code class="docutils literal"><span class="pre">staging.sls</span></code>. The provisioning docs explain how to set up these files.</p>
+</div>
+</div>
+<div class="section" id="front-end-components-npm-build-process">
+<h2>Front end components &amp; npm build process<a class="headerlink" href="#front-end-components-npm-build-process" title="Permalink to this headline">¶</a></h2>
+<p>Especially for projects with nontrivial JS and styling requirements
+(e.g. CSS preprocessors), it is also useful to install the project
+template&#8217;s Node-based front-end build and deploy setup.</p>
+<p>The easiest way to do this is to simply copy these files from the DPT
+base wholesale and tinker with them as necessary:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">package.json</span></code>: the NPM package file, which contains front-end
+development dependencies and information about the project. Once this
+is in your project, you can run <code class="docutils literal"><span class="pre">npm</span> <span class="pre">install</span></code> to install all
+dependencies.</li>
+<li><code class="docutils literal"><span class="pre">gulpfile.js</span></code>: the build file for our
+<a class="reference external" href="http://gulpjs.com/">Gulp</a>-based built process. This is set up
+with a number of useful tasks. Once this is in place, you can run
+<code class="docutils literal"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">dev</span></code> to start a dev server that will auto-recompile your
+front-end code.</li>
+<li><code class="docutils literal"><span class="pre">.babelrc</span></code>: the <a class="reference external" href="https://babeljs.io/">Babel</a> configuration file
+that specifies how your JS will be preprocessed.</li>
+<li><code class="docutils literal"><span class="pre">.eslintrc</span></code>: the <a class="reference external" href="http://eslint.org/">ESLint</a> configuration file
+that specifies the style your JS should conform to.</li>
+</ul>
+<p>You will want to make adjustments to your <code class="docutils literal"><span class="pre">.gitignore</span></code> file to take into
+account the various outputs of the build processes, Node dependencies, and so
+on. Add at least these (changing the specific file names as necessary for
+your project setup):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">node_modules</span>
+<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">js</span><span class="o">/</span><span class="n">bundle</span><span class="o">.</span><span class="n">js</span>
+<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">js</span><span class="o">/</span><span class="n">vendors</span><span class="o">.</span><span class="n">js</span>
+<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">libs</span><span class="o">/</span><span class="n">modernizr</span><span class="o">.</span><span class="n">js</span>
+<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">css</span>
+</pre></div>
+</div>
+<p>All interesting front-end build configuration will take place in
+<code class="docutils literal"><span class="pre">gulpfile.js</span></code>. This includes changing the <code class="docutils literal"><span class="pre">options</span></code> object&#8217;s
+properties to suit your project&#8217;s directory structure.</p>
+<p>The tasks included in the <code class="docutils literal"><span class="pre">gulpfile.js</span></code> make some assumptions, spelled
+out below.</p>
+<div class="section" id="js-task">
+<h3>JS task<a class="headerlink" href="#js-task" title="Permalink to this headline">¶</a></h3>
+<p>In the <code class="docutils literal"><span class="pre">browserify</span></code> task, your JavaScript code will be preprocessed
+and bundled into a single (minified) file. This bundle will be created
+from an entry point JS file given by <code class="docutils literal"><span class="pre">options.src</span></code> and that file&#8217;s
+(recursive) dependencies.</p>
+<p>The preprocessing that your code is subjected to is specified in
+<code class="docutils literal"><span class="pre">.babelrc</span></code>. By default, this includes the <code class="docutils literal"><span class="pre">es2015</span></code> preset, which
+allows you to use ECMAScript 2015, and the <code class="docutils literal"><span class="pre">transform-react-jsx</span></code>
+plugin, which lets you use
+<a class="reference external" href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a> syntax
+with your <a class="reference external" href="https://facebook.github.io/react/index.html">React</a> code.
+The latter is included because we have begun to standardize on React for
+front-end development.</p>
+<p>The definition of <code class="docutils literal"><span class="pre">browserifyTask</span></code> specifies that the input to the
+bundling process is <code class="docutils literal"><span class="pre">index.js</span></code> and the output is <code class="docutils literal"><span class="pre">bundle.js</span></code>. Either
+of these values can be changed, and the destination dir for the bundle
+can be changed in <code class="docutils literal"><span class="pre">options.dest</span></code>.</p>
+</div>
+<div class="section" id="less-task">
+<h3>Less task<a class="headerlink" href="#less-task" title="Permalink to this headline">¶</a></h3>
+<p>Our project template assumes that you are using
+<a class="reference external" href="http://lesscss.org/">Less</a> as your CSS preprocessor. As with JS,
+your Less will be compiled and bundled into a single file, starting with
+the entry point given by <code class="docutils literal"><span class="pre">options.css.src</span></code> and that file&#8217;s
+dependencies.</p>
+<p>One annoying &#8220;gotcha&#8221; with this setup is that the auto-rebuilding task
+does not notice changes to your Less code that happen because you have
+switched branches with git. In that situation, you will need to restart
+your <code class="docutils literal"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">dev</span></code> process to force recompilation of your CSS.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Converting legacy projects to the project template</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting started</a></li>
+<li><a class="reference internal" href="#provisioning-and-deployment">Provisioning and deployment</a><ul>
+<li><a class="reference internal" href="#files-and-requirements">Files and requirements</a></li>
+<li><a class="reference internal" href="#salt-states-and-margarita">Salt states and Margarita</a></li>
+<li><a class="reference internal" href="#working-with-roles">Working with roles</a></li>
+<li><a class="reference internal" href="#configuration-variables-and-secrets">Configuration, variables, and secrets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#front-end-components-npm-build-process">Front end components &amp; npm build process</a><ul>
+<li><a class="reference internal" href="#js-task">JS task</a></li>
+<li><a class="reference internal" href="#less-task">Less task</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="deploy/system-deploy-interface.html" title="previous chapter">Interface between the deploy system and projects</a></li>
+      <li>Next: <a href="testing/index.html" title="next chapter">Testing</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/legacy-projects.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/legacy-projects.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
