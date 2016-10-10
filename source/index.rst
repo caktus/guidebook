@@ -23,6 +23,7 @@ Contents:
    frontend-docs
    services/index
    deploy/index
+   legacy-projects
    testing/index
    testing/frontend
 

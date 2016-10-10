@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Testing &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Testing &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,15 +23,20 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="next" title="Front-end JavaScript Testing Practices" href="frontend.html" />
-    <link rel="prev" title="Interface between the deploy system and projects" href="../deploy/system-deploy-interface.html" />
+    <link rel="prev" title="Converting legacy projects to the project template" href="../legacy-projects.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -164,7 +169,7 @@ and clean it up when done. See
 <p>When a test assertion fails, sometimes it&#8217;s not obvious why. Most
 assertion methods have an optional argument you can use to add output
 when the assertion fails. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will not only assert that your form is valid, but print the errors as
@@ -459,13 +464,13 @@ your current coverage rating and set this as a requirement for any new
 code &#8211; no change is allowed which reduces test coverage. Over time,
 you&#8217;ll your project’s code coverage to a reasonable level.</p>
 <p>An easy approach is to use a script to run your tests:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env bash
-set -e
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> <span class="o">-</span><span class="n">e</span>
 
-flake8
-coverage erase
-coverage run manage.py test --keepdb &quot;$@&quot;
-coverage report -m --fail-under 80
+<span class="n">flake8</span>
+<span class="n">coverage</span> <span class="n">erase</span>
+<span class="n">coverage</span> <span class="n">run</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span> <span class="o">--</span><span class="n">keepdb</span> <span class="s2">&quot;$@&quot;</span>
+<span class="n">coverage</span> <span class="n">report</span> <span class="o">-</span><span class="n">m</span> <span class="o">--</span><span class="n">fail</span><span class="o">-</span><span class="n">under</span> <span class="mi">80</span>
 </pre></div>
 </div>
 <p>Notice the <code class="docutils literal"><span class="pre">--fail-under</span> <span class="pre">80</span></code> when generating the coverage report,
@@ -540,7 +545,7 @@ be gradually increased over the life of the project.</p>
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../deploy/system-deploy-interface.html" title="previous chapter">Interface between the deploy system and projects</a></li>
+      <li>Previous: <a href="../legacy-projects.html" title="previous chapter">Converting legacy projects to the project template</a></li>
       <li>Next: <a href="frontend.html" title="next chapter">Front-end JavaScript Testing Practices</a></li>
   </ul></li>
 </ul>
@@ -555,14 +560,11 @@ be gradually increased over the life of the project.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -573,8 +575,8 @@ be gradually increased over the life of the project.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="../_sources/testing/index.txt"
