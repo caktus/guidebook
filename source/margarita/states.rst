@@ -530,10 +530,13 @@ project.worker.default
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Arrange for a ``celery worker`` service to run for the project via supervisor.
+The default worker-specific command-line arguments set log level to ``INFO``.
 
 Pillar configuration:
 
 * ``project_name``
+* ``celery_worker_arguments`` (string): Optional, overrides default worker-specific
+  command-line arguments.
 
 Dependencies:
 
