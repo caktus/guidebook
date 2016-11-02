@@ -454,6 +454,11 @@ that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there's a single web server and the domain points
 directly at it. (You might still be able to use `letsencrypt` some other way.)
 
+If you wish to use `letsencrypt` with multiple domain names, add a list
+of domains under ``letsencrypt_domains`` in the pillar configuration. (If you
+do not set this parameter, letsencrypt defaults to using your pillar config's
+`domain` property.)
+
 Note: to switch to letsencrypt from another certificate, it should be
 enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
