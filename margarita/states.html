@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Salt States &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Salt States &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,16 +23,21 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Custom Salt States" href="custom_states.html" />
     <link rel="prev" title="Adding Margarita to a project that uses Salt" href="adding.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -62,7 +67,7 @@ the elasticsearch service in more detail.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#newrelic-npi"><span>newrelic_npi</span></a> (if <code class="docutils literal"><span class="pre">elasticsearch_newrelic</span></code> is True).</li>
+<li><a class="reference internal" href="#newrelic-npi"><span class="std std-ref">newrelic_npi</span></a> (if <code class="docutils literal"><span class="pre">elasticsearch_newrelic</span></code> is True).</li>
 </ul>
 </div>
 <div class="section" id="fail2ban">
@@ -125,7 +130,7 @@ and remove the default site config that gets installed.</p>
 for creating self-signed certificates for nginx.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nginx"><span>nginx</span></a></li>
+<li><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -150,7 +155,7 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#locale-utf8"><span>locale.utf8</span></a></li>
+<li><a class="reference internal" href="#locale-utf8"><span class="std std-ref">locale.utf8</span></a></li>
 </ul>
 </div>
 <div class="section" id="postgresql-client">
@@ -164,12 +169,12 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 </div>
 <div class="section" id="project-cache">
 <span id="id15"></span><h3>project.cache<a class="headerlink" href="#project-cache" title="Permalink to this headline">¶</a></h3>
-<p>Open the firewall for memcached from <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
-<p>Dependency on <a class="reference internal" href="#memcached"><span>memcached</span></a> state will also ensure memcached is installed.</p>
+<p>Open the firewall for memcached from <a class="reference internal" href="minions.html#minions"><span class="std std-ref">app_minions</span></a>.</p>
+<p>Dependency on <a class="reference internal" href="#memcached"><span class="std std-ref">memcached</span></a> state will also ensure memcached is installed.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#memcached"><span>memcached</span></a></li>
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#memcached"><span class="std std-ref">memcached</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -177,11 +182,11 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <span id="id16"></span><h3>project.db<a class="headerlink" href="#project-db" title="Permalink to this headline">¶</a></h3>
 <p>Sets up a project user and database in Postgres.</p>
 <p>Updates Postgres server config to accept connections from
-<a class="reference internal" href="minions.html#minions"><span>app_minions</span></a>.</p>
+<a class="reference internal" href="minions.html#minions"><span class="std std-ref">app_minions</span></a>.</p>
 <p>Roles:</p>
 <ul>
 <li><p class="first">If role is <code class="docutils literal"><span class="pre">db-master</span></code> or <code class="docutils literal"><span class="pre">db-slave</span></code>, sets:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">wal_level</span> <span class="o">=</span> <span class="n">hot_standby</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">wal_level</span> <span class="o">=</span> <span class="n">hot_standby</span>
 <span class="n">hot_standby</span> <span class="o">=</span> <span class="n">on</span>
 <span class="n">hot_standby_feedback</span> <span class="o">=</span> <span class="n">on</span>
 <span class="n">wal_keep_segments</span> <span class="o">=</span> <span class="mi">128</span>
@@ -217,8 +222,8 @@ unless the role is <code class="docutils literal"><span class="pre">db-master</s
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#postgresql"><span>postgresql</span></a></li>
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#postgresql"><span class="std std-ref">postgresql</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-devs">
@@ -230,18 +235,18 @@ should be a username. The value of that dictionary should be another
 dictionary, with one key <code class="docutils literal"><span class="pre">public_key</span></code> containing a list, each entry
 of which is a public SSH key for that user.  (Paste it in from their
 public key file, one long line.)  E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>users:
-  user1:
-    public_key:
-      - ssh-rsa ADFSDFSDFDFSDFSDF....DFSDFSDFSDF
-  user2:
-    public_key:
-      - ssh-rsa DFSUDFJSDJFSDJKF...SDFJSDKFSDF
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">users</span><span class="p">:</span>
+  <span class="n">user1</span><span class="p">:</span>
+    <span class="n">public_key</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span> <span class="n">ADFSDFSDFDFSDFSDF</span><span class="o">....</span><span class="n">DFSDFSDFSDF</span>
+  <span class="n">user2</span><span class="p">:</span>
+    <span class="n">public_key</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span> <span class="n">DFSUDFJSDJFSDJKF</span><span class="o">...</span><span class="n">SDFJSDKFSDF</span>
 </pre></div>
 </div>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#users-groups"><span>users.groups</span></a></li>
+<li><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-dirs">
@@ -258,7 +263,7 @@ public key file, one long line.)  E.g.:</p>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
+<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-django">
@@ -268,9 +273,9 @@ the Django management tool with the right settings.</p>
 <p>Depends on other sls files that also do Django-related setup.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -279,7 +284,7 @@ the Django management tool with the right settings.</p>
 <p>Arrange for rabbitmq server to be installed and run.</p>
 <p>Create rabbitmq user named <code class="docutils literal"><span class="pre">&lt;project_name&gt;_&lt;environment&gt;</span></code>, with
 password <code class="docutils literal"><span class="pre">BROKER_PASSWORD</span></code> from secrets.</p>
-<p>Open the firewall for rabbitmq access to other <a class="reference internal" href="minions.html#minions"><span>app_minions</span></a> servers.</p>
+<p>Open the firewall for rabbitmq access to other <a class="reference internal" href="minions.html#minions"><span class="std std-ref">app_minions</span></a> servers.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">secrets:BROKER_PASSWORD</span></code>: (string) The password to set on the rabbitmq user.</li>
@@ -287,8 +292,8 @@ password <code class="docutils literal"><span class="pre">BROKER_PASSWORD</span>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#rabbitmq"><span>rabbitmq</span></a></li>
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#rabbitmq"><span class="std std-ref">rabbitmq</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-repo">
@@ -301,8 +306,8 @@ the environment settings needed to run the project.</p>
 <p>Create a wrapper script <code class="docutils literal"><span class="pre">/var/www/&lt;project_name&gt;/source/dotenv.sh</span></code>
 that sets up the environment from <code class="docutils literal"><span class="pre">.env</span></code> then runs another command.
 E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd /var/www/project
-source/dotenv.sh env/bin/python source/manage.py shell
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">project</span>
+<span class="n">source</span><span class="o">/</span><span class="n">dotenv</span><span class="o">.</span><span class="n">sh</span> <span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span> <span class="n">source</span><span class="o">/</span><span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">shell</span>
 </pre></div>
 </div>
 <p>Note that any pillar variable you create inside the <code class="docutils literal"><span class="pre">env</span></code> dictionary or the <code class="docutils literal"><span class="pre">secrets</span></code> dictionary
@@ -319,10 +324,10 @@ to use to access the repository.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-user"><span>project.user</span></a></li>
-<li><a class="reference internal" href="#version-control"><span>version-control</span></a></li>
-<li><a class="reference internal" href="#sshd-github"><span>sshd.github</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
+<li><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></li>
+<li><a class="reference internal" href="#sshd-github"><span class="std std-ref">sshd.github</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-user">
@@ -345,7 +350,7 @@ environment is <code class="docutils literal"><span class="pre">local</span></co
 is installed in the virtual env.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This also installs <code class="docutils literal"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span>python</span></a> already does that.
+<p class="last">This also installs <code class="docutils literal"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span class="std std-ref">python</span></a> already does that.
 We should fix that.</p>
 </div>
 <p>Pillar configuration:</p>
@@ -357,9 +362,9 @@ We should fix that.</p>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-repo"><span>project.repo</span></a></li>
-<li><a class="reference internal" href="#python"><span>python</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-repo"><span class="std std-ref">project.repo</span></a></li>
+<li><a class="reference internal" href="#python"><span class="std std-ref">python</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-web-app">
@@ -373,13 +378,13 @@ commands like <code class="docutils literal"><span class="pre">collectstatic</sp
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
-<li><a class="reference internal" href="#project-django"><span>project.django</span></a></li>
-<li><a class="reference internal" href="#postfix"><span>postfix</span></a></li>
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
-<li><a class="reference internal" href="#nodejs"><span>nodejs</span></a></li>
+<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
+<li><a class="reference internal" href="#project-django"><span class="std std-ref">project.django</span></a></li>
+<li><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-web-balancer">
@@ -391,6 +396,10 @@ use <a class="reference external" href="https://letsencrypt.org">letsencrypt.org
 that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there&#8217;s a single web server and the domain points
 directly at it. (You might still be able to use <cite>letsencrypt</cite> some other way.)</p>
+<p>If you wish to use <cite>letsencrypt</cite> with multiple domain names, add a list
+of domains under <code class="docutils literal"><span class="pre">letsencrypt_domains</span></code> in the pillar configuration. (If you
+do not set this parameter, letsencrypt defaults to using your pillar config&#8217;s
+<cite>domain</cite> property.)</p>
 <p>Note: to switch to letsencrypt from another certificate, it should be
 enough to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> and <code class="docutils literal"><span class="pre">admin_email</span></code> and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
@@ -433,10 +442,10 @@ first.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nginx"><span>nginx</span></a></li>
-<li><a class="reference internal" href="#nginx-cert"><span>nginx.cert</span></a></li>
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
+<li><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></li>
+<li><a class="reference internal" href="#nginx-cert"><span class="std std-ref">nginx.cert</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-worker-beat">
@@ -448,24 +457,27 @@ first.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
+<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
 </ul>
 </div>
 <div class="section" id="project-worker-default">
 <span id="id29"></span><h3>project.worker.default<a class="headerlink" href="#project-worker-default" title="Permalink to this headline">¶</a></h3>
-<p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.</p>
+<p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.
+The default worker-specific command-line arguments set log level to <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">project_name</span></code></li>
+<li><code class="docutils literal"><span class="pre">celery_worker_arguments</span></code> (string): Optional, overrides default worker-specific
+command-line arguments.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span>supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span>project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span>project.venv</span></a></li>
-<li><a class="reference internal" href="#postfix"><span>postfix</span></a></li>
+<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
+<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
+<li><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></li>
 </ul>
 </div>
 <div class="section" id="python">
@@ -504,7 +516,7 @@ by some of the imaging tools we sometimes install.)</p>
 <p>Opens ports 4505 and 4506.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -520,7 +532,7 @@ configuration.</p>
 <p>Does not appear to arrange to run it.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#solr"><span>solr</span></a></li>
+<li><a class="reference internal" href="#solr"><span class="std std-ref">solr</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -532,8 +544,8 @@ so only users in the <code class="docutils literal"><span class="pre">login</spa
 <p>Opens port 22.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ufw"><span>ufw</span></a></li>
-<li><a class="reference internal" href="#fail2ban"><span>fail2ban</span></a></li>
+<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><a class="reference internal" href="#fail2ban"><span class="std std-ref">fail2ban</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -548,8 +560,8 @@ so only users in the <code class="docutils literal"><span class="pre">login</spa
 for it to run on startup.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nodejs"><span>nodejs</span></a></li>
-<li><a class="reference internal" href="#version-control"><span>version-control</span></a></li>
+<li><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></li>
+<li><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -603,7 +615,7 @@ that match package names.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#syslog"><span>syslog</span></a></li>
+<li><a class="reference internal" href="#syslog"><span class="std std-ref">syslog</span></a></li>
 </ul>
 </div>
 <div class="section" id="users-groups">
@@ -618,7 +630,7 @@ with our updated configuration for <code class="docutils literal"><span class="p
 can still login and do things as root.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#users-groups"><span>users.groups</span></a></li>
+<li><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -711,14 +723,11 @@ can still login and do things as root.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -729,8 +738,8 @@ can still login and do things as root.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="../_sources/margarita/states.txt"

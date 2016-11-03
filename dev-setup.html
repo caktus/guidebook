@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Developer Machine Setup &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Developer Machine Setup &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,15 +23,20 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Branching Strategy" href="branching.html" />
     <link rel="prev" title="Welcome to Caktus Developer Documentation’s documentation!" href="index.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -50,7 +55,7 @@
 This includes a base set of common command line programs used by developers, but not shipped by
 default in OSX. You may need to re-install this package after major upgrades to OSX.</p>
 <p>Apple does provide a simple utility for bootstrapping these tools and installing them:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
 </pre></div>
 </div>
 <p>Get more information about the Command Line Tools directly from Apple:</p>
@@ -62,7 +67,7 @@ default in OSX. You may need to re-install this package after major upgrades to 
 <p>Homebrew is a project that provides automated download, compilation, and install of a wide range
 of developer and console tools for the Mac.</p>
 <p>A self-executing install script can be fetched and run simply, from the Homebrew documentation:</p>
-<div class="highlight-python"><div class="highlight"><pre>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
 </pre></div>
 </div>
 <p>You can receive more information in the Homebrew documentation or see a full list of packages
@@ -76,8 +81,8 @@ available once you&#8217;ve installed it.</p>
 <h3>OpenSSL<a class="headerlink" href="#openssl" title="Permalink to this headline">¶</a></h3>
 <p>There are known incompatibilies with the OpenSSL library shipped with OSX, but Homebrew gives us
 a more up-to-date version to link against. We need to both install and force-link this one:</p>
-<div class="highlight-python"><div class="highlight"><pre>brew install openssl
-brew link openssl --force
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">openssl</span>
+<span class="n">brew</span> <span class="n">link</span> <span class="n">openssl</span> <span class="o">--</span><span class="n">force</span>
 </pre></div>
 </div>
 </div>
@@ -86,8 +91,8 @@ brew link openssl --force
 <p>Install Mercurial and Git, the version control systems used by most
 projects to obtain and coordinate changes to the code base between all
 developers:</p>
-<div class="highlight-python"><div class="highlight"><pre>brew install git
-brew install mercurial
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">git</span>
+<span class="n">brew</span> <span class="n">install</span> <span class="n">mercurial</span>
 </pre></div>
 </div>
 </div>
@@ -95,13 +100,13 @@ brew install mercurial
 <h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
 <p>The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
 extensions:</p>
-<div class="highlight-python"><div class="highlight"><pre>brew install postgres
-brew install postgis
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">postgres</span>
+<span class="n">brew</span> <span class="n">install</span> <span class="n">postgis</span>
 </pre></div>
 </div>
 <p>With PostgreSQL installed, you&#8217;ll want to make sure it runs every time your machine comes up, and
 to start it running immediately:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir -p ~/Library/LaunchAgents
+<div class="highlight-default"><div class="highlight"><pre><span></span>mkdir -p ~/Library/LaunchAgents
 cp /usr/local/Cellar/postgresql/$(postgres --version|cut -d&#39; &#39; -f3)/homebrew.mxcl.postgresql.plist ~/Library/LaunchAgents/
 launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 </pre></div>
@@ -119,7 +124,7 @@ or alternate versions like PyPy, Stackless, and Jython.</p>
 <p>Pythonz will install everything into a hidden <cite>.pythonz/</cite> directory in your
 home directory, and will not modify any paths by default.</p>
 <p>You can install Pythonz easily:</p>
-<div class="highlight-python"><div class="highlight"><pre>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
+<div class="highlight-default"><div class="highlight"><pre><span></span>curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
 echo &quot;[[ -s $HOME/.pythonz/etc/bashrc ]] &amp;&amp; source $HOME/.pythonz/etc/bashrc&quot; &gt;&gt; ~/.bash_profile
 source $HOME/.pythonz/etc/bashrc
 </pre></div>
@@ -128,11 +133,11 @@ source $HOME/.pythonz/etc/bashrc
 <blockquote>
 <div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
 <p>You should install three versions of Python for different projects:</p>
-<div class="highlight-python"><div class="highlight"><pre>LDFLAGS=&quot;-L$(brew --prefix openssl)/lib&quot;
-CFLAGS=&quot;-I$(brew --prefix openssl)/include&quot;
-pythonz install 2.7.11
-pythonz install 3.4.4
-pythonz install 3.5.1
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LDFLAGS</span><span class="o">=</span><span class="s2">&quot;-L$(brew --prefix openssl)/lib&quot;</span>
+<span class="n">CFLAGS</span><span class="o">=</span><span class="s2">&quot;-I$(brew --prefix openssl)/include&quot;</span>
+<span class="n">pythonz</span> <span class="n">install</span> <span class="mf">2.7</span><span class="o">.</span><span class="mi">11</span>
+<span class="n">pythonz</span> <span class="n">install</span> <span class="mf">3.4</span><span class="o">.</span><span class="mi">4</span>
+<span class="n">pythonz</span> <span class="n">install</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">1</span>
 </pre></div>
 </div>
 </div>
@@ -142,19 +147,19 @@ pythonz install 3.5.1
 <cite>virtualenvwrapper</cite> to manage sandboxes for each project and the Python
 packages required for each project installed into those sandboxes.</p>
 <p>You&#8217;ll install <cite>pip</cite> first, into your system Python that comes with OSX:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">easy_install</span> <span class="n">pip</span>
 </pre></div>
 </div>
 <p>And, using pip, install <cite>virtualenvwrapper</cite> which will automatically
 install <cite>virtualenv</cite> as one of its dependencies:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo pip install virtualenvwrapper --ignore-installed six
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenvwrapper</span> <span class="o">--</span><span class="n">ignore</span><span class="o">-</span><span class="n">installed</span> <span class="n">six</span>
 </pre></div>
 </div>
 <p>Virtualenv Wrapper requires some configuration to work with your local
 command line shell. You can copy and paste the code below to set this up
 in your Terminal. (You can also customize what you set PROJECT_HOME to, if
 you wish):</p>
-<div class="highlight-python"><div class="highlight"><pre>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
+<div class="highlight-default"><div class="highlight"><pre><span></span>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
@@ -165,7 +170,7 @@ source ~/.bash_profile
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
 <p>You can create a virtual environment using a version of Python installed
 from pythonz as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
+<div class="highlight-default"><div class="highlight"><pre><span></span>mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
 </pre></div>
 </div>
 <p>On Python versions &gt;= 3.3 it&#8217;s also possible to use Python&#8217;s built-in
@@ -220,14 +225,11 @@ all virtual environments. For more information, see:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -238,8 +240,8 @@ all virtual environments. For more information, see:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="_sources/dev-setup.txt"
