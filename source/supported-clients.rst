@@ -9,13 +9,14 @@ Caktus takes a progressive enhancement approach to HTML development. This means 
  
 Caktus conducts quality assurance to verify that the website performs and functions according to the agreed upon project specifications. This step includes time to correct bugs and issues discovered by the quality assurance (QA) process.
  
-Unless otherwise specified, Caktus will test on the following browsers to ensure that the website functions and renders correctly. The following browsers / platforms will be supported:
-Chrome (current version and previous version at the time of launch)
-Firefox (current version and previous version at the time of launch)
-Internet Explorer (current version)
-Edge (current version and previous version at the time of launch)
-Safari (current version and previous version at the time of launch)
-iOS Safari (current version and previous version at the time of launch)
+Unless otherwise specified, Caktus will test on the following browsers to ensure that the website functions and renders correctly. The following browsers / platforms will be supported (current version and previous version at the time of launch):
+
+- Chrome 
+- Firefox
+- Internet Explorer (11 only)
+- Edge 
+- Safari
+- iOS Safari
 
 
 The rule of thumb is: the latest two versions of Major Browsers. There are some special cases related to mobile browsers.
