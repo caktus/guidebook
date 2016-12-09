@@ -38,14 +38,14 @@ We will rate browsers and devices by a simple grading system. This helps to
 categorize the approach to support for each browser. As any release ages, its
 grade will be reduced.
 
-=====   ========================================================================================
+=====   ======================================================================================================================
 Grade   Level of Support Offered
-=====   ========================================================================================
+=====   ======================================================================================================================
 A       Supported by default in all new projects.
 B       Supported by default, but allowed to present degraded experiences based on unsupported features.
 C       Not supported by default. If required in a project, additional time must be estimated. Support may be degraded.
 D       Not supported by default. Will strongly discourage support at client request.
-=====   ========================================================================================
+=====   ======================================================================================================================
 
 Current Grade Chart
 ===================
@@ -53,9 +53,9 @@ Current Grade Chart
 Browsers
 --------
 
-=========   ===================     ===========              =====
+=========   ===================     =====================    =====
 Vendor      Browser                 Version(s)               Grade
-=========   ===================     ===========              =====
+=========   ===================     =====================    =====
 Google      Chrome                  Most Recent              **A**
 Google      Chrome                  Latest Previous          **A**
 Mozilla     Firefox                 Most Recent              **A**
@@ -67,5 +67,5 @@ Apple       Safari Mobile           Latest Previous            B
 Google      Chrome for Android      Most Recent              **A**
 Microsoft   Edge                    Most Recent              **A**
 Microsoft   Edge                    Latest Previous            B
-Microsoft   Internet Explorer       Most Recent              **A**
-=========   ===================     ===========              =====
+Microsoft   Internet Explorer       11                         B
+=========   ===================     =====================    =====
