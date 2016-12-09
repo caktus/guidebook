@@ -57,15 +57,15 @@ Browsers
 Vendor      Browser                 Version(s)               Grade
 =========   ===================     =====================    =====
 Google      Chrome                  Most Recent              **A**
-Google      Chrome                  Latest Previous          **A**
+Google      Chrome                  2nd Most Recent          **A**
 Mozilla     Firefox                 Most Recent              **A**
-Mozilla     Firefox                 Latest Previous          **A**
+Mozilla     Firefox                 2nd Most Recent          **A**
 Apple       Safari                  Most Recent              **A**
-Apple       Safari                  Latest Previous            B
+Apple       Safari                  2nd Most Recent            B
 Apple       Safari Mobile           Most Recent              **A**
-Apple       Safari Mobile           Latest Previous            B
+Apple       Safari Mobile           2nd Most Recent            B
 Google      Chrome for Android      Most Recent              **A**
 Microsoft   Edge                    Most Recent              **A**
-Microsoft   Edge                    Latest Previous            B
+Microsoft   Edge                    2nd Most Recent            B
 Microsoft   Internet Explorer       11                         B
 =========   ===================     =====================    =====
