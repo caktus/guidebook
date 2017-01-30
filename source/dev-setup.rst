@@ -104,9 +104,10 @@ You should install three versions of Python for different projects::
 
     LDFLAGS="-L$(brew --prefix openssl)/lib"
     CFLAGS="-I$(brew --prefix openssl)/include"
-    pythonz install 2.7.11
-    pythonz install 3.4.4
-    pythonz install 3.5.1
+    pythonz install 2.7.13
+    pythonz install 3.4.6
+    pythonz install 3.5.3
+    pythonz install 3.6.0
 
 Python Packages and Environments
 ''''''''''''''''''''''''''''''''
