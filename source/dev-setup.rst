@@ -132,7 +132,7 @@ you wish)::
 
     echo "export WORKON_HOME=$HOME/.virtualenvs
     export PROJECT_HOME=$HOME/Devel
-    source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bash_profile
+    source /usr/local/bin/virtualenvwrapper.sh >> ~/.bash_profile
     source ~/.bash_profile
 
 Creating a Python Virtual Environment
