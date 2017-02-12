@@ -493,6 +493,8 @@ Pillar configuration:
   be configured to use this domain name.
 * ``letsencrypt`` (boolean): If True, use `letsencrypt.org <https://letsencrypt.org>`_
   to get a certificate.
+* ``letsencrypt_domains`` (list): List of domain names. We'll request SSL certs for
+  each domain name in this list. If this is empty or not set, we'll use ``domain``.
 * ``admin_email`` (email address): If ``letsencrypt`` is true, this is required to
   provide an email address for `letsencrypt.org <https://letsencrypt.org>`_ to use.
   This should be a dev team group email address, not an individual's email address.
