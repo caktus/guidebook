@@ -164,7 +164,7 @@ and clean it up when done. See
 <p>When a test assertion fails, sometimes it&#8217;s not obvious why. Most
 assertion methods have an optional argument you can use to add output
 when the assertion fails. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(),</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>will not only assert that your form is valid, but print the errors as
@@ -459,13 +459,13 @@ your current coverage rating and set this as a requirement for any new
 code &#8211; no change is allowed which reduces test coverage. Over time,
 you&#8217;ll your project’s code coverage to a reasonable level.</p>
 <p>An easy approach is to use a script to run your tests:</p>
-<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env bash
-set -e
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
+<span class="nb">set</span> <span class="o">-</span><span class="n">e</span>
 
-flake8
-coverage erase
-coverage run manage.py test --keepdb &quot;$@&quot;
-coverage report -m --fail-under 80
+<span class="n">flake8</span>
+<span class="n">coverage</span> <span class="n">erase</span>
+<span class="n">coverage</span> <span class="n">run</span> <span class="n">manage</span><span class="o">.</span><span class="n">py</span> <span class="n">test</span> <span class="o">--</span><span class="n">keepdb</span> <span class="s2">&quot;$@&quot;</span>
+<span class="n">coverage</span> <span class="n">report</span> <span class="o">-</span><span class="n">m</span> <span class="o">--</span><span class="n">fail</span><span class="o">-</span><span class="n">under</span> <span class="mi">80</span>
 </pre></div>
 </div>
 <p>Notice the <code class="docutils literal"><span class="pre">--fail-under</span> <span class="pre">80</span></code> when generating the coverage report,
@@ -591,9 +591,6 @@ time by asking them to test things that aren&#8217;t ready yet.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -604,7 +601,7 @@ time by asking them to test things that aren&#8217;t ready yet.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

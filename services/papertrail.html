@@ -42,9 +42,9 @@
   <div class="section" id="papertrail">
 <h1>Papertrail<a class="headerlink" href="#papertrail" title="Permalink to this headline">¶</a></h1>
 <ol class="arabic">
-<li><p class="first">Add the <a class="reference internal" href="../margarita/states.html#forward-logs"><span>forward_logs</span></a> state to your <code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code> file. We want this to be on all
+<li><p class="first">Add the <a class="reference internal" href="../margarita/states.html#forward-logs"><span class="std std-ref">forward_logs</span></a> state to your <code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code> file. We want this to be on all
 servers so it should go in the <code class="docutils literal"><span class="pre">*</span></code> section:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="s">&#39;*&#39;</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="s">&#39;*&#39;</span><span class="p p-Indicator">:</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">base</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo</span>
 <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sshd</span>
@@ -62,7 +62,7 @@ Papertrail account.</p>
 <li><p class="first">Once you have an account, find out our Papertrail instance&#8217;s <a class="reference external" href="https://papertrailapp.com/systems/setup">hostname and port</a>.</p>
 </li>
 <li><p class="first">Encrypt those values as a <code class="docutils literal"><span class="pre">LOG_DESTINATION</span></code> secret:</p>
-<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject$ fab staging encrypt:LOG_DESTINATION<span class="o">=</span><span class="s1">&#39;blah.papertrail.com:12345&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:LOG_DESTINATION<span class="o">=</span><span class="s1">&#39;blah.papertrail.com:12345&#39;</span>
 <span class="s2">&quot;LOG_DESTINATION&quot;</span>: <span class="p">|</span>-
   -----BEGIN PGP MESSAGE-----
   Version: GnuPG v1
@@ -78,7 +78,7 @@ Papertrail account.</p>
 </div>
 </li>
 <li><p class="first">Add that secret to your <code class="docutils literal"><span class="pre">conf/pillar/staging.sls</span></code> file and deploy:</p>
-<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject$ fab staging deploy
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging deploy
 </pre></div>
 </div>
 </li>
@@ -128,9 +128,6 @@ systems, or to add them to other appropriate groups.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -141,7 +138,7 @@ systems, or to add them to other appropriate groups.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |

@@ -54,19 +54,19 @@ request and you&#8217;ll want reviewers of your pull request to be able to test 
 <p>To test changes, you&#8217;ll want to use the <code class="docutils literal"><span class="pre">startproject</span></code> command to create a new test project
 based on your current changes. Run this from the same directory you have your local copy of hte
 template.</p>
-<div class="highlight-python"><div class="highlight"><pre>django-admin.py startproject \
-  --template=django-project-template \
-  --extension=py,rst,yml \
-  --name=Makefile,gulpfile.js,package.json
-  dpttest
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">django</span><span class="o">-</span><span class="n">admin</span><span class="o">.</span><span class="n">py</span> <span class="n">startproject</span> \
+  <span class="o">--</span><span class="n">template</span><span class="o">=</span><span class="n">django</span><span class="o">-</span><span class="n">project</span><span class="o">-</span><span class="n">template</span> \
+  <span class="o">--</span><span class="n">extension</span><span class="o">=</span><span class="n">py</span><span class="p">,</span><span class="n">rst</span><span class="p">,</span><span class="n">yml</span> \
+  <span class="o">--</span><span class="n">name</span><span class="o">=</span><span class="n">Makefile</span><span class="p">,</span><span class="n">gulpfile</span><span class="o">.</span><span class="n">js</span><span class="p">,</span><span class="n">package</span><span class="o">.</span><span class="n">json</span>
+  <span class="n">dpttest</span>
 </pre></div>
 </div>
 <p>If this was successful, continue setting up this temporary project to ensure your changes did
 not break the setup and utilization of a new project based on the template.</p>
-<div class="highlight-python"><div class="highlight"><pre>cd dpttest
-make setup
-workon dpttest
-npm run dev
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">dpttest</span>
+<span class="n">make</span> <span class="n">setup</span>
+<span class="n">workon</span> <span class="n">dpttest</span>
+<span class="n">npm</span> <span class="n">run</span> <span class="n">dev</span>
 </pre></div>
 </div>
 <p>You should be able to bring up a blank page at <a class="reference external" href="http://localhost:8000">http://localhost:8000/</a>
@@ -74,11 +74,11 @@ successfully.</p>
 <p>If you&#8217;ve made changes affecting deployment, you should also test this by following the vagrant
 setup instructions in this test project.</p>
 <p>When you are done testing, you should clean up the project.</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ..
-deactivate
-rm -rf dpttest
-dropdb dpttest
-rmvirtualenv dpttest
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">..</span>
+<span class="n">deactivate</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">dpttest</span>
+<span class="n">dropdb</span> <span class="n">dpttest</span>
+<span class="n">rmvirtualenv</span> <span class="n">dpttest</span>
 </pre></div>
 </div>
 </div>
@@ -153,9 +153,6 @@ correctly.</p>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -166,7 +163,7 @@ correctly.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
