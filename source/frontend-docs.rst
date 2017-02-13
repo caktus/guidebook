@@ -44,10 +44,10 @@ like ``project_name/static/js``; we recommend ``docs/js`` as the dir for docs ou
 Caveats:
 
 * You'll also want to enable the ``recurse`` option so that your entire source tree
-will be scanned.
+  will be scanned.
 * If your site's JavaScript build output is located in the same directory
-as its source, you will also want to throw in an ``excludePattern`` so that only
-source JS is crawled.
+  as its source, you will also want to throw in an ``excludePattern`` so that only
+  source JS is crawled.
 
 Following our recommendations gives you a config file like::
 
@@ -196,9 +196,9 @@ an explicit link to its documentation::
     }
 
 .. caution:: Note that ``@method`` gives the name of the class and the
-method. If you don't do this and just say ``@method`` (which the JSDoc docs
-say you can do), assuming your method is an ECMAScript 2015 class method,
-JSDoc will not generate documentation for your method.
+             method. If you don't do this and just say ``@method`` (which the JSDoc docs
+             say you can do), assuming your method is an ECMAScript 2015 class method,
+             JSDoc will not generate documentation for your method.
 
 A callback for an event can be documented like this. This doc comment
 indicates that the function is to be used as a callback by declaring
