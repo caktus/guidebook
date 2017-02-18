@@ -462,8 +462,13 @@ do not set this parameter, letsencrypt defaults to using your pillar config's
 Note: to switch to letsencrypt from another certificate, it should be
 enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
-to self-signed, you'll want to manually remove the self-signed ssl
-files before turning off letsencrypt and running another deploy.
+to any other type of certificate, you'll want to manually remove the
+symbolic links in ``/var/www/project_name/ssl/`` before turning off
+letsencrypt and running another deploy. Otherwise the new cert will
+get copied to the symbolic links, which will overwrite the
+letsencrypt certs stored in ``/etc/letsencrypt``, which will lead to
+very confusing behavior if you ever try to switch back to
+letsencrypt.
 
 If you already have a certificate you want to use, you can provide it
 in the pillar configuration; see below.
