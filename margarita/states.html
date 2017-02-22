@@ -398,8 +398,13 @@ do not set this parameter, letsencrypt defaults to using your pillar config&#821
 <p>Note: to switch to letsencrypt from another certificate, it should be
 enough to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> and <code class="docutils literal"><span class="pre">admin_email</span></code> and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
-to self-signed, you&#8217;ll want to manually remove the self-signed ssl
-files before turning off letsencrypt and running another deploy.</p>
+to any other type of certificate, you&#8217;ll want to manually remove the
+symbolic links in <code class="docutils literal"><span class="pre">/var/www/project_name/ssl/</span></code> before turning off
+letsencrypt and running another deploy. Otherwise the new cert will
+get copied to the symbolic links, which will overwrite the
+letsencrypt certs stored in <code class="docutils literal"><span class="pre">/etc/letsencrypt</span></code>, which will lead to
+very confusing behavior if you ever try to switch back to
+letsencrypt.</p>
 <p>If you already have a certificate you want to use, you can provide it
 in the pillar configuration; see below.</p>
 <p>If <code class="docutils literal"><span class="pre">letenscrypt</span></code> is not set and either a key or certificate are not
