@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Salt States &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Salt States &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,22 +17,26 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Margarita" href="margarita.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Custom Salt States" href="custom_states.html" />
     <link rel="prev" title="Adding Margarita to a project that uses Salt" href="adding.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -386,7 +390,8 @@ commands like <code class="docutils literal"><span class="pre">collectstatic</sp
 <span id="id25"></span><h3>project.web.balancer<a class="headerlink" href="#project-web-balancer" title="Permalink to this headline">¶</a></h3>
 <p>Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.</p>
-<p>Set <code class="docutils literal"><span class="pre">letsencrypt:</span> <span class="pre">true</span></code> in the pillar configuration to
+<p>Set <code class="docutils literal"><span class="pre">letsencrypt:</span> <span class="pre">true</span></code> in the pillar configuration, and remove any
+<code class="docutils literal"><span class="pre">ssl_cert</span></code> and <code class="docutils literal"><span class="pre">ssl_key</span></code>, to
 use <a class="reference external" href="https://letsencrypt.org">letsencrypt.org</a> to generate a certificate
 that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there&#8217;s a single web server and the domain points
@@ -396,7 +401,8 @@ of domains under <code class="docutils literal"><span class="pre">letsencrypt_do
 do not set this parameter, letsencrypt defaults to using your pillar config&#8217;s
 <cite>domain</cite> property.)</p>
 <p>Note: to switch to letsencrypt from another certificate, it should be
-enough to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> and <code class="docutils literal"><span class="pre">admin_email</span></code> and deploy again.
+enough to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> and <code class="docutils literal"><span class="pre">admin_email</span></code>, remove <code class="docutils literal"><span class="pre">ssl_key</span></code> and
+<code class="docutils literal"><span class="pre">ssl_cert</span></code>, and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
 to any other type of certificate, you&#8217;ll want to manually remove the
 symbolic links in <code class="docutils literal"><span class="pre">/var/www/project_name/ssl/</span></code> before turning off
@@ -409,6 +415,12 @@ letsencrypt.</p>
 in the pillar configuration; see below.</p>
 <p>If <code class="docutils literal"><span class="pre">letenscrypt</span></code> is not set and either a key or certificate are not
 provided, the deploy will generate and use a self-signed key.</p>
+<p>Summary of which certificates will be used:</p>
+<ul class="simple">
+<li>If <code class="docutils literal"><span class="pre">ssl_key</span></code> and <code class="docutils literal"><span class="pre">ssl_cert</span></code> are provided, they will be used.</li>
+<li>Otherwise, if <code class="docutils literal"><span class="pre">letsencrypt</span></code> is true, letsencrypt will be used.</li>
+<li>Otherwise, a self-signed certificate will be used.</li>
+</ul>
 <p>The nginx configuration redirects non-SSL requests to the corresponding
 <cite>https</cite> URL, and sets the <code class="docutils literal"><span class="pre">Strict-Transport-Security</span></code> header to a
 very long time.</p>
@@ -718,15 +730,15 @@ can still login and do things as root.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/states.txt"
+      <li><a href="../_sources/margarita/states.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -740,11 +752,11 @@ can still login and do things as root.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/margarita/states.txt"
+      <a href="../_sources/margarita/states.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Front-end JavaScript Testing Practices &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Front-end JavaScript Testing Practices &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -17,20 +17,25 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Testing" href="index.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -516,10 +521,10 @@ List value, so we create the fake data like so:</p>
 </div>
 <p>Now we create a file <code class="docutils literal"><span class="pre">test_AppList.js</span></code> in our specs directory and do some
 basic, predictable setup:</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>A whole bunch of predictable imports:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>This test will use JSX and will test a React component, so we need to import
 React and the React test utils.</li>
 <li>We&#8217;re testing a stateless functional component, so we need to import
@@ -533,14 +538,13 @@ React and the React test utils.</li>
 </li>
 <li><dl class="first docutils">
 <dt>Teardown for component tests:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>DOM cleanup performed after each test.</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">Basic structure for the test case.</p>
-</li>
+<li>Basic structure for the test case.</li>
 </ul>
 <p>This gives us the skeleton of a test module:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
@@ -632,15 +636,15 @@ does what we think it does.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/testing/frontend.txt"
+      <li><a href="../_sources/testing/frontend.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
@@ -654,11 +658,11 @@ does what we think it does.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/testing/frontend.txt"
+      <a href="../_sources/testing/frontend.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
