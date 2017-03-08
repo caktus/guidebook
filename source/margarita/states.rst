@@ -448,7 +448,8 @@ project.web.balancer
 Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.
 
-Set ``letsencrypt: true`` in the pillar configuration to
+Set ``letsencrypt: true`` in the pillar configuration, and remove any
+``ssl_cert`` and ``ssl_key``, to
 use `letsencrypt.org <https://letsencrypt.org>`_ to generate a certificate
 that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there's a single web server and the domain points
@@ -460,7 +461,8 @@ do not set this parameter, letsencrypt defaults to using your pillar config's
 `domain` property.)
 
 Note: to switch to letsencrypt from another certificate, it should be
-enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
+enough to set ``letsencrypt`` and ``admin_email``, remove ``ssl_key`` and
+``ssl_cert``, and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
 to any other type of certificate, you'll want to manually remove the
 symbolic links in ``/var/www/project_name/ssl/`` before turning off
@@ -475,6 +477,12 @@ in the pillar configuration; see below.
 
 If ``letenscrypt`` is not set and either a key or certificate are not
 provided, the deploy will generate and use a self-signed key.
+
+Summary of which certificates will be used:
+
+* If ``ssl_key`` and ``ssl_cert`` are provided, they will be used.
+* Otherwise, if ``letsencrypt`` is true, letsencrypt will be used.
+* Otherwise, a self-signed certificate will be used.
 
 The nginx configuration redirects non-SSL requests to the corresponding
 `https` URL, and sets the ``Strict-Transport-Security`` header to a
