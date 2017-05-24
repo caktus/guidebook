@@ -47,7 +47,6 @@ There are known incompatibilies with the OpenSSL library shipped with OSX, but H
 a more up-to-date version to link against. We need to both install and force-link this one::
 
     brew install openssl
-    brew link openssl --force
 
 Version Control
 '''''''''''''''
@@ -78,35 +77,18 @@ to start it running immediately::
 Python
 ''''''
 
-Different projects require different versions of Python. Some projects may
-run on a wider range of Python versions and some may depend on very
-specific versions.
+Different projects require different versions of Python. Our new projects will all
+use Python 3, but some legacy projects we maintain or inherit may not have been upgraded
+from Python 2. Install both, because it is not recommended to use the system Python
+that comes installed on OSX.
 
-It is recommended Mac users install the `pythonz` tool, which automates the
-download, install, and configuration of specific versions of Python. It is
-capable of installing either official versions of Python (from python.org)
-or alternate versions like PyPy, Stackless, and Jython.
+    brew install python --with-brewed-openssl
+    brew install python3 --with-brewed-openssl
 
-Pythonz will install everything into a hidden `.pythonz/` directory in your
-home directory, and will not modify any paths by default.
+And link them so they'll be in your path
 
-You can install Pythonz easily::
-
-    curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
-    echo "[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc" >> ~/.bash_profile
-    source $HOME/.pythonz/etc/bashrc
-
-or learn more at the Pythonz github page:
-
-    https://github.com/saghul/pythonz
-
-You should install three versions of Python for different projects::
-
-    LDFLAGS="-L$(brew --prefix openssl)/lib"
-    CFLAGS="-I$(brew --prefix openssl)/include"
-    pythonz install 2.7.11
-    pythonz install 3.4.4
-    pythonz install 3.5.1
+    brew link python
+    brew link python3
 
 Python Packages and Environments
 ''''''''''''''''''''''''''''''''
@@ -137,14 +119,10 @@ you wish)::
 Creating a Python Virtual Environment
 '''''''''''''''''''''''''''''''''''''
 
-You can create a virtual environment using a version of Python installed
-from pythonz as follows::
+You can create a virtual environment using a version of Python as follows::
 
-    mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
+    mkvirtualenv -p $(which python) my-virtualenv-name
 
-On Python versions >= 3.3 it's also possible to use Python's built-in
-``pyvenv`` to create virtual environments, but when working with several
-versions of Python it may be easier to use virtualenvwrapper to manage
-all virtual environments. For more information, see:
+Or
 
-    https://github.com/saghul/pythonz#recommended-way-to-use-a-pythonz-installed-version-of-python
+    mkvirtualenv -p $(which python3) my-virtualenv-name
