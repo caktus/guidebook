@@ -17,6 +17,7 @@ Contents:
    supported-clients
    workflow
    upgrading-django
+   deploy-strategies
    margarita/margarita
    project-template-testing
    frontend-packages
