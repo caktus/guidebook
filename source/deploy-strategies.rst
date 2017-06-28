@@ -5,8 +5,8 @@ Different projects at Caktus use different tools and strategies
 for provisioning and deploying. This is partly for historical reasons,
 but also because different projects have different requirements.
 
-Different approaches
-~~~~~~~~~~~~~~~~~~~~
+Strategies that manage most of the details
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Simple Fabric
 -------------
@@ -60,8 +60,6 @@ over time we've discovered a number of shortcomings:
   anything at all when we're not deploying. This ties up memory our
   site could be using.
 
-We are therefore moving away from Margarita for new projects.
-
 Tequila
 -------
 
@@ -81,6 +79,9 @@ of Margarita.
 At present, Tequila is in a beta state, with several newer projects trying
 it out.
 
+Strategies that try to abstract away some of the details
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Elastic Beanstalk
 -----------------
 
@@ -89,14 +90,23 @@ is an AWS service that provides a nice front-end wrapper
 around some of their other services, including Elastic Load balancer and
 autoscaling. A `Caktus blog post <https://www.caktusgroup.com/blog/2017/03/23/hosting-django-sites-amazon-elastic-beanstalk/>`_ gave a quick overview.
 
-An advantage of EB over Margarita, Tequila, and FabulAWS is that it provides
-a higher level of abstraction, so developers don't have to concern themselves
+A big advantage of EB over Margarita, Tequila, and FabulAWS is that it provides
+a *higher level of abstraction*, so developers don't have to concern themselves
 with as many details about the deploy when they just want something that works.
 
 We inherited one project that was already using Elastic Beanstalk and have
 had good experiences with it. It was a big enough project that we were grateful
-for the horizontal scaling (multiple web servers behind a load balancer), though
-I don't think we have needed autoscaling.
+for the horizontal scaling (multiple web servers behind a load balancer), and the
+autoscaling currently ramps servers up and down during each day as traffic levels
+vary.
+
+We have not yet worked out a simple way to use something like Celery (background
+tasks) with Elastic Beanstalk. There doesn't seem to be a simple way to run
+something only on one server.
+
+If you needed to dig down into the details more, for example to change which
+web server is used, you might find it more work to do than with a strategy
+that always exposes all the details.
 
 Elastic Beanstalk is tied to AWS.
 
@@ -121,13 +131,19 @@ is an open-source alternative to Heroku. It takes the same approach to
 deploys, but doesn't (yet) offer all the services of Heroku. We are currently
 trialing Dokku with some internal projects and one client project.
 
-Dokku appears best suited to smaller projects, ones where we'd be comfortable
-running on a single server.
-
 The advantage of Dokku is that most of the complication of implementing
 and maintaining support for all the details needed in a deploy are not our
 responsibility, as they are with our Salt, Ansible, and FabulAWS frameworks.
 So we would spend fewer of our hours keeping up the deploy machinery.
+
+Dokku appears best suited to smaller projects, ones where we'd be comfortable
+running on a single server.
+
+That's just because it manages things on a per-server
+level, though; there's no inherent reason you couldn't run multiple servers behind
+a load balancer, with each server managed using Dokku. Dokku itself just doesn't
+help you there. (It might not even be that hard to use Ansible to manage a set
+of identical dokku servers plus a load balancer; maybe a Shipit Day project?)
 
 Choosing a deploy strategy
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,11 +158,10 @@ As of this writing (June 2017), here's how I'd recommend choosing a strategy:
     If the project already uses a deploy strategy and it's working okay
         Keep using it
 
-    If it's a small project (single server) with no unusual requirements
-       Use Dokku (hosted wherever seems reliable and cost-effective)
-
-    Else if autoscaling is not needed
-       Use Tequila (hosted wherever seems reliable and cost-effective)
+    If it's a small project (single server) with no unusual requirements,
+    or no autoscaling is needed:
+       If you need something that we know works reasonably well, use Margarita
+       If you're willing to beta test a newer strategy, consider Tequila or even Dokku
 
     Else if AWS is an option
         If Elastic Beanstalk meets the project's needs
@@ -155,7 +170,7 @@ As of this writing (June 2017), here's how I'd recommend choosing a strategy:
             Use FabulAWS, possibly customizing it for the project
 
     Else
-        Come up with something new because we're run out of options
+        Come up with something new because we've run out of options
 
 This should come up with something for most projects. We'd only have trouble
 if we had a project needing a lot of scaling that couldn't use AWS for some
