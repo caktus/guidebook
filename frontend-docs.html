@@ -17,8 +17,7 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
@@ -26,6 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="External Services" href="services/index.html" />
     <link rel="prev" title="Frontend Packaging" href="frontend-packages.html" />
    
@@ -140,15 +140,17 @@ just another command line program to be run using Node&#8217;s <code class="docu
 <p>JSDoc offers a very rich selection of tags and other features and a great deal
 of flexibility in how it can be used. We recommend adhering to at least these
 conventions:</p>
-<ul class="simple">
-<li>Create a doc comment for every module, class, function / method, and event.</li>
+<ul>
+<li><p class="first">Create a doc comment for every module, class, function / method, and event.</p>
+</li>
 <li><dl class="first docutils">
 <dt>For every function / method doc comment, include:</dt>
 <dd><ul class="first last">
-<li>A prose description of the function&#8217;s purpose</li>
+<li><p class="first">A prose description of the function&#8217;s purpose</p>
+</li>
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">&#64;param</span></code> tags for each expected parameter, including:</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>name</li>
 <li>type</li>
 <li>prose description</li>
@@ -156,11 +158,12 @@ conventions:</p>
 </dd>
 </dl>
 </li>
-<li>For Object-type parameters, include separate <code class="docutils literal"><span class="pre">&#64;param</span></code> entries for each
-property expected on the Object</li>
+<li><p class="first">For Object-type parameters, include separate <code class="docutils literal"><span class="pre">&#64;param</span></code> entries for each
+property expected on the Object</p>
+</li>
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">&#64;returns</span></code> tag giving the function&#8217;s return value, including:</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>type</li>
 <li>prose description</li>
 <li>separate <code class="docutils literal"><span class="pre">&#64;param</span></code> entries for expected properties on returned Objects</li>
@@ -168,22 +171,24 @@ property expected on the Object</li>
 </dd>
 </dl>
 </li>
-<li><code class="docutils literal"><span class="pre">&#64;fires</span></code> tags indicating events fired within the function body</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">&#64;fires</span></code> tags indicating events fired within the function body</p>
+</li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>If a function is a callback:</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>Declare its doc comment with <code class="docutils literal"><span class="pre">&#64;callback</span></code></li>
 <li>Specify the event(s) it&#8217;s attached to with <code class="docutils literal"><span class="pre">&#64;listens</span></code></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>Include <code class="docutils literal"><span class="pre">&#64;see</span></code> references wherever another part of the code provides useful
-context for interpreting the comment.</li>
+<li><p class="first">Include <code class="docutils literal"><span class="pre">&#64;see</span></code> references wherever another part of the code provides useful
+context for interpreting the comment.</p>
+</li>
 </ul>
 <p>For the full details of what JSDoc is capable of, see <a class="reference external" href="http://usejsdoc.org/">the JSDoc website</a>.</p>
 </div>
@@ -326,7 +331,7 @@ whose types and significance are spelled out here):</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/frontend-docs.rst.txt"
+      <li><a href="_sources/frontend-docs.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -348,11 +353,11 @@ whose types and significance are spelled out here):</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="_sources/frontend-docs.rst.txt"
+      <a href="_sources/frontend-docs.txt"
           rel="nofollow">Page source</a>
     </div>
 

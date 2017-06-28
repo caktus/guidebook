@@ -17,8 +17,7 @@
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -26,6 +25,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Django Project Template Testing Plans" href="../project-template-testing.html" />
     <link rel="prev" title="Minions" href="minions.html" />
    
@@ -192,7 +193,7 @@ and make sure that none of them alter the <code class="docutils literal"><span c
 
 <span class="k">def</span> <span class="nf">load_env</span><span class="p">():</span>
     <span class="s2">&quot;Get the path to the .env file and load it.&quot;</span>
-    <span class="n">project_dir</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="n">project_dir</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
     <span class="n">dotenv</span><span class="o">.</span><span class="n">read_dotenv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">project_dir</span><span class="p">,</span> <span class="s1">&#39;.env&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -386,7 +387,7 @@ correctly.</p>
 </li>
 <li><p class="first">Deploy!</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab vagrant setup_master
-~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 ~/dev/myproject$ fab vagrant deploy
 </pre></div>
 </div>
@@ -420,19 +421,19 @@ process is successful. The default is <em>develop</em> for staging and <em>maste
 <ol class="arabic">
 <li><p class="first">Fetch a copy of <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code> from the server. We&#8217;ll need which roles are currently being
 used, so we can setup the same roles when we call <code class="docutils literal"><span class="pre">setup_minion</span></code> in step 5.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ scp <span class="m">1</span>.2.3.4:/etc/salt/minion old-minion.conf
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ scp 1.2.3.4:/etc/salt/minion old-minion.conf
 </pre></div>
 </div>
 </li>
 <li><p class="first">Uninstall salt. We&#8217;re using the <code class="docutils literal"><span class="pre">--force-yes</span></code> parameter because salt packages are <em>held</em> on
 some of our servers, so this is needed to allow uninstallation. <strong>Make sure you are using the new
 fabfile!</strong></p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you are on Ubuntu 12.04, run this command to enable backports, needed for python-gnupg:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo sed -i <span class="s1">&#39;/precise-backports/s/^#//g&#39;</span> /etc/apt/sources.list
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo sed -i <span class="s1">&#39;/precise-backports/s/^#//g&#39;</span> /etc/apt/sources.list
 </pre></div>
 </div>
 </li>
@@ -443,7 +444,7 @@ fabfile!</strong></p>
 </li>
 <li><p class="first">Set up the salt minion. Get the list of roles from the <code class="docutils literal"><span class="pre">old-minion.conf</span></code> you saved in step 1.
 The example below shows all possible roles being assigned to this minion.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 </pre></div>
 </div>
 <div class="admonition note">
@@ -607,14 +608,14 @@ into problems trying to change permissions on the files there.</p>
 <p>and then restart the VM. If you are using the new <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, you shouldn&#8217;t need to do that.</p>
 </li>
 <li><p class="first"><em>VAGRANT NOTE</em>: Remove the <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">public</span></code> symlinks as we rsync now rather than symlink.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
-~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
+~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you see an error like the following, it means that your local <code class="docutils literal"><span class="pre">conf</span></code> directory has contents
 that it shouldn&#8217;t. Remove the file/directory in question locally and then rerun the sync command.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">54</span>.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>54.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
 </pre></div>
 </div>
 </li>
@@ -648,10 +649,10 @@ myproject.example.com:
 
 Summary
 -------------
-Succeeded: <span class="m">12</span> <span class="o">(</span><span class="nv">changed</span><span class="o">=</span><span class="m">3</span><span class="o">)</span>
-Failed:     <span class="m">0</span>
+Succeeded: <span class="m">12</span> <span class="o">(</span><span class="nv">changed</span><span class="o">=</span>3<span class="o">)</span>
+Failed:     0
 -------------
-Total states run:     <span class="m">12</span>
+Total states run:     12
 </pre></div>
 </div>
 </li>
@@ -701,7 +702,7 @@ Total states run:     <span class="m">12</span>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/upgrading.rst.txt"
+      <li><a href="../_sources/margarita/upgrading.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -723,11 +724,11 @@ Total states run:     <span class="m">12</span>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
-      <a href="../_sources/margarita/upgrading.rst.txt"
+      <a href="../_sources/margarita/upgrading.txt"
           rel="nofollow">Page source</a>
     </div>
 

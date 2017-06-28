@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Choosing a deploy strategy &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Margarita" href="margarita/margarita.html" />
+    <link rel="prev" title="Upgrading Django" href="upgrading-django.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="choosing-a-deploy-strategy">
+<h1>Choosing a deploy strategy<a class="headerlink" href="#choosing-a-deploy-strategy" title="Permalink to this headline">¶</a></h1>
+<p>Different projects at Caktus use different tools and strategies
+for provisioning and deploying. This is partly for historical reasons,
+but also because different projects have different requirements.</p>
+<div class="section" id="strategies-that-manage-most-of-the-details">
+<h2>Strategies that manage most of the details<a class="headerlink" href="#strategies-that-manage-most-of-the-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-fabric">
+<h3>Simple Fabric<a class="headerlink" href="#simple-fabric" title="Permalink to this headline">¶</a></h3>
+<p>For some of our earliest projects, we just did everything in a
+<a class="reference external" href="http://www.fabfile.org/">Fabric</a>
+script, without the assistance of any other tools. That&#8217;s error-prone
+and a lot of work. We would never do that for a new project, and I&#8217;m
+not sure any project we still maintain does that.</p>
+</div>
+<div class="section" id="fabulaws">
+<h3>FabulAWS<a class="headerlink" href="#fabulaws" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://fabulaws.readthedocs.io/en/latest/">FabulAWS</a>
+is a Caktus-developed (primarily Tobias) framework
+for deploying autoscaling, redundant projects to Amazon Web Services.
+Its primary advantage is built-in support for autoscaling: adding and
+removing servers as the load on the site changes.</p>
+<p>Two projects use FabulAWS that I&#8217;m aware of: CCSR and OpenDebates. Both
+can experience heavy loads at times, with significant load changes over
+time.</p>
+<p>These days,
+<a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>
+is a credible alternative to FabuLAWS.
+It also supports autoscaling, using the same underlying AWS mechanisms
+as FabulAWS, and we&#8217;re not responsible for maintaining
+it ourselves.</p>
+<p>Both FabulAWS and Elastic Beanstalk are tied to AWS.</p>
+</div>
+<div class="section" id="margarita">
+<h3>Margarita<a class="headerlink" href="#margarita" title="Permalink to this headline">¶</a></h3>
+<p>Most of our current client projects use a Caktus project called
+<a class="reference external" href="http://caktus.github.io/developer-documentation/margarita/margarita.html">Margarita</a>
+for deployment, which uses the
+<a class="reference external" href="https://saltstack.com/">Salt</a> configuration management system
+to deploy the site.</p>
+<p>This has worked reasonably well (well enough that we keep using it), but
+over time we&#8217;ve discovered a number of shortcomings:</p>
+<ul class="simple">
+<li>Difficulty debugging deploy problems</li>
+<li>Fragility of Salt updates - many new updates seem to introduce new
+bugs, and the next update that fixes those might have its own new
+bugs. It can be tricky figuring out a version of Salt that works.</li>
+<li>Resource usage - the Salt master process seems to grow over time to
+use a lot of memory on the server, even though it shouldn&#8217;t be doing
+anything at all when we&#8217;re not deploying. This ties up memory our
+site could be using.</li>
+</ul>
+</div>
+<div class="section" id="tequila">
+<h3>Tequila<a class="headerlink" href="#tequila" title="Permalink to this headline">¶</a></h3>
+<p>Tequila (see <cite>tequila-*</cite> projects on Caktus github)
+is a successor project to Margarita, which uses
+<a class="reference external" href="http://docs.ansible.com/">Ansible</a>
+instead of Salt. It is hoped that Tequila will avoid some of the problems
+of Margarita.</p>
+<ul class="simple">
+<li>Ansible error messages are much clearer, making debugging deploy problems
+easier.</li>
+<li>Ansible is agent-less, so when not deploying, it takes no resources on
+the servers.</li>
+<li>Ansible seems (so far) to have a better track record of not introducing
+regressions with its updates.</li>
+</ul>
+<p>At present, Tequila is in a beta state, with several newer projects trying
+it out.</p>
+</div>
+</div>
+<div class="section" id="strategies-that-try-to-abstract-away-some-of-the-details">
+<h2>Strategies that try to abstract away some of the details<a class="headerlink" href="#strategies-that-try-to-abstract-away-some-of-the-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>Elastic Beanstalk<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>
+is an AWS service that provides a nice front-end wrapper
+around some of their other services, including Elastic Load balancer and
+autoscaling. A <a class="reference external" href="https://www.caktusgroup.com/blog/2017/03/23/hosting-django-sites-amazon-elastic-beanstalk/">Caktus blog post</a> gave a quick overview.</p>
+<p>A big advantage of EB over Margarita, Tequila, and FabulAWS is that it provides
+a <em>higher level of abstraction</em>, so developers don&#8217;t have to concern themselves
+with as many details about the deploy when they just want something that works.</p>
+<p>We inherited one project that was already using Elastic Beanstalk and have
+had good experiences with it. It was a big enough project that we were grateful
+for the horizontal scaling (multiple web servers behind a load balancer), and the
+autoscaling currently ramps servers up and down during each day as traffic levels
+vary.</p>
+<p>We have not yet worked out a simple way to use something like Celery (background
+tasks) with Elastic Beanstalk. There doesn&#8217;t seem to be a simple way to run
+something only on one server.</p>
+<p>If you needed to dig down into the details more, for example to change which
+web server is used, you might find it more work to do than with a strategy
+that always exposes all the details.</p>
+<p>Elastic Beanstalk is tied to AWS.</p>
+</div>
+<div class="section" id="heroku">
+<h3>Heroku<a class="headerlink" href="#heroku" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ve had a few projects use <a class="reference external" href="https://heroku.com">Heroku</a>.
+Heroku is a well-designed and robust service
+that makes it easy to deploy projects to the Internet. It provides for easy
+deploy and scaling like Elastic Beanstalk. The only drawback is that running a
+site on Heroku incurs a premium cost compared to the run-time costs of most of
+these other alternatives. Of course, that does not take into account the high
+cost of our own labor in developing and maintaining some of these other solutions.
+Still, we haven&#8217;t used Heroku much. Mostly we use it for quick prototypes, or
+if a client specifically requests it.</p>
+</div>
+<div class="section" id="dokku">
+<h3>Dokku<a class="headerlink" href="#dokku" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://dokku.viewdocs.io/dokku/">Dokku</a>
+is an open-source alternative to Heroku. It takes the same approach to
+deploys, but doesn&#8217;t (yet) offer all the services of Heroku. We are currently
+trialing Dokku with some internal projects and one client project.</p>
+<p>The advantage of Dokku is that most of the complication of implementing
+and maintaining support for all the details needed in a deploy are not our
+responsibility, as they are with our Salt, Ansible, and FabulAWS frameworks.
+So we would spend fewer of our hours keeping up the deploy machinery.</p>
+<p>Dokku appears best suited to smaller projects, ones where we&#8217;d be comfortable
+running on a single server.</p>
+<p>That&#8217;s just because it manages things on a per-server
+level, though; there&#8217;s no inherent reason you couldn&#8217;t run multiple servers behind
+a load balancer, with each server managed using Dokku. Dokku itself just doesn&#8217;t
+help you there. (It might not even be that hard to use Ansible to manage a set
+of identical dokku servers plus a load balancer; maybe a Shipit Day project?)</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>Choosing a deploy strategy<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>As of this writing (June 2017), here&#8217;s how I&#8217;d recommend choosing a strategy:</p>
+<div class="highlight-text"><div class="highlight"><pre><span></span>If the client has a specific request for a strategy and it&#39;s feasible
+    Use that
+
+If the project already uses a deploy strategy and it&#39;s working okay
+    Keep using it
+
+If it&#39;s a small project (single server) with no unusual requirements,
+or no autoscaling is needed:
+   If you need something that we know works reasonably well, use Margarita
+   If you&#39;re willing to beta test a newer strategy, consider Tequila or even Dokku
+
+Else if AWS is an option
+    If Elastic Beanstalk meets the project&#39;s needs
+        Use Elastic Beanstalk
+    Else
+        Use FabulAWS, possibly customizing it for the project
+
+Else
+    Come up with something new because we&#39;ve run out of options
+</pre></div>
+</div>
+<p>This should come up with something for most projects. We&#8217;d only have trouble
+if we had a project needing a lot of scaling that couldn&#8217;t use AWS for some
+reason.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Choosing a deploy strategy</a><ul>
+<li><a class="reference internal" href="#strategies-that-manage-most-of-the-details">Strategies that manage most of the details</a><ul>
+<li><a class="reference internal" href="#simple-fabric">Simple Fabric</a></li>
+<li><a class="reference internal" href="#fabulaws">FabulAWS</a></li>
+<li><a class="reference internal" href="#margarita">Margarita</a></li>
+<li><a class="reference internal" href="#tequila">Tequila</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#strategies-that-try-to-abstract-away-some-of-the-details">Strategies that try to abstract away some of the details</a><ul>
+<li><a class="reference internal" href="#id3">Elastic Beanstalk</a></li>
+<li><a class="reference internal" href="#heroku">Heroku</a></li>
+<li><a class="reference internal" href="#dokku">Dokku</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">Choosing a deploy strategy</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="upgrading-django.html" title="previous chapter">Upgrading Django</a></li>
+      <li>Next: <a href="margarita/margarita.html" title="next chapter">Margarita</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/deploy-strategies.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/deploy-strategies.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
