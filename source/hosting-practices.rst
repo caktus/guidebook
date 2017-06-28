@@ -54,6 +54,15 @@ more complicated triggers than just whether a message was an "error".
 
 [TODO: step-by-step setup]
 
+[for Dokku:
+If you need to set that up on a new server, you'll need the Papertrail URL which you can find by
+going to the `Papertrail Setup page <https://papertrailapp.com/systems/setup>`_ in your account.
+It should look something like ``syslog+tls://logs5.papertrailapp.com:12345`` where the numbers
+will be different::
+
+    $ ssh dokku logspout:server <papertrail-log-url>
+    $ ssh dokku logspout:start
+
 Monitoring
 ----------
 
