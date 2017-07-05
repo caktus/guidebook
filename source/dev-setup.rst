@@ -77,18 +77,24 @@ to start it running immediately::
 Python
 ''''''
 
-Different projects require different versions of Python. Our new projects will all
-use Python 3, but some legacy projects we maintain or inherit may not have been upgraded
-from Python 2. Install both, because it is not recommended to use the system Python
-that comes installed on OSX.
+Pyenv via brew
 
-    brew install python --with-brewed-openssl
-    brew install python3 --with-brewed-openssl
+    brew install pyenv
 
-And link them so they'll be in your path
+Different projects require different versions of Python. Some older projects will still be using
+Python 3.7, and newer projects are eiter on 3.5 or 3.6, so we'll install the latest versions of all
+three.
 
-    brew link python
-    brew link python3
+    pyenv install $(pyenv install -l | grep " 2.7" | tail -n 1)
+    pyenv install $(pyenv install -l | grep " 3.5" | tail -n 1)
+    pyenv install $(pyenv install -l | grep " 3.6" | tail -n 1)
+
+And link them so they'll be in your path.
+
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 2.7" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python2.7
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.5" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python3.5
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.6" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python3.6
+
 
 Python Packages and Environments
 ''''''''''''''''''''''''''''''''
