@@ -88,7 +88,7 @@ Install pyenv and the pyenv-virtualenv plugin via brew::
     source ~/.bash_profile
 
 Different projects require different versions of Python. Some older projects will still be using
-Python 3.7, and newer projects are eiter on 3.5 or 3.6, so we'll install the latest versions of all
+Python 2.7, and newer projects are eiter on 3.5 or 3.6, so we'll install the latest versions of all
 three::
 
     pyenv install $(pyenv install -l | grep " 2.7" | tail -n 1)
