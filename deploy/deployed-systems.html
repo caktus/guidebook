@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Deployed Architecture &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Deploying Django projects" href="index.html" />
     <link rel="next" title="Interface between the deploy system and projects" href="system-deploy-interface.html" />
     <link rel="prev" title="Deploying Django projects" href="index.html" />
    
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -46,7 +42,7 @@
             
   <div class="section" id="deployed-architecture">
 <h1>Deployed Architecture<a class="headerlink" href="#deployed-architecture" title="Permalink to this headline">¶</a></h1>
-<p>Let&#8217;s start with an overview of some typical architectures for
+<p>Let’s start with an overview of some typical architectures for
 our deployed sites.</p>
 <p>Note that depending on the expected
 traffic of a site, we might run everything on one
@@ -56,16 +52,16 @@ cache, etc.).</p>
 <div class="section" id="operating-system">
 <h2>Operating system<a class="headerlink" href="#operating-system" title="Permalink to this headline">¶</a></h2>
 <p>Our server operating system of choice is Ubuntu Server LTS.
-For new projects, we&#8217;ll use the most recent LTS release.</p>
-<p>We won&#8217;t necessarily update projects that might be on
-an older LTS release, as long as they&#8217;re still getting
-security updates and we don&#8217;t need some feature that&#8217;s only
+For new projects, we’ll use the most recent LTS release.</p>
+<p>We won’t necessarily update projects that might be on
+an older LTS release, as long as they’re still getting
+security updates and we don’t need some feature that’s only
 available on a newer release.</p>
 <div class="section" id="system-updates">
 <h3>System updates<a class="headerlink" href="#system-updates" title="Permalink to this headline">¶</a></h3>
 <p>We have started enabling automated updates on some projects
-using Ubuntu&#8217;s support for that. For now we&#8217;re only enabling them for
-security updates, not all software, and we&#8217;re also
+using Ubuntu’s support for that. For now we’re only enabling them for
+security updates, not all software, and we’re also
 blocking updates for Salt and other packages that can
 be problematic if upgraded without first testing that
 nothing breaks.</p>
@@ -84,15 +80,15 @@ load balancer can connect to our web server ports.</p>
 <p>We create a user on each system, named for the project.  We use it to
 run our Django processes and to own files and directories that need to
 be written to at run-time.</p>
-<p>On some projects though, we&#8217;ll create a separate user to run the
+<p>On some projects though, we’ll create a separate user to run the
 processes. That user only needs write access to the media directory,
 and everything else can be read-only.</p>
 <p>Each developer who is allowed to run deploys has a user account
 on each system, authorized by ssh public key, and enabled for
 passwordless sudo.  The deploy process connects to systems using
-ssh and the developer&#8217;s account, then uses sudo to make updates.</p>
+ssh and the developer’s account, then uses sudo to make updates.</p>
 <p>We typically deploy to Ubuntu, where root by default has no password,
-and we don&#8217;t set one. We also disable ssh&#8217;ing into the systems
+and we don’t set one. We also disable ssh’ing into the systems
 as root. The only way to get root access is to ssh as another
 user and then use sudo.</p>
 </div>
@@ -100,7 +96,7 @@ user and then use sudo.</p>
 <h3>Software installation<a class="headerlink" href="#software-installation" title="Permalink to this headline">¶</a></h3>
 <p>For non-Python software, and the Python interpreters, we install using
 <cite>apt</cite> packages, even if we have to add a non-Canonical repository
-in order to get the version we want.  This means we don&#8217;t
+in order to get the version we want.  This means we don’t
 need to worry about configuration, arranging for services to
 run at startup, etc., except where we want to change something
 from the default behavior.</p>
@@ -126,7 +122,7 @@ backend servers.</p>
 <p>For sites that force SSL, the backend servers are responsible
 for responding to port 80 requests with a redirect to the SSL
 URL of the site.</p>
-<p>When not on AWS, we&#8217;ve used haproxy for load balancing and
+<p>When not on AWS, we’ve used haproxy for load balancing and
 failover.</p>
 </div>
 <div class="section" id="web-server">
@@ -158,7 +154,7 @@ TCP or Unix socket.</p>
 <h2>Asynchronous work<a class="headerlink" href="#asynchronous-work" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="django-workers">
 <h3>Django workers<a class="headerlink" href="#django-workers" title="Permalink to this headline">¶</a></h3>
-<p>For asynchronous work, we use Celery&#8217;s worker daemon.</p>
+<p>For asynchronous work, we use Celery’s worker daemon.</p>
 </div>
 <div class="section" id="queue">
 <h3>Queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h3>
@@ -172,7 +168,7 @@ TCP or Unix socket.</p>
 <p>Depending on the project, we might use memcached, redis,
 or both for caching.</p>
 <p>memcached is good for caching responses and data.</p>
-<p>redis is good for a session store, since it&#8217;s fast but
+<p>redis is good for a session store, since it’s fast but
 persistent.</p>
 </div>
 <div class="section" id="database-server">
@@ -194,7 +190,7 @@ search all the logs.</p>
 <p>For processes managed by supervisor, we just configure them
 to log to stdout, then have supervisor pass that to syslog.
 For other processes, we either configure them to log to
-syslog, or use rsyslog&#8217;s <cite>imfile</cite> input plugin to monitor
+syslog, or use rsyslog’s <cite>imfile</cite> input plugin to monitor
 their text log files and pull them into syslog.</p>
 <p>Then we can configure rsyslog to forward log messages
 to Papertrail.</p>
@@ -209,8 +205,8 @@ and sometimes the ElasticSearch plugin.</p>
 </div>
 <div class="section" id="email">
 <h3>Email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
-<p>We&#8217;ll install postfix as a backup for outgoing mail, but usually
-if a project is sending email, we&#8217;ll configure Django to use
+<p>We’ll install postfix as a backup for outgoing mail, but usually
+if a project is sending email, we’ll configure Django to use
 an external SMTP server.</p>
 </div>
 <div class="section" id="node">
@@ -276,7 +272,7 @@ old.)</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/deploy/deployed-systems.txt"
+      <li><a href="../_sources/deploy/deployed-systems.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -298,11 +294,11 @@ old.)</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/deploy/deployed-systems.txt"
+      <a href="../_sources/deploy/deployed-systems.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

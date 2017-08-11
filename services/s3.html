@@ -1,0 +1,181 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Amazon S3 &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dependency Tracking" href="dep-tracking.html" />
+    <link rel="prev" title="Github" href="github.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="amazon-s3">
+<h1>Amazon S3<a class="headerlink" href="#amazon-s3" title="Permalink to this headline">¶</a></h1>
+<p>All Django projects involve some kind of static (CSS/JS) resources and many user uploaded
+resouces like avatars. When deploying to a single server these can be kept on the local
+file system but in a larger server cluster that isn’t feasible. Other deployment environments
+such as Heroku or Elastic Beanstalk don’t provide access to the local filesystem.
+For these scenarios, Amazon’s Simple Cloud Storage Service (S3) can provided a shared
+storage location for your shared assets.</p>
+<div class="section" id="static-assets-and-public-uploads">
+<h2>Static Assets and Public Uploads<a class="headerlink" href="#static-assets-and-public-uploads" title="Permalink to this headline">¶</a></h2>
+<p>This is the most common use case for S3. Moving your static assets to S3 makes it easy
+to setup CloudFront as a CDN for them saving your web servers CPU and bandwidth to
+serve the application instead. Moving the public uploads to S3 can also benefit
+from a CDN. Having a shared storage location means all webservers in the cluster
+will have access to the resources without configuring and maintaining any network mounts.</p>
+<p>Since it’s a fairly common configuration, there are a number of great tools to make
+this easy and documentation on how to enable them in your project.
+<a class="reference external" href="https://django-storages.readthedocs.io/en/latest/index.html">django-storages</a>
+along with <a class="reference external" href="https://boto3.readthedocs.io/en/latest/">boto3</a>
+is the preferred method for configuring Django to use S3 for either static or media
+resources. The best place to get started on this is our own blog post
+on this exact topic: <a class="reference external" href="https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/">https://www.caktusgroup.com/blog/2014/11/10/Using-Amazon-S3-to-store-your-Django-sites-static-and-media-files/</a></p>
+</div>
+<div class="section" id="private-uploads">
+<h2>Private Uploads<a class="headerlink" href="#private-uploads" title="Permalink to this headline">¶</a></h2>
+<p>There are times were you want to handle user uploads for content that shouldn’t be
+served publicly on the site. These might be resources restricted to the user who
+uploaded it or to a group of users. On the Django side, private uploads are handled
+similarly to public uploads. It’s still recommended that you used django-storages
+and boto3. However, the bucket configuration on the AWS side needs more restrictive
+permissions. If you follow the directions in the post related to public media,
+then you’ll have created a user to access the bucket from the application side.
+To grant access to only that single user, you’ll want to create a policy like
+the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Sid&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleUserBucketReadWrite&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Deny&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;NotPrincipal&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;AWS&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;USER-ARN&quot;</span><span class="p">,</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;s3:GetBucketLocation&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:ListBucket&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:ListBucketMultipartUploads&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:ListMultipartUploadParts&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:AbortMultipartUpload&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;s3:PutObject&quot;</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;Resource&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;arn:aws:s3:::BUCKET-NAME&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;arn:aws:s3:::BUCKET-NAME/*&quot;</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To use this you would replace the <code class="docutils literal"><span class="pre">USER-ARN</span></code> with the user’s ARN as generated by
+AWS and <code class="docutils literal"><span class="pre">BUCKET-NAME</span></code> with the name of the bucket you’ve created. Note that
+this grants permission to list the bucket, get items from the bucket, and add
+new uploads to the bucket but does not grant the permission to delete items
+from the bucket. If you want to grant that access it would be added to the <code class="docutils literal"><span class="pre">Action</span></code>
+list in the policy.</p>
+<p>If you are using both public resources and private resources within a single
+project then you’ll have to go beyond configuring the <code class="docutils literal"><span class="pre">DEFAULT_FILE_STORAGE</span></code>
+setting and explictly configure each <code class="docutils literal"><span class="pre">FileField</span></code> and <code class="docutils literal"><span class="pre">ImageField</span></code> to use
+the appropriate storage for that upload. This is done by passing the <code class="docutils literal"><span class="pre">storage</span></code>
+instance to the field declaration.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Amazon S3</a><ul>
+<li><a class="reference internal" href="#static-assets-and-public-uploads">Static Assets and Public Uploads</a></li>
+<li><a class="reference internal" href="#private-uploads">Private Uploads</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">External Services</a><ul>
+      <li>Previous: <a href="github.html" title="previous chapter">Github</a></li>
+      <li>Next: <a href="dep-tracking.html" title="next chapter">Dependency Tracking</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/services/s3.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/services/s3.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

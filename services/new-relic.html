@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>New Relic &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Read The Docs" href="read-the-docs.html" />
     <link rel="prev" title="Papertrail" href="papertrail.html" />
    
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -51,9 +47,9 @@
 <li><p class="first">Get a license key. This can be found in the New Relic web interface. We have multiple
 subaccounts, some of which are free and some of which cost money to use, so make sure you first
 select the correct subaccount. Log in to New Relic and click on the dropdown menu in the upper
-right corner. Use the &#8216;Switch account&#8217; submenu to choose your subaccount. Once you have
-switched to your subaccount, go back to the dropdown menu and click on &#8216;Account settings&#8217;. The
-license key will be listed on that page. If you don&#8217;t have access to New Relic or are unsure of
+right corner. Use the ‘Switch account’ submenu to choose your subaccount. Once you have
+switched to your subaccount, go back to the dropdown menu and click on ‘Account settings’. The
+license key will be listed on that page. If you don’t have access to New Relic or are unsure of
 which New Relic subaccount to use, create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a></p>
 </li>
 <li><p class="first">Generate an encrypted variable <code class="docutils literal"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code> containing the license key for each
@@ -73,7 +69,7 @@ environment:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Put that in the proper environment&#8217;s SLS file, in the <code class="docutils literal"><span class="pre">secrets</span></code> dictionary:</p>
+<li><p class="first">Put that in the proper environment’s SLS file, in the <code class="docutils literal"><span class="pre">secrets</span></code> dictionary:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># &lt;environment&gt;.sls</span>
 <span class="l l-Scalar l-Scalar-Plain">secrets</span><span class="p p-Indicator">:</span>
   <span class="s">&quot;NEW_RELIC_LICENSE_KEY&quot;</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
@@ -86,7 +82,7 @@ environment:</p>
 under <code class="docutils literal"><span class="pre">env:</span></code>. The default values for most will probably work well for most projects, but you should
 definitely include a setting for NEW_RELIC_APP_NAME, as failure to provide a value for this may result
 in your project unexpectedly showing up under some other pre-existing application being monitored by the
-license key&#8217;s account. Here are some examples of how to set new relic configuration variables:</p>
+license key’s account. Here are some examples of how to set new relic configuration variables:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># project.sls</span>
 <span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_MONITOR_MODE</span><span class="p p-Indicator">:</span> <span class="s">&quot;false&quot;</span>
@@ -97,13 +93,13 @@ license key&#8217;s account. Here are some examples of how to set new relic conf
   <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_MONITOR_MODE</span><span class="p p-Indicator">:</span> <span class="s">&quot;true&quot;</span>
 </pre></div>
 </div>
-<p>Be sure to quote &#8220;true&#8221; and &#8220;false&#8221; as above, to avoid Salt/YAML turning these into real Booleans;
-we want the strings &#8220;true&#8221; or &#8220;false&#8221; in the environment.</p>
+<p>Be sure to quote “true” and “false” as above, to avoid Salt/YAML turning these into real Booleans;
+we want the strings “true” or “false” in the environment.</p>
 <p>You can put some values in <code class="docutils literal"><span class="pre">project.sls</span></code> and others in <code class="docutils literal"><span class="pre">&lt;environment&gt;.sls</span></code>.  Just be
 consistent for a given key; if the same key is present in both <code class="docutils literal"><span class="pre">project.sls</span></code> and the current
-<code class="docutils literal"><span class="pre">&lt;environment&gt;.sls</span></code> file, Salt makes no guarantees about which value you&#8217;ll end up with.</p>
+<code class="docutils literal"><span class="pre">&lt;environment&gt;.sls</span></code> file, Salt makes no guarantees about which value you’ll end up with.</p>
 <p>Note that any environment where <code class="docutils literal"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code> is not set will not include any New
-Relic configuration, so it&#8217;s safe to put other settings in <code class="docutils literal"><span class="pre">project.sls</span></code> even if you&#8217;re not
+Relic configuration, so it’s safe to put other settings in <code class="docutils literal"><span class="pre">project.sls</span></code> even if you’re not
 using New Relic in every environment.</p>
 </li>
 <li><p class="first">If you are using elasticsearch and would like New Relic monitoring of that as well, add to the
@@ -116,7 +112,7 @@ pillar somewhere.</p>
 using the <code class="docutils literal"><span class="pre">elasticsearch</span></code> margarita state in your <code class="docutils literal"><span class="pre">top.sls</span></code> file.</p>
 </li>
 <li><p class="first">Add state <code class="docutils literal"><span class="pre">newrelic_sysmon</span></code> to your Salt <code class="docutils literal"><span class="pre">top.sls</span></code> in the <code class="docutils literal"><span class="pre">base</span></code> section (for all servers).
-It&#8217;s safe to add that unconditionally for all environments; it&#8217;s a no-op if no New Relic
+It’s safe to add that unconditionally for all environments; it’s a no-op if no New Relic
 license key has been defined:</p>
 <div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">base</span><span class="p p-Indicator">:</span>
   <span class="s">&#39;*&#39;</span><span class="p p-Indicator">:</span>
@@ -150,7 +146,7 @@ license key has been defined:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/new-relic.txt"
+      <li><a href="../_sources/services/new-relic.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -172,11 +168,11 @@ license key has been defined:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/services/new-relic.txt"
+      <a href="../_sources/services/new-relic.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

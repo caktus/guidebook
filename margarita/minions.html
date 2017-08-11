@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Minions &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Upgrading Margarita" href="upgrading.html" />
     <link rel="prev" title="Salt Pillar" href="pillar.html" />
    
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -46,12 +42,12 @@
             
   <div class="section" id="minions">
 <span id="id1"></span><h1>Minions<a class="headerlink" href="#minions" title="Permalink to this headline">¶</a></h1>
-<p>Within an environment, there&#8217;s one server, the <em>master</em>, that is
+<p>Within an environment, there’s one server, the <em>master</em>, that is
 running <code class="docutils literal"><span class="pre">salt-master</span></code>.</p>
 <p>All the servers in the environment also run <code class="docutils literal"><span class="pre">salt-minion</span></code> and are
 referred to collectively as <em>minions</em>.</p>
 <p>What each minion does is defined by editing the list of <em>roles</em> in the
-minion&#8217;s salt configuration file <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  E.g.:</p>
+minion’s salt configuration file <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  E.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
   <span class="n">environment</span><span class="p">:</span> <span class="n">staging</span>
   <span class="n">roles</span><span class="p">:</span>
@@ -104,7 +100,7 @@ that server can connect to this one.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/minions.txt"
+      <li><a href="../_sources/margarita/minions.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -126,11 +122,11 @@ that server can connect to this one.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/margarita/minions.txt"
+      <a href="../_sources/margarita/minions.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
