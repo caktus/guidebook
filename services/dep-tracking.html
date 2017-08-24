@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Dependency Tracking &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,10 +23,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Papertrail" href="papertrail.html" />
-    <link rel="prev" title="Github" href="github.html" />
+    <link rel="prev" title="Amazon S3" href="s3.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -54,9 +50,9 @@ particularly important for us to update in our projects.</p>
 <div class="section" id="requires-io">
 <h2>Requires.io<a class="headerlink" href="#requires-io" title="Permalink to this headline">¶</a></h2>
 <p>Our Python dependencies can be tracked with the requires.io tool.</p>
-<p>You&#8217;ll need to register for an API account at <a class="reference external" href="https://requires.io/">https://requires.io/</a> and
+<p>You’ll need to register for an API account at <a class="reference external" href="https://requires.io/">https://requires.io/</a> and
 pass a request to the sysadmin team to add the new username to our enterprise Requires.io account.</p>
-<p>To add your project to requires.io you&#8217;ll need to register it, and you can find
+<p>To add your project to requires.io you’ll need to register it, and you can find
 <a class="reference external" href="https://requires.io/enterprise/Caktus/api/">instructions and an authentication token</a> for the Caktus account.</p>
 <ol class="arabic">
 <li><p class="first">Copy the token found under the Token header and copy it in the Travis CI settings for the
@@ -85,15 +81,15 @@ project as an environment variable named <code class="docutils literal"><span cl
 <p>Our Javascript dependencies can be tracked with BitHound.</p>
 <p>To setup a new project with BitHound, first <a class="reference external" href="https://www.bithound.io/">log into service</a> with
 your Caktus GitHub account. Navigate to your list of repositories by clicking on your avatar in
-the upper right corner and clicking on &#8220;Repositories&#8221;. Click the button labeled &#8220;Add Projects&#8221;,
+the upper right corner and clicking on “Repositories”. Click the button labeled “Add Projects”,
 which will take you to a list of all organizations you have access to and their repositories.</p>
 <p>Select the appropriate organization first and then enter the name of the repository in the filter
-box. Click &#8220;Add Project&#8221;.</p>
-<p>You&#8217;ll be taken to the project Dashboard, where you&#8217;ll see an analysis of the project running.
+box. Click “Add Project”.</p>
+<p>You’ll be taken to the project Dashboard, where you’ll see an analysis of the project running.
 This step might take some time to complete, depending on work load and the size of the project.</p>
-<p>When the analysis is complete go to the &#8220;Dependencies&#8221; section and you&#8217;ll find a report of all NPM
+<p>When the analysis is complete go to the “Dependencies” section and you’ll find a report of all NPM
 dependencies in the project. Snippets to add a badge reporting the current analysis of the project
-can be found on the right hand side. Copy and paste the appropriate snippet into the project&#8217;s
+can be found on the right hand side. Copy and paste the appropriate snippet into the project’s
 README file at the top, preferably beside the badge from the Requires.io service.</p>
 </div>
 <div class="section" id="github-project-badges">
@@ -150,7 +146,7 @@ BitHound.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html">External Services</a><ul>
-      <li>Previous: <a href="github.html" title="previous chapter">Github</a></li>
+      <li>Previous: <a href="s3.html" title="previous chapter">Amazon S3</a></li>
       <li>Next: <a href="papertrail.html" title="next chapter">Papertrail</a></li>
   </ul></li>
   </ul></li>
@@ -159,7 +155,7 @@ BitHound.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/dep-tracking.txt"
+      <li><a href="../_sources/services/dep-tracking.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -181,11 +177,11 @@ BitHound.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/services/dep-tracking.txt"
+      <a href="../_sources/services/dep-tracking.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

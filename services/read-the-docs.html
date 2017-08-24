@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Read The Docs &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Circle CI" href="circle-ci.html" />
     <link rel="prev" title="New Relic" href="new-relic.html" />
    
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -48,8 +44,8 @@
 <h1>Read The Docs<a class="headerlink" href="#read-the-docs" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://rtfd.org">Read The Docs</a> (RTD) publishes documentation
 from open source projects on the web. For our projects that are
-in git repositories and use Sphinx for their documentation, it&#8217;s
-often as simple as a few clicks to publish a new project&#8217;s
+in git repositories and use Sphinx for their documentation, it’s
+often as simple as a few clicks to publish a new project’s
 documentation.</p>
 <div class="section" id="accounts">
 <h2>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h2>
@@ -58,41 +54,41 @@ in LastPass), or a client account if the client prefers.</p>
 </div>
 <div class="section" id="linking-to-github">
 <h2>Linking to GitHub?<a class="headerlink" href="#linking-to-github" title="Permalink to this headline">¶</a></h2>
-<p>If the project&#8217;s repository is public, you can
+<p>If the project’s repository is public, you can
 publish it without giving RTD any access to your GitHub
 account.</p>
 </div>
 <div class="section" id="adding-a-project">
 <h2>Adding a project<a class="headerlink" href="#adding-a-project" title="Permalink to this headline">¶</a></h2>
 <p>Go to the <a class="reference external" href="https://readthedocs.org/dashboard/">RTD dashboard</a>
-and click the &#8220;Import a Project&#8221; button.</p>
+and click the “Import a Project” button.</p>
 <p>If the RTD account is linked to any GitHub, Bitbucket, etc
 accounts, then RTD will helpfully list the repositories
 it has access to that way, and you can click on one of them.</p>
-<p>In any case, you can click &#8220;Import Manually&#8221; and enter
+<p>In any case, you can click “Import Manually” and enter
 a name and repository URL for the project.</p>
 </div>
 <div class="section" id="versions-branches">
 <h2>Versions/Branches<a class="headerlink" href="#versions-branches" title="Permalink to this headline">¶</a></h2>
 <p>You can control which branches of your project RTD builds
 and publishes the documentation for. RTD calls these Versions.
-Go to your project&#8217;s Admin area (look for the button with the
-gear and the word &#8220;Admin&#8221;), click Versions in the left-hand
+Go to your project’s Admin area (look for the button with the
+gear and the word “Admin”), click Versions in the left-hand
 navigation, and select the branches you want to build and
-deselect the ones you don&#8217;t.</p>
+deselect the ones you don’t.</p>
 </div>
 <div class="section" id="private-projects">
 <h2>Private projects?<a class="headerlink" href="#private-projects" title="Permalink to this headline">¶</a></h2>
 <p>You can link the RTD account to GitHub accounts (or Bitbucket,
 etc) to let it access the source of a private project, but RTD
-can&#8217;t really protect the built documentation from unwanted
+can’t really protect the built documentation from unwanted
 access.</p>
 <p>According to the RTD <a class="reference external" href="http://docs.readthedocs.org/en/latest/privacy.html">privacy controls</a>,
-you can set a level of &#8220;private&#8221;, but it just hides the project
+you can set a level of “private”, but it just hides the project
 from lists and searches. Anyone with the URL can still view
 the documentation. You will need to decide case-by-case whether
 this is good enough for your project.</p>
-<p>I don&#8217;t know a solution as simple as RTD for hosting
+<p>I don’t know a solution as simple as RTD for hosting
 access-controlled documentation. Please update this
 documentation if you find any.</p>
 <p>In any case, you can always build your doc and then put
@@ -132,7 +128,7 @@ server with whatever access controls you like.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/read-the-docs.txt"
+      <li><a href="../_sources/services/read-the-docs.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -154,11 +150,11 @@ server with whatever access controls you like.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/services/read-the-docs.txt"
+      <a href="../_sources/services/read-the-docs.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

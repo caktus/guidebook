@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Front-end JavaScript Testing Practices &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,7 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="prev" title="Testing" href="index.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -34,7 +31,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -58,13 +55,13 @@ inadequate, as well as to add new tips, tricks, and best practices to these docs
 <div class="section" id="mocha">
 <h3>Mocha<a class="headerlink" href="#mocha" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://mochajs.org/#features">Mocha</a> is a simple and modular test library.
-Unlike <a class="reference external" href="http://jasmine.github.io/">Jasmine</a>, Mocha doesn&#8217;t come with an
+Unlike <a class="reference external" href="http://jasmine.github.io/">Jasmine</a>, Mocha doesn’t come with an
 assertion library, facilities for mocks and spies, and so on. Instead it provides
 a framework for writing and executing tests and lets you choose other libraries
 to meet those needs.</p>
 <p>To create a Mocha test that will be recognized by our Gulp build process,
 create a file with a filename in the form <code class="docutils literal"><span class="pre">test_*.js</span></code> and place it in a <code class="docutils literal"><span class="pre">test/</span></code> subdir
-of the project&#8217;s JS dir (i.e. in <code class="docutils literal"><span class="pre">project_name/static/js/test/</span></code>).</p>
+of the project’s JS dir (i.e. in <code class="docutils literal"><span class="pre">project_name/static/js/test/</span></code>).</p>
 <p>Tests describing some value are wrapped in a callback passed to <code class="docutils literal"><span class="pre">describe</span></code>,
 containing individual test cases created with calls to <code class="docutils literal"><span class="pre">it</span></code>. Your test spec
 <code class="docutils literal"><span class="pre">project_foo/static/js/test/test_Something.js</span></code> might look like:</p>
@@ -111,7 +108,7 @@ handling of async testing makes Mocha a very attractive test library.</p>
 <div class="section" id="chai">
 <h3>Chai<a class="headerlink" href="#chai" title="Permalink to this headline">¶</a></h3>
 <p>To make assertions within our tests, we use the library <a class="reference external" href="http://chaijs.com/">Chai</a>.
-The main benefit of Chai is that we don&#8217;t really have to choose between any of
+The main benefit of Chai is that we don’t really have to choose between any of
 the various assertion styles that are popular in the JS world. Chai makes them
 all available:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="s2">&quot;should&quot;</span> <span class="n">style</span>
@@ -166,7 +163,7 @@ something like the standard JS library in the field.</p>
 <li>much, much more</li>
 </ul>
 <p>In fact, Sinon is so feature-rich (and its abilities are still so untested in
-real-world Caktus projects) that we can&#8217;t cover its features here.
+real-world Caktus projects) that we can’t cover its features here.
 Please consult the Sinon docs for details.</p>
 </div>
 <div class="section" id="babel-plugin-rewire">
@@ -199,7 +196,7 @@ in isolation from <code class="docutils literal"><span class="pre">ChildComponen
 </div>
 <p>Using <code class="docutils literal"><span class="pre">babel-plugin-rewire</span></code>, we can write our test as follows, using the
 rewire API to change the value of the name <code class="docutils literal"><span class="pre">ChildComponent</span></code> and to return
-it to its &#8220;real&#8221; value afterwards:</p>
+it to its “real” value afterwards:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ComponentToTest</span> <span class="kn">from</span> <span class="s1">&#39;my-fancy-wrapper-component-module&#39;</span>
 
 <span class="n">describe</span><span class="p">(</span><span class="s1">&#39;MyFancyWrapperComponent&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -222,8 +219,8 @@ it to its &#8220;real&#8221; value afterwards:</p>
 <p>For test coverage, we use the libraries <a class="reference external" href="https://www.npmjs.com/package/istanbul">istanbul</a>
 and <a class="reference external" href="https://www.npmjs.com/package/isparta">isparta</a>.</p>
 <p>This is handled inside the Gulp build process included in the project template.
-It will check your tests&#8217; coverage of statements, branches, functions, and lines found in
-the <code class="docutils literal"><span class="pre">app/</span></code> subdir of the project&#8217;s JS dir (i.e. in <code class="docutils literal"><span class="pre">project_name/static/js/app/</span></code>).</p>
+It will check your tests’ coverage of statements, branches, functions, and lines found in
+the <code class="docutils literal"><span class="pre">app/</span></code> subdir of the project’s JS dir (i.e. in <code class="docutils literal"><span class="pre">project_name/static/js/app/</span></code>).</p>
 <p>You can set the desired coverage thresholds inside the <code class="docutils literal"><span class="pre">gulpfile.js</span></code>. The
 numbers here represent percentages:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">coverageEnforcer</span><span class="p">({</span>
@@ -250,7 +247,7 @@ our basic stack for future projects:</p>
 with <a class="reference external" href="https://babeljs.io/">Babel</a></p>
 </li>
 <li><p class="first"><a class="reference external" href="https://facebook.github.io/react/">React</a>, a library covering roughly the
-&#8220;view&#8221; and &#8220;controller&#8221; aspects of a MVC-architected user interface</p>
+“view” and “controller” aspects of a MVC-architected user interface</p>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference external" href="https://facebook.github.io/react/docs/jsx-in-depth.html">JSX</a>, a JS syntax
@@ -259,11 +256,11 @@ extension that makes it easier to create React components</li>
 </div></blockquote>
 </li>
 <li><p class="first"><a class="reference external" href="https://facebook.github.io/flux/">Flux</a>, a library and design pattern for
-managing UI application state and building UIs in a &#8220;data flow&#8221; style</p>
+managing UI application state and building UIs in a “data flow” style</p>
 <blockquote>
 <div><ul class="simple">
 <li><a class="reference external" href="https://facebook.github.io/immutable-js/">Immutable.js</a>, an immutable
-data structure library used under the hood in Flux&#8217;s utilities</li>
+data structure library used under the hood in Flux’s utilities</li>
 </ul>
 </div></blockquote>
 </li>
@@ -277,7 +274,7 @@ applications</li>
 </ul>
 <div class="section" id="es2015-mocha-tests-with-gulp-and-babel">
 <h3>ES2015 Mocha Tests With Gulp and Babel<a class="headerlink" href="#es2015-mocha-tests-with-gulp-and-babel" title="Permalink to this headline">¶</a></h3>
-<p>Transpiling ES2015 code is already a standard part of Caktus&#8217;s front-end process.
+<p>Transpiling ES2015 code is already a standard part of Caktus’s front-end process.
 We can take advantage of the hard work that goes into this code preprocessing
 to reuse parts of the process and layer new steps in without serious difficulty.</p>
 <p>This comes out clearly in the actual test command, handled by Gulp, which
@@ -312,9 +309,9 @@ a little tricky to test DOM-mutating code with Mocha.</p>
 <p>React and the <a class="reference external" href="https://facebook.github.io/react/docs/test-utils.html">React test utilities</a>
 are a good example of libraries in our stack that raise this issue.
 Both of these assume that the global name <code class="docutils literal"><span class="pre">document</span></code> points to a DOM. In fact,
-if <code class="docutils literal"><span class="pre">document</span></code> doesn&#8217;t already point to a DOM when the libraries are imported,
+if <code class="docutils literal"><span class="pre">document</span></code> doesn’t already point to a DOM when the libraries are imported,
 all attempts to use them in the module that imports them will fail: they need
-that DOM to be there when they&#8217;re loaded.</p>
+that DOM to be there when they’re loaded.</p>
 <p><a class="reference external" href="https://www.npmjs.com/package/jsdom">jsdom</a> to the rescue! jsdom is a JavaScript
 implementation of the DOM API. It allows us to create a fake DOM and assign it
 to <code class="docutils literal"><span class="pre">document</span></code> so that React and its test utilities can do their magic.</p>
@@ -358,9 +355,9 @@ including an <code class="docutils literal"><span class="pre">afterEach</span></
 <p>React encourages you to define your React components as plain JavaScript
 functions with no side effects. These are called
 <a class="reference external" href="https://facebook.github.io/react/docs/reusable-components.html#stateless-functions">stateless functional components</a>.</p>
-<p>But because stateless functions don&#8217;t provide an imperative API, the React
-test utilities don&#8217;t know how to do certain important things with them (e.g.
-locate their DOM node). They also don&#8217;t have lifecycle methods, making it hard
+<p>But because stateless functions don’t provide an imperative API, the React
+test utilities don’t know how to do certain important things with them (e.g.
+locate their DOM node). They also don’t have lifecycle methods, making it hard
 to test certain behaviors (e.g. checking their output after a state update).</p>
 <p>To do these things, use the <code class="docutils literal"><span class="pre">react-functional</span></code> library to wrap your component.
 Then you can test it with the test utils as usual:</p>
@@ -377,15 +374,15 @@ Then you can test it with the test utils as usual:</p>
 </div>
 <div class="section" id="avoid-race-conditions-by-using-callbacks">
 <h4>Avoid Race Conditions by Using Callbacks<a class="headerlink" href="#avoid-race-conditions-by-using-callbacks" title="Permalink to this headline">¶</a></h4>
-<p>If you&#8217;re testing whether a React component updates in some way after some state
-change happens, in general you won&#8217;t be able to check for the update right after
-running the code that&#8217;s supposed to trigger it, because that update will happen
+<p>If you’re testing whether a React component updates in some way after some state
+change happens, in general you won’t be able to check for the update right after
+running the code that’s supposed to trigger it, because that update will happen
 asynchronously.</p>
 <p>To check for changes like that, you should use an async test and inject the
 <code class="docutils literal"><span class="pre">done</span></code> callback into the appropriate React component lifecycle method.</p>
 <p>An easy way to do that is to create a utility function that wraps your React
 component and provides access to an EventEmitter that fires an event whenever
-your component&#8217;s lifecycle methods are called:</p>
+your component’s lifecycle methods are called:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span>
 <span class="kn">import</span> <span class="p">{</span> <span class="n">EventEmitter</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;events&#39;</span>
 
@@ -461,8 +458,8 @@ request results in your test setup (and restore them afterwards):</p>
 <p>Stores created with the <a class="reference external" href="https://facebook.github.io/flux/docs/flux-utils.html">Flux utilities</a>
 use <a class="reference external" href="https://facebook.github.io/immutable-js/">Immutable.js</a> data structures
 under the hood.</p>
-<p>If you want to test data stores created with the Flux utils, you&#8217;ll have to import
-from <code class="docutils literal"><span class="pre">immutable</span></code> and use the immutable.js data types&#8217; APIs appropriately.</p>
+<p>If you want to test data stores created with the Flux utils, you’ll have to import
+from <code class="docutils literal"><span class="pre">immutable</span></code> and use the immutable.js data types’ APIs appropriately.</p>
 <p>Here, for example, you can use the <code class="docutils literal"><span class="pre">count</span></code> method of immutable collections to
 count the number of key-value pairs in the immutable Map returned from this Store:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">(</span><span class="s1">&#39;has three items on inspection&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -479,7 +476,7 @@ more info on how to work with key types like Map, Seq, and Collection.</p>
 <h2>Example: testing a React component<a class="headerlink" href="#example-testing-a-react-component" title="Permalink to this headline">¶</a></h2>
 <p>To show how this all hangs together, here is a fully worked-through example of
 a test spec for a simple React component.</p>
-<p>Let&#8217;s write a test for a very simple React component: a stateless functional
+<p>Let’s write a test for a very simple React component: a stateless functional
 component called <code class="docutils literal"><span class="pre">AppList</span></code> that takes a list of data and renders a <code class="docutils literal"><span class="pre">&lt;ul&gt;</span></code>
 with a <code class="docutils literal"><span class="pre">&lt;li&gt;</span></code> for each data point.</p>
 <p>The code for this component looks like:</p>
@@ -494,11 +491,11 @@ with a <code class="docutils literal"><span class="pre">&lt;li&gt;</span></code>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>We&#8217;re going to be interested in verifying that this function renders data
-correctly. Because this is a unit test, we&#8217;re testing this in isolation from
+<p>We’re going to be interested in verifying that this function renders data
+correctly. Because this is a unit test, we’re testing this in isolation from
 whatever it is that generates the data, increments the app state in a way that
 sends data down the pipeline, and so on.</p>
-<p>So first, let&#8217;s create some fake data and put it in a <code class="docutils literal"><span class="pre">constants.js</span></code> file
+<p>So first, let’s create some fake data and put it in a <code class="docutils literal"><span class="pre">constants.js</span></code> file
 in a directory adjoining our tests. Our component will expect to see an immutable
 List value, so we create the fake data like so:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">List</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;immutable&#39;</span>
@@ -521,13 +518,13 @@ List value, so we create the fake data like so:</p>
 </div>
 <p>Now we create a file <code class="docutils literal"><span class="pre">test_AppList.js</span></code> in our specs directory and do some
 basic, predictable setup:</p>
-<ul>
+<ul class="simple">
 <li><dl class="first docutils">
 <dt>A whole bunch of predictable imports:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>This test will use JSX and will test a React component, so we need to import
 React and the React test utils.</li>
-<li>We&#8217;re testing a stateless functional component, so we need to import
+<li>We’re testing a stateless functional component, so we need to import
 <code class="docutils literal"><span class="pre">react-functional</span></code> to wrap it in order to be able to test it.</li>
 <li>The fake data we just created.</li>
 <li>Our assertion library.</li>
@@ -538,14 +535,13 @@ React and the React test utils.</li>
 </li>
 <li><dl class="first docutils">
 <dt>Teardown for component tests:</dt>
-<dd><ul class="first last simple">
+<dd><ul class="first last">
 <li>DOM cleanup performed after each test.</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><p class="first">Basic structure for the test case.</p>
-</li>
+<li>Basic structure for the test case.</li>
 </ul>
 <p>This gives us the skeleton of a test module:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
@@ -571,7 +567,7 @@ describe(&#39;AppList&#39;, () =&gt; {
 })
 </pre></div>
 </div>
-<p>Now we can write a test. Let&#8217;s check that when our fake data is passed to the
+<p>Now we can write a test. Let’s check that when our fake data is passed to the
 component, the result is a list with three items (corresponding to the three
 data points):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">(</span><span class="s1">&#39;generates the right list from its data&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
@@ -637,7 +633,7 @@ does what we think it does.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/testing/frontend.txt"
+      <li><a href="../_sources/testing/frontend.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -659,11 +655,11 @@ does what we think it does.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/testing/frontend.txt"
+      <a href="../_sources/testing/frontend.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

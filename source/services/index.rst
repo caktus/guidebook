@@ -7,6 +7,7 @@ This document explains how to add various external services to your project.
    :maxdepth: 2
 
    github
+   s3
    dep-tracking
    papertrail
    new-relic

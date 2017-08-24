@@ -1,23 +1,21 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Salt Pillar &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
@@ -25,8 +23,6 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Minions" href="minions.html" />
     <link rel="prev" title="Grains" href="grains.html" />
    
@@ -36,7 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
+  <body>
   
 
     <div class="document">
@@ -49,7 +45,7 @@
 <p>State-specific configuration is documented with each SLS file.</p>
 <div class="section" id="global-configuration">
 <h2>Global configuration<a class="headerlink" href="#global-configuration" title="Permalink to this headline">¶</a></h2>
-<p>These are variables you must set in the pillar that aren&#8217;t
+<p>These are variables you must set in the pillar that aren’t
 specific to any particular state.</p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">project_name</span></code> - short name of the project. Used all over the place,
@@ -84,7 +80,7 @@ to follow in our projects.</p>
     <span class="o">-</span> <span class="n">production</span>
 </pre></div>
 </div>
-<p>Here&#8217;s what that does:</p>
+<p>Here’s what that does:</p>
 <ul class="simple">
 <li>Read <code class="docutils literal"><span class="pre">conf/pillar/project.sls</span></code> for all environments. This is a good
 place to put global variables like <code class="docutils literal"><span class="pre">project_name</span></code> and software
@@ -94,7 +90,7 @@ set <code class="docutils literal"><span class="pre">users</span></code> here to
 we could just as well set <code class="docutils literal"><span class="pre">users</span></code> differently per environment by moving
 the definition of <code class="docutils literal"><span class="pre">users</span></code> to an environment-specific file.</li>
 <li>Read <code class="docutils literal"><span class="pre">conf/pillar/&lt;environment&gt;.sls</span></code> depending on what environment
-we&#8217;re in. This is where we put environment-specific variables, like
+we’re in. This is where we put environment-specific variables, like
 what branch of our project we want to install (e.g. <code class="docutils literal"><span class="pre">develop</span></code> on
 staging and <code class="docutils literal"><span class="pre">master</span></code> on production, or whatever).</li>
 </ul>
@@ -129,7 +125,7 @@ staging and <code class="docutils literal"><span class="pre">master</span></code
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/pillar.txt"
+      <li><a href="../_sources/margarita/pillar.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -151,11 +147,11 @@ staging and <code class="docutils literal"><span class="pre">master</span></code
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
-      <a href="../_sources/margarita/pillar.txt"
+      <a href="../_sources/margarita/pillar.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
