@@ -47,7 +47,6 @@ There are known incompatibilies with the OpenSSL library shipped with OSX, but H
 a more up-to-date version to link against. We need to both install and force-link this one::
 
     brew install openssl
-    brew link openssl --force
 
 Version Control
 '''''''''''''''
@@ -78,74 +77,38 @@ to start it running immediately::
 Python
 ''''''
 
-Different projects require different versions of Python. Some projects may
-run on a wider range of Python versions and some may depend on very
-specific versions.
+Install pyenv and the pyenv-virtualenv plugin via brew::
 
-It is recommended Mac users install the `pythonz` tool, which automates the
-download, install, and configuration of specific versions of Python. It is
-capable of installing either official versions of Python (from python.org)
-or alternate versions like PyPy, Stackless, and Jython.
-
-Pythonz will install everything into a hidden `.pythonz/` directory in your
-home directory, and will not modify any paths by default.
-
-You can install Pythonz easily::
-
-    curl -kL https://raw.github.com/saghul/pythonz/master/pythonz-install | bash
-    echo "[[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc" >> ~/.bash_profile
-    source $HOME/.pythonz/etc/bashrc
-
-or learn more at the Pythonz github page:
-
-    https://github.com/saghul/pythonz
-
-You should install three versions of Python for different projects::
-
-    LDFLAGS="-L$(brew --prefix openssl)/lib"
-    CFLAGS="-I$(brew --prefix openssl)/include"
-    pythonz install 2.7.13
-    pythonz install 3.4.6
-    pythonz install 3.5.3
-    pythonz install 3.6.0
-
-Python Packages and Environments
-''''''''''''''''''''''''''''''''
-
-Finally, every project will use the tools `pip`, `virtualenv`, and
-`virtualenvwrapper` to manage sandboxes for each project and the Python
-packages required for each project installed into those sandboxes.
-
-You'll install `pip` first, into your system Python that comes with OSX::
-
-    sudo easy_install pip
-
-And, using pip, install `virtualenvwrapper` which will automatically
-install `virtualenv` as one of its dependencies::
-
-    sudo pip install virtualenvwrapper --ignore-installed six
-
-Virtualenv Wrapper requires some configuration to work with your local
-command line shell. You can copy and paste the code below to set this up
-in your Terminal. (You can also customize what you set PROJECT_HOME to, if
-you wish)::
-
-    echo "export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/Devel
-    source /usr/local/bin/virtualenvwrapper.sh >> ~/.bash_profile
+    brew install pyenv
+    brew install pyenv-virtualenv
+    cat << EOF >> ~/.bash_profile
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+    EOF
     source ~/.bash_profile
+
+Different projects require different versions of Python. Some older projects will still be using
+Python 2.7, and newer projects are eiter on 3.5 or 3.6, so we'll install the latest versions of all
+three::
+
+    pyenv install $(pyenv install -l | grep " 2.7" | tail -n 1)
+    pyenv install $(pyenv install -l | grep " 3.5" | tail -n 1)
+    pyenv install $(pyenv install -l | grep " 3.6" | tail -n 1)
+
+And link them so they'll be in your path::
+
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 2.7" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python2.7
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.5" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.5
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.6" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.6
 
 Creating a Python Virtual Environment
 '''''''''''''''''''''''''''''''''''''
 
-You can create a virtual environment using a version of Python installed
-from pythonz as follows::
+You can create a virtual environment using a version of Python as follows::
 
-    mkvirtualenv -p $(pythonz locate 3.4.4) my-virtualenv-name
+    pyenv virtualenv 3.5.3 my-virtualenv-name
 
-On Python versions >= 3.3 it's also possible to use Python's built-in
-``pyvenv`` to create virtual environments, but when working with several
-versions of Python it may be easier to use virtualenvwrapper to manage
-all virtual environments. For more information, see:
+For whatever version of Python your project requires. When you need to run anything in this project
+simply activate the virtual environment first::
 
-    https://github.com/saghul/pythonz#recommended-way-to-use-a-pythonz-installed-version-of-python
+    pyenv activate my-virtualenv-name
