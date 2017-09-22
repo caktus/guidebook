@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Amazon S3 &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Amazon S3 &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Dependency Tracking" href="dep-tracking.html" />
     <link rel="prev" title="Github" href="github.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -44,9 +43,9 @@
 <h1>Amazon S3<a class="headerlink" href="#amazon-s3" title="Permalink to this headline">¶</a></h1>
 <p>All Django projects involve some kind of static (CSS/JS) resources and many user uploaded
 resouces like avatars. When deploying to a single server these can be kept on the local
-file system but in a larger server cluster that isn’t feasible. Other deployment environments
-such as Heroku or Elastic Beanstalk don’t provide access to the local filesystem.
-For these scenarios, Amazon’s Simple Cloud Storage Service (S3) can provided a shared
+file system but in a larger server cluster that isn&#8217;t feasible. Other deployment environments
+such as Heroku or Elastic Beanstalk don&#8217;t provide access to the local filesystem.
+For these scenarios, Amazon&#8217;s Simple Cloud Storage Service (S3) can provided a shared
 storage location for your shared assets.</p>
 <div class="section" id="static-assets-and-public-uploads">
 <h2>Static Assets and Public Uploads<a class="headerlink" href="#static-assets-and-public-uploads" title="Permalink to this headline">¶</a></h2>
@@ -55,7 +54,7 @@ to setup CloudFront as a CDN for them saving your web servers CPU and bandwidth 
 serve the application instead. Moving the public uploads to S3 can also benefit
 from a CDN. Having a shared storage location means all webservers in the cluster
 will have access to the resources without configuring and maintaining any network mounts.</p>
-<p>Since it’s a fairly common configuration, there are a number of great tools to make
+<p>Since it&#8217;s a fairly common configuration, there are a number of great tools to make
 this easy and documentation on how to enable them in your project.
 <a class="reference external" href="https://django-storages.readthedocs.io/en/latest/index.html">django-storages</a>
 along with <a class="reference external" href="https://boto3.readthedocs.io/en/latest/">boto3</a>
@@ -65,16 +64,16 @@ on this exact topic: <a class="reference external" href="https://www.caktusgroup
 </div>
 <div class="section" id="private-uploads">
 <h2>Private Uploads<a class="headerlink" href="#private-uploads" title="Permalink to this headline">¶</a></h2>
-<p>There are times when you want to handle user uploads for content that shouldn’t be
+<p>There are times when you want to handle user uploads for content that shouldn&#8217;t be
 served publicly on the site. These might be resources restricted to the user who
 uploaded it or to a group of users. On the Django side, private uploads are handled
-similarly to public uploads. It’s still recommended that you use django-storages
+similarly to public uploads. It&#8217;s still recommended that you use django-storages
 and boto3. However, the bucket configuration on the AWS side needs more restrictive
 permissions. If you follow the directions in the post related to public media,
-then you’ll have created a user to access the bucket from the application side.
-To grant access to only that single user, you’ll want to create a policy like
+then you&#8217;ll have created a user to access the bucket from the application side.
+To grant access to only that single user, you&#8217;ll want to create a policy like
 the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="s2">&quot;Sid&quot;</span><span class="p">:</span> <span class="s2">&quot;SingleUserBucketReadWrite&quot;</span><span class="p">,</span>
@@ -102,14 +101,14 @@ the following:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>To use this you would replace the <code class="docutils literal"><span class="pre">USER-ARN</span></code> with the user’s ARN as generated by
-AWS and <code class="docutils literal"><span class="pre">BUCKET-NAME</span></code> with the name of the bucket you’ve created. Note that
+<p>To use this you would replace the <code class="docutils literal"><span class="pre">USER-ARN</span></code> with the user&#8217;s ARN as generated by
+AWS and <code class="docutils literal"><span class="pre">BUCKET-NAME</span></code> with the name of the bucket you&#8217;ve created. Note that
 this grants permission to list the bucket, get items from the bucket, and add
 new uploads to the bucket but does not grant the permission to delete items
 from the bucket. If you want to grant that access it would be added to the <code class="docutils literal"><span class="pre">Action</span></code>
 list in the policy.</p>
 <p>If you are using both public resources and private resources within a single
-project, you’ll have to go beyond configuring the <code class="docutils literal"><span class="pre">DEFAULT_FILE_STORAGE</span></code>
+project, you&#8217;ll have to go beyond configuring the <code class="docutils literal"><span class="pre">DEFAULT_FILE_STORAGE</span></code>
 setting and explicitly configure each <code class="docutils literal"><span class="pre">FileField</span></code> and <code class="docutils literal"><span class="pre">ImageField</span></code> to use
 the appropriate storage for that upload. This is done by passing the <code class="docutils literal"><span class="pre">storage</span></code>
 instance to the field declaration. This will allow you to use seperate buckets
@@ -149,18 +148,21 @@ be made accessible through a temporary signed URL generated by the storage class
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/s3.rst.txt"
+      <li><a href="../_sources/services/s3.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -171,11 +173,11 @@ be made accessible through a temporary signed URL generated by the storage class
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/services/s3.rst.txt"
+      <a href="../_sources/services/s3.txt"
           rel="nofollow">Page source</a>
     </div>
 

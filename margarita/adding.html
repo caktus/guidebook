@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Adding Margarita to a project that uses Salt &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Adding Margarita to a project that uses Salt &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Salt States" href="states.html" />
     <link rel="prev" title="Margarita" href="margarita.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -44,18 +43,18 @@
 <h1>Adding Margarita to a project that uses Salt<a class="headerlink" href="#adding-margarita-to-a-project-that-uses-salt" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="invoking-the-states">
 <h2>Invoking the states<a class="headerlink" href="#invoking-the-states" title="Permalink to this headline">¶</a></h2>
-<p>You’ll apply the states to your servers by configuring your <code class="docutils literal"><span class="pre">top.sls</span></code>
+<p>You&#8217;ll apply the states to your servers by configuring your <code class="docutils literal"><span class="pre">top.sls</span></code>
 file in your main directory of salt states (often <code class="docutils literal"><span class="pre">/srv/salt/top.sls</span></code>).</p>
-<p>Here’s an example from an actual project. You can see that we apply
+<p>Here&#8217;s an example from an actual project. You can see that we apply
 some SLS files to all servers (the ones under <code class="docutils literal"><span class="pre">'*'</span></code>), some to only
 one environment (<code class="docutils literal"><span class="pre">'environment:local'</span></code>), and some to only certain
-roles. It’s okay to mention an SLS file more than once; it’ll only be
+roles. It&#8217;s okay to mention an SLS file more than once; it&#8217;ll only be
 applied once to a given system.</p>
 <blockquote>
 <div><dl class="docutils">
 <dt>base:</dt>
 <dd><dl class="first last docutils">
-<dt>‘*’:</dt>
+<dt>&#8216;*&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>base</li>
 <li>sudo</li>
@@ -67,19 +66,19 @@ applied once to a given system.</p>
 <li>forward_logs</li>
 </ul>
 </dd>
-<dt>‘environment:local’:</dt>
+<dt>&#8216;environment:local&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>vagrant.user</li>
 </ul>
 </dd>
-<dt>‘roles:salt-master’:</dt>
+<dt>&#8216;roles:salt-master&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>salt.master</li>
 </ul>
 </dd>
-<dt>‘roles:web’:</dt>
+<dt>&#8216;roles:web&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>project.postgres</li>
@@ -92,7 +91,7 @@ applied once to a given system.</p>
 <li>statsd</li>
 </ul>
 </dd>
-<dt>‘roles:worker’:</dt>
+<dt>&#8216;roles:worker&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>project.postgres</li>
@@ -104,19 +103,19 @@ applied once to a given system.</p>
 <li>statsd</li>
 </ul>
 </dd>
-<dt>‘roles:balancer’:</dt>
+<dt>&#8216;roles:balancer&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>project.web.balancer</li>
 </ul>
 </dd>
-<dt>‘roles:queue’:</dt>
+<dt>&#8216;roles:queue&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>project.queue</li>
 </ul>
 </dd>
-<dt>‘roles:cache’:</dt>
+<dt>&#8216;roles:cache&#8217;:</dt>
 <dd><ul class="first last simple">
 <li>match: grain</li>
 <li>project.cache</li>
@@ -129,21 +128,21 @@ applied once to a given system.</p>
 </div>
 <div class="section" id="roles">
 <h2>Roles<a class="headerlink" href="#roles" title="Permalink to this headline">¶</a></h2>
-<p>A server’s roles are configured by adding strings to the list named <code class="docutils literal"><span class="pre">roles</span></code>
+<p>A server&#8217;s roles are configured by adding strings to the list named <code class="docutils literal"><span class="pre">roles</span></code>
 in its grains, by editing <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
-  <span class="n">environment</span><span class="p">:</span> <span class="n">staging</span>
-  <span class="n">roles</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span>
-  <span class="o">-</span> <span class="n">web</span>
-  <span class="o">-</span> <span class="n">worker</span>
-  <span class="o">-</span> <span class="n">balancer</span>
-  <span class="o">-</span> <span class="n">queue</span>
-  <span class="o">-</span> <span class="n">cache</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>grains:
+  environment: staging
+  roles:
+  - salt-master
+  - web
+  - worker
+  - balancer
+  - queue
+  - cache
 </pre></div>
 </div>
-<p>The roles primarily are used to select, in your project’s <code class="docutils literal"><span class="pre">top.sls</span></code> file, which
-state files to include. But they’re also used when configuring other servers which
+<p>The roles primarily are used to select, in your project&#8217;s <code class="docutils literal"><span class="pre">top.sls</span></code> file, which
+state files to include. But they&#8217;re also used when configuring other servers which
 need, for example, to open firewall ports to allow other web servers to access
 a service.</p>
 </div>
@@ -161,66 +160,66 @@ here: <a class="reference external" href="https://github.com/caktus/margarita/bl
 <p>When upgrading Margarita, always read that CHANGES file to see
 if there were backward-incompatible changes, or new features
 that you can enable.</p>
-<p>We’ve tried using Salt’s gitfs support for this, but found it
+<p>We&#8217;ve tried using Salt&#8217;s gitfs support for this, but found it
 to be too unreliable in noticing updates, not to mention
 inconvenient for test and development.</p>
 <p>A better approach seems to be to check it out into a local
 directory on the Salt master, and add that directory to
 the file roots.  So part of your <code class="docutils literal"><span class="pre">/etc/salt/master</span></code> file
 might look like:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fileserver_backend</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">roots</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>fileserver_backend:
+  - roots
 
-<span class="n">file_roots</span><span class="p">:</span>
-  <span class="n">base</span><span class="p">:</span>
-    <span class="o">-</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">salt</span>
-    <span class="o">-</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
+file_roots:
+  base:
+    - /srv/salt
+    - /srv/margarita
 </pre></div>
 </div>
 <p>Then you might have a Salt state to put Margarita into that
 directory at a given version, maybe something like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span><span class="o">-</span><span class="n">install</span><span class="p">:</span>
-  <span class="n">pkg</span><span class="o">.</span><span class="n">installed</span><span class="p">:</span>
-    <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">core</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>git-install:
+  pkg.installed:
+    - name: git-core
 
-<span class="n">clone_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">caktus</span><span class="o">/</span><span class="n">margarita</span><span class="o">.</span><span class="n">git</span> <span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">unless</span><span class="p">:</span> <span class="n">test</span> <span class="o">-</span><span class="n">e</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span><span class="o">/.</span><span class="n">git</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-       <span class="o">-</span> <span class="n">pkg</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">install</span>
+clone_repo:
+  cmd.run:
+     - name: git clone https://github.com/caktus/margarita.git margarita
+     - user: root
+     - unless: test -e /srv/margarita/.git
+     - cwd: /srv
+     - requires:
+       - pkg: git-install
 
-<span class="n">fetch_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">fetch</span> <span class="n">origin</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">clone_repo</span>
-        <span class="o">-</span> <span class="n">pkg</span><span class="p">:</span> <span class="n">git</span><span class="o">-</span><span class="n">install</span>
+fetch_repo:
+  cmd.run:
+     - name: git fetch origin
+     - user: root
+     - cwd: /srv/margarita
+     - requires:
+        - cmd: clone_repo
+        - pkg: git-install
 
-<span class="n">reset_repo</span><span class="p">:</span>
-  <span class="n">cmd</span><span class="o">.</span><span class="n">run</span><span class="p">:</span>
-     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">git</span> <span class="n">reset</span> <span class="o">--</span><span class="n">hard</span> <span class="p">{{</span> <span class="n">pillar</span><span class="p">[</span><span class="s1">&#39;margarita_version&#39;</span><span class="p">]</span> <span class="p">}}</span>
-     <span class="o">-</span> <span class="n">user</span><span class="p">:</span> <span class="n">root</span>
-     <span class="o">-</span> <span class="n">cwd</span><span class="p">:</span> <span class="o">/</span><span class="n">srv</span><span class="o">/</span><span class="n">margarita</span>
-     <span class="o">-</span> <span class="n">requires</span><span class="p">:</span>
-        <span class="o">-</span> <span class="n">cmd</span><span class="p">:</span> <span class="n">fetch_repo</span>
+reset_repo:
+  cmd.run:
+     - name: git reset --hard {{ pillar[&#39;margarita_version&#39;] }}
+     - user: root
+     - cwd: /srv/margarita
+     - requires:
+        - cmd: fetch_repo
 </pre></div>
 </div>
 <p>If using this, set the pillar variable <code class="docutils literal"><span class="pre">margarita_version</span></code> to the
-version you want to install, e.g. “1.2.0”.</p>
+version you want to install, e.g. &#8220;1.2.0&#8221;.</p>
 <p>Just be sure to restart the salt-master after Margarita is updated.
 We do that outside Salt after invoking this state, something
 like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">salt</span> <span class="o">-</span><span class="n">G</span> <span class="s1">&#39;roles:salt-master&#39;</span> <span class="n">state</span><span class="o">.</span><span class="n">sls</span> <span class="n">margarita</span>
-<span class="n">sudo</span> <span class="n">service</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span> <span class="n">restart</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>sudo salt -G &#39;roles:salt-master&#39; state.sls margarita
+sudo service salt-master restart
 </pre></div>
 </div>
 <p>(Note: the Margarita salt state above could be simplified using
-Salt’s built-in support for <code class="docutils literal"><span class="pre">git</span></code>, but this approach seems to
+Salt&#8217;s built-in support for <code class="docutils literal"><span class="pre">git</span></code>, but this approach seems to
 be most reliable, and we can see exactly what it does and how it
 works.)</p>
 </div>
@@ -255,18 +254,21 @@ works.)</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/adding.rst.txt"
+      <li><a href="../_sources/margarita/adding.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -277,11 +279,11 @@ works.)</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/margarita/adding.rst.txt"
+      <a href="../_sources/margarita/adding.txt"
           rel="nofollow">Page source</a>
     </div>
 

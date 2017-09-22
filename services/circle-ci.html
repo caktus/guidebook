@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Circle CI &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Circle CI &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Travis CI" href="travis.html" />
     <link rel="prev" title="Read The Docs" href="read-the-docs.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -42,32 +41,32 @@
             
   <div class="section" id="circle-ci">
 <h1>Circle CI<a class="headerlink" href="#circle-ci" title="Permalink to this headline">¶</a></h1>
-<p>The project template now has a Circle CI template that you can use for your project. Circle CI’s
+<p>The project template now has a Circle CI template that you can use for your project. Circle CI&#8217;s
 benefit over Travis CI is that it works for private non-Caktus repos. Once you have
 completed the initial project setup (i.e. the items in README.rst), do the following:</p>
 <ol class="arabic simple">
-<li>If you don’t have one already, <a class="reference external" href="https://circleci.com/">create a Circle CI account.</a> Circle CI
+<li>If you don&#8217;t have one already, <a class="reference external" href="https://circleci.com/">create a Circle CI account.</a> Circle CI
 uses Github accounts for authentication, so when you sign up, be sure to sign up with your Caktus
 github account.</li>
 <li>Find your project on the <a class="reference external" href="https://circleci.com/add-projects">projects page</a>. Any repos that you
 have admin access to, across organizations, should be visible there. You may need to refresh your
-list by clicking the ‘Reload repositories’ button, especially if the repo was created very recently.
+list by clicking the &#8216;Reload repositories&#8217; button, especially if the repo was created very recently.
 Enable your repo on this page. This will kick off a build of the default branch of the repo,
-which will most likely fail, since that branch doesn’t yet have a <code class="docutils literal"><span class="pre">circle.yml</span></code> file. Don’t
-worry… we’ll fix it.</li>
+which will most likely fail, since that branch doesn&#8217;t yet have a <code class="docutils literal"><span class="pre">circle.yml</span></code> file. Don&#8217;t
+worry... we&#8217;ll fix it.</li>
 <li>Review the <code class="docutils literal"><span class="pre">circle.yml</span></code> file at the top level of the repo. Update it to match the specifics of
 your project.</li>
 <li>Set up HipChat notifications.<ol class="upperalpha">
 <li>Get the Hipchat Room Number. This is the number in the URL bar when you are looking at the
 room in Hipchat.</li>
-<li>Obtain the HipChat API token for Circle CI. Click on the ‘…’ button in the upper right-hand
-corner of your HipChat room page, then click on ‘Integrations…’, then click on the
-‘Installed’ button to filter by already-installed integrations. You should see Circle CI
-listed there. Click on it and you will find the Token. If you don’t have access, create a
+<li>Obtain the HipChat API token for Circle CI. Click on the &#8216;...&#8217; button in the upper right-hand
+corner of your HipChat room page, then click on &#8216;Integrations...&#8217;, then click on the
+&#8216;Installed&#8217; button to filter by already-installed integrations. You should see Circle CI
+listed there. Click on it and you will find the Token. If you don&#8217;t have access, create a
 <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to get one.</li>
-<li>Navigate in Circle CI to your project and then click on the ‘settings’ icon in the upper
-right which should take you to project settings. Click on ‘Chat Notifications’ and fill in the
-Room Number and API Token from the above 2 steps. Click ‘Save’.</li>
+<li>Navigate in Circle CI to your project and then click on the &#8216;settings&#8217; icon in the upper
+right which should take you to project settings. Click on &#8216;Chat Notifications&#8217; and fill in the
+Room Number and API Token from the above 2 steps. Click &#8216;Save&#8217;.</li>
 </ol>
 </li>
 <li>Commit the changes to your <code class="docutils literal"><span class="pre">circle.yml</span></code> file and push that commit to github. That should
@@ -94,18 +93,21 @@ trigger a build and you should see the result of that build in your HipChat room
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/circle-ci.rst.txt"
+      <li><a href="../_sources/services/circle-ci.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -116,11 +118,11 @@ trigger a build and you should see the result of that build in your HipChat room
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/services/circle-ci.rst.txt"
+      <a href="../_sources/services/circle-ci.txt"
           rel="nofollow">Page source</a>
     </div>
 

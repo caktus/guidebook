@@ -1,39 +1,37 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Branching Strategy &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Branching Strategy &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Using Amazon RDS" href="rds.html" />
     <link rel="prev" title="Developer Machine Setup" href="dev-setup.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -44,9 +42,9 @@
 <h1>Branching Strategy<a class="headerlink" href="#branching-strategy" title="Permalink to this headline">¶</a></h1>
 <p>We use git, which is a distributed code repository where every clone is an equal citizen.
 This can create issues unless the team agrees on a branching strategy.</p>
-<p>We use a combination of long-term and short-term branches, and recognize origin as the “central” repository.
+<p>We use a combination of long-term and short-term branches, and recognize origin as the &#8220;central&#8221; repository.
 This approach is neatly summarized in the blog post <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a> by Vincent Driessen.</p>
-<p>The following branching strategy is based on Vincent Driessen’s outline. Under this strategy,
+<p>The following branching strategy is based on Vincent Driessen&#8217;s outline. Under this strategy,
 all developers pull and push from a shared remote server named <code class="docutils literal"><span class="pre">origin</span></code>. For most projects this
 shared remote server is hosted on Github and that is the assumption throughout this documentation.
 The central repo holds two main branches with an infinite lifetime, called <code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">master</span></code>.</p>
@@ -75,7 +73,7 @@ an issue that addresses the feature.</p>
 <p>Feature branches should always derive from <code class="docutils literal"><span class="pre">develop</span></code>.  <code class="docutils literal"><span class="pre">develop</span></code> is the stable version of the
 new code, and you must ensure that your feature will play nice with the current development state.
 In git, you can create a branch, switch to it, and pick its parent branch all at once with the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b myfeature develop
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b myfeature develop
 </pre></div>
 </div>
 <p>It is a good habit to branch this way, because developers often forget to checkout the branches they
@@ -83,13 +81,13 @@ just created, and also may forget where they were before they cut a new branch. 
 errors might cause merge headaches later.  You are allowed to create a feature branch from another
 feature branch instead of <code class="docutils literal"><span class="pre">develop</span></code>, if you are comfortable with the parent branch and have a reason
 to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal"><span class="pre">develop</span></code> or be deleted.</p>
-<p>It’s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b 42-my-new-feature develop
+<p>It&#8217;s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b 42-my-new-feature develop
 </pre></div>
 </div>
-<p>Now that your branch is created, develop against it. Make as many commits as you’d like, and even
-as many pushes to origin as you’d like.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git add .
+<p>Now that your branch is created, develop against it. Make as many commits as you&#8217;d like, and even
+as many pushes to origin as you&#8217;d like.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git add .
 $ git commit -m &quot;refactored models to address issue #42&quot;
 $ git push origin 42-my-new-feature -u
 </pre></div>
@@ -110,7 +108,7 @@ other metadata (WIP, not yet tested, addresses issue #42, etc.)</p>
 <li>The server runs as expected</li>
 </ul>
 <p>then you can do a final push and create a pull request.  GitHub makes this simple. There is a
-green button that reads “Review and create pull request.”  You should look over the diff of the code
+green button that reads &#8220;Review and create pull request.&#8221;  You should look over the diff of the code
 and make sure it reads as you intend.  If so, add a comment to the pull request that it addresses issue #42.</p>
 <p>It is then incumbent on another member of the team to do the following:</p>
 <ul class="simple">
@@ -125,7 +123,7 @@ Github presents a blue and white plus icon for adding line comments.</p>
 <p>When the reviewer agrees that the pull request is adequate, they should add a comment to the pull request.
 For fun, we typically add random emoticons such as <code class="docutils literal"><span class="pre">:frog:</span></code>.</p>
 <p>By convention, the developer of the branch then merges it back into <code class="docutils literal"><span class="pre">develop</span></code>, but other developers can do this step:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout develop
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout develop
 $ git merge --no-ff 42-my-new-feature
 </pre></div>
 </div>
@@ -147,8 +145,8 @@ are in agreement and understand the trade-offs.</p>
 branch should be as short-lived as possible while still accomplishing its purpose. Dead branches
 (exploratory, or failed attempts to address an issue), or feature branches that drag on a long time,
 cloud the picture for other developers. Since this feature branch is no longer needed, it can be deleted
-via the “delete this branch” button on GitHub, or via the command line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span># Delete the remote branch
+via the &#8220;delete this branch&#8221; button on GitHub, or via the command line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span># Delete the remote branch
 $ git push origin :42-my-new-feature
 # Delete the local branch
 $ git branch -d 42-my-new-feature
@@ -160,13 +158,13 @@ $ git branch -d 42-my-new-feature
 <p>A hotfix branch is an emergency branch mandated by a critical bug or security flaw in the production
 release. Hotfix branches always derive from <code class="docutils literal"><span class="pre">origin/master</span></code>, and eventually merge back into
 <code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b hotfix-2.0.1 master
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout -b hotfix-2.0.1 master
 # do the work neccessary to bump version numbers
 $ git commit -a -m &quot;Bumped version number to 2.0.1&quot;
 </pre></div>
 </div>
 <p>When the patch or bug fix has been applied to the code, you are ready to put it into <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git commit -m &quot;Fixed severe production problem&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git commit -m &quot;Fixed severe production problem&quot;
 $ git checkout master
 $ git merge --no-ff hotfix-2.0.1
 $ git tag -a 2.0.1
@@ -187,7 +185,7 @@ note for more information on the advantages of using this flag.</p>
 to the <code class="docutils literal"><span class="pre">master</span></code> branch. It is recommended that releases are tagged. Tags might denote the version
 number for the release or the date of the release. Prior to tagging you ensure that all changes on
 master are included in develop:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout master
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git checkout master
 $ git pull origin master
 $ git checkout develop
 $ git pull origin develop
@@ -209,20 +207,20 @@ The format of this file is flexible. You may look at <a class="reference externa
 as an example. This uses headers to denote each released version along with the date it was released. Below the header
 is a bulletted list of items which were changed/added in the release. Ideally these would also reference
 the issue numbers along with these items.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Release</span> <span class="n">Notes</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Release Notes
 
-<span class="n">v1</span><span class="o">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">Aug</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">2015</span>
-<span class="o">-------------------</span>
+v1.0 - Aug 28, 2015
+-------------------
 
-<span class="o">-</span> <span class="n">Added</span> <span class="n">a</span> <span class="n">great</span> <span class="n">new</span> <span class="n">feature</span> <span class="p">(</span><span class="c1">#12)</span>
-<span class="o">-</span> <span class="n">Fixed</span> <span class="n">an</span> <span class="n">annoying</span> <span class="n">bug</span> <span class="p">(</span><span class="c1">#11)</span>
+- Added a great new feature (#12)
+- Fixed an annoying bug (#11)
 </pre></div>
 </div>
 <p>It is not recommended to use any tool to automatically generate the change log from the git history. This file
 should be written by a human to be read by a human and should add additional context otherwise not already
 available in the git history.</p>
 <p>With these changes in place you should commit the release note changes and version changes and tag the release.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git add &lt;related files for change log and version numbers&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ git add &lt;related files for change log and version numbers&gt;
 $ git commit -m &quot;Note and version bump for release &lt;version&gt;&quot;
 $ git tag &lt;version&gt;
 $ git checkout master
@@ -265,18 +263,21 @@ $ git push origin develop --tags
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/branching.rst.txt"
+      <li><a href="_sources/branching.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -287,11 +288,11 @@ $ git push origin develop --tags
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="_sources/branching.rst.txt"
+      <a href="_sources/branching.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SMTP &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>SMTP &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Deploying Django projects" href="../deploy/index.html" />
     <link rel="prev" title="Travis CI" href="travis.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -43,10 +42,10 @@
   <div class="section" id="smtp">
 <h1>SMTP<a class="headerlink" href="#smtp" title="Permalink to this headline">¶</a></h1>
 <p>By default, email is sent via Postfix on the same server housing the Django application. This might
-be OK for low volume uses, but often you’ll want to use an external SMTP service (e.g. Sendgrid,
+be OK for low volume uses, but often you&#8217;ll want to use an external SMTP service (e.g. Sendgrid,
 Mandrill, Postmark, SES, etc.). Some of these services offer both an SMTP server in addition to an
 HTTP API. This document will describe only how to set up the SMTP connection. If you want to use HTTP
-APIs, you’ll need to read the documentation for the service in question. Often there are third party
+APIs, you&#8217;ll need to read the documentation for the service in question. Often there are third party
 Django packages which can help with this.</p>
 <p>For SMTP connections, you can either make a direct connection to the external provider or you can
 send messages to your local Postfix instance, which then relays the message to the external
@@ -127,7 +126,7 @@ of your web and worker machines as instructed. Here are some examples:<ol class=
 <li><a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html">Amazon SES</a></li>
 </ol>
 </li>
-<li>We currently don’t have support for making these configuration changes in Margarita, so these
+<li>We currently don&#8217;t have support for making these configuration changes in Margarita, so these
 need to be done manually.</li>
 </ol>
 </div>
@@ -161,18 +160,21 @@ need to be done manually.</li>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/services/smtp.rst.txt"
+      <li><a href="../_sources/services/smtp.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -183,11 +185,11 @@ need to be done manually.</li>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/services/smtp.rst.txt"
+      <a href="../_sources/services/smtp.txt"
           rel="nofollow">Page source</a>
     </div>
 

@@ -1,39 +1,38 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Upgrading Margarita &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Upgrading Margarita &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Django Project Template Testing Plans" href="../project-template-testing.html" />
     <link rel="prev" title="Minions" href="minions.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -42,7 +41,7 @@
             
   <div class="section" id="upgrading-margarita">
 <span id="upgrading"></span><h1>Upgrading Margarita<a class="headerlink" href="#upgrading-margarita" title="Permalink to this headline">¶</a></h1>
-<p>Before attempting to upgrade your project’s Margarita version, please read <a class="reference external" href="https://github.com/caktus/django-project-template/blob/master/docs/updates.rst">the overview document
+<p>Before attempting to upgrade your project&#8217;s Margarita version, please read <a class="reference external" href="https://github.com/caktus/django-project-template/blob/master/docs/updates.rst">the overview document
 about Margarita upgrades</a> first, to get a
 high level view of the changes required.</p>
 <p>This document is going to outline the steps involved in upgrading a project which is using the
@@ -51,13 +50,13 @@ allow you to upgrade projects in a similar scenario. Projects which are already 
 version of Margarita should be able to upgrade by following the <a class="reference external" href="https://github.com/caktus/margarita/blob/develop/CHANGES.rst">Margarita release notes</a></p>
 <p>This guide assumes that all services are running on one server (with a pretend IP address of
 1.2.3.4). If you have a multiple server setup, then anytime a fabric command has an <code class="docutils literal"><span class="pre">-H</span></code> flag,
-you’ll have to repeat that command once for each IP address in your fleet.</p>
+you&#8217;ll have to repeat that command once for each IP address in your fleet.</p>
 <div class="section" id="prepare-repository">
 <h2>Prepare Repository<a class="headerlink" href="#prepare-repository" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">The new project template does not ‘reconcile’ secrets because it assumes that you have
+<li><p class="first">The new project template does not &#8216;reconcile&#8217; secrets because it assumes that you have
 committed the encrypted versions to the repo, so syncing back-and-forth is not necessary. We
-haven’t yet done that step for our project, so we need to be very careful about our secrets.
+haven&#8217;t yet done that step for our project, so we need to be very careful about our secrets.
 Make sure to sync them (by doing a deploy or running <code class="docutils literal"><span class="pre">fab</span> <span class="pre">get_secrets</span></code>) before going any
 further.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging get_secrets
@@ -67,7 +66,7 @@ further.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Different projects have different ways of getting secrets (i.e. the <code class="docutils literal"><span class="pre">get_secrets</span></code>
-function has changed over time), so if the above doesn’t work, you can always ssh onto
+function has changed over time), so if the above doesn&#8217;t work, you can always ssh onto
 the servers and fetch the <code class="docutils literal"><span class="pre">secrets.sls</span></code> files. They should be somewhere under
 <code class="docutils literal"><span class="pre">/srv/pillar</span></code>)</p>
 </div>
@@ -112,7 +111,7 @@ correct (get the value from fabfile.py.old).</li>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Move the old states out of the way (don’t leave them in the conf directory), and copy in the
+<li><p class="first">Move the old states out of the way (don&#8217;t leave them in the conf directory), and copy in the
 minimal new list:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ mv conf/salt salt.old
 ~/dev/myproject$ cp -r ../django-project-template/conf/salt conf/
@@ -124,7 +123,7 @@ mentioned in the new version, then check if each of those missing states is avai
 <a class="reference external" href="https://github.com/caktus/margarita">Margarita</a>. If it is, add the state name to
 <code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code>, and your project will use the Margarita state. You may need to configure
 the state in the pillar. If it is not available in Margarita, add the state name to
-<code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code> and move the old project’s custom state file(s) from <code class="docutils literal"><span class="pre">salt.old/</span></code> to
+<code class="docutils literal"><span class="pre">conf/salt/top.sls</span></code> and move the old project&#8217;s custom state file(s) from <code class="docutils literal"><span class="pre">salt.old/</span></code> to
 <code class="docutils literal"><span class="pre">conf/salt/</span></code>.</p>
 </li>
 </ol>
@@ -148,7 +147,7 @@ The easiest way is to create a new file called <code class="docutils literal"><s
 </div>
 <div class="section" id="set-up-logging-to-syslog">
 <h2>Set up logging to syslog<a class="headerlink" href="#set-up-logging-to-syslog" title="Permalink to this headline">¶</a></h2>
-<p>Margarita’s supervisord configuration is now configured to send all stdout and stderr log messages
+<p>Margarita&#8217;s supervisord configuration is now configured to send all stdout and stderr log messages
 to syslog. Therefore we need to tell Django to stop logging to files, but instead to log to the
 console, which will then get picked up by supervisord and sent to syslog.</p>
 <ol class="arabic">
@@ -189,7 +188,7 @@ and make sure that none of them alter the <code class="docutils literal"><span c
 
 <span class="k">def</span> <span class="nf">load_env</span><span class="p">():</span>
     <span class="s2">&quot;Get the path to the .env file and load it.&quot;</span>
-    <span class="n">project_dir</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="n">project_dir</span> <span class="o">=</span> <span class="n">dirname</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
     <span class="n">dotenv</span><span class="o">.</span><span class="n">read_dotenv</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">project_dir</span><span class="p">,</span> <span class="s1">&#39;.env&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -289,8 +288,8 @@ and make sure that none of them alter the <code class="docutils literal"><span c
 </div>
 <div class="section" id="frontend-improvements">
 <h2>Frontend Improvements<a class="headerlink" href="#frontend-improvements" title="Permalink to this headline">¶</a></h2>
-<p>Prepare for Calvin’s frontend improvements. Add a <em>dummy</em> <code class="docutils literal"><span class="pre">package.json</span></code> in the top level of the
-repo which can be updated later. Until it is updated, the frontend improvements won’t take effect:</p>
+<p>Prepare for Calvin&#8217;s frontend improvements. Add a <em>dummy</em> <code class="docutils literal"><span class="pre">package.json</span></code> in the top level of the
+repo which can be updated later. Until it is updated, the frontend improvements won&#8217;t take effect:</p>
 <div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;myproject&quot;</span><span class="p">,</span>
   <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
@@ -325,21 +324,21 @@ with your actual project name (e.g. <code class="docutils literal"><span class="
 be added back into salt. If any of it is generally useful (i.e. setting up a service that
 might be used on another project), then consider adding a PR to margarita so this config can
 be completely removed from your project.</p>
-<p>This part is difficult to generalize… Sorry. You kinda have to look in each state file and
+<p>This part is difficult to generalize... Sorry. You kinda have to look in each state file and
 make sure that service is properly accounted for in the new Margarita system. One thing that
-helped me find customizations was to use the Github ‘Compare Changes’ functionality to see what
+helped me find customizations was to use the Github &#8216;Compare Changes&#8217; functionality to see what
 had changed in the <code class="docutils literal"><span class="pre">conf</span></code> directory since the initial commit.</p>
 <ol class="upperalpha simple">
 <li>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/commits/develop/conf and find the initial commit.
 Copy that commit hash to your clipboard.</li>
 <li>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/compare?expand=1 and enter that commit hash as
-the ‘base’, leaving the ‘compare’ value as develop.</li>
+the &#8216;base&#8217;, leaving the &#8216;compare&#8217; value as develop.</li>
 <li>Depending on the size of your project, it may take a few seconds for the comparison to show up
-and Github may complain that it can’t show you all files. That should be ok…</li>
-<li>Click on ‘Files changed’ to see all the changes and note any changes in files in the <code class="docutils literal"><span class="pre">conf</span></code>
+and Github may complain that it can&#8217;t show you all files. That should be ok...</li>
+<li>Click on &#8216;Files changed&#8217; to see all the changes and note any changes in files in the <code class="docutils literal"><span class="pre">conf</span></code>
 directory. Those are the changes that <em>may</em> be custom to your project and will need to be
 re-enabled in the new <code class="docutils literal"><span class="pre">conf/salt</span></code> directory. Not all of them will need to be, so again,
-you’ll need to be somewhat familiar with what the current Margarita states do to see if you
+you&#8217;ll need to be somewhat familiar with what the current Margarita states do to see if you
 actually do need to customize your project.</li>
 </ol>
 </li>
@@ -357,7 +356,7 @@ from any changes:</p>
 </div>
 <div class="section" id="vagrant-smoke-test">
 <h2>Vagrant Smoke Test<a class="headerlink" href="#vagrant-smoke-test" title="Permalink to this headline">¶</a></h2>
-<p>Now, we’re going to create a fresh Vagrant VM just to make sure that our current repository deploys
+<p>Now, we&#8217;re going to create a fresh Vagrant VM just to make sure that our current repository deploys
 correctly.</p>
 <ol class="arabic">
 <li><p class="first">Edit <code class="docutils literal"><span class="pre">conf/pillar/local.sls</span></code> to look like this:</p>
@@ -370,12 +369,12 @@ correctly.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add the following line to your laptop’s <code class="docutils literal"><span class="pre">/etc/hosts</span></code> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">33.33</span><span class="o">.</span><span class="mf">33.10</span> <span class="n">margarita</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
+<li><p class="first">Add the following line to your laptop&#8217;s <code class="docutils literal"><span class="pre">/etc/hosts</span></code> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>33.33.33.10 margarita.example.com
 </pre></div>
 </div>
 </li>
-<li><p class="first">Make sure we’re starting from a fresh VM:</p>
+<li><p class="first">Make sure we&#8217;re starting from a fresh VM:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ vagrant destroy
 ~/dev/myproject$ vagrant up
 </pre></div>
@@ -383,7 +382,7 @@ correctly.</p>
 </li>
 <li><p class="first">Deploy!</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab vagrant setup_master
-~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 ~/dev/myproject$ fab vagrant deploy
 </pre></div>
 </div>
@@ -397,12 +396,12 @@ correctly.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">We will upgrade Salt on the staging machine. Once you have completed the upgrade process
-and verified that it is working perfectly, you’ll need to repeat the process for <a class="reference internal" href="#updating-production">updating
+and verified that it is working perfectly, you&#8217;ll need to repeat the process for <a class="reference internal" href="#updating-production">updating
 production</a>. When you get to that point, our instructions will point you back here to
 repeat the process for production. Just follow these instructions, replacing <em>staging</em>
 with <em>production</em>, and <em>develop</em> with <em>master</em>.</p>
 </div>
-<p>Once you have gotten the smoke test to work successfully, we’ll need to get all of these changes
+<p>Once you have gotten the smoke test to work successfully, we&#8217;ll need to get all of these changes
 into a branch that salt will be able to checkout on the staging server.</p>
 <ol class="arabic simple">
 <li>Commit your changes locally.</li>
@@ -415,21 +414,21 @@ process is successful. The default is <em>develop</em> for staging and <em>maste
 <div class="section" id="upgrade-salt">
 <span id="id1"></span><h2>Upgrade Salt<a class="headerlink" href="#upgrade-salt" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Fetch a copy of <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code> from the server. We’ll need which roles are currently being
+<li><p class="first">Fetch a copy of <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code> from the server. We&#8217;ll need which roles are currently being
 used, so we can setup the same roles when we call <code class="docutils literal"><span class="pre">setup_minion</span></code> in step 5.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ scp <span class="m">1</span>.2.3.4:/etc/salt/minion old-minion.conf
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ scp 1.2.3.4:/etc/salt/minion old-minion.conf
 </pre></div>
 </div>
 </li>
-<li><p class="first">Uninstall salt. We’re using the <code class="docutils literal"><span class="pre">--force-yes</span></code> parameter because salt packages are <em>held</em> on
+<li><p class="first">Uninstall salt. We&#8217;re using the <code class="docutils literal"><span class="pre">--force-yes</span></code> parameter because salt packages are <em>held</em> on
 some of our servers, so this is needed to allow uninstallation. <strong>Make sure you are using the new
 fabfile!</strong></p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you are on Ubuntu 12.04, run this command to enable backports, needed for python-gnupg:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo sed -i <span class="s1">&#39;/precise-backports/s/^#//g&#39;</span> /etc/apt/sources.list
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging -- sudo sed -i <span class="s1">&#39;/precise-backports/s/^#//g&#39;</span> /etc/apt/sources.list
 </pre></div>
 </div>
 </li>
@@ -440,13 +439,13 @@ fabfile!</strong></p>
 </li>
 <li><p class="first">Set up the salt minion. Get the list of roles from the <code class="docutils literal"><span class="pre">old-minion.conf</span></code> you saved in step 1.
 The example below shows all possible roles being assigned to this minion.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 1.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Make sure <code class="docutils literal"><span class="pre">salt-master</span></code> is in there. It seems to be absent in some projects, but
-if you’re running everything on a single box it should be there.</p>
+if you&#8217;re running everything on a single box it should be there.</p>
 </div>
 </li>
 </ol>
@@ -469,23 +468,23 @@ failures can be caught before actually trying to deploy.</p>
 </div>
 <p>And of course that worked! If not, let us know so we can help.</p>
 <p>Keep a close eye on your logs (especially the supervisord ones). If you see celery having difficulty
-connecting to RabbitMQ, see the <a class="reference internal" href="#troubleshooting"><span class="std std-ref">Troubleshooting</span></a> section below.</p>
+connecting to RabbitMQ, see the <a class="reference internal" href="#troubleshooting"><span>Troubleshooting</span></a> section below.</p>
 </div>
 <div class="section" id="encrypt-secrets">
 <span id="id2"></span><h2>Encrypt Secrets<a class="headerlink" href="#encrypt-secrets" title="Permalink to this headline">¶</a></h2>
 <p>This must be done because the new fabfile has removed the <em>secrets-syncing</em> logic, so unsuspecting
 developers <strong>will likely</strong> stomp on each others secrets. Encrypting cannot be done until
-<code class="docutils literal"><span class="pre">setup_master</span></code> has run successfully. We’ll do staging now, but we can’t do production until we’ve
+<code class="docutils literal"><span class="pre">setup_master</span></code> has run successfully. We&#8217;ll do staging now, but we can&#8217;t do production until we&#8217;ve
 run <code class="docutils literal"><span class="pre">setup_master</span></code> on production.</p>
 <ol class="arabic">
 <li><p class="first">Add this declaration to the top of <code class="docutils literal"><span class="pre">conf/pillar/staging/env.sls</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!yaml|gpg</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="ch">#!yaml|gpg</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Copy everything from <code class="docutils literal"><span class="pre">conf/pillar/staging/secrets.sls</span></code> to <code class="docutils literal"><span class="pre">conf/pillar/staging/env.sls</span></code>.</p>
 </li>
-<li><p class="first">For each key that you’ve just added to the file, encrypt the value and replace the value in
+<li><p class="first">For each key that you&#8217;ve just added to the file, encrypt the value and replace the value in
 <code class="docutils literal"><span class="pre">env.sls</span></code> with the encrypted value. (See the <a class="reference external" href="https://github.com/caktus/django-project-template/blob/master/docs/provisioning.rst#managing-secrets">docs</a>
 for more details):</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:DB_PASSWORD<span class="o">=</span><span class="s1">&#39;superSecretPassword&#39;</span>
@@ -504,7 +503,7 @@ for more details):</p>
 </div>
 <p>Replace the key and value in <code class="docutils literal"><span class="pre">env.sls</span></code> with the output of that command.</p>
 </li>
-<li><p class="first">For the github deploy key (if present) or any other multi-line values, it’s better to copy the
+<li><p class="first">For the github deploy key (if present) or any other multi-line values, it&#8217;s better to copy the
 unencrypted key data to its own file, (named <code class="docutils literal"><span class="pre">github_key.priv</span></code> in this example), remove any
 indentation, and then run:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:github_key.priv
@@ -548,18 +547,18 @@ into <code class="docutils literal"><span class="pre">env.sls</span></code>.</p>
 </div>
 <div class="section" id="updating-production">
 <h2>Updating Production<a class="headerlink" href="#updating-production" title="Permalink to this headline">¶</a></h2>
-<p>If staging updates successfully, it’s time to take care of the production machine. Follow the steps
-above, starting from the <a class="reference internal" href="#update-repo"><span class="std std-ref">Update Repo Code</span></a> pathway above, but on the production
+<p>If staging updates successfully, it&#8217;s time to take care of the production machine. Follow the steps
+above, starting from the <a class="reference internal" href="#update-repo"><span>Update Repo Code</span></a> pathway above, but on the production
 machine.</p>
-<p>If you get this far and everything is working then it’s time to celebrate!! Make sure that the
+<p>If you get this far and everything is working then it&#8217;s time to celebrate!! Make sure that the
 <em>develop</em> and <em>master</em> branches are properly updated with the changes in <em>your-feature-branch</em> and
 that <code class="docutils literal"><span class="pre">repo.branch</span></code> is set to the correct value in <code class="docutils literal"><span class="pre">conf/pillar/&lt;environment&gt;.sls</span></code>.</p>
 </div>
 <div class="section" id="troubleshooting">
 <span id="id3"></span><h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>Here are some issues that may or may not come up during your upgrade. As we find new issues, we
-should update the docs above (if they are general), or add them here, if they aren’t general or
-we’re not sure.</p>
+should update the docs above (if they are general), or add them here, if they aren&#8217;t general or
+we&#8217;re not sure.</p>
 <ul>
 <li><p class="first"><code class="docutils literal"><span class="pre">newrelic_license_key</span></code> must be capitalized. Some projects have a secret for
 <code class="docutils literal"><span class="pre">newrelic_license_key</span></code>, but the current margarita uses <code class="docutils literal"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code></p>
@@ -576,17 +575,17 @@ starting any salt command. My salt-minions took a loooong time to start on a low
 </li>
 <li><p class="first">There might be a chicken/egg problem with the firewall. Do a grep for <code class="docutils literal"><span class="pre">UFW</span> <span class="pre">BLOCK</span></code> in
 <code class="docutils literal"><span class="pre">/var/log/syslog</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Jan</span> <span class="mi">13</span> <span class="mi">21</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mi">48</span> <span class="n">ip</span><span class="o">-&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">kernel</span><span class="p">:</span> <span class="p">[</span><span class="mf">78350448.038946</span><span class="p">]</span> <span class="p">[</span><span class="n">UFW</span> <span class="n">BLOCK</span><span class="p">]</span> <span class="n">IN</span><span class="o">=</span><span class="n">eth0</span> <span class="n">OUT</span><span class="o">=</span> <span class="n">MAC</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">SRC</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">DST</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">LEN</span><span class="o">=</span><span class="mi">60</span> <span class="n">TOS</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">PREC</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">TTL</span><span class="o">=</span><span class="mi">45</span> <span class="n">ID</span><span class="o">=</span><span class="mi">33808</span> <span class="n">DF</span> <span class="n">PROTO</span><span class="o">=</span><span class="n">TCP</span> <span class="n">SPT</span><span class="o">=</span><span class="mi">53084</span> <span class="n">DPT</span><span class="o">=</span><span class="mi">4506</span> <span class="n">WINDOW</span><span class="o">=</span><span class="mi">14600</span> <span class="n">RES</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">SYN</span> <span class="n">URGP</span><span class="o">=</span><span class="mi">0</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Jan 13 21:19:48 ip-&lt;deleted&gt; kernel: [78350448.038946] [UFW BLOCK] IN=eth0 OUT= MAC=&lt;deleted&gt; SRC=&lt;deleted&gt; DST=&lt;deleted&gt; LEN=60 TOS=0x00 PREC=0x00 TTL=45 ID=33808 DF PROTO=TCP SPT=53084 DPT=4506 WINDOW=14600 RES=0x00 SYN URGP=0
 </pre></div>
 </div>
 <p>That says port 4506 (DPT) is being blocked by the firewall. If so, run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ufw allow salt</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># ufw allow salt</span>
 </pre></div>
 </div>
 </li>
 </ul>
 <p>If salt is installed, the command above will open up the ports that salt needs. Our deploy does
-that too, but if the firewall is already running, then our salt state can’t run. I’m still
+that too, but if the firewall is already running, then our salt state can&#8217;t run. I&#8217;m still
 confused how this problem happened on a server which had already been running salt successfully,
 but ¯\_(ツ)_/¯.</p>
 </li>
@@ -594,35 +593,35 @@ but ¯\_(ツ)_/¯.</p>
 <code class="docutils literal"><span class="pre">/srv</span></code> on the VM, because the project no longer expects that folder to be synced, so will run
 into problems trying to change permissions on the files there.</p>
 <p>Change this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;conf/&quot;</span><span class="p">,</span> <span class="s2">&quot;/srv/&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>config.vm.synced_folder &quot;conf/&quot;, &quot;/srv/&quot;
 </pre></div>
 </div>
 <p>to:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;conf/&quot;</span><span class="p">,</span> <span class="s2">&quot;/srv/&quot;</span><span class="p">,</span> <span class="n">disabled</span><span class="p">:</span> <span class="n">true</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>config.vm.synced_folder &quot;conf/&quot;, &quot;/srv/&quot;, disabled: true
 </pre></div>
 </div>
-<p>and then restart the VM. If you are using the new <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, you shouldn’t need to do that.</p>
+<p>and then restart the VM. If you are using the new <code class="docutils literal"><span class="pre">Vagrantfile</span></code>, you shouldn&#8217;t need to do that.</p>
 </li>
 <li><p class="first"><em>VAGRANT NOTE</em>: Remove the <code class="docutils literal"><span class="pre">source</span></code> and <code class="docutils literal"><span class="pre">public</span></code> symlinks as we rsync now rather than symlink.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
-~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
+~/dev/myproject$ fab -H 127.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
 </pre></div>
 </div>
 </li>
 <li><p class="first">If you see an error like the following, it means that your local <code class="docutils literal"><span class="pre">conf</span></code> directory has contents
-that it shouldn’t. Remove the file/directory in question locally and then rerun the sync command.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">54</span>.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
+that it shouldn&#8217;t. Remove the file/directory in question locally and then rerun the sync command.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="o">[</span>54.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
 </pre></div>
 </div>
 </li>
 <li><p class="first">After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
 connecting to RabbitMQ:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Feb</span> <span class="mi">11</span> <span class="mi">14</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">39</span> <span class="n">myproject</span> <span class="n">supervisord</span><span class="p">:</span>  <span class="n">myproject</span><span class="o">-</span><span class="n">celery</span><span class="o">-</span><span class="n">beat</span> <span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">11</span> <span class="mi">14</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="mi">811</span><span class="p">:</span>
-<span class="n">ERROR</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">beat</span><span class="p">:</span> <span class="n">Connection</span> <span class="n">error</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">104</span><span class="p">]</span> <span class="n">Connection</span> <span class="n">reset</span> <span class="n">by</span> <span class="n">peer</span><span class="o">.</span> <span class="n">Trying</span> <span class="n">again</span>
-<span class="ow">in</span> <span class="mf">2.0</span> <span class="n">seconds</span><span class="o">...</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Feb 11 14:21:39 myproject supervisord:  myproject-celery-beat [2016-02-11 14:21:39,811:
+ERROR/MainProcess] beat: Connection error: [Errno 104] Connection reset by peer. Trying again
+in 2.0 seconds...
 </pre></div>
 </div>
-<p>To fix, you’ll need to delete and recreate the RabbitMQ user.</p>
+<p>To fix, you&#8217;ll need to delete and recreate the RabbitMQ user.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ sudo rabbitmqctl list_users
 Listing users ...
 myproject_production <span class="o">[]</span>
@@ -645,10 +644,10 @@ myproject.example.com:
 
 Summary
 -------------
-Succeeded: <span class="m">12</span> <span class="o">(</span><span class="nv">changed</span><span class="o">=</span><span class="m">3</span><span class="o">)</span>
-Failed:     <span class="m">0</span>
+Succeeded: <span class="m">12</span> <span class="o">(</span><span class="nv">changed</span><span class="o">=</span>3<span class="o">)</span>
+Failed:     0
 -------------
-Total states run:     <span class="m">12</span>
+Total states run:     12
 </pre></div>
 </div>
 </li>
@@ -698,18 +697,21 @@ Total states run:     <span class="m">12</span>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/upgrading.rst.txt"
+      <li><a href="../_sources/margarita/upgrading.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -720,11 +722,11 @@ Total states run:     <span class="m">12</span>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="../_sources/margarita/upgrading.rst.txt"
+      <a href="../_sources/margarita/upgrading.txt"
           rel="nofollow">Page source</a>
     </div>
 

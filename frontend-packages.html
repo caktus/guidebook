@@ -1,39 +1,37 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Frontend Packaging &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <title>Frontend Packaging &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
         VERSION:     '0.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
+        HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Front-end documentation with JSDoc" href="frontend-docs.html" />
     <link rel="prev" title="Django Project Template Testing Plans" href="project-template-testing.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body>
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -47,7 +45,7 @@ dependencies in frontend development as robust as they are in backend
 development. Javascript dependencies are configured and installed via
 a standard <code class="docutils literal"><span class="pre">package.json</span></code> configuration for each project and the NPM
 tool as part of NodeJS 4.2 or newer. The tool Browserify is used to
-collect and combine all of a project’s imported modules into a single
+collect and combine all of a project&#8217;s imported modules into a single
 bundle.</p>
 <p>Projects created with the Caktus Django Project Template after January
 8th, 2016 will come pre-configured with this setup. Older projects
@@ -55,7 +53,7 @@ would need to upgrade to Margarita 1.4.0 or newer and follow the
 <a class="reference internal" href="#frontend-packaging-upgrade-guide">Frontend Packaging Upgrade Guide</a> below in order to use this setup.</p>
 <div class="section" id="frontend-packaging-upgrade-guide">
 <h2>Frontend Packaging Upgrade Guide<a class="headerlink" href="#frontend-packaging-upgrade-guide" title="Permalink to this headline">¶</a></h2>
-<p>If you’re on a project created before January 8th, 2016 you’ll need
+<p>If you&#8217;re on a project created before January 8th, 2016 you&#8217;ll need
 to upgrade both your project and its version of
 <a class="reference external" href="https://github.com/caktusgroup/margarita">Margarita</a> in order to
 use these frontend packaging techniques.</p>
@@ -64,32 +62,32 @@ the project, which configure it as a NodeJS package for the
 purposes of defining dependencies and build instructions for the
 frontend components.</p>
 <p>First, you will need a Gulpfile, which is our frontend version of the
-Fabfile. Second, you’ll need a <code class="docutils literal"><span class="pre">package.json</span></code> file defining the project
+Fabfile. Second, you&#8217;ll need a <code class="docutils literal"><span class="pre">package.json</span></code> file defining the project
 for NPM, and defining the initial set of package dependencies.</p>
 <p>You can download and add these from this documentation:</p>
 <ul class="simple">
 <li><a class="reference external" href="_static/files/gulpfile.js">gulpfile.js</a></li>
 <li><a class="reference external" href="_static/files/package.json">package.json</a></li>
 </ul>
-<p>and add them to the top level of your project. You’ll need to modify
+<p>and add them to the top level of your project. You&#8217;ll need to modify
 both with the correct project name.</p>
 <p>Now, you can add these extra lines to your <code class="docutils literal"><span class="pre">.gitignore</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">node_modules</span>
-<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">js</span><span class="o">/</span><span class="n">bundle</span><span class="o">.</span><span class="n">js</span>
-<span class="o">*/</span><span class="n">static</span><span class="o">/</span><span class="n">css</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>node_modules
+*/static/js/bundle.js
+*/static/css
 </pre></div>
 </div>
 <p>You probably have existing Javascript and stylesheets to move into the new
 build system. The next sections will cover each of these.</p>
 <div class="section" id="migrating-existing-setup">
 <h3>Migrating Existing Setup<a class="headerlink" href="#migrating-existing-setup" title="Permalink to this headline">¶</a></h3>
-<p>You’ll have several pieces of the old setup to migrate to the new setup.</p>
+<p>You&#8217;ll have several pieces of the old setup to migrate to the new setup.</p>
 <div class="section" id="django-compressor">
 <h4>Django Compressor<a class="headerlink" href="#django-compressor" title="Permalink to this headline">¶</a></h4>
 <p>Because we no longer use Django Compressor to process frontend assets, you can
 remove the dependency from <code class="docutils literal"><span class="pre">requirements/base.txt</span></code> and your settings <code class="docutils literal"><span class="pre">base.py</span></code>
 module. If you have this <code class="docutils literal"><span class="pre">STATICFILES_FINDERS</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">STATICFILES_FINDERS</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">STATICFILES_FINDERS</span> <span class="o">=</span> <span class="p">(</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.FileSystemFinder&#39;</span><span class="p">,</span>
     <span class="s1">&#39;django.contrib.staticfiles.finders.AppDirectoriesFinder&#39;</span><span class="p">,</span>
     <span class="s1">&#39;compressor.finders.CompressorFinder&#39;</span><span class="p">,</span>
@@ -100,49 +98,49 @@ module. If you have this <code class="docutils literal"><span class="pre">STATIC
 project has defined any other finders, then only remove the one from <code class="docutils literal"><span class="pre">compressor</span></code>.</p>
 <p>Remove it also from <code class="docutils literal"><span class="pre">INSTALLED_APPS</span></code> and remove <code class="docutils literal"><span class="pre">COMPRESS_PRECOMPILERS</span></code>. Check
 your settings for any other place to remove references to it.</p>
-<p>You’ll need to remove compressor from the <code class="docutils literal"><span class="pre">base.html</span></code> where it is used to
+<p>You&#8217;ll need to remove compressor from the <code class="docutils literal"><span class="pre">base.html</span></code> where it is used to
 include both Javascript and Less stylesheets. Remove the <code class="docutils literal"><span class="pre">{%</span> <span class="pre">load</span> <span class="pre">compressor</span> <span class="pre">%}</span></code>
-line at the top of the template. We’ll change the compressor tags for
+line at the top of the template. We&#8217;ll change the compressor tags for
 the Javascript first, which should currently look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">compress</span> <span class="n">js</span> <span class="o">%</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;js/site.js&#39; %}&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">endcompress</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>{% compress js %}
+    &lt;script src=&quot;{% static &#39;js/site.js&#39; %}&quot;&gt;&lt;/script&gt;
+{% endcompress %}
 </pre></div>
 </div>
-<p>but, this may include more than one script tag. If it does, you’ll need to follow
+<p>but, this may include more than one script tag. If it does, you&#8217;ll need to follow
 the section on <cite>Existing Javascript</cite> to migrate them to a bundle. This line will be
 replaced with one tag loading our combined bundle of all project Javascript:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;js/bundle.js&#39; %}&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;script src=&quot;{% static &#39;js/bundle.js&#39; %}&quot;&gt;&lt;/script&gt;
 </pre></div>
 </div>
 <p>The section using compressor to compile Less stylesheets will also be replaced, from
 this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="k">if</span> <span class="n">debug</span> <span class="o">%</span><span class="p">}</span>
-    <span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet/less&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/css&quot;</span> <span class="n">media</span><span class="o">=</span><span class="s2">&quot;all&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;less/site.less&#39; %}&quot;</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.5.1/less.min.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
-<span class="p">{</span><span class="o">%</span> <span class="k">else</span> <span class="o">%</span><span class="p">}</span>
-    <span class="p">{</span><span class="o">%</span> <span class="n">compress</span> <span class="n">css</span> <span class="o">%</span><span class="p">}</span>
-        <span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;text/less&quot;</span> <span class="n">media</span><span class="o">=</span><span class="s2">&quot;all&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;less/site.less&#39; %}&quot;</span><span class="o">&gt;</span>
-    <span class="p">{</span><span class="o">%</span> <span class="n">endcompress</span> <span class="o">%</span><span class="p">}</span>
-<span class="p">{</span><span class="o">%</span> <span class="n">endif</span> <span class="o">%</span><span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>{% if debug %}
+    &lt;link rel=&quot;stylesheet/less&quot; type=&quot;text/css&quot; media=&quot;all&quot; href=&quot;{% static &#39;less/site.less&#39; %}&quot;&gt;
+    &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.5.1/less.min.js&quot;&gt;&lt;/script&gt;
+{% else %}
+    {% compress css %}
+        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/less&quot; media=&quot;all&quot; href=&quot;{% static &#39;less/site.less&#39; %}&quot;&gt;
+    {% endcompress %}
+{% endif %}
 </pre></div>
 </div>
 <p>to this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span><span class="o">=</span><span class="s2">&quot;stylesheet&quot;</span> <span class="n">media</span><span class="o">=</span><span class="s2">&quot;all&quot;</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;css/bundle.css&#39; %}&quot;</span><span class="o">&gt;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;link rel=&quot;stylesheet&quot; media=&quot;all&quot; href=&quot;{% static &#39;css/bundle.css&#39; %}&quot;&gt;
 </pre></div>
 </div>
 </div>
 <div class="section" id="existing-javascript">
 <h4>Existing javascript<a class="headerlink" href="#existing-javascript" title="Permalink to this headline">¶</a></h4>
 <p>If you have a frontend-light project that has only a single JS file, rename it to
-<code class="docutils literal"><span class="pre">static/js/index.js</span></code> in the project. If you have multiple scripts, you’ll need
+<code class="docutils literal"><span class="pre">static/js/index.js</span></code> in the project. If you have multiple scripts, you&#8217;ll need
 to create this file and import the different scripts in your project. (Read the
 section below on <cite>Using Frontend Packages</cite>)</p>
 </div>
 <div class="section" id="existing-stylesheets">
 <h4>Existing Stylesheets<a class="headerlink" href="#existing-stylesheets" title="Permalink to this headline">¶</a></h4>
-<p>If you have a single stylesheet you’ll need to rename it <code class="docutils literal"><span class="pre">less/index.less</span></code> and if you have
-multiple you’ll need to create this single stylesheet and, within it, import other stylesheets
+<p>If you have a single stylesheet you&#8217;ll need to rename it <code class="docutils literal"><span class="pre">less/index.less</span></code> and if you have
+multiple you&#8217;ll need to create this single stylesheet and, within it, import other stylesheets
 like</p>
 <div class="highlight-less"><div class="highlight"><pre><span></span><span class="nv">@import</span> <span class="s2">&quot;./states.less&quot;</span><span class="o">;</span>
 <span class="nv">@import</span> <span class="s2">&quot;./base.less&quot;</span><span class="o">;</span>
@@ -151,7 +149,7 @@ like</p>
 </div>
 <p>Stylesheets might be distributed by NPM, either on their own or as part of a widget library.
 For example, bootstrap can be installed by NPM giving us both the interactive implementation of
-its widgets and also the bootstrap Less files. If you’ve installed a package with stylesheets
+its widgets and also the bootstrap Less files. If you&#8217;ve installed a package with stylesheets
 from NPM, you can import those stylesheets in your <code class="docutils literal"><span class="pre">index.less</span></code> like so:</p>
 <div class="highlight-less"><div class="highlight"><pre><span></span><span class="nv">@import</span> <span class="o">(</span><span class="nt">less</span><span class="o">)</span> <span class="s2">&quot;node_modules/bootstrap/less/bootstrap.less&quot;</span><span class="o">;</span>
 </pre></div>
@@ -168,30 +166,30 @@ proper path.</p>
 <h4>Modernizr<a class="headerlink" href="#modernizr" title="Permalink to this headline">¶</a></h4>
 <p>Your project likely includes a copy of Modernizr, but the new frontend setup builds
 a recent copy of this (and is configurable), so we can change this line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/modernizr/2.7.1/modernizr.dev.js&quot;&gt;&lt;/script&gt;
 </pre></div>
 </div>
 <p>to this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;{</span><span class="si">% s</span><span class="s2">tatic &#39;libs/modernizr.js&#39; %}&quot;</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;script src=&quot;{% static &#39;libs/modernizr.js&#39; %}&quot;&gt;&lt;/script&gt;
 </pre></div>
 </div>
 </div>
 <div class="section" id="jquery">
 <h4>jQuery<a class="headerlink" href="#jquery" title="Permalink to this headline">¶</a></h4>
 <p>If you need the jQuery library accessible for script tags that might be in specific pages
-and won’t be pulled in by the bundling process, then it might be prudent to keep the
-jquery library included by the existing <code class="docutils literal"><span class="pre">&lt;script&gt;</span></code> tag, and that’s okay for now. You can
+and won&#8217;t be pulled in by the bundling process, then it might be prudent to keep the
+jquery library included by the existing <code class="docutils literal"><span class="pre">&lt;script&gt;</span></code> tag, and that&#8217;s okay for now. You can
 move this JS out of the template in a future improvement.</p>
-<p>If you do not need this and only use jQuery within code you’re already moving into
+<p>If you do not need this and only use jQuery within code you&#8217;re already moving into
 modules, then jQuery can be a dependency imported by the new system. If you want to do
 this, remove the jQuery <code class="docutils literal"><span class="pre">&lt;script&gt;</span></code> tag and then install jQuery (whatever version is
 appropriate for you):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">jquery</span><span class="nd">@2</span><span class="o">.</span><span class="mf">2.0</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>npm install --save-dev jquery@2.2.0
 </pre></div>
 </div>
 <p>If you need jQuery to be globally available, you can add this line to the top of your
 <code class="docutils literal"><span class="pre">index.js</span></code> under the imports:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>window.jQuery = window.$ = require(&#39;jquery&#39;)
+<div class="highlight-python"><div class="highlight"><pre><span></span>window.jQuery = window.$ = require(&#39;jquery&#39;)
 </pre></div>
 </div>
 <p>Any modules which use jQuery <em>should</em> avoid the global and import the library within
@@ -212,17 +210,17 @@ that module.</p>
 the Javascript language ES2015, which includes many updates including proper
 module support and an import statement. To use packages installed in your project
 you can import the default export from the project under a name of your choosing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>import $ from &#39;jquery&#39;;
+<div class="highlight-python"><div class="highlight"><pre><span></span>import $ from &#39;jquery&#39;;
 </pre></div>
 </div>
-<p>For some packages, you’ll likely want to import more than one thing from it:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">AutoBind</span><span class="p">,</span> <span class="n">jQueryClass</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./helpers/jquery&#39;</span><span class="p">;</span>
+<p>For some packages, you&#8217;ll likely want to import more than one thing from it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>import { AutoBind, jQueryClass } from &#39;./helpers/jquery&#39;;
 </pre></div>
 </div>
 <div class="section" id="organizing-project-frontend-code">
 <h3>Organizing Project Frontend Code<a class="headerlink" href="#organizing-project-frontend-code" title="Permalink to this headline">¶</a></h3>
-<p>Packages aren’t just for the third party code you depend on. You’ll
-benefit from organizing your project’s own Javascript the same way. This setup begins
+<p>Packages aren&#8217;t just for the third party code you depend on. You&#8217;ll
+benefit from organizing your project&#8217;s own Javascript the same way. This setup begins
 with a top-level module in your project at <code class="docutils literal"><span class="pre">static/js/index.js</span></code>. This module
 is only expected to be an initial point to import all your dependencies and do
 very basic initialization.</p>
@@ -254,7 +252,7 @@ them in a directory.</p>
 <p>The <code class="docutils literal"><span class="pre">./</span></code> is necessary to distinguish from modules that would be loaded from the
 standard library or NPM installed packages. These imports are simply relative paths to
 the location of the module.</p>
-<p>You only need to include modules you might consider “top-level” in <code class="docutils literal"><span class="pre">index.js</span></code>. For
+<p>You only need to include modules you might consider &#8220;top-level&#8221; in <code class="docutils literal"><span class="pre">index.js</span></code>. For
 example, if you defined a helper function <code class="docutils literal"><span class="pre">get_csrf_token()</span></code> in that <code class="docutils literal"><span class="pre">utils.js</span></code>
 and only needed to use that one function in another module, you would import it there,</p>
 <div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">get_csrf_token</span> <span class="nx">from</span> <span class="s1">&#39;utils.js&#39;</span><span class="p">;</span>
@@ -276,7 +274,7 @@ Javascript world is still catching up to proper packaging and you may find third
 distributions which are also acceptable.</p>
 <p>You can install an NPM package both locally and configured in your package.json
 with a single command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span> <span class="n">package</span><span class="o">-</span><span class="n">name</span><span class="o">==</span><span class="mf">1.2</span><span class="o">.</span><span class="mi">3</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>npm install --save package-name==1.2.3
 </pre></div>
 </div>
 </div>
@@ -292,9 +290,9 @@ depend on. This includes multiple steps.</p>
 <p>We can make this process a little easier, and we can also enforce some rules about them
 thanks to NPMs. When specifying package versions in <code class="docutils literal"><span class="pre">package.json</span></code> we can tell NPM about
 how we want it to interpret the version number we give.</p>
-<p>Version strings have the form “major.minor.patch”.
+<p>Version strings have the form &#8220;major.minor.patch&#8221;.
 Parts can be omitted starting from the right, e.g.
-“1.2” is major 1, minor 2; and “1” is major 1.</p>
+&#8220;1.2&#8221; is major 1, minor 2; and &#8220;1&#8221; is major 1.</p>
 <ul class="simple">
 <li>Including <code class="docutils literal"><span class="pre">x</span></code> or <code class="docutils literal"><span class="pre">*</span></code> in the version string allows
 that part of the version to be increased. E.g. <code class="docutils literal"><span class="pre">1.2.x</span></code>
@@ -324,7 +322,7 @@ yourself, you can write them in the obvious more
 verbose way, e.g. <code class="docutils literal"><span class="pre">&gt;=1.2.3</span> <span class="pre">&lt;2.4.0</span></code>.</p>
 <p>You may have NPM update all packages to the latest versions within their constraints at any
 time:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">update</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>npm update
 </pre></div>
 </div>
 <p>And this is run on all deploys after <code class="docutils literal"><span class="pre">npm</span> <span class="pre">install</span></code> to update previously installed
@@ -333,7 +331,7 @@ packages.</p>
 <div class="section" id="updating-your-project-setup">
 <h2>Updating Your Project Setup<a class="headerlink" href="#updating-your-project-setup" title="Permalink to this headline">¶</a></h2>
 <p>When pulling changes in a project down to your local development environment,
-you’ll need to update both backend and frontend packages:</p>
+you&#8217;ll need to update both backend and frontend packages:</p>
 <blockquote>
 <div>make update</div></blockquote>
 </div>
@@ -382,18 +380,21 @@ you’ll need to update both backend and frontend packages:</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/frontend-packages.rst.txt"
+      <li><a href="_sources/frontend-packages.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -404,11 +405,11 @@ you’ll need to update both backend and frontend packages:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
-      <a href="_sources/frontend-packages.rst.txt"
+      <a href="_sources/frontend-packages.txt"
           rel="nofollow">Page source</a>
     </div>
 
