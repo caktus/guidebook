@@ -128,9 +128,12 @@ source $HOME/.pythonz/etc/bashrc
 <blockquote>
 <div><a class="reference external" href="https://github.com/saghul/pythonz">https://github.com/saghul/pythonz</a></div></blockquote>
 <p>You should install three versions of Python for different projects:</p>
-<div class="highlight-python"><div class="highlight"><pre>pythonz install 2.7.11
-pythonz install 3.4.4
-pythonz install 3.5.1
+<div class="highlight-python"><div class="highlight"><pre>LDFLAGS=&quot;-L$(brew --prefix openssl)/lib&quot;
+CFLAGS=&quot;-I$(brew --prefix openssl)/include&quot;
+pythonz install 2.7.13
+pythonz install 3.4.6
+pythonz install 3.5.3
+pythonz install 3.6.0
 </pre></div>
 </div>
 </div>
@@ -154,7 +157,7 @@ in your Terminal. (You can also customize what you set PROJECT_HOME to, if
 you wish):</p>
 <div class="highlight-python"><div class="highlight"><pre>echo &quot;export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
-source /usr/local/bin/virtualenvwrapper.sh&quot; &gt;&gt; ~/.bash_profile
+source /usr/local/bin/virtualenvwrapper.sh &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
 </pre></div>
 </div>

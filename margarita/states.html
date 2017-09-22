@@ -391,6 +391,10 @@ use <a class="reference external" href="https://letsencrypt.org">letsencrypt.org
 that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there&#8217;s a single web server and the domain points
 directly at it. (You might still be able to use <cite>letsencrypt</cite> some other way.)</p>
+<p>If you wish to use <cite>letsencrypt</cite> with multiple domain names, add a list
+of domains under <code class="docutils literal"><span class="pre">letsencrypt_domains</span></code> in the pillar configuration. (If you
+do not set this parameter, letsencrypt defaults to using your pillar config&#8217;s
+<cite>domain</cite> property.)</p>
 <p>Note: to switch to letsencrypt from another certificate, it should be
 enough to set <code class="docutils literal"><span class="pre">letsencrypt</span></code> and <code class="docutils literal"><span class="pre">admin_email</span></code> and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
@@ -455,10 +459,13 @@ first.</li>
 </div>
 <div class="section" id="project-worker-default">
 <span id="id29"></span><h3>project.worker.default<a class="headerlink" href="#project-worker-default" title="Permalink to this headline">¶</a></h3>
-<p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.</p>
+<p>Arrange for a <code class="docutils literal"><span class="pre">celery</span> <span class="pre">worker</span></code> service to run for the project via supervisor.
+The default worker-specific command-line arguments set log level to <code class="docutils literal"><span class="pre">INFO</span></code>.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">project_name</span></code></li>
+<li><code class="docutils literal"><span class="pre">celery_worker_arguments</span></code> (string): Optional, overrides default worker-specific
+command-line arguments.</li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">

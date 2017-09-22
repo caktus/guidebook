@@ -477,6 +477,33 @@ be gradually increased over the life of the project.</p>
 <li><a class="reference external" href="https://django-testing-docs.readthedocs.org/en/latest/coverage.html">Measuring Coverage</a></li>
 </ul>
 </div>
+<div class="section" id="manual-testing">
+<h2>Manual testing<a class="headerlink" href="#manual-testing" title="Permalink to this headline">¶</a></h2>
+<p>In addition to automated testing, we also want to run the site and make sure it
+works right from the end user&#8217;s point of view. But we don&#8217;t want to waste our testers&#8217;
+time by asking them to test things that aren&#8217;t ready yet.</p>
+<div class="section" id="when-is-a-ticket-ready-for-qa">
+<h3>When is a ticket ready for QA?<a class="headerlink" href="#when-is-a-ticket-ready-for-qa" title="Permalink to this headline">¶</a></h3>
+<p>The cycle between development and QA can be very time-consuming, and the earlier bugs are caught and fixed, the less impact they will have on the project&#8217;s timeline and budget. It’s up to the individual developer to define what he/she thinks is a reasonable amount of testing to do as part of code review, but here are some questions you should ask before sending a ticket to QA, in order to avoid unnecessary iterations:</p>
+<ul>
+<li><p class="first">Does this feature/change load on staging, in at least 1 browser (or 1 device if on mobile)?</p>
+</li>
+<li><p class="first">Does the task/story meet all the acceptance criteria?</p>
+</li>
+<li><p class="first">Does it match the design/mockup to the expected level for the project?</p>
+</li>
+<li><p class="first">Are best practices being followed?</p>
+<blockquote>
+<div><ul class="simple">
+<li>examples: interactive elements have hover states, links to external sites open in new tabs, everything is responsive!</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Are deviations from design, expected functionality, or other information needed for testing documented in JIRA?</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -532,6 +559,10 @@ be gradually increased over the life of the project.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#coverage">Coverage</a></li>
+<li><a class="reference internal" href="#manual-testing">Manual testing</a><ul>
+<li><a class="reference internal" href="#when-is-a-ticket-ready-for-qa">When is a ticket ready for QA?</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#further-reading">Further reading</a></li>
 </ul>
 </li>
