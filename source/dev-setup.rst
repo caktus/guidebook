@@ -97,16 +97,15 @@ three::
 
 And link them so they'll be in your path::
 
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 2.7" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python2.7
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.5" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python3.5
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.6" | tail -n 1 | strip-indent)/bin/python /usr/local/bin/python3.6
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 2.7" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python2.7
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.5" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.5
+    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.6" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.6
 
 Creating a Python Virtual Environment
 '''''''''''''''''''''''''''''''''''''
 
 You can create a virtual environment using a version of Python as follows::
 
-    mkvirtualenv -p $(which python) my-virtualenv-name
     pyenv virtualenv 3.5.3 my-virtualenv-name
 
 For whatever version of Python your project requires. When you need to run anything in this project
