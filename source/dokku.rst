@@ -7,15 +7,28 @@ can be deployed to a Dokku server as follows.
 
 These instructions assume
 
-* that ``ssh dokku`` will connect you to your dokku server as the dokku user
+* that ``ssh dokku`` will connect you to your dokku server as the dokku user.
+  You can add something like this to your ``~/.ssh/config`` file to
+  achieve that::
+
+    Host dokku
+      Hostname dokku.server.example.com
+      User dokku
+
 * the `Postgres plugin <https://github.com/dokku/dokku-postgres>`_
-  is installed on the dokku server
+  is installed on the dokku server (follow link for instructions)
 * the `Lets Encrypt plugin <https://github.com/dokku/dokku-letsencrypt>`_
-  is installed on the dokku server
-* an admin has created a directory on the dokku server named
+  is installed on the dokku server  (follow link for instructions)
+* an admin has
+  `created <http://dokku.viewdocs.io/dokku~v0.11.2/advanced-usage/persistent-storage/>`_
+  a directory on the dokku server named
   ``/var/lib/dokku/data/storage/{{ project_name }}`` that we can use for
   storage that persists across deploys, and that is writable by the
-  ``dokku`` user.
+  ``dokku`` user.  (follow link for instructions)
+* your new project is checked into git (required by dokku). If you
+  haven't done that, you can cd into the project directory and run::
+
+    $ git init && git add . && git commit -m "Initial commit"
 
 Running::
 
