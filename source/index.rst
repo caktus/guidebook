@@ -18,6 +18,7 @@ Contents:
    workflow
    upgrading-django
    deploy-strategies
+   dokku
    margarita/margarita
    project-template-testing
    frontend-packages
