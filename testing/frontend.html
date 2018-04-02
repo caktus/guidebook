@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Front-end JavaScript Testing Practices &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Front-end JavaScript Testing Practices &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,14 +23,19 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="prev" title="Testing" href="index.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -63,26 +68,26 @@ of the project&#8217;s JS dir (i.e. in <code class="docutils literal"><span clas
 <p>Tests describing some value are wrapped in a callback passed to <code class="docutils literal"><span class="pre">describe</span></code>,
 containing individual test cases created with calls to <code class="docutils literal"><span class="pre">it</span></code>. Your test spec
 <code class="docutils literal"><span class="pre">project_foo/static/js/test/test_Something.js</span></code> might look like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>describe(&#39;Something&#39;, function () {
-  it(&#39;returns foo&#39;, function () {
-    // assertion code goes here ...
-  })
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="s1">&#39;Something&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">it</span><span class="p">(</span><span class="s1">&#39;returns foo&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">assertion</span> <span class="n">code</span> <span class="n">goes</span> <span class="n">here</span> <span class="o">...</span>
+  <span class="p">})</span>
 
-  it(&#39;does not return bar&#39;, function () {
-    // assertion code goes here ...
-  })
-})
+  <span class="n">it</span><span class="p">(</span><span class="s1">&#39;does not return bar&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="n">assertion</span> <span class="n">code</span> <span class="n">goes</span> <span class="n">here</span> <span class="o">...</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">describe</span></code> calls can be nested, allowing you to represent the hierarchical
 structure of your app:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>describe(&#39;your/module&#39;, function () {
-  describe(&#39;YourClass&#39;, function () {
-    describe(&#39;yourMethod&#39;, function () {
-      //...
-    })
-  })
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="s1">&#39;your/module&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">describe</span><span class="p">(</span><span class="s1">&#39;YourClass&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">describe</span><span class="p">(</span><span class="s1">&#39;yourMethod&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="o">//...</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>When you run Mocha tests using the <code class="docutils literal"><span class="pre">spec</span></code> reporter, this nested structure
@@ -90,14 +95,14 @@ will be reflected in the way your test results are displayed.</p>
 <p>One handy feature of Mocha is its simple handling of asynchronous tests. To
 test async code, just include a callback as a parameter to the callback in
 your <code class="docutils literal"><span class="pre">it()</span></code> call and invoke that callback when the test is complete:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>describe(&#39;SomethingAsync&#39;, function () {
-  it(&#39;completes the async operation asyncFoo&#39;, function (done) {
-    asyncFoo(function () {
-      // assertions go here ...
-      done() // the test will only pass when this line runs
-    })
-  })
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="s1">&#39;SomethingAsync&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="n">it</span><span class="p">(</span><span class="s1">&#39;completes the async operation asyncFoo&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">(</span><span class="n">done</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">asyncFoo</span><span class="p">(</span><span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="o">//</span> <span class="n">assertions</span> <span class="n">go</span> <span class="n">here</span> <span class="o">...</span>
+      <span class="n">done</span><span class="p">()</span> <span class="o">//</span> <span class="n">the</span> <span class="n">test</span> <span class="n">will</span> <span class="n">only</span> <span class="k">pass</span> <span class="n">when</span> <span class="n">this</span> <span class="n">line</span> <span class="n">runs</span>
+    <span class="p">})</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>Because callbacks are used all over the place in JavaScript apps, this easy
@@ -109,42 +114,42 @@ handling of async testing makes Mocha a very attractive test library.</p>
 The main benefit of Chai is that we don&#8217;t really have to choose between any of
 the various assertion styles that are popular in the JS world. Chai makes them
 all available:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>// &quot;should&quot; style
-chai.should()
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="s2">&quot;should&quot;</span> <span class="n">style</span>
+<span class="n">chai</span><span class="o">.</span><span class="n">should</span><span class="p">()</span>
 
-foo.should.be.a(&#39;string&#39;)
-foo.should.equal(&#39;bar&#39;)
-baz.should.have.property(&#39;qux&#39;).with.length(3)
+<span class="n">foo</span><span class="o">.</span><span class="n">should</span><span class="o">.</span><span class="n">be</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">should</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">baz</span><span class="o">.</span><span class="n">should</span><span class="o">.</span><span class="n">have</span><span class="o">.</span><span class="n">property</span><span class="p">(</span><span class="s1">&#39;qux&#39;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
-// &quot;expect&quot; style
-var expect = chai.expect
+<span class="o">//</span> <span class="s2">&quot;expect&quot;</span> <span class="n">style</span>
+<span class="n">var</span> <span class="n">expect</span> <span class="o">=</span> <span class="n">chai</span><span class="o">.</span><span class="n">expect</span>
 
-expect(foo).to.be.a(&#39;string&#39;)
-expect(foo).to.equal(&#39;bar&#39;)
-expect(baz).to.have.property(&#39;qux&#39;).with.length(3)
+<span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">be</span><span class="o">.</span><span class="n">a</span><span class="p">(</span><span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">baz</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="o">.</span><span class="n">have</span><span class="o">.</span><span class="n">property</span><span class="p">(</span><span class="s1">&#39;qux&#39;</span><span class="p">)</span><span class="o">.</span><span class="k">with</span><span class="o">.</span><span class="n">length</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 
-// &quot;assert&quot; style
-var assert = chai.assert
+<span class="o">//</span> <span class="s2">&quot;assert&quot;</span> <span class="n">style</span>
+<span class="n">var</span> <span class="k">assert</span> <span class="o">=</span> <span class="n">chai</span><span class="o">.</span><span class="k">assert</span>
 
-assert.typeOf(foo, &#39;string&#39;)
-assert.equal(foo, &#39;bar&#39;)
-assert.property(baz, &#39;qux&#39;)
-assert.lengthOf(baz.qux, 3)
+<span class="k">assert</span><span class="o">.</span><span class="n">typeOf</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
+<span class="k">assert</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="k">assert</span><span class="o">.</span><span class="n">property</span><span class="p">(</span><span class="n">baz</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">)</span>
+<span class="k">assert</span><span class="o">.</span><span class="n">lengthOf</span><span class="p">(</span><span class="n">baz</span><span class="o">.</span><span class="n">qux</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Assertions work more or less like assert method calls in the Python <code class="docutils literal"><span class="pre">unittest</span></code>
 framework. A failed assertion results in a failed test; execution of the test
 halts at the point of the failed assertion, and the test runner will output
 a traceback along these lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>1) AppController updates its child component when the store changes:
-   AssertionError: expected 5 to equal 4
-    at EventEmitter.&lt;anonymous&gt; (test_AppController.js:30:14)
-    at EventedClass.(anonymous function) [as componentDidUpdate] (LifecycleEmitter.js:28:22)
-    at CallbackQueue.assign.notifyAll (node_modules/react/lib/CallbackQueue.js:65:22)
-    at ReactReconcileTransaction.ON_DOM_READY_QUEUEING.close (node_modules/react/lib/ReactReconcileTransaction.js:81:26)
-    at ReactReconcileTransaction.Mixin.closeAll (node_modules/react/lib/Transaction.js:202:25)
-    at ReactReconcileTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:149:16)
-    at ReactUpdatesFlushTransaction.Mixin.perform (node_modules/react/lib/Transaction.js:136:20)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="p">)</span> <span class="n">AppController</span> <span class="n">updates</span> <span class="n">its</span> <span class="n">child</span> <span class="n">component</span> <span class="n">when</span> <span class="n">the</span> <span class="n">store</span> <span class="n">changes</span><span class="p">:</span>
+   <span class="ne">AssertionError</span><span class="p">:</span> <span class="n">expected</span> <span class="mi">5</span> <span class="n">to</span> <span class="n">equal</span> <span class="mi">4</span>
+    <span class="n">at</span> <span class="n">EventEmitter</span><span class="o">.&lt;</span><span class="n">anonymous</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">test_AppController</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">EventedClass</span><span class="o">.</span><span class="p">(</span><span class="n">anonymous</span> <span class="n">function</span><span class="p">)</span> <span class="p">[</span><span class="k">as</span> <span class="n">componentDidUpdate</span><span class="p">]</span> <span class="p">(</span><span class="n">LifecycleEmitter</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">22</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">CallbackQueue</span><span class="o">.</span><span class="n">assign</span><span class="o">.</span><span class="n">notifyAll</span> <span class="p">(</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">CallbackQueue</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">65</span><span class="p">:</span><span class="mi">22</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ReactReconcileTransaction</span><span class="o">.</span><span class="n">ON_DOM_READY_QUEUEING</span><span class="o">.</span><span class="n">close</span> <span class="p">(</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ReactReconcileTransaction</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">81</span><span class="p">:</span><span class="mi">26</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ReactReconcileTransaction</span><span class="o">.</span><span class="n">Mixin</span><span class="o">.</span><span class="n">closeAll</span> <span class="p">(</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">Transaction</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">202</span><span class="p">:</span><span class="mi">25</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ReactReconcileTransaction</span><span class="o">.</span><span class="n">Mixin</span><span class="o">.</span><span class="n">perform</span> <span class="p">(</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">Transaction</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">149</span><span class="p">:</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">at</span> <span class="n">ReactUpdatesFlushTransaction</span><span class="o">.</span><span class="n">Mixin</span><span class="o">.</span><span class="n">perform</span> <span class="p">(</span><span class="n">node_modules</span><span class="o">/</span><span class="n">react</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">Transaction</span><span class="o">.</span><span class="n">js</span><span class="p">:</span><span class="mi">136</span><span class="p">:</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -178,37 +183,37 @@ a Babel plugin that adds methods to modules to make it possible to mock names
 used in the module.</p>
 <p>Say, for example, that we want to test the behavior of <code class="docutils literal"><span class="pre">MyFancyWrapperComponent</span></code>
 in isolation from <code class="docutils literal"><span class="pre">ChildComponent</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import ChildComponent from &#39;child-component-module&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ChildComponent</span> <span class="kn">from</span> <span class="s1">&#39;child-component-module&#39;</span>
 
-export default class MyFancyWrapperComponent extends React.Component {
+<span class="n">export</span> <span class="n">default</span> <span class="k">class</span> <span class="nc">MyFancyWrapperComponent</span> <span class="n">extends</span> <span class="n">React</span><span class="o">.</span><span class="n">Component</span> <span class="p">{</span>
 
-    render () {
-        return (
-            &lt;div className=&quot;wrapper-style&quot;&gt;
-                &lt;ChildComponent { ...this.props } /&gt;
-            &lt;/div&gt;
-        )
-    }
-}
+    <span class="n">render</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="o">&lt;</span><span class="n">div</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;wrapper-style&quot;</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">ChildComponent</span> <span class="p">{</span> <span class="o">...</span><span class="n">this</span><span class="o">.</span><span class="n">props</span> <span class="p">}</span> <span class="o">/&gt;</span>
+            <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Using <code class="docutils literal"><span class="pre">babel-plugin-rewire</span></code>, we can write our test as follows, using the
 rewire API to change the value of the name <code class="docutils literal"><span class="pre">ChildComponent</span></code> and to return
 it to its &#8220;real&#8221; value afterwards:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import ComponentToTest from &#39;my-fancy-wrapper-component-module&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ComponentToTest</span> <span class="kn">from</span> <span class="s1">&#39;my-fancy-wrapper-component-module&#39;</span>
 
-describe(&#39;MyFancyWrapperComponent&#39;, () =&gt; {
-    before(() =&gt; {
-        ComponentToTest.__Rewire__(&#39;ChildComponent&#39;, class extends React.Component {
-            render () { return &lt;div { ...this.props }&gt;&lt;/div&gt; }
-        })
-    })
+<span class="n">describe</span><span class="p">(</span><span class="s1">&#39;MyFancyWrapperComponent&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">before</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">ComponentToTest</span><span class="o">.</span><span class="n">__Rewire__</span><span class="p">(</span><span class="s1">&#39;ChildComponent&#39;</span><span class="p">,</span> <span class="k">class</span> <span class="nc">extends</span> <span class="n">React</span><span class="o">.</span><span class="n">Component</span> <span class="p">{</span>
+            <span class="n">render</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="o">&lt;</span><span class="n">div</span> <span class="p">{</span> <span class="o">...</span><span class="n">this</span><span class="o">.</span><span class="n">props</span> <span class="p">}</span><span class="o">&gt;&lt;/</span><span class="n">div</span><span class="o">&gt;</span> <span class="p">}</span>
+        <span class="p">})</span>
+    <span class="p">})</span>
 
-    after(() =&gt; {
-        ComponentToTest.__ResetDependency__(&#39;ChildComponent&#39;)
-    })
-    /* ... */
-})
+    <span class="n">after</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">ComponentToTest</span><span class="o">.</span><span class="n">__ResetDependency__</span><span class="p">(</span><span class="s1">&#39;ChildComponent&#39;</span><span class="p">)</span>
+    <span class="p">})</span>
+    <span class="o">/*</span> <span class="o">...</span> <span class="o">*/</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -221,15 +226,15 @@ It will check your tests&#8217; coverage of statements, branches, functions, and
 the <code class="docutils literal"><span class="pre">app/</span></code> subdir of the project&#8217;s JS dir (i.e. in <code class="docutils literal"><span class="pre">project_name/static/js/app/</span></code>).</p>
 <p>You can set the desired coverage thresholds inside the <code class="docutils literal"><span class="pre">gulpfile.js</span></code>. The
 numbers here represent percentages:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>.pipe(coverageEnforcer({
-  thresholds: {
-    statements: 80
-    , branches: 50
-    , lines: 80
-    , functions: 50
-  }
-  // ...
-}))
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">coverageEnforcer</span><span class="p">({</span>
+  <span class="n">thresholds</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">statements</span><span class="p">:</span> <span class="mi">80</span>
+    <span class="p">,</span> <span class="n">branches</span><span class="p">:</span> <span class="mi">50</span>
+    <span class="p">,</span> <span class="n">lines</span><span class="p">:</span> <span class="mi">80</span>
+    <span class="p">,</span> <span class="n">functions</span><span class="p">:</span> <span class="mi">50</span>
+  <span class="p">}</span>
+  <span class="o">//</span> <span class="o">...</span>
+<span class="p">}))</span>
 </pre></div>
 </div>
 </div>
@@ -277,10 +282,10 @@ We can take advantage of the hard work that goes into this code preprocessing
 to reuse parts of the process and layer new steps in without serious difficulty.</p>
 <p>This comes out clearly in the actual test command, handled by Gulp, which
 transpiles our code using Babel behind the scenes. Our Gulp test task begins:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>gulp.task(&#39;test&#39;, function () {
-    require(&#39;babel-core/register&#39;)
-    // ...
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">gulp</span><span class="o">.</span><span class="n">task</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="n">require</span><span class="p">(</span><span class="s1">&#39;babel-core/register&#39;</span><span class="p">)</span>
+    <span class="o">//</span> <span class="o">...</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">babel-core/register</span></code>, when imported, causes all imports within the scope to
@@ -288,7 +293,7 @@ be run through Babel. The result is that ES2015 and JSX files used by the Mocha
 test runner are preprocessed without our needing to do anything special.</p>
 <p>This is guaranteed because our <code class="docutils literal"><span class="pre">.babelrc</span></code> file in the top level dir of the
 project sets up Babel to transpile ES2015 and JSX:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;presets&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;es2015&quot;</span><span class="p">],</span>
   <span class="s2">&quot;plugins&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;transform-react-jsx&quot;</span><span class="p">]</span>
 <span class="p">}</span>
@@ -315,11 +320,11 @@ implementation of the DOM API. It allows us to create a fake DOM and assign it
 to <code class="docutils literal"><span class="pre">document</span></code> so that React and its test utilities can do their magic.</p>
 <p>The fake DOM is made available to the Mocha test process within our Gulp build
 by including it in the <code class="docutils literal"><span class="pre">require</span></code> option of the Mocha Gulp plugin call:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>.pipe(mocha({
-  require: [
-    &#39;jsdom-global/register&#39;
-  ]
-}))
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">mocha</span><span class="p">({</span>
+  <span class="n">require</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s1">&#39;jsdom-global/register&#39;</span>
+  <span class="p">]</span>
+<span class="p">}))</span>
 </pre></div>
 </div>
 <p>This solves the problem of making the DOM available prior to importing React
@@ -328,20 +333,20 @@ attempting to run any tests. This ensures that React will get what it needs
 from <code class="docutils literal"><span class="pre">document</span></code>.</p>
 <p>Once set up in this way, Mocha will happily run tests that include statements
 like these, which require the presence of a DOM at <code class="docutils literal"><span class="pre">document</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>TestUtils.renderIntoDocument(&lt;AppController /&gt;)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TestUtils</span><span class="o">.</span><span class="n">renderIntoDocument</span><span class="p">(</span><span class="o">&lt;</span><span class="n">AppController</span> <span class="o">/&gt;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You should make sure to clean up your fake DOM after tests that use one by
 including an <code class="docutils literal"><span class="pre">afterEach</span></code> call that tidies it up:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import ReactDOM from &#39;react-dom&#39;
-//...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ReactDOM</span> <span class="kn">from</span> <span class="s1">&#39;react-dom&#39;</span>
+<span class="o">//...</span>
 
-describe(&#39;YourTestCase&#39;, () =&gt; {
-  afterEach(() =&gt; {
-    ReactDOM.unmountComponentAtNode(document.body)
-    document.body.innerHTML = &#39;&#39;
-  })
- })
+<span class="n">describe</span><span class="p">(</span><span class="s1">&#39;YourTestCase&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">afterEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">ReactDOM</span><span class="o">.</span><span class="n">unmountComponentAtNode</span><span class="p">(</span><span class="n">document</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">document</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">innerHTML</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+  <span class="p">})</span>
+ <span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -359,14 +364,14 @@ locate their DOM node). They also don&#8217;t have lifecycle methods, making it 
 to test certain behaviors (e.g. checking their output after a state update).</p>
 <p>To do these things, use the <code class="docutils literal"><span class="pre">react-functional</span></code> library to wrap your component.
 Then you can test it with the test utils as usual:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import functional from &#39;react-functional&#39;
-//...
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">functional</span> <span class="kn">from</span> <span class="s1">&#39;react-functional&#39;</span>
+<span class="o">//...</span>
 
-describe(&#39;StatelessComponent&#39;, () =&gt; {
-  let WrappedComponent = functional(StatelessComponent)
-  TestUtils.renderIntoDocument(&lt;WrappedComponent /&gt;)
-  // ...
- })
+<span class="n">describe</span><span class="p">(</span><span class="s1">&#39;StatelessComponent&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">let</span> <span class="n">WrappedComponent</span> <span class="o">=</span> <span class="n">functional</span><span class="p">(</span><span class="n">StatelessComponent</span><span class="p">)</span>
+  <span class="n">TestUtils</span><span class="o">.</span><span class="n">renderIntoDocument</span><span class="p">(</span><span class="o">&lt;</span><span class="n">WrappedComponent</span> <span class="o">/&gt;</span><span class="p">)</span>
+  <span class="o">//</span> <span class="o">...</span>
+ <span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -381,50 +386,50 @@ asynchronously.</p>
 <p>An easy way to do that is to create a utility function that wraps your React
 component and provides access to an EventEmitter that fires an event whenever
 your component&#8217;s lifecycle methods are called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
-import { EventEmitter } from &#39;events&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span>
+<span class="kn">import</span> <span class="p">{</span> <span class="n">EventEmitter</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;events&#39;</span>
 
-const LIFECYCLE_METHODS = [
-  &#39;componentWillMount&#39;
-  , &#39;componentDidMount&#39;
-  , &#39;componentWillReceiveProps&#39;
-  , &#39;shouldComponentUpdate&#39;
-  , &#39;componentWillUpdate&#39;
-  , &#39;componentDidUpdate&#39;
-  , &#39;componentWillUnmount&#39;
-]
+<span class="n">const</span> <span class="n">LIFECYCLE_METHODS</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="s1">&#39;componentWillMount&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;componentDidMount&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;componentWillReceiveProps&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;shouldComponentUpdate&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;componentWillUpdate&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;componentDidUpdate&#39;</span>
+  <span class="p">,</span> <span class="s1">&#39;componentWillUnmount&#39;</span>
+<span class="p">]</span>
 
-export default function LifecycleEmitter (Component) {
-  class EventedClass extends Component {
-    constructor () {
-      super()
-      this.lifecycle = new EventEmitter()
-    }
-  }
+<span class="n">export</span> <span class="n">default</span> <span class="n">function</span> <span class="n">LifecycleEmitter</span> <span class="p">(</span><span class="n">Component</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">class</span> <span class="nc">EventedClass</span> <span class="n">extends</span> <span class="n">Component</span> <span class="p">{</span>
+    <span class="n">constructor</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nb">super</span><span class="p">()</span>
+      <span class="n">this</span><span class="o">.</span><span class="n">lifecycle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">EventEmitter</span><span class="p">()</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  for (let fn of LIFECYCLE_METHODS) {
-    EventedClass.prototype[fn] = function () {
-      let rv = null
-      if (typeof Component.prototype[fn] === &#39;function&#39;) {
-        rv = Component.prototype[fn].apply(this, arguments)
-      }
-      this.lifecycle.emit(fn)
-      return rv
-    }
-  }
+  <span class="k">for</span> <span class="p">(</span><span class="n">let</span> <span class="n">fn</span> <span class="n">of</span> <span class="n">LIFECYCLE_METHODS</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">EventedClass</span><span class="o">.</span><span class="n">prototype</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="n">let</span> <span class="n">rv</span> <span class="o">=</span> <span class="n">null</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">Component</span><span class="o">.</span><span class="n">prototype</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">Component</span><span class="o">.</span><span class="n">prototype</span><span class="p">[</span><span class="n">fn</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">this</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+      <span class="p">}</span>
+      <span class="n">this</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">rv</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
 
-  return EventedClass
-}
+  <span class="k">return</span> <span class="n">EventedClass</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>With this LifecycleEmitter class wrapper in hand, you can write tests for
 lifecycle method events like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>it(&#39;emits an event when componentDidUpdate fires&#39;, (done) =&gt; {
-  let Wrapped = LifecycleEmitter(YourComponent)
-  let c = TestUtils.renderIntoDocument(&lt;YourComponent /&gt;)
-  c.lifecycle.once(&#39;componentDidUpdate&#39;, done)
-  Actions.triggerComponentUpdate()
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">(</span><span class="s1">&#39;emits an event when componentDidUpdate fires&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">done</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">let</span> <span class="n">Wrapped</span> <span class="o">=</span> <span class="n">LifecycleEmitter</span><span class="p">(</span><span class="n">YourComponent</span><span class="p">)</span>
+  <span class="n">let</span> <span class="n">c</span> <span class="o">=</span> <span class="n">TestUtils</span><span class="o">.</span><span class="n">renderIntoDocument</span><span class="p">(</span><span class="o">&lt;</span><span class="n">YourComponent</span> <span class="o">/&gt;</span><span class="p">)</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">lifecycle</span><span class="o">.</span><span class="n">once</span><span class="p">(</span><span class="s1">&#39;componentDidUpdate&#39;</span><span class="p">,</span> <span class="n">done</span><span class="p">)</span>
+  <span class="n">Actions</span><span class="o">.</span><span class="n">triggerComponentUpdate</span><span class="p">()</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -438,16 +443,16 @@ Or, well, try a <a class="reference external" href="https://github.com/github/fe
 <p>To test these, you can use <a class="reference external" href="https://www.npmjs.com/package/fetch-mock">fetch-mock</a>.
 This will mock the value of <code class="docutils literal"><span class="pre">window.fetch</span></code>, allowing you to set up fake HTTP
 request results in your test setup (and restore them afterwards):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>describe(&#39;YourStore&#39;, () =&gt; {
-  beforeEach(() =&gt; {
-    fetchMock
-      .mock(&#39;/path/to/test_data.json&#39;, DATA)
-  })
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">describe</span><span class="p">(</span><span class="s1">&#39;YourStore&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">beforeEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">fetchMock</span>
+      <span class="o">.</span><span class="n">mock</span><span class="p">(</span><span class="s1">&#39;/path/to/test_data.json&#39;</span><span class="p">,</span> <span class="n">DATA</span><span class="p">)</span>
+  <span class="p">})</span>
 
-  afterEach(() =&gt; {
-    fetchMock.restore()
-  })
-})
+  <span class="n">afterEach</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="n">fetchMock</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+  <span class="p">})</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -460,10 +465,10 @@ under the hood.</p>
 from <code class="docutils literal"><span class="pre">immutable</span></code> and use the immutable.js data types&#8217; APIs appropriately.</p>
 <p>Here, for example, you can use the <code class="docutils literal"><span class="pre">count</span></code> method of immutable collections to
 count the number of key-value pairs in the immutable Map returned from this Store:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>it(&#39;has three items on inspection&#39;, () =&gt; {
-  let items = YourStore.getState()
-  assert.equal(3, items.count())
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">(</span><span class="s1">&#39;has three items on inspection&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">let</span> <span class="n">items</span> <span class="o">=</span> <span class="n">YourStore</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span>
+  <span class="k">assert</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">items</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://facebook.github.io/immutable-js/docs/">Immutable.js docs</a> for
@@ -478,15 +483,15 @@ a test spec for a simple React component.</p>
 component called <code class="docutils literal"><span class="pre">AppList</span></code> that takes a list of data and renders a <code class="docutils literal"><span class="pre">&lt;ul&gt;</span></code>
 with a <code class="docutils literal"><span class="pre">&lt;li&gt;</span></code> for each data point.</p>
 <p>The code for this component looks like:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">React</span> <span class="kn">from</span> <span class="s1">&#39;react&#39;</span>
 
-export default function AppList ({ items }) {
-  return (
-    &lt;ul&gt;
-      { items.map((item) =&gt; &lt;li key={ item.id }&gt;{ item.text }&lt;/li&gt;) }
-    &lt;/ul&gt;
-  )
-}
+<span class="n">export</span> <span class="n">default</span> <span class="n">function</span> <span class="n">AppList</span> <span class="p">({</span> <span class="n">items</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+      <span class="p">{</span> <span class="n">items</span><span class="o">.</span><span class="n">map</span><span class="p">((</span><span class="n">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="n">li</span> <span class="n">key</span><span class="o">=</span><span class="p">{</span> <span class="n">item</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span><span class="o">&gt;</span><span class="p">{</span> <span class="n">item</span><span class="o">.</span><span class="n">text</span> <span class="p">}</span><span class="o">&lt;/</span><span class="n">li</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">&lt;/</span><span class="n">ul</span><span class="o">&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>We&#8217;re going to be interested in verifying that this function renders data
@@ -496,22 +501,22 @@ sends data down the pipeline, and so on.</p>
 <p>So first, let&#8217;s create some fake data and put it in a <code class="docutils literal"><span class="pre">constants.js</span></code> file
 in a directory adjoining our tests. Our component will expect to see an immutable
 List value, so we create the fake data like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import { List } from &#39;immutable&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">List</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;immutable&#39;</span>
 
-export const DATA_LIST = List([
-  {
-    id: &#39;fooId&#39;
-    , text: &#39;fooText&#39;
-  }
-  , {
-    id: &#39;barId&#39;
-    , text: &#39;barText&#39;
-  }
-  , {
-    id: &#39;bazId&#39;
-    , text: &#39;bazText&#39;
-  }
-])
+<span class="n">export</span> <span class="n">const</span> <span class="n">DATA_LIST</span> <span class="o">=</span> <span class="n">List</span><span class="p">([</span>
+  <span class="p">{</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;fooId&#39;</span>
+    <span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;fooText&#39;</span>
+  <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;barId&#39;</span>
+    <span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;barText&#39;</span>
+  <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;bazId&#39;</span>
+    <span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="s1">&#39;bazText&#39;</span>
+  <span class="p">}</span>
+<span class="p">])</span>
 </pre></div>
 </div>
 <p>Now we create a file <code class="docutils literal"><span class="pre">test_AppList.js</span></code> in our specs directory and do some
@@ -543,7 +548,7 @@ React and the React test utils.</li>
 </li>
 </ul>
 <p>This gives us the skeleton of a test module:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span>import React from &#39;react&#39;
 import ReactDOM from &#39;react-dom&#39;
 import TestUtils from &#39;react-addons-test-utils&#39;
 import functional from &#39;react-functional&#39;
@@ -569,11 +574,11 @@ describe(&#39;AppList&#39;, () =&gt; {
 <p>Now we can write a test. Let&#8217;s check that when our fake data is passed to the
 component, the result is a list with three items (corresponding to the three
 data points):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>it(&#39;generates the right list from its data&#39;, () =&gt; {
-  let al = TestUtils.renderIntoDocument(&lt;WrappedAppList items={ DATA_LIST } /&gt;)
-  let lis = TestUtils.scryRenderedDOMComponentsWithTag(al, &#39;li&#39;)
-  assert.equal(3, lis.length)
-})
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">it</span><span class="p">(</span><span class="s1">&#39;generates the right list from its data&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="n">let</span> <span class="n">al</span> <span class="o">=</span> <span class="n">TestUtils</span><span class="o">.</span><span class="n">renderIntoDocument</span><span class="p">(</span><span class="o">&lt;</span><span class="n">WrappedAppList</span> <span class="n">items</span><span class="o">=</span><span class="p">{</span> <span class="n">DATA_LIST</span> <span class="p">}</span> <span class="o">/&gt;</span><span class="p">)</span>
+  <span class="n">let</span> <span class="n">lis</span> <span class="o">=</span> <span class="n">TestUtils</span><span class="o">.</span><span class="n">scryRenderedDOMComponentsWithTag</span><span class="p">(</span><span class="n">al</span><span class="p">,</span> <span class="s1">&#39;li&#39;</span><span class="p">)</span>
+  <span class="k">assert</span><span class="o">.</span><span class="n">equal</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">lis</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+<span class="p">})</span>
 </pre></div>
 </div>
 <p>Now we can do <code class="docutils literal"><span class="pre">npm</span> <span class="pre">test</span></code> from the command line and verify that our component
@@ -639,14 +644,11 @@ does what we think it does.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -657,8 +659,8 @@ does what we think it does.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="../_sources/testing/frontend.txt"
