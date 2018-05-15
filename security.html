@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer Machine Security &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Branching Strategy" href="branching.html" />
+    <link rel="prev" title="Developer Machine Setup" href="dev-setup.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-machine-security">
+<h1>Developer Machine Security<a class="headerlink" href="#developer-machine-security" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ssh-keys">
+<h2>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">¶</a></h2>
+<p>Security is important and that starts with securely stored and accessed credentials, because those
+credentials grant you access to all the other infrastructure of a project. We have standards about
+the types, size, and storage of SSH keys and this page will help you follow those standards.</p>
+<p>Current requirements:</p>
+<ul class="simple">
+<li>SSH Length of 2048 or more</li>
+<li>SSH Key stored with a passphrase</li>
+</ul>
+<p>Current recommendations:</p>
+<ul class="simple">
+<li>SSH Length of 4096 or more</li>
+</ul>
+<p>If you have an existing 2048-bit key, you should add a 4096-bit key as a secondary key so you can
+transition resources to your more secure key over time. Eventually we may require 4096 bits, so
+this will help the transition by starting it sooner, without forcing you to reset all your SSH
+keys on every server today.</p>
+<p>First, list your current keys and their lengths, by running the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do ssh-keygen -l -f &quot;${keyfile}&quot;; done | uniq
+</pre></div>
+</div>
+<p>You&#8217;ll see some output that shows your keys and their lengths:</p>
+<div class="highlight-python"><div class="highlight"><pre>2048 SHA256:aoHoYrBFq/1OwR6BZT4YsYkFCBjJIfgkya5uA/BsiU4 calvin@MBP5.local (RSA)
+2048 SHA256:alNfvb6ar8mpQg4HdhuX8xgEgUUcZow/R63CxjezWcU calvin@caktus001 (RSA)
+</pre></div>
+</div>
+<p>Second, we&#8217;ll check if any of your keys do <em>not</em> have a passphrase:</p>
+<div class="highlight-python"><div class="highlight"><pre>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do if ! [[ $(grep &#39;Proc-Type: 4,ENCRYPTED&#39; ${keyfile}) ]]; then echo &quot;${keyfile} not encrypted&quot;&#39;!&#39; ; fi ; done
+</pre></div>
+</div>
+<div class="section" id="adding-ssh-key-passphrases">
+<h3>Adding SSH Key passphrases<a class="headerlink" href="#adding-ssh-key-passphrases" title="Permalink to this headline">¶</a></h3>
+<p>If the checks above found keys that do not have a passphrase, then you should add one now. To add passphrases to the existing keys in-place, you can use this ssh-keygen command:</p>
+<div class="highlight-python"><div class="highlight"><pre>ssh-keygen -f ${keyfile} -p -o -a 100
+</pre></div>
+</div>
+<p>If you have more than one key to add a passphrase to, you can get them all with this snippet:</p>
+<div class="highlight-python"><div class="highlight"><pre>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do ssh-keygen -f ${keyfile} -p -o -a 100 ; fi ; done
+</pre></div>
+</div>
+<p>You may use the same passphrase for all your SSH keys. If you do, then <cite>ssh-add</cite> will let you add _all_ of them to your
+SSH agent at once, which will make it much easier to use multiple keys.</p>
+</div>
+<div class="section" id="creating-a-4096-bit-rsa-key">
+<h3>Creating a 4096-bit RSA Key<a class="headerlink" href="#creating-a-4096-bit-rsa-key" title="Permalink to this headline">¶</a></h3>
+<p>If you did not have any 4096-bit keys, then you should create one now.</p>
+<p>Create a new key:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ssh-keygen -o -a 100 -t rsa -b 4096 -f ~/.ssh/id_rsa4096
+Generating public/private RSA key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/gert/.ssh/id_rsa4096.
+Your public key has been saved in /home/gert/.ssh/id_rsa4096.pub.
+The key fingerprint is:
+SHA256: [...] gert@hostname
+The key&#39;s randomart image is: [...]
+</pre></div>
+</div>
+<p>Using the same passphrase as your existing key(s) lets you add them all with a single use of <cite>ssh-add</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ssh-add
+Enter passphrase for /Users/calvin/.ssh/id_rsa:
+Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
+Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
+</pre></div>
+</div>
+<p>Now that you&#8217;ve created a more secure 4096-bit key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.</p>
+<p>If any of your previous keys were smaller than 2048-bit then you must stop using them immediately. This means any servers you currently require those keys to use must be updated, on a project-by-project basis.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Developer Machine Security</a><ul>
+<li><a class="reference internal" href="#ssh-keys">SSH Keys</a><ul>
+<li><a class="reference internal" href="#adding-ssh-key-passphrases">Adding SSH Key passphrases</a></li>
+<li><a class="reference internal" href="#creating-a-4096-bit-rsa-key">Creating a 4096-bit RSA Key</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dev-setup.html" title="previous chapter">Developer Machine Setup</a></li>
+      <li>Next: <a href="branching.html" title="next chapter">Branching Strategy</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/security.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/security.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
