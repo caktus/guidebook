@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    dev-setup
+   security
    branching
    rds
    supported-clients
