@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using Amazon RDS &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Using Amazon RDS &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,20 +23,15 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Supported Browsers" href="supported-clients.html" />
     <link rel="prev" title="Branching Strategy" href="branching.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -137,7 +132,7 @@ to do quite the way you could if you were a superuser.</p>
 <p>In the examples below, for readability I&#8217;m omitting most of the common
 arguments to specify where the Postgres server is, what the database name is,
 etc. You can set some environment variables to use as defaults for things:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGDATABASE=dbname
+<div class="highlight-python"><div class="highlight"><pre>$ export PGDATABASE=dbname
 $ export PGHOST=xxxxxxxxx
 $ export PGUSER=master
 $ export PGPASSWORD=xxxxxxxxxx
@@ -152,7 +147,7 @@ instead consider using the ~/.pgpass file (see Section 30.14 of the PG docs).</p
 <h3>Create user<a class="headerlink" href="#create-user" title="Permalink to this headline">¶</a></h3>
 <p>This is pretty standard.  To create user <code class="docutils literal"><span class="pre">$username</span></code> with plain text password
 <code class="docutils literal"><span class="pre">$password</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=master
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=master
 $ export PGDATABASE=postgres
 $ createuser -DERS $username
 $ psql -c &quot;ALTER USER $username WITH PASSWORD &#39;$password&#39;;&quot;
@@ -165,7 +160,7 @@ mention them explicitly, createuser asks you about them one at a time.</p>
 <h3>Create database<a class="headerlink" href="#create-database" title="Permalink to this headline">¶</a></h3>
 <p>If you need a database owned by <code class="docutils literal"><span class="pre">project_user</span></code>, you&#8217;ll need
 to create it as <code class="docutils literal"><span class="pre">master</span></code> and then modify the ownership and permissions:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=master
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=master
 $ createdb --template=template0 $dbname
 $ psql -c &quot;revoke all on database $dbname from public;&quot;
 $ psql -c &quot;grant all on database $dbname to master;&quot;
@@ -173,7 +168,7 @@ $ psql -c &quot;grant all on database $dbname to $project_user;&quot;
 </pre></div>
 </div>
 <p>If you need to enable extensions etc, do that now (see below).  When done, then:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ psql -c &quot;alter database $dbname owner to $project_user;&quot;
+<div class="highlight-python"><div class="highlight"><pre>$ psql -c &quot;alter database $dbname owner to $project_user;&quot;
 </pre></div>
 </div>
 <p>A superuser could create the database already owned by a specific user,
@@ -182,7 +177,7 @@ but RDS&#8217;s master user cannot.</p>
 <div class="section" id="postgis">
 <h3>PostGIS<a class="headerlink" href="#postgis" title="Permalink to this headline">¶</a></h3>
 <p>To enable PostGIS, as the master user:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=master
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=master
 $ psql -c &quot;create extension postgis;&quot;
 $ psql -c &quot;alter table spatial_ref_sys OWNER TO $project_user;&quot;
 </pre></div>
@@ -194,7 +189,7 @@ handling for a whitelist of extensions.)</p>
 <div class="section" id="hstore">
 <h3>Hstore<a class="headerlink" href="#hstore" title="Permalink to this headline">¶</a></h3>
 <p>Hstore is simpler, but you still have to use the master user:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=master
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=master
 $ psql -c &quot;create extension hstore;&quot;
 </pre></div>
 </div>
@@ -202,7 +197,7 @@ $ psql -c &quot;create extension hstore;&quot;
 <div class="section" id="grant-read-only-access-to-a-database">
 <h3>Grant read-only access to a database<a class="headerlink" href="#grant-read-only-access-to-a-database" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes we want a user to only be able to read the database:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=$project_user
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=$project_user
 $ psql -c &quot;GRANT CONNECT ON DATABASE $dbname TO master;&quot; postgres
 $ psql -c &quot;GRANT ALL ON ALL TABLES IN SCHEMA PUBLIC TO master;&quot; $dbname
 $ export PGUSER=master
@@ -218,7 +213,7 @@ the permissions in place is very error-prone.</p>
 <h3>Restore a dump to a new database<a class="headerlink" href="#restore-a-dump-to-a-new-database" title="Permalink to this headline">¶</a></h3>
 <p>Create the database as above, including changing ownership to the project
 user, and enabling any needed extensions. Then as the project user:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=$project_user
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=$project_user
 $ pg_restore --no-owner --no-acl --dbname=$dbname file.dump
 </pre></div>
 </div>
@@ -231,7 +226,7 @@ the first error.</p>
 <div class="section" id="dump-the-database">
 <h3>Dump the database<a class="headerlink" href="#dump-the-database" title="Permalink to this headline">¶</a></h3>
 <p>This is pretty standard and can be done by the project user:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=$project_user
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=$project_user
 $ pg_dump --file=output.dump --format=custom $dbname
 </pre></div>
 </div>
@@ -243,7 +238,7 @@ master can only drop databases it owns, so it takes two steps.  Also,
 you can&#8217;t drop the database you&#8217;re connected to, so you need to connect
 to a different database for the <code class="docutils literal"><span class="pre">dropdb</span></code>.  The <code class="docutils literal"><span class="pre">postgres</span></code> database is
 as good as any:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ export PGUSER=master PGDATABASE=postgres
+<div class="highlight-python"><div class="highlight"><pre>$ export PGUSER=master PGDATABASE=postgres
 $ psql -c &quot;alter database $dbname owner to master;&quot;
 $ psql -c &quot;drop database if exists $dbname;&quot;
 </pre></div>
@@ -314,11 +309,14 @@ $ dropuser $user</div></blockquote>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -329,8 +327,8 @@ $ dropuser $user</div></blockquote>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/rds.txt"

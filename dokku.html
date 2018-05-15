@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Deploying to a Dokku server &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>Deploying to a Dokku server &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -23,20 +23,15 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Margarita" href="margarita/margarita.html" />
     <link rel="prev" title="Choosing a deploy strategy" href="deploy-strategies.html" />
    
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">
-  
+  <body role="document">  
 
     <div class="document">
       <div class="documentwrapper">
@@ -53,9 +48,9 @@ can be deployed to a Dokku server as follows.</p>
 <li><p class="first">that <code class="docutils literal"><span class="pre">ssh</span> <span class="pre">dokku</span></code> will connect you to your dokku server as the dokku user.
 You can add something like this to your <code class="docutils literal"><span class="pre">~/.ssh/config</span></code> file to
 achieve that:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">dokku</span>
-  <span class="n">Hostname</span> <span class="n">dokku</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
-  <span class="n">User</span> <span class="n">dokku</span>
+<div class="highlight-python"><div class="highlight"><pre>Host dokku
+  Hostname dokku.server.example.com
+  User dokku
 </pre></div>
 </div>
 </li>
@@ -74,31 +69,31 @@ storage that persists across deploys, and that is writable by the
 </li>
 <li><p class="first">your new project is checked into git (required by dokku). If you
 haven&#8217;t done that, you can cd into the project directory and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git init &amp;&amp; git add . &amp;&amp; git commit -m &quot;Initial commit&quot;
+<div class="highlight-python"><div class="highlight"><pre>$ git init &amp;&amp; git add . &amp;&amp; git commit -m &quot;Initial commit&quot;
 </pre></div>
 </div>
 </li>
 </ul>
 <p>Running:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dokku_first_deploy</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-python"><div class="highlight"><pre>./dokku_first_deploy.sh
 </pre></div>
 </div>
 <p>from the new project directory will do much of the following. Or you
 can go through step-by-step yourself as follows.</p>
 <p>Create a new app:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku apps:create {{ project_name }}
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku apps:create {{ project_name }}
 Creating {{ project_name }}... done
 </pre></div>
 </div>
 <p>Mount the persistent storage at <code class="docutils literal"><span class="pre">/storage</span></code> inside the container,
 and set a config variable to tell Django where we&#8217;re going to store
 our media:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku storage:mount {{ project_name }} /var/lib/dokku/data/storage/{{ project_name }}:/storage
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku storage:mount {{ project_name }} /var/lib/dokku/data/storage/{{ project_name }}:/storage
 $ ssh dokku config:set {{ project_name }} MEDIA_ROOT=/storage/media MEDIA_URL=/media
 </pre></div>
 </div>
 <p>Create a database:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku postgres:create {{ project_name }}-database
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku postgres:create {{ project_name }}-database
         Waiting for container to be ready
         Creating container database
         =====&gt; Postgres container created: {{ project_name }}-database
@@ -122,7 +117,7 @@ $ ssh dokku postgres:link {{ project_name }}-database {{ project_name }}
 </pre></div>
 </div>
 <p>Set a secret key:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku config:set {{ project_name }} DJANGO_SECRET_KEY=$(make generate-secret)
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku config:set {{ project_name }} DJANGO_SECRET_KEY=$(make generate-secret)
         -----&gt; Setting config vars
                DJANGO_SECRET_KEY: cHDFoeujP9oJkODdxPrXICWM0jBDKyVz
         -----&gt; Restarting app test_template
@@ -130,7 +125,7 @@ $ ssh dokku postgres:link {{ project_name }}-database {{ project_name }}
 </pre></div>
 </div>
 <p>Set an environment name:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku config:set {{ project_name }} ENVIRONMENT=production
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku config:set {{ project_name }} ENVIRONMENT=production
 -----&gt; Setting config vars
        ENVIRONMENT: production
 -----&gt; Restarting app test_template
@@ -138,7 +133,7 @@ App test_template has not been deployed
 </pre></div>
 </div>
 <p>Set the domain name:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku config:set {{ project_name }} DOMAIN={{ project_name }}.$(ssh dokku domains:report {{ project_name }} --domains-global-vhosts)
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku config:set {{ project_name }} DOMAIN={{ project_name }}.$(ssh dokku domains:report {{ project_name }} --domains-global-vhosts)
 -----&gt; Setting config vars
        DOMAIN: test_template.caktustest.net
 -----&gt; Restarting app test_template
@@ -146,7 +141,7 @@ App test_template has not been deployed
 </pre></div>
 </div>
 <p>Deploy:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git remote add dokku dokku:{{ project_name }}
+<div class="highlight-python"><div class="highlight"><pre>$ git remote add dokku dokku:{{ project_name }}
 $ git push dokku master
 Counting objects: 82, done.
 Delta compression using up to 4 threads.
@@ -261,7 +256,7 @@ To dokku:test_template
 </div>
 <p>Notice that when the deploy finishes, the application&#8217;s URL is shown.</p>
 <p>Now that the application is running on port 80, we can add SSL:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku letsencrypt ssh dokku config:set --no-restart {{ project_name }} DOKKU_LETSENCRYPT_EMAIL=your@email.tld
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku letsencrypt ssh dokku config:set --no-restart {{ project_name }} DOKKU_LETSENCRYPT_EMAIL=your@email.tld
 $ ssh dokku letsencrypt {{ project_name }}
 $ ssh dokku letsencrypt:cron-job --add {{ project_name }}
 </pre></div>
@@ -272,11 +267,11 @@ and the rest of the Dokku documentation for more details.</p>
 <h2>Backups<a class="headerlink" href="#backups" title="Permalink to this headline">¶</a></h2>
 <p>To backup the database and media, first download a dump of
 the database somewhere:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ssh dokku postgres:export {{ project_name }}-database &gt; somefile.dump
+<div class="highlight-python"><div class="highlight"><pre>$ ssh dokku postgres:export {{ project_name }}-database &gt; somefile.dump
 </pre></div>
 </div>
 <p>Then backup the dump and the storage directory:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ some_backup_command somefile.dump /var/lib/dokku/data/storage/{{ project_name }}
+<div class="highlight-python"><div class="highlight"><pre>$ some_backup_command somefile.dump /var/lib/dokku/data/storage/{{ project_name }}
 </pre></div>
 </div>
 </div>
@@ -314,11 +309,14 @@ the database somewhere:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -329,8 +327,8 @@ the database somewhere:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
       
       |
       <a href="_sources/dokku.txt"
