@@ -24,16 +24,22 @@ keys on every server today.
 
 First, list your current keys and their lengths, by running the following::
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do ssh-keygen -l -f "${keyfile}"; done | uniq
+    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+       ssh-keygen -l -f "${keyfile}"; \
+    done | uniq
 
 You'll see some output that shows your keys and their lengths::
-    
+
     2048 SHA256:aoHoYrBFq/1OwR6BZT4YsYkFCBjJIfgkya5uA/BsiU4 calvin@MBP5.local (RSA)
     2048 SHA256:alNfvb6ar8mpQg4HdhuX8xgEgUUcZow/R63CxjezWcU calvin@caktus001 (RSA)
 
 Second, we'll check if any of your keys do *not* have a passphrase::
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do if ! [[ $(grep 'Proc-Type: 4,ENCRYPTED' ${keyfile}) ]]; then echo "${keyfile} not encrypted"'!' ; fi ; done
+    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+      ssh-keygen -p -P '' -N '' -f "$keyfile" >/dev/null 2>&1 && echo "WARNING: $keyfile has no passphrase"; \
+    done
+
+(per https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase)
 
 Adding SSH Key passphrases
 --------------------------
@@ -44,15 +50,20 @@ If the checks above found keys that do not have a passphrase, then you should ad
 
 If you have more than one key to add a passphrase to, you can get them all with this snippet::
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do ssh-keygen -f ${keyfile} -p -o -a 100 ; fi ; done
+    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+       ssh-keygen -f ${keyfile} -p -o -a 100 ; \
+    done
 
 You may use the same passphrase for all your SSH keys. If you do, then `ssh-add` will let you add _all_ of them to your
 SSH agent at once, which will make it much easier to use multiple keys.
 
+(``-o`` = use newer file format, ``-a 100`` = number of KDF rounds,
+``-p`` = change password.)
+
 Creating a 4096-bit RSA Key
 ----------------------------
 
-If you did not have any 4096-bit keys, then you should create one now. 
+If you did not have any 4096-bit keys, then you should create one now.
 
 Create a new key::
 
@@ -66,9 +77,13 @@ Create a new key::
     SHA256: [...] gert@hostname
     The key's randomart image is: [...]
 
-Using the same passphrase as your existing key(s) lets you add them all with a single use of `ssh-add`::
+Using the same passphrase as your existing key(s) lets you add them all with a single use of `ssh-add`.
+If all your keys are named
+~/.ssh/id_rsa, ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity,
+you can just use ``ssh-add`` with no arguments.  Otherwise, you'll need to specify the
+key files you want to add::
 
-    $ ssh-add
+    $ shopt -s extglob; ssh-add ~/.ssh/id_!(*.sock|*.pub)
     Enter passphrase for /Users/calvin/.ssh/id_rsa:
     Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
     Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
