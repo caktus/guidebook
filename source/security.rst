@@ -48,6 +48,8 @@ If the checks above found keys that do not have a passphrase, then you should ad
 
     ssh-keygen -f ${keyfile} -p -o -a 100
 
+(``-o`` = use newer file format, ``-a 100`` = number of KDF rounds, ``-p`` = change password.)
+
 If you have more than one key to add a passphrase to, you can get them all with this snippet::
 
     shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
@@ -57,8 +59,6 @@ If you have more than one key to add a passphrase to, you can get them all with 
 You may use the same passphrase for all your SSH keys. If you do, then `ssh-add` will let you add _all_ of them to your
 SSH agent at once, which will make it much easier to use multiple keys.
 
-(``-o`` = use newer file format, ``-a 100`` = number of KDF rounds,
-``-p`` = change password.)
 
 Creating a 4096-bit RSA Key
 ----------------------------
@@ -77,16 +77,20 @@ Create a new key::
     SHA256: [...] gert@hostname
     The key's randomart image is: [...]
 
-Using the same passphrase as your existing key(s) lets you add them all with a single use of `ssh-add`.
-If all your keys are named
-~/.ssh/id_rsa, ~/.ssh/id_dsa, ~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity,
-you can just use ``ssh-add`` with no arguments.  Otherwise, you'll need to specify the
-key files you want to add::
+Adding keys to ssh-agent
+------------------------
+
+If all your keys have the same passphrase and you add them all to your
+agent in one command, you'll only have to enter the passphrase once::
 
     $ shopt -s extglob; ssh-add ~/.ssh/id_!(*.sock|*.pub)
     Enter passphrase for /Users/calvin/.ssh/id_rsa:
     Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
     Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
+
+Possible shortcut: if all your keys are named ~/.ssh/id_rsa, ~/.ssh/id_dsa,
+~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity, you can just use
+``ssh-add`` with no arguments.
 
 Now that you've created a more secure 4096-bit key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.
 
