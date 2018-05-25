@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>New Relic &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
+    <title>New Relic &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,16 +23,21 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
     <link rel="up" title="External Services" href="index.html" />
     <link rel="next" title="Read The Docs" href="read-the-docs.html" />
     <link rel="prev" title="Papertrail" href="papertrail.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
   </head>
-  <body role="document">  
+  <body role="document">
+  
 
     <div class="document">
       <div class="documentwrapper">
@@ -53,7 +58,7 @@ which New Relic subaccount to use, create a <a class="reference external" href="
 </li>
 <li><p class="first">Generate an encrypted variable <code class="docutils literal"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code> containing the license key for each
 environment:</p>
-<div class="highlight-bash"><div class="highlight"><pre>~/dev/myproject$ fab staging encrypt:NEW_RELIC_LICENSE_KEY<span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:NEW_RELIC_LICENSE_KEY<span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
 <span class="s2">&quot;NEW_RELIC_LICENSE_KEY&quot;</span>: <span class="p">|</span>-
   -----BEGIN PGP MESSAGE-----
   Version: GnuPG v1
@@ -69,7 +74,7 @@ environment:</p>
 </div>
 </li>
 <li><p class="first">Put that in the proper environment&#8217;s SLS file, in the <code class="docutils literal"><span class="pre">secrets</span></code> dictionary:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># &lt;environment&gt;.sls</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># &lt;environment&gt;.sls</span>
 <span class="l l-Scalar l-Scalar-Plain">secrets</span><span class="p p-Indicator">:</span>
   <span class="s">&quot;NEW_RELIC_LICENSE_KEY&quot;</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
     <span class="no">-----BEGIN PGP MESSAGE-----</span>
@@ -82,7 +87,7 @@ under <code class="docutils literal"><span class="pre">env:</span></code>. The d
 definitely include a setting for NEW_RELIC_APP_NAME, as failure to provide a value for this may result
 in your project unexpectedly showing up under some other pre-existing application being monitored by the
 license key&#8217;s account. Here are some examples of how to set new relic configuration variables:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># project.sls</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># project.sls</span>
 <span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_MONITOR_MODE</span><span class="p p-Indicator">:</span> <span class="s">&quot;false&quot;</span>
 
@@ -103,7 +108,7 @@ using New Relic in every environment.</p>
 </li>
 <li><p class="first">If you are using elasticsearch and would like New Relic monitoring of that as well, add to the
 pillar somewhere.</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="c1"># project.sls or &lt;environment&gt;.sls</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="c1"># project.sls or &lt;environment&gt;.sls</span>
 <span class="l l-Scalar l-Scalar-Plain">elasticsearch_newrelic</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
@@ -113,7 +118,7 @@ using the <code class="docutils literal"><span class="pre">elasticsearch</span><
 <li><p class="first">Add state <code class="docutils literal"><span class="pre">newrelic_sysmon</span></code> to your Salt <code class="docutils literal"><span class="pre">top.sls</span></code> in the <code class="docutils literal"><span class="pre">base</span></code> section (for all servers).
 It&#8217;s safe to add that unconditionally for all environments; it&#8217;s a no-op if no New Relic
 license key has been defined:</p>
-<div class="highlight-yaml"><div class="highlight"><pre><span class="l l-Scalar l-Scalar-Plain">base</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">base</span><span class="p p-Indicator">:</span>
   <span class="s">&#39;*&#39;</span><span class="p p-Indicator">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">...</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">newrelic_sysmon</span>
@@ -152,14 +157,11 @@ license key has been defined:</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -170,8 +172,8 @@ license key has been defined:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.4</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
       
       |
       <a href="../_sources/services/new-relic.txt"
