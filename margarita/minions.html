@@ -1,32 +1,20 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Minions &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Upgrading Margarita" href="upgrading.html" />
     <link rel="prev" title="Salt Pillar" href="pillar.html" />
    
@@ -35,24 +23,25 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="minions">
 <span id="id1"></span><h1>Minions<a class="headerlink" href="#minions" title="Permalink to this headline">¶</a></h1>
-<p>Within an environment, there&#8217;s one server, the <em>master</em>, that is
-running <code class="docutils literal"><span class="pre">salt-master</span></code>.</p>
-<p>All the servers in the environment also run <code class="docutils literal"><span class="pre">salt-minion</span></code> and are
+<p>Within an environment, there’s one server, the <em>master</em>, that is
+running <code class="docutils literal notranslate"><span class="pre">salt-master</span></code>.</p>
+<p>All the servers in the environment also run <code class="docutils literal notranslate"><span class="pre">salt-minion</span></code> and are
 referred to collectively as <em>minions</em>.</p>
 <p>What each minion does is defined by editing the list of <em>roles</em> in the
-minion&#8217;s salt configuration file <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code>.  E.g.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
+minion’s salt configuration file <code class="docutils literal notranslate"><span class="pre">/etc/salt/minion</span></code>.  E.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">grains</span><span class="p">:</span>
   <span class="n">environment</span><span class="p">:</span> <span class="n">staging</span>
   <span class="n">roles</span><span class="p">:</span>
   <span class="o">-</span> <span class="n">salt</span><span class="o">-</span><span class="n">master</span>
@@ -63,19 +52,19 @@ minion&#8217;s salt configuration file <code class="docutils literal"><span clas
   <span class="o">-</span> <span class="n">cache</span>
 </pre></div>
 </div>
-<p>The minion with this <code class="docutils literal"><span class="pre">/etc/salt/minion</span></code> file is playing a lot
+<p>The minion with this <code class="docutils literal notranslate"><span class="pre">/etc/salt/minion</span></code> file is playing a lot
 of roles, and is in the staging environment.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">Removing a role from a minion will NOT automatically undo any
 configuration previously done on the minion.</p>
 </div>
-<p>Some subsets of the minions are defined in <code class="docutils literal"><span class="pre">project._vars.sls</span></code> based
+<p>Some subsets of the minions are defined in <code class="docutils literal notranslate"><span class="pre">project._vars.sls</span></code> based
 on roles, as follows:</p>
-<p><code class="docutils literal"><span class="pre">app_minions</span></code>: minions with worker or web roles</p>
-<p><code class="docutils literal"><span class="pre">web_minions</span></code>: minions with web role</p>
-<p><code class="docutils literal"><span class="pre">worker_minions</span></code>: minions with worker role</p>
-<p><code class="docutils literal"><span class="pre">balancer_minions</span></code>: minions with balancer role</p>
+<p><code class="docutils literal notranslate"><span class="pre">app_minions</span></code>: minions with worker or web roles</p>
+<p><code class="docutils literal notranslate"><span class="pre">web_minions</span></code>: minions with web role</p>
+<p><code class="docutils literal notranslate"><span class="pre">worker_minions</span></code>: minions with worker role</p>
+<p><code class="docutils literal notranslate"><span class="pre">balancer_minions</span></code>: minions with balancer role</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">What states are applied to servers is controlled directly by their roles.
@@ -87,10 +76,52 @@ that server can connect to this one.</p>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Developer Machine Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="margarita.html">Margarita</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adding.html">Adding Margarita to a project that uses Salt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="custom_states.html">Custom Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grains.html">Grains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html">Salt Pillar</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Minions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading.html">Upgrading Margarita</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
+</ul>
+
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
@@ -101,21 +132,16 @@ that server can connect to this one.</p>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/minions.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -126,11 +152,11 @@ that server can connect to this one.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
-      <a href="../_sources/margarita/minions.txt"
+      <a href="../_sources/margarita/minions.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

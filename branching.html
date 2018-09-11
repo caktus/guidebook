@@ -1,31 +1,20 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Branching Strategy &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="index.html" />
     <link rel="next" title="Using Amazon RDS" href="rds.html" />
     <link rel="prev" title="Developer Machine Security" href="security.html" />
    
@@ -34,33 +23,34 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="branching-strategy">
 <h1>Branching Strategy<a class="headerlink" href="#branching-strategy" title="Permalink to this headline">¶</a></h1>
 <p>We use git, which is a distributed code repository where every clone is an equal citizen.
 This can create issues unless the team agrees on a branching strategy.</p>
-<p>We use a combination of long-term and short-term branches, and recognize origin as the &#8220;central&#8221; repository.
+<p>We use a combination of long-term and short-term branches, and recognize origin as the “central” repository.
 This approach is neatly summarized in the blog post <a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a> by Vincent Driessen.</p>
-<p>The following branching strategy is based on Vincent Driessen&#8217;s outline. Under this strategy,
-all developers pull and push from a shared remote server named <code class="docutils literal"><span class="pre">origin</span></code>. For most projects this
+<p>The following branching strategy is based on Vincent Driessen’s outline. Under this strategy,
+all developers pull and push from a shared remote server named <code class="docutils literal notranslate"><span class="pre">origin</span></code>. For most projects this
 shared remote server is hosted on Github and that is the assumption throughout this documentation.
-The central repo holds two main branches with an infinite lifetime, called <code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">master</span></code>.</p>
-<p><code class="docutils literal"><span class="pre">origin/master</span></code> is always the production-ready version of the code. When a repository first starts,
-it will not have a <code class="docutils literal"><span class="pre">master</span></code> branch until the first release. From then on, <code class="docutils literal"><span class="pre">master</span></code> has an infinite lifespan.</p>
-<p><code class="docutils literal"><span class="pre">origin/develop</span></code>, as much as possible, should be a stable version of new features, code enhancements,
-and non-critical bugfixes that are intended to be merged into <code class="docutils literal"><span class="pre">origin/master</span></code>.</p>
-<p>By merging <code class="docutils literal"><span class="pre">develop</span></code> into <code class="docutils literal"><span class="pre">master</span></code>, you are declaring a new release of the software, because
-<code class="docutils literal"><span class="pre">origin/master</span></code> is always the production version of the codebase.</p>
+The central repo holds two main branches with an infinite lifetime, called <code class="docutils literal notranslate"><span class="pre">develop</span></code> and <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">origin/master</span></code> is always the production-ready version of the code. When a repository first starts,
+it will not have a <code class="docutils literal notranslate"><span class="pre">master</span></code> branch until the first release. From then on, <code class="docutils literal notranslate"><span class="pre">master</span></code> has an infinite lifespan.</p>
+<p><code class="docutils literal notranslate"><span class="pre">origin/develop</span></code>, as much as possible, should be a stable version of new features, code enhancements,
+and non-critical bugfixes that are intended to be merged into <code class="docutils literal notranslate"><span class="pre">origin/master</span></code>.</p>
+<p>By merging <code class="docutils literal notranslate"><span class="pre">develop</span></code> into <code class="docutils literal notranslate"><span class="pre">master</span></code>, you are declaring a new release of the software, because
+<code class="docutils literal notranslate"><span class="pre">origin/master</span></code> is always the production version of the codebase.</p>
 <p>Since all branches have equal weight to git, these are conventions. There are two types of short-term
-branches: <code class="docutils literal"><span class="pre">feature</span></code> and <code class="docutils literal"><span class="pre">hotfix</span></code>.</p>
+branches: <code class="docutils literal notranslate"><span class="pre">feature</span></code> and <code class="docutils literal notranslate"><span class="pre">hotfix</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">A third kind of branch might be a non-critical bug fix. This is a fix which does not need to
@@ -75,24 +65,24 @@ feature branch development, keep in mind the same workflow applied for non-criti
 is driven by specific requests or problems. We like to capture these and design against them, even if
 it is on the spot before diving into code. So check the issue or create a new one if there is not yet
 an issue that addresses the feature.</p>
-<p>Feature branches should always derive from <code class="docutils literal"><span class="pre">develop</span></code>.  <code class="docutils literal"><span class="pre">develop</span></code> is the stable version of the
+<p>Feature branches should always derive from <code class="docutils literal notranslate"><span class="pre">develop</span></code>.  <code class="docutils literal notranslate"><span class="pre">develop</span></code> is the stable version of the
 new code, and you must ensure that your feature will play nice with the current development state.
 In git, you can create a branch, switch to it, and pick its parent branch all at once with the command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b myfeature develop
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout -b myfeature develop
 </pre></div>
 </div>
 <p>It is a good habit to branch this way, because developers often forget to checkout the branches they
 just created, and also may forget where they were before they cut a new branch. Both of these human
 errors might cause merge headaches later.  You are allowed to create a feature branch from another
-feature branch instead of <code class="docutils literal"><span class="pre">develop</span></code>, if you are comfortable with the parent branch and have a reason
-to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal"><span class="pre">develop</span></code> or be deleted.</p>
-<p>It&#8217;s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b 42-my-new-feature develop
+feature branch instead of <code class="docutils literal notranslate"><span class="pre">develop</span></code>, if you are comfortable with the parent branch and have a reason
+to branch from it.  However, all feature branches must eventually merge back into <code class="docutils literal notranslate"><span class="pre">develop</span></code> or be deleted.</p>
+<p>It’s recommended practice to prefix the branch name with the issue number which it addresses. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout -b 42-my-new-feature develop
 </pre></div>
 </div>
-<p>Now that your branch is created, develop against it. Make as many commits as you&#8217;d like, and even
-as many pushes to origin as you&#8217;d like.  For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git add .
+<p>Now that your branch is created, develop against it. Make as many commits as you’d like, and even
+as many pushes to origin as you’d like.  For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add .
 $ git commit -m &quot;refactored models to address issue #42&quot;
 $ git push origin 42-my-new-feature -u
 </pre></div>
@@ -113,7 +103,7 @@ other metadata (WIP, not yet tested, addresses issue #42, etc.)</p>
 <li>The server runs as expected</li>
 </ul>
 <p>then you can do a final push and create a pull request.  GitHub makes this simple. There is a
-green button that reads &#8220;Review and create pull request.&#8221;  You should look over the diff of the code
+green button that reads “Review and create pull request.”  You should look over the diff of the code
 and make sure it reads as you intend.  If so, add a comment to the pull request that it addresses issue #42.</p>
 <p>It is then incumbent on another member of the team to do the following:</p>
 <ul class="simple">
@@ -126,16 +116,16 @@ and make sure it reads as you intend.  If so, add a comment to the pull request 
 <p>It is also incumbent upon the pull request reviewer to read the code diff and make comments on the code.
 Github presents a blue and white plus icon for adding line comments.</p>
 <p>When the reviewer agrees that the pull request is adequate, they should add a comment to the pull request.
-For fun, we typically add random emoticons such as <code class="docutils literal"><span class="pre">:frog:</span></code>.</p>
-<p>By convention, the developer of the branch then merges it back into <code class="docutils literal"><span class="pre">develop</span></code>, but other developers can do this step:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout develop
+For fun, we typically add random emoticons such as <code class="docutils literal notranslate"><span class="pre">:frog:</span></code>.</p>
+<p>By convention, the developer of the branch then merges it back into <code class="docutils literal notranslate"><span class="pre">develop</span></code>, but other developers can do this step:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout develop
 $ git merge --no-ff 42-my-new-feature
 </pre></div>
 </div>
 <p>Note that GitHub allows you to merge and delete a branch from within the Pull Request GUI.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The use of the <code class="docutils literal"><span class="pre">--no-ff</span></code> flag is not explicitly required. This flag ensures that the merge commit
+<p class="last">The use of the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not explicitly required. This flag ensures that the merge commit
 is created when merging the branch. Having a single merge commit makes it easier to rollback
 the entire branch of changes if needed. This also has the advantage of preserving the branch information
 in the merge commit message which would otherwise be lost when the branch is deleted and
@@ -146,12 +136,12 @@ are in agreement and understand the trade-offs.</p>
 </div>
 <div class="section" id="branch-lifespans">
 <h2>Branch Lifespans<a class="headerlink" href="#branch-lifespans" title="Permalink to this headline">¶</a></h2>
-<p>Recall that <code class="docutils literal"><span class="pre">origin/develop</span></code> and <code class="docutils literal"><span class="pre">origin/master</span></code> are the only long term branches. Every other
+<p>Recall that <code class="docutils literal notranslate"><span class="pre">origin/develop</span></code> and <code class="docutils literal notranslate"><span class="pre">origin/master</span></code> are the only long term branches. Every other
 branch should be as short-lived as possible while still accomplishing its purpose. Dead branches
 (exploratory, or failed attempts to address an issue), or feature branches that drag on a long time,
 cloud the picture for other developers. Since this feature branch is no longer needed, it can be deleted
-via the &#8220;delete this branch&#8221; button on GitHub, or via the command line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span># Delete the remote branch
+via the “delete this branch” button on GitHub, or via the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Delete the remote branch
 $ git push origin :42-my-new-feature
 # Delete the local branch
 $ git branch -d 42-my-new-feature
@@ -161,15 +151,15 @@ $ git branch -d 42-my-new-feature
 <div class="section" id="hotfix-branches">
 <h2>Hotfix Branches<a class="headerlink" href="#hotfix-branches" title="Permalink to this headline">¶</a></h2>
 <p>A hotfix branch is an emergency branch mandated by a critical bug or security flaw in the production
-release. Hotfix branches always derive from <code class="docutils literal"><span class="pre">origin/master</span></code>, and eventually merge back into
-<code class="docutils literal"><span class="pre">develop</span></code> and <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b hotfix-2.0.1 master
+release. Hotfix branches always derive from <code class="docutils literal notranslate"><span class="pre">origin/master</span></code>, and eventually merge back into
+<code class="docutils literal notranslate"><span class="pre">develop</span></code> and <code class="docutils literal notranslate"><span class="pre">master</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout -b hotfix-2.0.1 master
 # do the work neccessary to bump version numbers
 $ git commit -a -m &quot;Bumped version number to 2.0.1&quot;
 </pre></div>
 </div>
-<p>When the patch or bug fix has been applied to the code, you are ready to put it into <code class="docutils literal"><span class="pre">master</span></code>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git commit -m &quot;Fixed severe production problem&quot;
+<p>When the patch or bug fix has been applied to the code, you are ready to put it into <code class="docutils literal notranslate"><span class="pre">master</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git commit -m &quot;Fixed severe production problem&quot;
 $ git checkout master
 $ git merge --no-ff hotfix-2.0.1
 $ git tag -a 2.0.1
@@ -180,17 +170,17 @@ $ git branch -d hotfix-2.0.1
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">As previously noted the <code class="docutils literal"><span class="pre">--no-ff</span></code> flag is not required but is recommended. See the previous
+<p class="last">As previously noted the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not required but is recommended. See the previous
 note for more information on the advantages of using this flag.</p>
 </div>
 </div>
 <div class="section" id="production-releases">
 <h2>Production Releases<a class="headerlink" href="#production-releases" title="Permalink to this headline">¶</a></h2>
-<p>When a new production release is ready to be deployed, the latest work from <code class="docutils literal"><span class="pre">develop</span></code> is advanced
-to the <code class="docutils literal"><span class="pre">master</span></code> branch. It is recommended that releases are tagged. Tags might denote the version
+<p>When a new production release is ready to be deployed, the latest work from <code class="docutils literal notranslate"><span class="pre">develop</span></code> is advanced
+to the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch. It is recommended that releases are tagged. Tags might denote the version
 number for the release or the date of the release. Prior to tagging you ensure that all changes on
 master are included in develop:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout master
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout master
 $ git pull origin master
 $ git checkout develop
 $ git pull origin develop
@@ -198,7 +188,7 @@ $ git merge master
 </pre></div>
 </div>
 <p>This merge should be a no-op. If there are changes which were not previously merged to develop you need
-to ensure that develop is still running as expected before preceeding. While on the <code class="docutils literal"><span class="pre">develop</span></code> branch
+to ensure that develop is still running as expected before preceeding. While on the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch
 you should</p>
 <ul class="simple">
 <li>Update change log with release notes</li>
@@ -206,13 +196,13 @@ you should</p>
 <li>Run test suite</li>
 </ul>
 <p>Changes between each release should be noted in an obvious place in the repository such
-as a <code class="docutils literal"><span class="pre">CHANGELOG</span></code> or <code class="docutils literal"><span class="pre">CHANGES</span></code> file stored at the root or a <code class="docutils literal"><span class="pre">docs/changes.rst</span></code> or <code class="docutils literal"><span class="pre">docs/releases.rst</span></code>
+as a <code class="docutils literal notranslate"><span class="pre">CHANGELOG</span></code> or <code class="docutils literal notranslate"><span class="pre">CHANGES</span></code> file stored at the root or a <code class="docutils literal notranslate"><span class="pre">docs/changes.rst</span></code> or <code class="docutils literal notranslate"><span class="pre">docs/releases.rst</span></code>
 file if there is a larger collection of documenation for the project.
 The format of this file is flexible. You may look at <a class="reference external" href="https://github.com/caktus/margarita/blob/develop/CHANGES.rst">https://github.com/caktus/margarita/blob/develop/CHANGES.rst</a>
 as an example. This uses headers to denote each released version along with the date it was released. Below the header
 is a bulletted list of items which were changed/added in the release. Ideally these would also reference
 the issue numbers along with these items.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Release</span> <span class="n">Notes</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Release</span> <span class="n">Notes</span>
 
 <span class="n">v1</span><span class="o">.</span><span class="mi">0</span> <span class="o">-</span> <span class="n">Aug</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">2015</span>
 <span class="o">-------------------</span>
@@ -225,7 +215,7 @@ the issue numbers along with these items.:</p>
 should be written by a human to be read by a human and should add additional context otherwise not already
 available in the git history.</p>
 <p>With these changes in place you should commit the release note changes and version changes and tag the release.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ git add &lt;related files for change log and version numbers&gt;
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git add &lt;related files for change log and version numbers&gt;
 $ git commit -m &quot;Note and version bump for release &lt;version&gt;&quot;
 $ git tag &lt;version&gt;
 $ git checkout master
@@ -241,21 +231,49 @@ $ git push origin develop --tags
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Branching Strategy</a><ul>
-<li><a class="reference internal" href="#new-feature-branches">New Feature Branches</a></li>
-<li><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
-<li><a class="reference internal" href="#branch-lifespans">Branch Lifespans</a></li>
-<li><a class="reference internal" href="#hotfix-branches">Hotfix Branches</a></li>
-<li><a class="reference internal" href="#production-releases">Production Releases</a></li>
+<h1 class="logo"><a href="index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Developer Machine Security</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Branching Strategy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#new-feature-branches">New Feature Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#branch-lifespans">Branch Lifespans</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hotfix-branches">Hotfix Branches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#production-releases">Production Releases</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
 </ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -265,21 +283,16 @@ $ git push origin develop --tags
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/branching.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -290,11 +303,11 @@ $ git push origin develop --tags
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
-      <a href="_sources/branching.txt"
+      <a href="_sources/branching.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

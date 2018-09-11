@@ -1,32 +1,20 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Custom Salt States &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Margarita" href="margarita.html" />
     <link rel="next" title="Grains" href="grains.html" />
     <link rel="prev" title="Salt States" href="states.html" />
    
@@ -35,13 +23,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">
+  </head><body>
   
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="custom-salt-states">
@@ -50,7 +39,7 @@
 <div class="section" id="ufw">
 <span id="id1"></span><h2>ufw<a class="headerlink" href="#ufw" title="Permalink to this headline">¶</a></h2>
 <p>Usage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ufw_policy</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ufw_policy</span><span class="p">:</span>
   <span class="n">ufw</span><span class="o">.</span><span class="n">default</span><span class="p">:</span>
     <span class="o">-</span> <span class="n">policy</span><span class="p">:</span> <span class="n">deny</span>
 
@@ -68,7 +57,7 @@
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="p">:</span>
   <span class="n">ufw</span><span class="o">.</span><span class="n">allow</span><span class="p">:</span>
     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;22&#39;</span>
     <span class="o">-</span> <span class="n">enabled</span><span class="p">:</span> <span class="n">true</span>
@@ -81,7 +70,7 @@
 and forwarding to syslog.</p>
 <p>See: <a class="reference external" href="http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html">http://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html</a></p>
 <p>Usage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">watch_my_log</span><span class="p">:</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">watch_my_log</span><span class="p">:</span>
   <span class="n">watchlog</span><span class="o">.</span><span class="n">file</span><span class="p">:</span>
     <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">watch_my_log</span>
     <span class="o">-</span> <span class="n">path</span><span class="p">:</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">file</span><span class="o">.</span><span class="n">log</span>
@@ -96,15 +85,15 @@ and forwarding to syslog.</p>
 <p>This works by creating a new conf.d file for
 <a class="reference external" href="http://www.rsyslog.com">rsyslog</a>
 (if enable is true) or removing one if it exists (if enable
-is false). The name of the file is always <code class="docutils literal"><span class="pre">&lt;name&gt;.conf</span></code> and it
-goes in the <code class="docutils literal"><span class="pre">/etc/rsyslog.d/</span></code> directory. If anything is changed,
+is false). The name of the file is always <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;.conf</span></code> and it
+goes in the <code class="docutils literal notranslate"><span class="pre">/etc/rsyslog.d/</span></code> directory. If anything is changed,
 rsyslog is told to reload.</p>
 <p>At least rsyslog v8 must be installed. The state checks for
-this and will return an error otherwise.  Also, the <code class="docutils literal"><span class="pre">imfile</span></code>
+this and will return an error otherwise.  Also, the <code class="docutils literal notranslate"><span class="pre">imfile</span></code>
 rsyslog module must be loaded. The state checks for this too,
 and will include the expected syntax in the error message if
 the check fails.</p>
-<p>There&#8217;s a Margarita state <a class="reference internal" href="states.html#syslog"><span class="std std-ref">syslog</span></a> that will ensure both of
+<p>There’s a Margarita state <a class="reference internal" href="states.html#syslog"><span class="std std-ref">syslog</span></a> that will ensure both of
 those requirements are met; just make your state depend on
 that.</p>
 <div class="section" id="required-parameters">
@@ -112,50 +101,79 @@ that.</p>
 <p>Name: name of the state like for any Salt state. Used to derive
 the name of the rsyslog config file to create.</p>
 <p>Path: Path to the log file to monitor. The filename part can
-include wildcards (e.g. <code class="docutils literal"><span class="pre">/var/log/myapp/*.log</span></code>), but not any
-intermediate parts (you can&#8217;t use <code class="docutils literal"><span class="pre">/var/log/*/error.log</span></code>).</p>
-<p>Enable: <code class="docutils literal"><span class="pre">true</span></code> to ensure monitoring is set up. <code class="docutils literal"><span class="pre">false</span></code>
+include wildcards (e.g. <code class="docutils literal notranslate"><span class="pre">/var/log/myapp/*.log</span></code>), but not any
+intermediate parts (you can’t use <code class="docutils literal notranslate"><span class="pre">/var/log/*/error.log</span></code>).</p>
+<p>Enable: <code class="docutils literal notranslate"><span class="pre">true</span></code> to ensure monitoring is set up. <code class="docutils literal notranslate"><span class="pre">false</span></code>
 to ensure monitoring is not set up.</p>
-<p>If you don&#8217;t want a log monitored anymore, don&#8217;t just delete
-the state; change <code class="docutils literal"><span class="pre">enable</span></code> to false, apply the state to the
+<p>If you don’t want a log monitored anymore, don’t just delete
+the state; change <code class="docutils literal notranslate"><span class="pre">enable</span></code> to false, apply the state to the
 systems where the log was being monitored so that the config
 file gets removed, and only then delete the state from your
 config.</p>
-<p>Facilities: &#8216;local0&#8217;, &#8216;local1&#8217;, &#8216;local2&#8217;, &#8216;local3&#8217;, &#8216;local4&#8217;,
-&#8216;local5&#8217;, &#8216;local6&#8217;, &#8216;local7&#8217;.  (Or any other syslog facility,
+<p>Facilities: ‘local0’, ‘local1’, ‘local2’, ‘local3’, ‘local4’,
+‘local5’, ‘local6’, ‘local7’.  (Or any other syslog facility,
 but the others are supposed to be reserved for specific
 uses.)</p>
-<p>Severities: &#8216;emerg&#8217;, &#8216;alert&#8217;, &#8216;crit&#8217;, &#8216;err&#8217;, &#8216;warning&#8217;,
-&#8216;notice&#8217;, &#8216;info&#8217;, &#8216;debug&#8217;.</p>
+<p>Severities: ‘emerg’, ‘alert’, ‘crit’, ‘err’, ‘warning’,
+‘notice’, ‘info’, ‘debug’.</p>
 <p>Tag: Any string (probably not a good idea to include spaces though).</p>
 </div>
 <div class="section" id="optional-parameters">
 <h3>Optional parameters<a class="headerlink" href="#optional-parameters" title="Permalink to this headline">¶</a></h3>
 <p>There are no optional parameters that are specific to this
 state, but you can add the usual universal ones like
-<code class="docutils literal"><span class="pre">requires</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">requires</span></code>.</p>
 </div>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Custom Salt States</a><ul>
-<li><a class="reference internal" href="#ufw">ufw</a></li>
-<li><a class="reference internal" href="#watchlog">watchlog</a><ul>
-<li><a class="reference internal" href="#required-parameters">Required parameters</a></li>
-<li><a class="reference internal" href="#optional-parameters">Optional parameters</a></li>
+<h1 class="logo"><a href="../index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Developer Machine Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="margarita.html">Margarita</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="adding.html">Adding Margarita to a project that uses Salt</a></li>
+<li class="toctree-l2"><a class="reference internal" href="states.html">Salt States</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Salt States</a></li>
+<li class="toctree-l2"><a class="reference internal" href="grains.html">Grains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pillar.html">Salt Pillar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="minions.html">Minions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="upgrading.html">Upgrading Margarita</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
 </ul>
-</li>
-</ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
@@ -167,21 +185,16 @@ state, but you can add the usual universal ones like
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/margarita/custom_states.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -192,11 +205,11 @@ state, but you can add the usual universal ones like
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.8</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
-      <a href="../_sources/margarita/custom_states.txt"
+      <a href="../_sources/margarita/custom_states.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

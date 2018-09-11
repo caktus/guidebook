@@ -1,0 +1,196 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Hosting best practices &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing" href="testing/index.html" />
+    <link rel="prev" title="Interface between the deploy system and projects" href="deploy/system-deploy-interface.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="hosting-best-practices">
+<h1>Hosting best practices<a class="headerlink" href="#hosting-best-practices" title="Permalink to this headline">¶</a></h1>
+<p>When we’re responsible for a site staying up, here are some things to consider.</p>
+<div class="section" id="backups">
+<h2>Backups<a class="headerlink" href="#backups" title="Permalink to this headline">¶</a></h2>
+<p>At least the database and any Django media files should be backed up daily.</p>
+<p>Some sites might need to back up other files in order to recover from a complete
+failure, case by case. For example, they might have “static” files that aren’t
+in the project source repository but come from some other source.</p>
+<p>Our projects almost always have their configuration under source control using
+some form of configuration management, so backing up configuration files should
+<em>not</em> be necessary. But a few projects might be exceptions to this.</p>
+<p>The Caktus sysadmin team generally takes responsibility for setting up automatic
+backups, archiving them, and monitoring the backup process, with help from
+the developers as needed.</p>
+<p>Developers should be sure they know how to go from backups to running servers.
+Furthermore, you can’t really know if you can do this unless you’ve done it, so we should
+practice disaster recovery for each project where that would be critical in an
+emergency.</p>
+</div>
+<div class="section" id="notification-on-errors">
+<h2>Notification on errors<a class="headerlink" href="#notification-on-errors" title="Permalink to this headline">¶</a></h2>
+<p>We need to know when users are hitting problems on the site, or tasks are failing,
+without having to manually check logs.</p>
+<p>Sentry has been a good solution for us. It hooks into Python logging and can send
+notifications when errors happen.</p>
+<p>One excellent feature is that it doesn’t send
+a separate notification for every occurrence of what looks like the same error, so when
+something goes wrong, nobody ends up with hundreds or thousands of emails about it.</p>
+<p>[TODO: step-by-step setup]</p>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>When something fails, it can be helpful to see all the logs, not just the message
+that triggered the notification. It can also be helpful to see logs from more than
+just Django - e.g. the web server, cron jobs, database, whatever.</p>
+<p>For that reason, we will sometimes arrange to send as many logs as possible
+to <a class="reference external" href="http://papertrailapp.com">Papertrail</a>, which makes it easy to see all the
+messages in context, filter and search, and even set up alerts that can look for
+more complicated triggers than just whether a message was an “error”.</p>
+<p>[TODO: step-by-step setup]</p>
+<p>[for Dokku:
+If you need to set that up on a new server, you’ll need the Papertrail URL which you can find by
+going to the <a class="reference external" href="https://papertrailapp.com/systems/setup">Papertrail Setup page</a> in your account.
+It should look something like <code class="docutils literal notranslate"><span class="pre">syslog+tls://logs5.papertrailapp.com:12345</span></code> where the numbers
+will be different:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh dokku logspout:server &lt;papertrail-log-url&gt;
+$ ssh dokku logspout:start
+</pre></div>
+</div>
+</div>
+<div class="section" id="monitoring">
+<h2>Monitoring<a class="headerlink" href="#monitoring" title="Permalink to this headline">¶</a></h2>
+<p>Monitoring is to let us know quickly when something is seriously wrong on the
+site, or heading that way. For example, if the site won’t load at all, or
+response time is getting very slow, or resources are running out on servers
+(CPU, memory, disk, etc).</p>
+<p>The New Relic free account level provides for site outage or slow response
+monitoring (look under “Synthetics” in the web UI).</p>
+<p>QUESTION - can we set up resource usage monitoring under NR free accounts?
+(e.g. if disk space is almost gone, or CPU is high, etc?)</p>
+<p>[TODO: step-by-step setup]</p>
+</div>
+<div class="section" id="updates">
+<h2>Updates<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h2>
+<p>We typically set up security updates to happen automatically on our servers,
+but not necessarily all updates. For a site where the cost of an unexpected
+outage would be low, we might accept the risk of applying all updates
+automatically rather than having to do it ourselves from time to time.
+We likely don’t want to do that if an unexpected outage would be expensive.</p>
+<p>[TODO: step-by-step setup]</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Developer Machine Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Hosting best practices</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#backups">Backups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notification-on-errors">Notification on errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring">Monitoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updates">Updates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="deploy/system-deploy-interface.html" title="previous chapter">Interface between the deploy system and projects</a></li>
+      <li>Next: <a href="testing/index.html" title="next chapter">Testing</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/hosting-practices.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
