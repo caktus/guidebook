@@ -23,6 +23,7 @@ Contents:
    frontend-docs
    services/index
    deploy/index
+   hosting-practices
    testing/index
    testing/frontend
 
