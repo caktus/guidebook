@@ -1,0 +1,263 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Amazon Web Services (AWS) &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Front-end JavaScript Testing Practices" href="testing/frontend.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="amazon-web-services-aws">
+<span id="aws"></span><h1>Amazon Web Services (AWS)<a class="headerlink" href="#amazon-web-services-aws" title="Permalink to this headline">¶</a></h1>
+<p>We often deploy to Amazon Web Services. Here are some tips on getting started.</p>
+<div class="section" id="aws-accounts-vs-iam-users">
+<h2>AWS Accounts vs. IAM Users<a class="headerlink" href="#aws-accounts-vs-iam-users" title="Permalink to this headline">¶</a></h2>
+<p>With AWS, we need to be careful to distinguish <em>AWS accounts</em> from <em>IAM users</em>.</p>
+<p><em>AWS Accounts</em> are connected to billing, and to visibility and access to resources.
+Caktus has an AWS account. Some of our clients have their own AWS accounts that
+we might use when working for those clients, so that they get billed
+directly for the resources used instead of us.</p>
+<p><em>IAM Users</em> are created within accounts to let administrators
+“log into” those accounts and access those resources. IAM Users within
+one account are unrelated to IAM users in any other account. If I have
+IAM users named “johndoe” in two different AWS accounts, they are completely
+separate and different, having nothing to do with each other.</p>
+<p>For you to do things in the Caktus AWS account, someone
+will have to create an <em>IAM user</em> for you within that AWS account, and give it the
+privileges for what you need to do.</p>
+</div>
+<div class="section" id="root-users-vs-iam-users">
+<h2>Root users vs. IAM users<a class="headerlink" href="#root-users-vs-iam-users" title="Permalink to this headline">¶</a></h2>
+<p>Just to confuse things, <em>AWS accounts</em> each have a <em>root user</em>, which is not
+an IAM user within that AWS account, but a user in the global Amazon system of
+users - the same set of users that can buy things on Amazon’s shopping
+sites, in fact. To create a new AWS account, you have to log in as one of
+this type of user.</p>
+</div>
+<div class="section" id="logging-in">
+<h2>Logging in<a class="headerlink" href="#logging-in" title="Permalink to this headline">¶</a></h2>
+<p>To login using a <em>root user</em>, start at
+<a class="reference external" href="https://console.aws.amazon.com">https://console.aws.amazon.com</a>.
+If you find you’re already logged in, log out and go to that page
+again. Then click the link below the login form - it currently says
+<code class="docutils literal notranslate"><span class="pre">Sign-in</span> <span class="pre">using</span> <span class="pre">root</span> <span class="pre">account</span> <span class="pre">credentials</span></code>.</p>
+<p>You can tell you’re logging in as one of these type of users
+because the login page will only prompt for a username and
+password.</p>
+<p>To login using an <em>IAM user</em> in a particular account, you need to go to another page.
+These login pages prompt for <em>three</em> things: <em>account</em>, username,
+and password, so you can tell them apart from the “root” user
+login page.</p>
+<p>Unfortunately, finding a page to login as an <em>IAM user</em> can
+be tricky. The simplest way is this: each AWS account has
+a unique URL that will let you login to that AWS account.
+Anyone who is already logged in as an <em>IAM user</em> on the account
+can find the URL (I think) by going to the
+<a class="reference external" href="https://console.aws.amazon.com/iam/home">main *IAM* page</a>
+in the AWS console.  Near the top they should see something
+like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IAM</span> <span class="n">users</span> <span class="n">sign</span><span class="o">-</span><span class="ow">in</span> <span class="n">link</span><span class="p">:</span>
+<span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">caktus</span><span class="o">.</span><span class="n">signin</span><span class="o">.</span><span class="n">aws</span><span class="o">.</span><span class="n">amazon</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">console</span>
+</pre></div>
+</div>
+<p>Bookmarking that link will let you sign into that AWS account
+using an IAM user. When you follow that link, you <em>will</em> be
+redirected, and the resulting URL does <em>not</em> work directly
+to log you into that account, so you cannot just find the signin page once and
+bookmark it, you have to track down that original URL.</p>
+<p>Anyway, using that link will take you to a three-field login
+page with the <em>Account</em> field already correctly filled in.
+Add the username and password and you will find yourself
+logged into the AWS console.</p>
+<p>If you know the account identifier, you can change the
+account field on this login page to login to another
+account, but not all account identifiers are as memorable
+as “caktus”, some are just long random strings of numbers,
+so bookmarking the canonical login URL seems easiest.</p>
+</div>
+<div class="section" id="subaccounts">
+<h2>Subaccounts<a class="headerlink" href="#subaccounts" title="Permalink to this headline">¶</a></h2>
+<p>If that wasn’t complicated enough, if you need to work in an AWS
+<em>subaccount</em>, there are more steps.</p>
+<p>Hopefully someone has given you a link to use for accessing
+the subaccount. That link will not let you log in directly,
+though. First you need to login normally to the main account.
+Only after you’ve done that can you use the link, which should
+then switch you “into” that subaccount. While you’re switched,
+you’ll only see resources of that subaccount, not of the parent
+account.</p>
+<p>You can confirm how you’re currently logged in by looking near
+the top right in the console. When I’m logged in to the main
+Caktus account, I see a dropdown “<a class="reference external" href="mailto:dpoirier&#37;&#52;&#48;caktus">dpoirier<span>&#64;</span>caktus</a>”. Once
+I switch roles to a subaccount, I see only the display name
+for the subaccount.  Clicking that dropdown displays full details
+of how I’m logged in, along with a “back to dpoirier” link
+to exit the subaccount and go back to the main account.</p>
+</div>
+<div class="section" id="aws-console">
+<h2>AWS Console<a class="headerlink" href="#aws-console" title="Permalink to this headline">¶</a></h2>
+<p>The AWS Console is the web interface to all the AWS services. It
+can be overwhelming. Here are some tips for navigating around.</p>
+<p>First - you need to know which AWS service you need to work with.
+For example, suppose you need to create a new virtual machine.
+That AWS service is called “EC2”. In the AWS console, click the
+orange cube that appears in the top left of every page, and you’ll
+end up at a directory of AWS services. It’s also overwhelming :-),
+but if you don’t spot EC2 right away, you can search in the browser
+page for it. When you find it, click it, and you’ll be in the part
+of the AWS console where you can manage EC2.</p>
+<p><em>Unfortunately</em>, not everything we think of as an AWS service
+is listed on that directory page (believe it or not). For example, quite a few
+services are managed within the EC2 part of the AWS console - such
+as Security Groups, Elastic Load Balancers, Elastic IPs, Autoscaling
+Groups, etc.  You can see them listed down the left side of the
+EC2 interface.</p>
+<p>So, if you don’t see the service you want on the main directory
+of services, try within the EC2 part of the console.</p>
+</div>
+<div class="section" id="regions">
+<h2>Regions<a class="headerlink" href="#regions" title="Permalink to this headline">¶</a></h2>
+<p>Another important concept to understand from the beginning
+is the <em>AWS Region</em>. You can think of an AWS Region as a
+geographic location where Amazon has a bunch of data
+centers. There are regions with names like “US East (N. Virginia)”,
+“EU (Ireland)”, “EU (Frankfurt)”, etc.</p>
+<p>With most AWS services, you can create and use resources in
+any region you like, but to manage them, you first have to
+select one region using the dropdown near the top right of
+every page. Once you’ve selected a region, you will only see
+resources from that region, and new resources you create will
+be created in that region, until you select a different region.</p>
+<p>Tip: You can have multiple browser tabs/windows open
+to the AWS console with different regions selected, if that
+helps on really big projects to keep an eye on everything.
+But usually you won’t have to do that.</p>
+<p>We typically try to create resources in a region closest
+to the majority of the site’s users. If we can’t pick a
+region that way, we usually end up in “US East (N. Virginia)”
+just because it seems to be the default.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Not every service is available in every region.
+Before you start setting up a great big infrastructure in some
+region, it’s a good idea to verify that all the services
+you will need are available there. You don’t want the
+services that make up your site to have to communicate
+between regions if you can help it.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Developer Machine Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon Web Services (AWS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#aws-accounts-vs-iam-users">AWS Accounts vs. IAM Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#root-users-vs-iam-users">Root users vs. IAM users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging-in">Logging in</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subaccounts">Subaccounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-console">AWS Console</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#regions">Regions</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="testing/frontend.html" title="previous chapter">Front-end JavaScript Testing Practices</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/aws.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
