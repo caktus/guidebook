@@ -1,60 +1,54 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Interface between the deploy system and projects &mdash; Caktus Developer Documentation 0.0.1 documentation</title>
-    
+    <title>Interface between the deploy system and projects &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Caktus Developer Documentation 0.0.1 documentation" href="../index.html" />
-    <link rel="up" title="Deploying Django projects" href="index.html" />
-    <link rel="next" title="Testing" href="../testing/index.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Hosting best practices" href="../hosting-practices.html" />
     <link rel="prev" title="Deployed Architecture" href="deployed-systems.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="interface-between-the-deploy-system-and-projects">
 <h1>Interface between the deploy system and projects<a class="headerlink" href="#interface-between-the-deploy-system-and-projects" title="Permalink to this headline">¶</a></h1>
-<p>This interface isn&#8217;t always as clear-cut as it could be. For now, we&#8217;ll
+<p>This interface isn’t always as clear-cut as it could be. For now, we’ll
 try to document it as-is.</p>
 <div class="section" id="definitions">
 <h2>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h2>
 <p><cite>Project</cite>: One or more sites that share a code base. In other words,
-if sites&#8217; Django code comes from the same source control repository,
-we&#8217;ll call them part of the same project.  The Twelve-Factor App <a class="reference external" href="http://12factor.net/codebase">calls
+if sites’ Django code comes from the same source control repository,
+we’ll call them part of the same project.  The Twelve-Factor App <a class="reference external" href="http://12factor.net/codebase">calls
 this the app</a>.</p>
 <p><cite>Environment</cite>: A configuration and set of one or more systems that
 make the project available on the network with a unique domain and
 set of data.  For example, we might have testing, staging,
 and production environments.</p>
 <p>The Twelve-Factor app <a class="reference external" href="http://12factor.net/config">calls these deploys</a>.</p>
-<p><cite>Instance</cite>: In at least one case, we&#8217;ve run a project on one domain
+<p><cite>Instance</cite>: In at least one case, we’ve run a project on one domain
 with multiple independent sets of user accounts and data (accessed
 at different URLs under the domain). We refer to each of those as
 an instance. Sometimes this is refered to as <cite>multitenancy</cite>.</p>
@@ -65,27 +59,27 @@ database master, web server, celery worker, cache, etc.</p>
 provided to the code at runtime.  Example: the database server hostname, or the
 environment name.  See also
 <a class="reference external" href="http://12factor.net/config">the Twelve-Factor App: configuration</a>.</p>
-<p>The Twelve-Factor App principles say we shouldn&#8217;t have these checked
+<p>The Twelve-Factor App principles say we shouldn’t have these checked
 into source control, but we typically do that, sometimes using a separate
-repository for the deploy-related files, and encrypting the secrets. It&#8217;s
-still a good way to manage this information. Maybe someday we&#8217;ll move to
+repository for the deploy-related files, and encrypting the secrets. It’s
+still a good way to manage this information. Maybe someday we’ll move to
 something like Consul.</p>
 <p><cite>Secret</cite>: A configuration variable that must not be exposed
 to the public or we risk compromising our sites. Secrets typically
-include passwords, access keys, Django&#8217;s secret key setting, etc.</p>
+include passwords, access keys, Django’s secret key setting, etc.</p>
 </div>
 <div class="section" id="directories">
 <h2>Directories<a class="headerlink" href="#directories" title="Permalink to this headline">¶</a></h2>
-<p>For most projects, we create <code class="docutils literal"><span class="pre">/var/www/&lt;projectname&gt;</span></code>, with subdirectories
+<p>For most projects, we create <code class="docutils literal notranslate"><span class="pre">/var/www/&lt;projectname&gt;</span></code>, with subdirectories
 for the virtual environment, code, logs, ssl files, etc.</p>
 </div>
 <div class="section" id="python-dependencies">
 <h2>Python Dependencies<a class="headerlink" href="#python-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>The deploy system will set up a virtual environment and use it to
 run the Django processes of the project.</p>
-<p>The project&#8217;s dependencies are added to the virtual environment during
-the deploy by running <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> from a file. By default requirements are
-installed from <code class="docutils literal"><span class="pre">requirements/dev.txt</span></code> for Vagrant and <code class="docutils literal"><span class="pre">requirements/production.txt</span></code>
+<p>The project’s dependencies are added to the virtual environment during
+the deploy by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> from a file. By default requirements are
+installed from <code class="docutils literal notranslate"><span class="pre">requirements/dev.txt</span></code> for Vagrant and <code class="docutils literal notranslate"><span class="pre">requirements/production.txt</span></code>
 for all other deploy environments.</p>
 </div>
 <div class="section" id="configuration">
@@ -94,49 +88,49 @@ for all other deploy environments.</p>
 <h3>The life of configuration variables<a class="headerlink" href="#the-life-of-configuration-variables" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic simple">
 <li>Configuration variables are stored somehow in our deploy environment.
-Right now, that&#8217;s in Salt pillar data, with secrets grouped into a
-<code class="docutils literal"><span class="pre">secrets</span></code> dictionary and protected by
+Right now, that’s in Salt pillar data, with secrets grouped into a
+<code class="docutils literal notranslate"><span class="pre">secrets</span></code> dictionary and protected by
 <a class="reference external" href="https://docs.saltstack.com/en/latest/ref/renderers/all/salt.renderers.gpg.html">encryption</a>.</li>
-<li>The deploy process creates a <code class="docutils literal"><span class="pre">.env</span></code> file in the root of the
+<li>The deploy process creates a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the root of the
 deployed code on each server, containing the appropriate values
 of the configuration variables for that server.  The file is only
 readable by the project user.</li>
-<li>When <code class="docutils literal"><span class="pre">manage.py</span></code> or <code class="docutils literal"><span class="pre">wsgi.py</span></code> starts, it reads <code class="docutils literal"><span class="pre">.env</span></code> and
+<li>When <code class="docutils literal notranslate"><span class="pre">manage.py</span></code> or <code class="docutils literal notranslate"><span class="pre">wsgi.py</span></code> starts, it reads <code class="docutils literal notranslate"><span class="pre">.env</span></code> and
 sets all the specified environment variables. (This is a modification
 of the standard Django versions of these files.)</li>
 <li>Django uses the DJANGO_SETTINGS_MODULE environment variable
 to control which settings file is used.</li>
 <li>The settings file looks at the environment variables to find out
-configuration variables&#8217; values.</li>
+configuration variables’ values.</li>
 </ol>
 </div>
 <div class="section" id="scopes-of-configuration-variables">
 <h3>Scopes of configuration variables<a class="headerlink" href="#scopes-of-configuration-variables" title="Permalink to this headline">¶</a></h3>
-<p>It&#8217;s the nature of configuration variables that some are the same
+<p>It’s the nature of configuration variables that some are the same
 across the whole project (project name, where the code repository is,
 what version of Python the project needs to run on),
 while others might be different from one environment to another
 (environment name, domain, database).</p>
 <p>In our Salt-based deploy system, we manage this by having separate
-<code class="docutils literal"><span class="pre">.sls</span></code> files providing Pillar data for the entire project and for
+<code class="docutils literal notranslate"><span class="pre">.sls</span></code> files providing Pillar data for the entire project and for
 each environment, and including the right ones from the
-pillar <code class="docutils literal"><span class="pre">top.sls</span></code> file.</p>
+pillar <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> file.</p>
 </div>
 <div class="section" id="deploy-settings">
 <h3>Deploy settings<a class="headerlink" href="#deploy-settings" title="Permalink to this headline">¶</a></h3>
 <p>These are some settings that the deploy system looks at, but that
-are not (necessarily) needed by Django.  They&#8217;re still passed to Django
+are not (necessarily) needed by Django.  They’re still passed to Django
 as environment variables in case the Django app wants to use them, though.</p>
 <blockquote>
 <div><ul class="simple">
 <li>elasticsearch_newrelic: true to enable New Relic monitoring of Elastic Search servers</li>
 <li>environment: The name of the deploy environment; must be a valid identifier.
-E.g. &#8220;testing&#8221; or &#8220;production&#8221;.</li>
+E.g. “testing” or “production”.</li>
 <li>github_deploy_key: Used to checkout private repositories from Github, if needed. (secret)</li>
-<li>LOG_DESTINATION: where to forward system logs to, e.g. &#8220;host.example.com:1234&#8221;. (secret)</li>
-<li>postgres_version: The PostgreSQL version to use, e.g. &#8220;9.3&#8221;.</li>
+<li>LOG_DESTINATION: where to forward system logs to, e.g. “host.example.com:1234”. (secret)</li>
+<li>postgres_version: The PostgreSQL version to use, e.g. “9.3”.</li>
 <li>project_name: The name of the project; must be a valid identifier.</li>
-<li>python_version: The Python version to use, e.g. &#8220;3.4&#8221;.</li>
+<li>python_version: The Python version to use, e.g. “3.4”.</li>
 <li>repo.url: The Git repo URL to get the code from.</li>
 <li>repo.branch: The Git branch or commit name to check out.</li>
 <li>ssl_key and ssl_cert: If both provided, they provide the SSL certificate and key to use. Otherwise, a self-signed
@@ -158,73 +152,85 @@ should look at for configuration values:</p>
 <li>DB_HOST: hostname of database server (optional; use localhost otherwise)</li>
 <li>DB_PORT: port of database server (optional; use default Postgres port 5432 otherwise)</li>
 <li>DB_PASSWORD: password for database user. (secret)</li>
-<li>DOMAIN: hostname from the site&#8217;s URL</li>
+<li>DOMAIN: hostname from the site’s URL</li>
 <li>ENVIRONMENT: name of the environment</li>
-<li>NEW_RELIC_APP_NAME: e.g. &#8220;myproject &lt;environment&gt;&#8221;</li>
+<li>NEW_RELIC_APP_NAME: e.g. “myproject &lt;environment&gt;”</li>
 <li>NEW_RELIC_LICENSE_KEY: This is the license key for the New Relic account to use for monitoring.
 If provided, turn on New Relic monitoring. (secret)</li>
-<li>NEW_RELIC_MONITOR_MODE: &#8220;true&#8221; or &#8220;false&#8221;</li>
+<li>NEW_RELIC_MONITOR_MODE: “true” or “false”</li>
 <li>SECRET_KEY: the Django SECRET_KEY. (secret)</li>
 </ul>
 </div></blockquote>
 <p>Projects always assume a database username, database name, and broker username of
-<code class="docutils literal"><span class="pre">&lt;projectname&gt;_&lt;lowercased</span> <span class="pre">envname&gt;</span></code>.</p>
-<p>ALLOWED_HOSTS is set to <code class="docutils literal"><span class="pre">[DOMAIN]</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">&lt;projectname&gt;_&lt;lowercased</span> <span class="pre">envname&gt;</span></code>.</p>
+<p>ALLOWED_HOSTS is set to <code class="docutils literal notranslate"><span class="pre">[DOMAIN]</span></code>.</p>
 </div>
 </div>
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Interface between the deploy system and projects</a><ul>
-<li><a class="reference internal" href="#definitions">Definitions</a></li>
-<li><a class="reference internal" href="#directories">Directories</a></li>
-<li><a class="reference internal" href="#python-dependencies">Python Dependencies</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li><a class="reference internal" href="#the-life-of-configuration-variables">The life of configuration variables</a></li>
-<li><a class="reference internal" href="#scopes-of-configuration-variables">Scopes of configuration variables</a></li>
-<li><a class="reference internal" href="#deploy-settings">Deploy settings</a></li>
-<li><a class="reference internal" href="#django-settings">Django settings</a></li>
+<h1 class="logo"><a href="../index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../security.html">Developer Machine Security</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../margarita/margarita.html">Margarita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../services/index.html">External Services</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Deploying Django projects</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="deployed-systems.html">Deployed Architecture</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Interface between the deploy system and projects</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
 </ul>
-</li>
-</ul>
+
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="index.html">Deploying Django projects</a><ul>
       <li>Previous: <a href="deployed-systems.html" title="previous chapter">Deployed Architecture</a></li>
-      <li>Next: <a href="../testing/index.html" title="next chapter">Testing</a></li>
+      <li>Next: <a href="../hosting-practices.html" title="next chapter">Hosting best practices</a></li>
   </ul></li>
   </ul></li>
 </ul>
 </div>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/deploy/system-deploy-interface.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -235,11 +241,11 @@ If provided, turn on New Relic monitoring. (secret)</li>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
-      <a href="../_sources/deploy/system-deploy-interface.txt"
+      <a href="../_sources/deploy/system-deploy-interface.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

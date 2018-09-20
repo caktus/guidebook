@@ -42,8 +42,10 @@ To enable New Relic monitoring for an environment:
 
 #. Add any other custom `New Relic configuration variables
    <https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables>`_
-   under ``env:``. The default values will probably work well for most projects, but if you want to
-   change them, here are some examples:
+   under ``env:``. The default values for most will probably work well for most projects, but you should
+   definitely include a setting for NEW_RELIC_APP_NAME, as failure to provide a value for this may result
+   in your project unexpectedly showing up under some other pre-existing application being monitored by the
+   license key's account. Here are some examples of how to set new relic configuration variables:
 
    .. code-block:: yaml
 

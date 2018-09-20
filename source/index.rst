@@ -12,17 +12,23 @@ Contents:
    :maxdepth: 2
 
    dev-setup
+   security
    branching
    rds
    supported-clients
    workflow
    upgrading-django
+   deploy-strategies
+   dokku
    margarita/margarita
    project-template-testing
    frontend-packages
+   frontend-docs
    services/index
    deploy/index
+   hosting-practices
    testing/index
+   testing/frontend
    aws
 
 

@@ -363,7 +363,7 @@ Pillar configuration:
 * ``github_deploy_key`` (string): Optional, contains text of the Github deploy key
   to use to access the repository.
 * ``repo:url`` (string): Git repository URL
-* ``repo:branch`` (string): Branch to check out. Optional; default is ``master``.
+* ``branch`` (string): Branch to check out. Optional; the default is ``master``.
 * ``project_name`` (string)
 
 Dependencies:
@@ -448,23 +448,41 @@ project.web.balancer
 Arranges for nginx to serve static files for the project and to proxy
 other requests to the gunicorn servers.
 
-Set ``letsencrypt: true`` in the pillar configuration to
+Set ``letsencrypt: true`` in the pillar configuration, and remove any
+``ssl_cert`` and ``ssl_key``, to
 use `letsencrypt.org <https://letsencrypt.org>`_ to generate a certificate
 that will be trusted by all major browsers, and to renew it periodically.
 But this can only work if there's a single web server and the domain points
 directly at it. (You might still be able to use `letsencrypt` some other way.)
 
+If you wish to use `letsencrypt` with multiple domain names, add a list
+of domains under ``letsencrypt_domains`` in the pillar configuration. (If you
+do not set this parameter, letsencrypt defaults to using your pillar config's
+`domain` property.)
+
 Note: to switch to letsencrypt from another certificate, it should be
-enough to set ``letsencrypt`` and ``admin_email`` and deploy again.
+enough to set ``letsencrypt`` and ``admin_email``, remove ``ssl_key`` and
+``ssl_cert``, and deploy again.
 But the reverse is not true: if you want to switch from letsencrypt
-to self-signed, you'll want to manually remove the self-signed ssl
-files before turning off letsencrypt and running another deploy.
+to any other type of certificate, you'll want to manually remove the
+symbolic links in ``/var/www/project_name/ssl/`` before turning off
+letsencrypt and running another deploy. Otherwise the new cert will
+get copied to the symbolic links, which will overwrite the
+letsencrypt certs stored in ``/etc/letsencrypt``, which will lead to
+very confusing behavior if you ever try to switch back to
+letsencrypt.
 
 If you already have a certificate you want to use, you can provide it
 in the pillar configuration; see below.
 
 If ``letenscrypt`` is not set and either a key or certificate are not
 provided, the deploy will generate and use a self-signed key.
+
+Summary of which certificates will be used:
+
+* If ``ssl_key`` and ``ssl_cert`` are provided, they will be used.
+* Otherwise, if ``letsencrypt`` is true, letsencrypt will be used.
+* Otherwise, a self-signed certificate will be used.
 
 The nginx configuration redirects non-SSL requests to the corresponding
 `https` URL, and sets the ``Strict-Transport-Security`` header to a
@@ -488,6 +506,8 @@ Pillar configuration:
   be configured to use this domain name.
 * ``letsencrypt`` (boolean): If True, use `letsencrypt.org <https://letsencrypt.org>`_
   to get a certificate.
+* ``letsencrypt_domains`` (list): List of domain names. We'll request SSL certs for
+  each domain name in this list. If this is empty or not set, we'll use ``domain``.
 * ``admin_email`` (email address): If ``letsencrypt`` is true, this is required to
   provide an email address for `letsencrypt.org <https://letsencrypt.org>`_ to use.
   This should be a dev team group email address, not an individual's email address.
@@ -530,10 +550,13 @@ project.worker.default
 ~~~~~~~~~~~~~~~~~~~~~~
 
 Arrange for a ``celery worker`` service to run for the project via supervisor.
+The default worker-specific command-line arguments set log level to ``INFO``.
 
 Pillar configuration:
 
 * ``project_name``
+* ``celery_worker_arguments`` (string): Optional, overrides default worker-specific
+  command-line arguments.
 
 Dependencies:
 

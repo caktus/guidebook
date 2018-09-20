@@ -1,0 +1,207 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Developer Machine Security &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Branching Strategy" href="branching.html" />
+    <link rel="prev" title="Developer Machine Setup" href="dev-setup.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-machine-security">
+<h1>Developer Machine Security<a class="headerlink" href="#developer-machine-security" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ssh-keys">
+<h2>SSH Keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">¶</a></h2>
+<p>Security is important and that starts with securely stored and accessed credentials, because those
+credentials grant you access to all the other infrastructure of a project. We have standards about
+the types, size, and storage of SSH keys and this page will help you follow those standards.</p>
+<p>Current requirements:</p>
+<ul class="simple">
+<li>SSH Length of 2048 or more</li>
+<li>SSH Key stored with a passphrase</li>
+</ul>
+<p>Current recommendations:</p>
+<ul class="simple">
+<li>SSH Length of 4096 or more</li>
+</ul>
+<p>If you have an existing 2048-bit key, you should add a 4096-bit key as a secondary key so you can
+transition resources to your more secure key over time. Eventually we may require 4096 bits, so
+this will help the transition by starting it sooner, without forcing you to reset all your SSH
+keys on every server today.</p>
+<p>First, list your current keys and their lengths, by running the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+   ssh-keygen -l -f &quot;${keyfile}&quot;; \
+done | uniq
+</pre></div>
+</div>
+<p>You’ll see some output that shows your keys and their lengths:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2048</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">aoHoYrBFq</span><span class="o">/</span><span class="mi">1</span><span class="n">OwR6BZT4YsYkFCBjJIfgkya5uA</span><span class="o">/</span><span class="n">BsiU4</span> <span class="n">calvin</span><span class="nd">@MBP5</span><span class="o">.</span><span class="n">local</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
+<span class="mi">2048</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">alNfvb6ar8mpQg4HdhuX8xgEgUUcZow</span><span class="o">/</span><span class="n">R63CxjezWcU</span> <span class="n">calvin</span><span class="nd">@caktus001</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Second, we’ll check if any of your keys do <em>not</em> have a passphrase:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+  ssh-keygen -p -P &#39;&#39; -N &#39;&#39; -f &quot;$keyfile&quot; &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo &quot;WARNING: $keyfile has no passphrase&quot;; \
+done
+</pre></div>
+</div>
+<p>(per <a class="reference external" href="https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase">https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase</a>)</p>
+<div class="section" id="adding-ssh-key-passphrases">
+<h3>Adding SSH Key passphrases<a class="headerlink" href="#adding-ssh-key-passphrases" title="Permalink to this headline">¶</a></h3>
+<p>If the checks above found keys that do not have a passphrase, then you should add one now. To add passphrases to the existing keys in-place, you can use this ssh-keygen command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ssh-keygen -f ${keyfile} -p -o -a 100
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">-o</span></code> = use newer file format, <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">100</span></code> = number of KDF rounds, <code class="docutils literal notranslate"><span class="pre">-p</span></code> = change password.)</p>
+<p>If you have more than one key to add a passphrase to, you can get them all with this snippet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+   ssh-keygen -f ${keyfile} -p -o -a 100 ; \
+done
+</pre></div>
+</div>
+<p>You may use the same passphrase for all your SSH keys. If you do, then <cite>ssh-add</cite> will let you add _all_ of them to your
+SSH agent at once, which will make it much easier to use multiple keys.</p>
+</div>
+<div class="section" id="creating-a-4096-bit-rsa-key">
+<h3>Creating a 4096-bit RSA Key<a class="headerlink" href="#creating-a-4096-bit-rsa-key" title="Permalink to this headline">¶</a></h3>
+<p>If you did not have any 4096-bit keys, then you should create one now.</p>
+<p>Create a new key:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh-keygen -o -a 100 -t rsa -b 4096 -f ~/.ssh/id_rsa4096
+Generating public/private RSA key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/gert/.ssh/id_rsa4096.
+Your public key has been saved in /home/gert/.ssh/id_rsa4096.pub.
+The key fingerprint is:
+SHA256: [...] gert@hostname
+The key&#39;s randomart image is: [...]
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-keys-to-ssh-agent">
+<h3>Adding keys to ssh-agent<a class="headerlink" href="#adding-keys-to-ssh-agent" title="Permalink to this headline">¶</a></h3>
+<p>If all your keys have the same passphrase and you add them all to your
+agent in one command, you’ll only have to enter the passphrase once:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ shopt -s extglob; ssh-add ~/.ssh/id_!(*.sock|*.pub)
+Enter passphrase for /Users/calvin/.ssh/id_rsa:
+Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
+Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
+</pre></div>
+</div>
+<p>Possible shortcut: if all your keys are named ~/.ssh/id_rsa, ~/.ssh/id_dsa,
+~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity, you can just use
+<code class="docutils literal notranslate"><span class="pre">ssh-add</span></code> with no arguments.</p>
+<p>Now that you’ve created a more secure 4096-bit key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.</p>
+<p>If any of your previous keys were smaller than 2048-bit then you must stop using them immediately. This means any servers you currently require those keys to use must be updated, on a project-by-project basis.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Caktus Developer Documentation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dev-setup.html">Developer Machine Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Developer Machine Security</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ssh-keys">SSH Keys</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="branching.html">Branching Strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rds.html">Using Amazon RDS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supported-clients.html">Supported Browsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">App Development Workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading-django.html">Upgrading Django</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy-strategies.html">Choosing a deploy strategy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dokku.html">Deploying to a Dokku server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="margarita/margarita.html">Margarita</a></li>
+<li class="toctree-l1"><a class="reference internal" href="project-template-testing.html">Django Project Template Testing Plans</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-packages.html">Frontend Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frontend-docs.html">Front-end documentation with JSDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/index.html">External Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">Deploying Django projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hosting-practices.html">Hosting best practices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/index.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing/frontend.html">Front-end JavaScript Testing Practices</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dev-setup.html" title="previous chapter">Developer Machine Setup</a></li>
+      <li>Next: <a href="branching.html" title="next chapter">Branching Strategy</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Caktus Group.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      
+      |
+      <a href="_sources/security.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

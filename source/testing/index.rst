@@ -377,7 +377,10 @@ which has good Django support.
 Testing the front-end
 +++++++++++++++++++++
 
-Part of testing is making sure the site works right in a browser. If a site
+Part of testing front-end code is writing unit tests for front-end JavaScript.
+For details on how to do that, see the `front-end JS docs <./frontend.html>`_.
+
+Another part of testing is making sure the site works right in a browser. If a site
 is purely HTML and CSS with no Javascript in the browser, then you can get away
 with testing using the Django test client and examining the HTML in the
 responses. But fewer and fewer sites run without Javascript.
@@ -495,6 +498,28 @@ References:
 
 * `coverage tool for Python <https://pypi.python.org/pypi/coverage>`_
 * `Measuring Coverage <https://django-testing-docs.readthedocs.org/en/latest/coverage.html>`_
+
+
+Manual testing
+--------------
+
+In addition to automated testing, we also want to run the site and make sure it
+works right from the end user's point of view. But we don't want to waste our testers'
+time by asking them to test things that aren't ready yet.
+
+When is a ticket ready for QA?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The cycle between development and QA can be very time-consuming, and the earlier bugs are caught and fixed, the less impact they will have on the project's timeline and budget. It’s up to the individual developer to define what he/she thinks is a reasonable amount of testing to do as part of code review, but here are some questions you should ask before sending a ticket to QA, in order to avoid unnecessary iterations:
+
+* Does this feature/change load on staging, in at least 1 browser (or 1 device if on mobile)?
+* Does the task/story meet all the acceptance criteria?
+* Does it match the design/mockup to the expected level for the project?
+* Are best practices being followed?
+
+   * examples: interactive elements have hover states, links to external sites open in new tabs, everything is responsive!
+
+* Are deviations from design, expected functionality, or other information needed for testing documented in JIRA?
 
 Further reading
 ---------------
