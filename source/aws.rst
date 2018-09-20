@@ -37,10 +37,11 @@ this type of user.
 Logging in
 ----------
 
-To login using a *root user*, there's a global url:
-`https://www.amazon.com/ap/signin <https://www.amazon.com/ap/signin>`_.
-You can sign in or create a new root user there, and once logged in,
-set up billing, create new AWS accounts, buy cat food, etc.
+To login using a *root user*, start at
+`https://console.aws.amazon.com <https://console.aws.amazon.com>`_.
+If you find you're already logged in, log out and go to that page
+again. Then click the link below the login form - it currently says
+``Sign-in using root account credentials``.
 
 You can tell you're logging in as one of these type of users
 because the login page will only prompt for a username and
@@ -79,6 +80,28 @@ account field on this login page to login to another
 account, but not all account identifiers are as memorable
 as "caktus", some are just long random strings of numbers,
 so bookmarking the canonical login URL seems easiest.
+
+Subaccounts
+-----------
+
+If that wasn't complicated enough, if you need to work in an AWS
+*subaccount*, there are more steps.
+
+Hopefully someone has given you a link to use for accessing
+the subaccount. That link will not let you log in directly,
+though. First you need to login normally to the main account.
+Only after you've done that can you use the link, which should
+then switch you "into" that subaccount. While you're switched,
+you'll only see resources of that subaccount, not of the parent
+account.
+
+You can confirm how you're currently logged in by looking near
+the top right in the console. When I'm logged in to the main
+Caktus account, I see a dropdown "dpoirier@caktus". Once
+I switch roles to a subaccount, I see only the display name
+for the subaccount.  Clicking that dropdown displays full details
+of how I'm logged in, along with a "back to dpoirier" link
+to exit the subaccount and go back to the main account.
 
 AWS Console
 -----------
