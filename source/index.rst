@@ -29,6 +29,7 @@ Contents:
    hosting-practices
    testing/index
    testing/frontend
+   aws
 
 
 Indices and tables
