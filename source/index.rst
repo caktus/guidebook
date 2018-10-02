@@ -23,7 +23,6 @@ Contents:
    margarita/margarita
    project-template-testing
    frontend-packages
-   frontend-docs
    services/index
    deploy/index
    hosting-practices
