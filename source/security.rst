@@ -1,6 +1,7 @@
 Developer Machine Security
 ##########################
 
+
 SSH Keys
 ========
 
@@ -10,36 +11,48 @@ the types, size, and storage of SSH keys and this page will help you follow thos
 
 Current requirements:
 
-- SSH Length of 2048 or more
-- SSH Key stored with a passphrase
+- SSH RSA key length of 2048 or more
+- SSH key stored with a passphrase
 
 Current recommendations:
 
-- SSH Length of 4096 or more
+- Ed25519 key
 
-If you have an existing 2048-bit key, you should add a 4096-bit key as a secondary key so you can
-transition resources to your more secure key over time. Eventually we may require 4096 bits, so
-this will help the transition by starting it sooner, without forcing you to reset all your SSH
-keys on every server today.
+If you have an existing 2048-bit (or greater) key, you should add a Ed25519 key as a secondary key
+so you can transition resources to your more secure key over time. Eventually we may require
+Ed25519, so this will help the transition by starting it sooner, without forcing you to reset all
+your SSH keys on every server today.
 
-First, list your current keys and their lengths, by running the following::
+
+Listing Your Current Keys
+-------------------------
+
+List your current keys, their lengths, and whether or not your keys do *not* have a passphrase (per
+`Stack Exchange`_), by running the following ``bash`` script:
+
+.. code-block:: bash
 
     shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
-       ssh-keygen -l -f "${keyfile}"; \
+      ssh-keygen -l -f "${keyfile}"; \
+      ssh-keygen -p -P '' -N '' -f "$keyfile" >/dev/null 2>&1 && echo "WARNING: $keyfile has no passphrase"; \
     done | uniq
 
-You'll see some output that shows your keys and their lengths::
+Example output::
 
-    2048 SHA256:aoHoYrBFq/1OwR6BZT4YsYkFCBjJIfgkya5uA/BsiU4 calvin@MBP5.local (RSA)
-    2048 SHA256:alNfvb6ar8mpQg4HdhuX8xgEgUUcZow/R63CxjezWcU calvin@caktus001 (RSA)
+  256 SHA256:41p4W87laEgkXY/jYQXkYXm3C8PE7vwgoZLasXwNm3s copelco@caktusgroup.com (ED25519)
+  4096 SHA256:2+dPQggqya9Q93U8eNFgcBamqP8mw3R62d/AfQbgrJM copelco@caktusgroup.com (RSA)
+  4096 SHA256:BWTy9KXG5tPEuzTHqlS6xRwehbiMd7hUB/rHRTPE66I copelco@MBP0.local (RSA)
+  WARNING: /Users/copelco/.ssh/id_rsa4096 has no passphrase
 
-Second, we'll check if any of your keys do *not* have a passphrase::
+What to look for:
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
-      ssh-keygen -p -P '' -N '' -f "$keyfile" >/dev/null 2>&1 && echo "WARNING: $keyfile has no passphrase"; \
-    done
+* **DSA or RSA 1024 bits:** Red flag. Unsafe.
+* **WARNING: <key> has no passphrase**: Red flag. Unsafe.
+* **RSA 2048-4096 bits:** Recommend to transition to Ed25519.
+* **Ed25519:** Great!
 
-(per https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase)
+.. _Stack Exchange: https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase
+
 
 Adding SSH Key passphrases
 --------------------------
