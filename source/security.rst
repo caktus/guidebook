@@ -32,7 +32,8 @@ List your current keys, their lengths, and whether or not your keys do *not* hav
 
 .. code-block:: bash
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+    shopt -s extglob
+    for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
       ssh-keygen -l -f "${keyfile}"; \
       ssh-keygen -p -P '' -N '' -f "$keyfile" >/dev/null 2>&1 && echo "WARNING: $keyfile has no passphrase"; \
     done | uniq
@@ -90,13 +91,17 @@ Create a new key::
     SHA256: [...] gert@hostname
     The key's randomart image is: [...]
 
+
 Adding keys to ssh-agent
 ------------------------
 
 If all your keys have the same passphrase and you add them all to your
-agent in one command, you'll only have to enter the passphrase once::
+agent in one command, you'll only have to enter the passphrase once:
 
-    $ shopt -s extglob; ssh-add ~/.ssh/id_!(*.sock|*.pub)
+.. code-block:: bash
+
+    $ shopt -s extglob
+    $ ssh-add ~/.ssh/id_!(*.sock|*.pub)
     Enter passphrase for /Users/calvin/.ssh/id_rsa:
     Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
     Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
