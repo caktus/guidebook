@@ -66,7 +66,8 @@ If the checks above found keys that do not have a passphrase, then you should ad
 
 If you have more than one key to add a passphrase to, you can get them all with this snippet::
 
-    shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+    shopt -s extglob
+    for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
        ssh-keygen -f ${keyfile} -p -o -a 100 ; \
     done
 
