@@ -75,22 +75,20 @@ You may use the same passphrase for all your SSH keys. If you do, then `ssh-add`
 SSH agent at once, which will make it much easier to use multiple keys.
 
 
-Creating a 4096-bit RSA Key
-----------------------------
+Creating a Ed25519 Key
+----------------------
 
-If you did not have any 4096-bit keys, then you should create one now.
+If you did not have a Ed25519 key, then you should create one now.
 
 Create a new key::
 
-    $ ssh-keygen -o -a 100 -t rsa -b 4096 -f ~/.ssh/id_rsa4096
-    Generating public/private RSA key pair.
-    Enter passphrase (empty for no passphrase):
-    Enter same passphrase again:
-    Your identification has been saved in /home/gert/.ssh/id_rsa4096.
-    Your public key has been saved in /home/gert/.ssh/id_rsa4096.pub.
-    The key fingerprint is:
-    SHA256: [...] gert@hostname
-    The key's randomart image is: [...]
+    $ ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
+
+* -a 100: KDF (Key Derivation Function) rounds. Higher numbers = increased brute-force resistance, but slower passphrase verification.
+* -t ed25519: the type of key to create, in our case the Ed25519
+* -P pass: Passphrase for the key
+* -f ~/.ssh/id_ed25519: filename of the generated key file
+* (optional) -C myname@whatever.com: Comment for the key appended at the end of the public file
 
 
 Adding keys to ssh-agent
@@ -103,14 +101,16 @@ agent in one command, you'll only have to enter the passphrase once:
 
     $ shopt -s extglob
     $ ssh-add ~/.ssh/id_!(*.sock|*.pub)
-    Enter passphrase for /Users/calvin/.ssh/id_rsa:
-    Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
-    Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
+
+Of if you're on a Mac (to add to your keychain):: bash
+
+    $ shopt -s extglob
+    $ ssh-add -K ~/.ssh/id_!(*.sock|*.pub)
 
 Possible shortcut: if all your keys are named ~/.ssh/id_rsa, ~/.ssh/id_dsa,
 ~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity, you can just use
 ``ssh-add`` with no arguments.
 
-Now that you've created a more secure 4096-bit key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.
+Now that you've created a more secure Ed25519 key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.
 
 If any of your previous keys were smaller than 2048-bit then you must stop using them immediately. This means any servers you currently require those keys to use must be updated, on a project-by-project basis.
