@@ -77,7 +77,7 @@ to start it running immediately::
 Python
 ''''''
 
-OS X installers for all the latest Python versions can be downloaded from:
+Mac OS X installers for all the latest Python versions can be downloaded from:
 https://www.python.org/downloads/mac-osx/
 
 Practically speaking (as of February 2019, at least), it is helpful to have Python 2.7, 3.5, 3.6,
@@ -104,7 +104,7 @@ Installing virtualenvwrapper
 ''''''''''''''''''''''''''''
 
 We use ``virtualenvwrapper`` to help manage Python virtual environments. Install it and set it up
-link so::
+like so::
 
     /Library/Frameworks/Python.framework/Versions/3.7/bin/pip3.7 install virtualenvwrapper
     cat <<EOF >> ~/.bash_profile
