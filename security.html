@@ -43,35 +43,43 @@ credentials grant you access to all the other infrastructure of a project. We ha
 the types, size, and storage of SSH keys and this page will help you follow those standards.</p>
 <p>Current requirements:</p>
 <ul class="simple">
-<li>SSH Length of 2048 or more</li>
-<li>SSH Key stored with a passphrase</li>
+<li>SSH RSA key length of 2048 or more</li>
+<li>SSH key stored with a passphrase</li>
 </ul>
 <p>Current recommendations:</p>
 <ul class="simple">
-<li>SSH Length of 4096 or more</li>
+<li>Ed25519 key</li>
 </ul>
-<p>If you have an existing 2048-bit key, you should add a 4096-bit key as a secondary key so you can
-transition resources to your more secure key over time. Eventually we may require 4096 bits, so
-this will help the transition by starting it sooner, without forcing you to reset all your SSH
-keys on every server today.</p>
-<p>First, list your current keys and their lengths, by running the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
-   ssh-keygen -l -f &quot;${keyfile}&quot;; \
-done | uniq
+<p>If you have an existing 2048-bit (or greater) key, you should add a Ed25519 key as a secondary key
+so you can transition resources to your more secure key over time. Eventually we may require
+Ed25519, so this will help the transition by starting it sooner, without forcing you to reset all
+your SSH keys on every server today.</p>
+<div class="section" id="listing-your-current-keys">
+<h3>Listing Your Current Keys<a class="headerlink" href="#listing-your-current-keys" title="Permalink to this headline">¶</a></h3>
+<p>List your current keys, their lengths, and whether or not your keys do <em>not</em> have a passphrase (per
+<a class="reference external" href="https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase">Stack Exchange</a>), by running the following <code class="docutils literal notranslate"><span class="pre">bash</span></code> script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">shopt</span> -s extglob
+<span class="k">for</span> keyfile in ~/.ssh/id_!<span class="o">(</span>*.sock<span class="p">|</span>*.pub<span class="o">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+  ssh-keygen -l -f <span class="s2">&quot;</span><span class="si">${</span><span class="nv">keyfile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="se">\</span>
+  ssh-keygen -p -P <span class="s1">&#39;&#39;</span> -N <span class="s1">&#39;&#39;</span> -f <span class="s2">&quot;</span><span class="nv">$keyfile</span><span class="s2">&quot;</span> &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;WARNING: </span><span class="nv">$keyfile</span><span class="s2"> has no passphrase&quot;</span><span class="p">;</span> <span class="se">\</span>
+<span class="k">done</span> <span class="p">|</span> uniq
 </pre></div>
 </div>
-<p>You’ll see some output that shows your keys and their lengths:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2048</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">aoHoYrBFq</span><span class="o">/</span><span class="mi">1</span><span class="n">OwR6BZT4YsYkFCBjJIfgkya5uA</span><span class="o">/</span><span class="n">BsiU4</span> <span class="n">calvin</span><span class="nd">@MBP5</span><span class="o">.</span><span class="n">local</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
-<span class="mi">2048</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">alNfvb6ar8mpQg4HdhuX8xgEgUUcZow</span><span class="o">/</span><span class="n">R63CxjezWcU</span> <span class="n">calvin</span><span class="nd">@caktus001</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
+<p>Example output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">256</span> <span class="n">SHA256</span><span class="p">:</span><span class="mi">41</span><span class="n">p4W87laEgkXY</span><span class="o">/</span><span class="n">jYQXkYXm3C8PE7vwgoZLasXwNm3s</span> <span class="n">copelco</span><span class="nd">@caktusgroup</span><span class="o">.</span><span class="n">com</span> <span class="p">(</span><span class="n">ED25519</span><span class="p">)</span>
+<span class="mi">4096</span> <span class="n">SHA256</span><span class="p">:</span><span class="mi">2</span><span class="o">+</span><span class="n">dPQggqya9Q93U8eNFgcBamqP8mw3R62d</span><span class="o">/</span><span class="n">AfQbgrJM</span> <span class="n">copelco</span><span class="nd">@caktusgroup</span><span class="o">.</span><span class="n">com</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
+<span class="mi">4096</span> <span class="n">SHA256</span><span class="p">:</span><span class="n">BWTy9KXG5tPEuzTHqlS6xRwehbiMd7hUB</span><span class="o">/</span><span class="n">rHRTPE66I</span> <span class="n">copelco</span><span class="nd">@MBP0</span><span class="o">.</span><span class="n">local</span> <span class="p">(</span><span class="n">RSA</span><span class="p">)</span>
+<span class="n">WARNING</span><span class="p">:</span> <span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">copelco</span><span class="o">/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa4096</span> <span class="n">has</span> <span class="n">no</span> <span class="n">passphrase</span>
 </pre></div>
 </div>
-<p>Second, we’ll check if any of your keys do <em>not</em> have a passphrase:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
-  ssh-keygen -p -P &#39;&#39; -N &#39;&#39; -f &quot;$keyfile&quot; &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo &quot;WARNING: $keyfile has no passphrase&quot;; \
-done
-</pre></div>
+<p>What to look for:</p>
+<ul class="simple">
+<li><strong>DSA or RSA 1024 bits:</strong> Red flag. Unsafe.</li>
+<li><strong>WARNING: &lt;key&gt; has no passphrase</strong>: Red flag. Unsafe.</li>
+<li><strong>RSA 2048-4096 bits:</strong> Recommend to transition to Ed25519.</li>
+<li><strong>Ed25519:</strong> Great!</li>
+</ul>
 </div>
-<p>(per <a class="reference external" href="https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase">https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase</a>)</p>
 <div class="section" id="adding-ssh-key-passphrases">
 <h3>Adding SSH Key passphrases<a class="headerlink" href="#adding-ssh-key-passphrases" title="Permalink to this headline">¶</a></h3>
 <p>If the checks above found keys that do not have a passphrase, then you should add one now. To add passphrases to the existing keys in-place, you can use this ssh-keygen command:</p>
@@ -80,7 +88,8 @@ done
 </div>
 <p>(<code class="docutils literal notranslate"><span class="pre">-o</span></code> = use newer file format, <code class="docutils literal notranslate"><span class="pre">-a</span> <span class="pre">100</span></code> = number of KDF rounds, <code class="docutils literal notranslate"><span class="pre">-p</span></code> = change password.)</p>
 <p>If you have more than one key to add a passphrase to, you can get them all with this snippet:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob; for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>shopt -s extglob
+for keyfile in ~/.ssh/id_!(*.sock|*.pub); do \
    ssh-keygen -f ${keyfile} -p -o -a 100 ; \
 done
 </pre></div>
@@ -88,36 +97,37 @@ done
 <p>You may use the same passphrase for all your SSH keys. If you do, then <cite>ssh-add</cite> will let you add _all_ of them to your
 SSH agent at once, which will make it much easier to use multiple keys.</p>
 </div>
-<div class="section" id="creating-a-4096-bit-rsa-key">
-<h3>Creating a 4096-bit RSA Key<a class="headerlink" href="#creating-a-4096-bit-rsa-key" title="Permalink to this headline">¶</a></h3>
-<p>If you did not have any 4096-bit keys, then you should create one now.</p>
+<div class="section" id="creating-a-ed25519-key">
+<h3>Creating a Ed25519 Key<a class="headerlink" href="#creating-a-ed25519-key" title="Permalink to this headline">¶</a></h3>
+<p>If you did not have a Ed25519 key, then you should create one now.</p>
 <p>Create a new key:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh-keygen -o -a 100 -t rsa -b 4096 -f ~/.ssh/id_rsa4096
-Generating public/private RSA key pair.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in /home/gert/.ssh/id_rsa4096.
-Your public key has been saved in /home/gert/.ssh/id_rsa4096.pub.
-The key fingerprint is:
-SHA256: [...] gert@hostname
-The key&#39;s randomart image is: [...]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 </pre></div>
 </div>
+<ul class="simple">
+<li>-a 100: KDF (Key Derivation Function) rounds. Higher numbers = increased brute-force resistance, but slower passphrase verification.</li>
+<li>-t ed25519: the type of key to create, in our case the Ed25519</li>
+<li>-P pass: Passphrase for the key</li>
+<li>-f ~/.ssh/id_ed25519: filename of the generated key file</li>
+<li>(optional) -C <a class="reference external" href="mailto:myname&#37;&#52;&#48;whatever&#46;com">myname<span>&#64;</span>whatever<span>&#46;</span>com</a>: Comment for the key appended at the end of the public file</li>
+</ul>
 </div>
 <div class="section" id="adding-keys-to-ssh-agent">
 <h3>Adding keys to ssh-agent<a class="headerlink" href="#adding-keys-to-ssh-agent" title="Permalink to this headline">¶</a></h3>
 <p>If all your keys have the same passphrase and you add them all to your
 agent in one command, you’ll only have to enter the passphrase once:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ shopt -s extglob; ssh-add ~/.ssh/id_!(*.sock|*.pub)
-Enter passphrase for /Users/calvin/.ssh/id_rsa:
-Identity added: /Users/calvin/.ssh/id_rsa (/Users/calvin/.ssh/id_rsa)
-Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nb">shopt</span> -s extglob
+$ ssh-add ~/.ssh/id_!<span class="o">(</span>*.sock<span class="p">|</span>*.pub<span class="o">)</span>
 </pre></div>
 </div>
+<p>Of if you’re on a Mac (to add to your keychain):: bash</p>
+<blockquote>
+<div>$ shopt -s extglob
+$ ssh-add -K ~/.ssh/<a href="#id1"><span class="problematic" id="id2">id_</span></a>!(<em>.sock|</em>.pub)</div></blockquote>
 <p>Possible shortcut: if all your keys are named ~/.ssh/id_rsa, ~/.ssh/id_dsa,
 ~/.ssh/id_ecdsa, ~/.ssh/id_ed25519 or ~/.ssh/identity, you can just use
 <code class="docutils literal notranslate"><span class="pre">ssh-add</span></code> with no arguments.</p>
-<p>Now that you’ve created a more secure 4096-bit key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.</p>
+<p>Now that you’ve created a more secure Ed25519 key, or if you already had one, you should treat this as your default key. You do not have to replace your 2048-bit key everywhere at this time, but any _new_ resources you or your team setup should use the new key. Add your key to the company intranet, replacing any previous key you had, so that anyone else granting you access to a server uses your new key.</p>
 <p>If any of your previous keys were smaller than 2048-bit then you must stop using them immediately. This means any servers you currently require those keys to use must be updated, on a project-by-project basis.</p>
 </div>
 </div>
@@ -185,6 +195,14 @@ Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -194,7 +212,7 @@ Identity added: /Users/calvin/.ssh/id_ed25519 (calvin@172-20-0-91.caktus.lan)
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/security.rst.txt"
