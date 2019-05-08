@@ -1,3 +1,5 @@
+.. _deploy-strategies:
+
 Choosing a deploy strategy
 ==========================
 
@@ -42,9 +44,8 @@ Both FabulAWS and Elastic Beanstalk are tied to AWS.
 Margarita
 ---------
 
-Most of our current client projects use a Caktus project called
-`Margarita <http://caktus.github.io/developer-documentation/margarita/margarita.html>`_
-for deployment, which uses the
+Many of our older client projects use a Caktus project called
+:ref:`margarita` for deployment, which uses the
 `Salt <https://saltstack.com/>`_ configuration management system
 to deploy the site.
 
@@ -63,7 +64,7 @@ over time we've discovered a number of shortcomings:
 Tequila
 -------
 
-Tequila (see `tequila-*` projects on Caktus github)
+:ref:`tequila`
 is a successor project to Margarita, which uses
 `Ansible <http://docs.ansible.com/>`_
 instead of Salt. It is hoped that Tequila will avoid some of the problems
@@ -75,9 +76,6 @@ of Margarita.
   the servers.
 * Ansible seems (so far) to have a better track record of not introducing
   regressions with its updates.
-
-At present, Tequila is in a beta state, with several newer projects trying
-it out.
 
 Strategies that try to abstract away some of the details
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

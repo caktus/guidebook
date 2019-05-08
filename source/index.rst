@@ -21,6 +21,7 @@ Contents:
    deploy-strategies
    dokku
    margarita/margarita
+   tequila/tequila
    project-template-testing
    frontend-packages
    services/index
