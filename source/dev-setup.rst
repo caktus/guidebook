@@ -77,38 +77,57 @@ to start it running immediately::
 Python
 ''''''
 
-Install pyenv and the pyenv-virtualenv plugin via brew::
+Mac OS X installers for all the latest Python versions can be downloaded from:
+https://www.python.org/downloads/mac-osx/
 
-    brew install pyenv
-    brew install pyenv-virtualenv
-    cat << EOF >> ~/.bash_profile
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+Practically speaking (as of February 2019, at least), it is helpful to have Python 2.7, 3.5, 3.6,
+and 3.7 all installed locally (soon, probably 3.8 as well).
+
+On the Mac OS X installer download page, find the "macOS 64-bit installer" link for the latest
+point release of the Python major version that you want to install. Download it, and open the
+``.pkg`` file to start the installer.
+
+When done, you'll have a new Python version in ``/Library/Frameworks/Python.framework/Versions/``
+that has also been added to your path by the installer.
+
+Uninstalling pyenv
+''''''''''''''''''
+
+If you used ``pyenv`` previously, you might want to uninstall the versions you had previously::
+
+    pyenv versions
+    pyenv uninstall <version>  # for each installed version
+
+You'll also want to comment out any lines including ``pyenv`` in your ``~/.bash_profile``.
+
+Installing virtualenvwrapper
+''''''''''''''''''''''''''''
+
+We use ``virtualenvwrapper`` to help manage Python virtual environments. Install it and set it up
+like so::
+
+    /Library/Frameworks/Python.framework/Versions/3.7/bin/pip3.7 install virtualenvwrapper
+    cat <<EOF >> ~/.bash_profile
+    # to keep stray Python versions from causing problems on Mac OS, we are very explicit about the
+    # Python we want to use:
+    export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.7/bin/
+    export VIRTUALENVWRAPPER_PYTHON=$PYTHON_BIN/python3
+    export VIRTUALENVWRAPPER_VIRTUALENV=$PYTHON_BIN/virtualenv
+    source $PYTHON_BIN/virtualenvwrapper.sh
     EOF
-    source ~/.bash_profile
 
-Different projects require different versions of Python. Some older projects will still be using
-Python 2.7, and newer projects are eiter on 3.5 or 3.6, so we'll install the latest versions of all
-three::
-
-    pyenv install $(pyenv install -l | grep " 2.7" | tail -n 1)
-    pyenv install $(pyenv install -l | grep " 3.5" | tail -n 1)
-    pyenv install $(pyenv install -l | grep " 3.6" | tail -n 1)
-
-And link them so they'll be in your path::
-
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 2.7" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python2.7
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.5" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.5
-    ln -s ~/.pyenv/versions/$(pyenv install -l | grep " 3.6" | tail -n 1 | sed 's/^ *//g')/bin/python /usr/local/bin/python3.6
+Note that if you had virtualenv and/or virtualenvwrapper installed for a different Python version
+previously, you may need to track it down and remove it (and remove the corresponding ``source``
+line from your ``~/.bash_profile``).
 
 Creating a Python Virtual Environment
 '''''''''''''''''''''''''''''''''''''
 
-You can create a virtual environment using a version of Python as follows::
+You can now create a virtual environment using a version of Python as follows::
 
-    pyenv virtualenv 3.5.3 my-virtualenv-name
+    mkvirtualenv -p python3.7 my-virtualenv-name
 
-For whatever version of Python your project requires. When you need to run anything in this project
+for whatever version of Python your project requires. When you need to run anything in this project
 simply activate the virtual environment first::
 
-    pyenv activate my-virtualenv-name
+    workon my-virtualenv-name
