@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Choosing a deploy strategy &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Deploying to a Dokku server" href="dokku.html" />
@@ -77,14 +75,14 @@ to deploy the site.</p>
 <p>This has worked reasonably well (well enough that we keep using it), but
 over time we’ve discovered a number of shortcomings:</p>
 <ul class="simple">
-<li>Difficulty debugging deploy problems</li>
-<li>Fragility of Salt updates - many new updates seem to introduce new
+<li><p>Difficulty debugging deploy problems</p></li>
+<li><p>Fragility of Salt updates - many new updates seem to introduce new
 bugs, and the next update that fixes those might have its own new
-bugs. It can be tricky figuring out a version of Salt that works.</li>
-<li>Resource usage - the Salt master process seems to grow over time to
+bugs. It can be tricky figuring out a version of Salt that works.</p></li>
+<li><p>Resource usage - the Salt master process seems to grow over time to
 use a lot of memory on the server, even though it shouldn’t be doing
 anything at all when we’re not deploying. This ties up memory our
-site could be using.</li>
+site could be using.</p></li>
 </ul>
 </div>
 <div class="section" id="tequila">
@@ -95,12 +93,12 @@ is a successor project to Margarita, which uses
 instead of Salt. It is hoped that Tequila will avoid some of the problems
 of Margarita.</p>
 <ul class="simple">
-<li>Ansible error messages are much clearer, making debugging deploy problems
-easier.</li>
-<li>Ansible is agent-less, so when not deploying, it takes no resources on
-the servers.</li>
-<li>Ansible seems (so far) to have a better track record of not introducing
-regressions with its updates.</li>
+<li><p>Ansible error messages are much clearer, making debugging deploy problems
+easier.</p></li>
+<li><p>Ansible is agent-less, so when not deploying, it takes no resources on
+the servers.</p></li>
+<li><p>Ansible seems (so far) to have a better track record of not introducing
+regressions with its updates.</p></li>
 </ul>
 <p>At present, Tequila is in a beta state, with several newer projects trying
 it out.</p>
@@ -249,12 +247,18 @@ reason.</p>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -263,8 +267,8 @@ reason.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/deploy-strategies.rst.txt"

@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Using Amazon RDS &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Supported Browsers" href="supported-clients.html" />
@@ -42,14 +40,14 @@
 <div class="section" id="rds-instances">
 <h3>RDS instances<a class="headerlink" href="#rds-instances" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>We host each client’s data on RDS instances under the client’s own AWS account.
-Different clients’ data is never hosted on the same RDS instance.</li>
-<li>We use RDS instances in the same region as the servers that will access them.</li>
-<li>We use separate instances for staging and production. (Typically, the staging
-instances can be smaller.)</li>
-<li>We need a different RDS instance for each Postgres version we are using.</li>
-<li>We can host multiple sites’ and projects’ data for the same client
-on the same RDS instance, as long as the preceding requirements are met.</li>
+<li><p>We host each client’s data on RDS instances under the client’s own AWS account.
+Different clients’ data is never hosted on the same RDS instance.</p></li>
+<li><p>We use RDS instances in the same region as the servers that will access them.</p></li>
+<li><p>We use separate instances for staging and production. (Typically, the staging
+instances can be smaller.)</p></li>
+<li><p>We need a different RDS instance for each Postgres version we are using.</p></li>
+<li><p>We can host multiple sites’ and projects’ data for the same client
+on the same RDS instance, as long as the preceding requirements are met.</p></li>
 </ul>
 </div>
 <div class="section" id="postgres-users">
@@ -247,8 +245,9 @@ has to be connected to some other database when doing it, though.)</p>
 <p>This is standard too.  Just beware that you cannot drop a user if anything
 they own still exists, including things like permissions on databases.</p>
 <blockquote>
-<div>$ export PGUSER=master
-$ dropuser $user</div></blockquote>
+<div><p>$ export PGUSER=master
+$ dropuser $user</p>
+</div></blockquote>
 </div>
 </div>
 </div>
@@ -310,12 +309,18 @@ $ dropuser $user</div></blockquote>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -324,8 +329,8 @@ $ dropuser $user</div></blockquote>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/rds.rst.txt"

@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Branching Strategy &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Using Amazon RDS" href="rds.html" />
@@ -53,8 +51,8 @@ and non-critical bugfixes that are intended to be merged into <code class="docut
 <p>Since all branches have equal weight to git, these are conventions. There are two types of short-term
 branches: <code class="docutils literal notranslate"><span class="pre">feature</span></code> and <code class="docutils literal notranslate"><span class="pre">hotfix</span></code>.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A third kind of branch might be a non-critical bug fix. This is a fix which does not need to
+<p class="admonition-title">Note</p>
+<p>A third kind of branch might be a non-critical bug fix. This is a fix which does not need to
 be immediately applied to production and can wait until the next development release cycle. The
 workflow for these fixes are effectively the same as developing a new feature so they are not
 given any special status in this workflow documentation. When reading the workflow for the
@@ -95,24 +93,24 @@ other metadata (WIP, not yet tested, addresses issue #42, etc.)</p>
 <h2>Pull Requests<a class="headerlink" href="#pull-requests" title="Permalink to this headline">¶</a></h2>
 <p>When you are certain of the following:</p>
 <ul class="simple">
-<li>The branch has addressed the issue</li>
-<li>All tests pass</li>
-<li>Test coverage is above 80% for the entire repository</li>
-<li>All code is PEP8 compliant</li>
-<li>All migrations created if needed</li>
-<li>All print/debug statements removed</li>
-<li>The server runs as expected</li>
+<li><p>The branch has addressed the issue</p></li>
+<li><p>All tests pass</p></li>
+<li><p>Test coverage is above 80% for the entire repository</p></li>
+<li><p>All code is PEP8 compliant</p></li>
+<li><p>All migrations created if needed</p></li>
+<li><p>All print/debug statements removed</p></li>
+<li><p>The server runs as expected</p></li>
 </ul>
 <p>then you can do a final push and create a pull request.  GitHub makes this simple. There is a
 green button that reads “Review and create pull request.”  You should look over the diff of the code
 and make sure it reads as you intend.  If so, add a comment to the pull request that it addresses issue #42.</p>
 <p>It is then incumbent on another member of the team to do the following:</p>
 <ul class="simple">
-<li>Pull your feature branch</li>
-<li>Run tests (this may be handled by a CI server such as TravisCI)</li>
-<li>Run migrations (this may be handled by a CI server such as TravisCI)</li>
-<li>Run their local dev server</li>
-<li>Verify that the feature was addressed</li>
+<li><p>Pull your feature branch</p></li>
+<li><p>Run tests (this may be handled by a CI server such as TravisCI)</p></li>
+<li><p>Run migrations (this may be handled by a CI server such as TravisCI)</p></li>
+<li><p>Run their local dev server</p></li>
+<li><p>Verify that the feature was addressed</p></li>
 </ul>
 <p>It is also incumbent upon the pull request reviewer to read the code diff and make comments on the code.
 Github presents a blue and white plus icon for adding line comments.</p>
@@ -125,8 +123,8 @@ $ git merge --no-ff 42-my-new-feature
 </div>
 <p>Note that GitHub allows you to merge and delete a branch from within the Pull Request GUI.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The use of the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not explicitly required. This flag ensures that the merge commit
+<p class="admonition-title">Note</p>
+<p>The use of the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not explicitly required. This flag ensures that the merge commit
 is created when merging the branch. Having a single merge commit makes it easier to rollback
 the entire branch of changes if needed. This also has the advantage of preserving the branch information
 in the merge commit message which would otherwise be lost when the branch is deleted and
@@ -170,8 +168,8 @@ $ git branch -d hotfix-2.0.1
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">As previously noted the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not required but is recommended. See the previous
+<p class="admonition-title">Note</p>
+<p>As previously noted the <code class="docutils literal notranslate"><span class="pre">--no-ff</span></code> flag is not required but is recommended. See the previous
 note for more information on the advantages of using this flag.</p>
 </div>
 </div>
@@ -192,9 +190,9 @@ $ git merge master
 to ensure that develop is still running as expected before preceeding. While on the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch
 you should</p>
 <ul class="simple">
-<li>Update change log with release notes</li>
-<li>Update internal version numbers if tracked in the code</li>
-<li>Run test suite</li>
+<li><p>Update change log with release notes</p></li>
+<li><p>Update internal version numbers if tracked in the code</p></li>
+<li><p>Run test suite</p></li>
 </ul>
 <p>Changes between each release should be noted in an obvious place in the repository such
 as a <code class="docutils literal notranslate"><span class="pre">CHANGELOG</span></code> or <code class="docutils literal notranslate"><span class="pre">CHANGES</span></code> file stored at the root or a <code class="docutils literal notranslate"><span class="pre">docs/changes.rst</span></code> or <code class="docutils literal notranslate"><span class="pre">docs/releases.rst</span></code>
@@ -290,12 +288,18 @@ $ git push origin develop --tags
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -304,8 +308,8 @@ $ git push origin develop --tags
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/branching.rst.txt"

@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Salt States &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Custom Salt States" href="custom_states.html" />
@@ -51,13 +49,13 @@ for elasticsearch.</p>
 <p>Always adds the elasticsearch-analysis-icu plugin.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">elasticsearch_version</span></code> (string):  E.g. ‘1.7’</li>
-<li><code class="docutils literal notranslate"><span class="pre">elasticsearch_newrelic</span></code> (boolean): Whether to use a newrelic plugin to monitor
-the elasticsearch service in more detail.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elasticsearch_version</span></code> (string):  E.g. ‘1.7’</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">elasticsearch_newrelic</span></code> (boolean): Whether to use a newrelic plugin to monitor
+the elasticsearch service in more detail.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#newrelic-npi"><span class="std std-ref">newrelic_npi</span></a> (if <code class="docutils literal notranslate"><span class="pre">elasticsearch_newrelic</span></code> is True).</li>
+<li><p><a class="reference internal" href="#newrelic-npi"><span class="std std-ref">newrelic_npi</span></a> (if <code class="docutils literal notranslate"><span class="pre">elasticsearch_newrelic</span></code> is True).</p></li>
 </ul>
 </div>
 <div class="section" id="fail2ban">
@@ -71,8 +69,8 @@ the elasticsearch service in more detail.</li>
 (e.g. Papertrail).</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">secrets:LOG_DESTINATION</span></code> (string): The host:port to forward the messages to,
-e.g. “log3.example.com:12345”.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secrets:LOG_DESTINATION</span></code> (string): The host:port to forward the messages to,
+e.g. “log3.example.com:12345”.</p></li>
 </ul>
 </div>
 <div class="section" id="locale-utf8">
@@ -103,8 +101,8 @@ it’s safe to always include it and then just set the key on the
 systems where you want to monitor.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">secrets:NEW_RELIC_LICENSE_KEY</span></code> (string): The license key of the New Relic
-account to use.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secrets:NEW_RELIC_LICENSE_KEY</span></code> (string): The license key of the New Relic
+account to use.</p></li>
 </ul>
 </div>
 <div class="section" id="nginx">
@@ -120,7 +118,7 @@ and remove the default site config that gets installed.</p>
 for creating self-signed certificates for nginx.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></li>
+<li><p><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -141,11 +139,11 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 (For newer versions, it comes set up that way.)</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. “9.4”.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. “9.4”.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#locale-utf8"><span class="std std-ref">locale.utf8</span></a></li>
+<li><p><a class="reference internal" href="#locale-utf8"><span class="std std-ref">locale.utf8</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="postgresql-client">
@@ -153,7 +151,7 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <p>Install the configured version of the Postgres database client.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. “9.4”.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">postgres_version</span></code> (string): Postgres version to install, e.g. “9.4”.</p></li>
 </ul>
 <p>No dependencies.</p>
 </div>
@@ -163,8 +161,8 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <p>Dependency on <a class="reference internal" href="#memcached"><span class="std std-ref">memcached</span></a> state will also ensure memcached is installed.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#memcached"><span class="std std-ref">memcached</span></a></li>
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><p><a class="reference internal" href="#memcached"><span class="std std-ref">memcached</span></a></p></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -175,7 +173,7 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 <a class="reference internal" href="minions.html#minions"><span class="std std-ref">app_minions</span></a>.</p>
 <p>Roles:</p>
 <ul>
-<li><p class="first">If role is <code class="docutils literal notranslate"><span class="pre">db-master</span></code> or <code class="docutils literal notranslate"><span class="pre">db-slave</span></code>, sets:</p>
+<li><p>If role is <code class="docutils literal notranslate"><span class="pre">db-master</span></code> or <code class="docutils literal notranslate"><span class="pre">db-slave</span></code>, sets:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wal_level</span> <span class="o">=</span> <span class="n">hot_standby</span>
 <span class="n">hot_standby</span> <span class="o">=</span> <span class="n">on</span>
 <span class="n">hot_standby_feedback</span> <span class="o">=</span> <span class="n">on</span>
@@ -186,34 +184,34 @@ versions, makes sure that UTF-8 locale is the default for the main cluster.
 </ul>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">secrets:DB_PASSWORD</span></code> (string): Password to assign to the project’s Postgres user.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secrets:DB_PASSWORD</span></code> (string): Password to assign to the project’s Postgres user.</p></li>
 </ul>
 <p>The following configuration parameters in postgresql.conf can be
 set by putting a corresponding setting under <code class="docutils literal notranslate"><span class="pre">postgresql_config</span></code>
 in Pillar:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">max_connections</span></code>: default is 100.</li>
-<li><code class="docutils literal notranslate"><span class="pre">shared_buffers</span></code>: default is “24MB”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">work_mem</span></code>: default is “1MB”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">maintenance_work_mem</span></code>: default is “16MB”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">wal_buffers</span></code>: default is “-1”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">commit_delay</span></code>: default is 0.</li>
-<li><code class="docutils literal notranslate"><span class="pre">commit_siblings</span></code>: default is 5.</li>
-<li><code class="docutils literal notranslate"><span class="pre">checkpoint_segments</span></code>: default is 32</li>
-<li><code class="docutils literal notranslate"><span class="pre">checkpoint_timeout</span></code>: default is “10min”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">checkpoint_completion_target</span></code>: default is ‘0.9’.</li>
-<li><code class="docutils literal notranslate"><span class="pre">effective_cache_size</span></code>: default “128MB”.</li>
-<li><code class="docutils literal notranslate"><span class="pre">log_min_duration_statement</span></code>: default “250ms”.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_connections</span></code>: default is 100.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shared_buffers</span></code>: default is “24MB”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">work_mem</span></code>: default is “1MB”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">maintenance_work_mem</span></code>: default is “16MB”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wal_buffers</span></code>: default is “-1”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commit_delay</span></code>: default is 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">commit_siblings</span></code>: default is 5.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkpoint_segments</span></code>: default is 32</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkpoint_timeout</span></code>: default is “10min”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">checkpoint_completion_target</span></code>: default is ‘0.9’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">effective_cache_size</span></code>: default “128MB”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_min_duration_statement</span></code>: default “250ms”.</p></li>
 </ul>
 <p>The following parameters can be set the same way, but are ignored
 unless the role is <code class="docutils literal notranslate"><span class="pre">db-master</span></code> or <code class="docutils literal notranslate"><span class="pre">db-slave</span></code>:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">max_wal_senders</span></code>: default is ‘0’</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_wal_senders</span></code>: default is ‘0’</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#postgresql"><span class="std std-ref">postgresql</span></a></li>
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><p><a class="reference internal" href="#postgresql"><span class="std std-ref">postgresql</span></a></p></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-devs">
@@ -236,7 +234,7 @@ public key file, one long line.)  E.g.:</p>
 </div>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></li>
+<li><p><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-dirs">
@@ -249,11 +247,11 @@ public key file, one long line.)  E.g.:</p>
 <p>Directories are owned by the project user.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string): Used to construct the paths.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string): Used to construct the paths.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
+<li><p><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-django">
@@ -263,9 +261,9 @@ the Django management tool with the right settings.</p>
 <p>Depends on other sls files that also do Django-related setup.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
+<li><p><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></p></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -277,13 +275,13 @@ password <code class="docutils literal notranslate"><span class="pre">BROKER_PAS
 <p>Open the firewall for rabbitmq access to other <a class="reference internal" href="minions.html#minions"><span class="std std-ref">app_minions</span></a> servers.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">secrets:BROKER_PASSWORD</span></code>: (string) The password to set on the rabbitmq user.</li>
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secrets:BROKER_PASSWORD</span></code>: (string) The password to set on the rabbitmq user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#rabbitmq"><span class="std std-ref">rabbitmq</span></a></li>
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><p><a class="reference internal" href="#rabbitmq"><span class="std std-ref">rabbitmq</span></a></p></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-repo">
@@ -306,18 +304,18 @@ launched with the <code class="docutils literal notranslate"><span class="pre">d
 variables to all of the web and worker processes.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">github_deploy_key</span></code> (string): Optional, contains text of the Github deploy key
-to use to access the repository.</li>
-<li><code class="docutils literal notranslate"><span class="pre">repo:url</span></code> (string): Git repository URL</li>
-<li><code class="docutils literal notranslate"><span class="pre">branch</span></code> (string): Branch to check out. Optional; the default is <code class="docutils literal notranslate"><span class="pre">master</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">github_deploy_key</span></code> (string): Optional, contains text of the Github deploy key
+to use to access the repository.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo:url</span></code> (string): Git repository URL</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">branch</span></code> (string): Branch to check out. Optional; the default is <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></li>
-<li><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></li>
-<li><a class="reference internal" href="#sshd-github"><span class="std std-ref">sshd.github</span></a></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-user"><span class="std std-ref">project.user</span></a></p></li>
+<li><p><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></p></li>
+<li><p><a class="reference internal" href="#sshd-github"><span class="std std-ref">sshd.github</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-user">
@@ -326,7 +324,7 @@ to use to access the repository.</li>
 <code class="docutils literal notranslate"><span class="pre">www-data</span></code> group.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</p></li>
 </ul>
 </div>
 <div class="section" id="project-venv">
@@ -339,22 +337,22 @@ environment is <code class="docutils literal notranslate"><span class="pre">loca
 <p>If a New Relic key is configured, ensures the <code class="docutils literal notranslate"><span class="pre">newrelic</span></code> agent package
 is installed in the virtual env.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This also installs <code class="docutils literal notranslate"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span class="std std-ref">python</span></a> already does that.
+<p class="admonition-title">Note</p>
+<p>This also installs <code class="docutils literal notranslate"><span class="pre">ghostscript</span></code>, even though <a class="reference internal" href="#python"><span class="std std-ref">python</span></a> already does that.
 We should fix that.</p>
 </div>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</li>
-<li><code class="docutils literal notranslate"><span class="pre">python_version</span></code> (string): version of python to use</li>
-<li><code class="docutils literal notranslate"><span class="pre">requirements_file</span></code> (string): path to the project requirements file
-(relative to the project root)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code> (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_version</span></code> (string): version of python to use</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">requirements_file</span></code> (string): path to the project requirements file
+(relative to the project root)</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-repo"><span class="std std-ref">project.repo</span></a></li>
-<li><a class="reference internal" href="#python"><span class="std std-ref">python</span></a></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-repo"><span class="std std-ref">project.repo</span></a></p></li>
+<li><p><a class="reference internal" href="#python"><span class="std std-ref">python</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-web-app">
@@ -363,18 +361,18 @@ We should fix that.</p>
 commands like <code class="docutils literal notranslate"><span class="pre">collectstatic</span></code> and <code class="docutils literal notranslate"><span class="pre">migrate</span></code>.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">less_version</span></code>: What version of the LESS CSS compilation tool to install.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">less_version</span></code>: What version of the LESS CSS compilation tool to install.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
-<li><a class="reference internal" href="#project-django"><span class="std std-ref">project.django</span></a></li>
-<li><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></li>
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
-<li><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></li>
+<li><p><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></p></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></p></li>
+<li><p><a class="reference internal" href="#project-django"><span class="std std-ref">project.django</span></a></p></li>
+<li><p><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></p></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
+<li><p><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-web-balancer">
@@ -408,9 +406,9 @@ in the pillar configuration; see below.</p>
 provided, the deploy will generate and use a self-signed key.</p>
 <p>Summary of which certificates will be used:</p>
 <ul class="simple">
-<li>If <code class="docutils literal notranslate"><span class="pre">ssl_key</span></code> and <code class="docutils literal notranslate"><span class="pre">ssl_cert</span></code> are provided, they will be used.</li>
-<li>Otherwise, if <code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> is true, letsencrypt will be used.</li>
-<li>Otherwise, a self-signed certificate will be used.</li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">ssl_key</span></code> and <code class="docutils literal notranslate"><span class="pre">ssl_cert</span></code> are provided, they will be used.</p></li>
+<li><p>Otherwise, if <code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> is true, letsencrypt will be used.</p></li>
+<li><p>Otherwise, a self-signed certificate will be used.</p></li>
 </ul>
 <p>The nginx configuration redirects non-SSL requests to the corresponding
 <cite>https</cite> URL, and sets the <code class="docutils literal notranslate"><span class="pre">Strict-Transport-Security</span></code> header to a
@@ -424,33 +422,33 @@ web servers, we could just point our DNS at one of
 them and it would spread the load across all of them.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">http_auth</span></code> (dictionary): If provided, turn on HTTP Basic Auth on the site,
+<li><p><code class="docutils literal notranslate"><span class="pre">http_auth</span></code> (dictionary): If provided, turn on HTTP Basic Auth on the site,
 and set up a password file for access using each key in the dictionary as a username
-and each corresponding value as that user’s password.</li>
-<li><code class="docutils literal notranslate"><span class="pre">domain</span></code> (string): The web server, and if relevant the SSL certificate, will
-be configured to use this domain name.</li>
-<li><code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> (boolean): If True, use <a class="reference external" href="https://letsencrypt.org">letsencrypt.org</a>
-to get a certificate.</li>
-<li><code class="docutils literal notranslate"><span class="pre">letsencrypt_domains</span></code> (list): List of domain names. We’ll request SSL certs for
-each domain name in this list. If this is empty or not set, we’ll use <code class="docutils literal notranslate"><span class="pre">domain</span></code>.</li>
-<li><code class="docutils literal notranslate"><span class="pre">admin_email</span></code> (email address): If <code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> is true, this is required to
+and each corresponding value as that user’s password.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">domain</span></code> (string): The web server, and if relevant the SSL certificate, will
+be configured to use this domain name.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> (boolean): If True, use <a class="reference external" href="https://letsencrypt.org">letsencrypt.org</a>
+to get a certificate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">letsencrypt_domains</span></code> (list): List of domain names. We’ll request SSL certs for
+each domain name in this list. If this is empty or not set, we’ll use <code class="docutils literal notranslate"><span class="pre">domain</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">admin_email</span></code> (email address): If <code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> is true, this is required to
 provide an email address for <a class="reference external" href="https://letsencrypt.org">letsencrypt.org</a> to use.
 This should be a dev team group email address, not an individual’s email address.
-This address does not need to be in the site’s domain.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ssl_key</span></code> (string): Contents of the SSL key to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">ssl_cert</span></code> (string): Contents of the SSL certificate to use.</li>
-<li><code class="docutils literal notranslate"><span class="pre">dhparam_numbits</span></code> (integer): How many bits to use when generating the DHE
+This address does not need to be in the site’s domain.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl_key</span></code> (string): Contents of the SSL key to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ssl_cert</span></code> (string): Contents of the SSL certificate to use.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dhparam_numbits</span></code> (integer): How many bits to use when generating the DHE
 parameters. (optional, default 2048).  Generating the DHE file is a one-time
 task, so changing this parameter after it’s been generated will have no effect
 unless you manually remove <code class="docutils literal notranslate"><span class="pre">/var/www/&lt;project_name&gt;/ssl/dhparams.pem</span></code>
-first.</li>
+first.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></li>
-<li><a class="reference internal" href="#nginx-cert"><span class="std std-ref">nginx.cert</span></a></li>
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
+<li><p><a class="reference internal" href="#nginx"><span class="std std-ref">nginx</span></a></p></li>
+<li><p><a class="reference internal" href="#nginx-cert"><span class="std std-ref">nginx.cert</span></a></p></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-worker-beat">
@@ -458,13 +456,13 @@ first.</li>
 <p>Arrange for <code class="docutils literal notranslate"><span class="pre">celery</span> <span class="pre">beat</span></code> service to run for the project via supervisor.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code></p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
+<li><p><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></p></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="project-worker-default">
@@ -473,16 +471,16 @@ first.</li>
 The default worker-specific command-line arguments set log level to <code class="docutils literal notranslate"><span class="pre">INFO</span></code>.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">project_name</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">celery_worker_arguments</span></code> (string): Optional, overrides default worker-specific
-command-line arguments.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">project_name</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">celery_worker_arguments</span></code> (string): Optional, overrides default worker-specific
+command-line arguments.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></li>
-<li><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></li>
-<li><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></li>
-<li><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></li>
+<li><p><a class="reference internal" href="#supervisor-pip"><span class="std std-ref">supervisor.pip</span></a></p></li>
+<li><p><a class="reference internal" href="#project-dirs"><span class="std std-ref">project.dirs</span></a></p></li>
+<li><p><a class="reference internal" href="#project-venv"><span class="std std-ref">project.venv</span></a></p></li>
+<li><p><a class="reference internal" href="#postfix"><span class="std std-ref">postfix</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="python">
@@ -500,9 +498,9 @@ Python 2.7.9+ backport for network security enhancements. See
 by some of the imaging tools we sometimes install.)</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">python_version</span></code> (string)</li>
-<li><code class="docutils literal notranslate"><span class="pre">python_backport</span></code> (Boolean)</li>
-<li><code class="docutils literal notranslate"><span class="pre">python_headers</span></code> (list) List of additional apt packages to be installed.</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_version</span></code> (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_backport</span></code> (Boolean)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python_headers</span></code> (list) List of additional apt packages to be installed.</p></li>
 </ul>
 </div>
 <div class="section" id="rabbitmq">
@@ -521,7 +519,7 @@ by some of the imaging tools we sometimes install.)</p>
 <p>Opens ports 4505 and 4506.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -537,7 +535,7 @@ configuration.</p>
 <p>Does not appear to arrange to run it.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#solr"><span class="std std-ref">solr</span></a></li>
+<li><p><a class="reference internal" href="#solr"><span class="std std-ref">solr</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -549,8 +547,8 @@ so only users in the <code class="docutils literal notranslate"><span class="pre
 <p>Opens port 22.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></li>
-<li><a class="reference internal" href="#fail2ban"><span class="std std-ref">fail2ban</span></a></li>
+<li><p><a class="reference internal" href="#ufw"><span class="std std-ref">ufw</span></a></p></li>
+<li><p><a class="reference internal" href="#fail2ban"><span class="std std-ref">fail2ban</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -565,8 +563,8 @@ so only users in the <code class="docutils literal notranslate"><span class="pre
 for it to run on startup.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></li>
-<li><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></li>
+<li><p><a class="reference internal" href="#nodejs"><span class="std std-ref">nodejs</span></a></p></li>
+<li><p><a class="reference internal" href="#version-control"><span class="std std-ref">version-control</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -588,7 +586,7 @@ do anything without a password.</p>
 <div class="section" id="supervisor">
 <span id="id41"></span><h3>supervisor<a class="headerlink" href="#supervisor" title="Permalink to this headline">¶</a></h3>
 <div class="deprecated">
-<p><span class="versionmodified">Deprecated since version forever: </span>Use <code class="docutils literal notranslate"><span class="pre">supervisor.pip</span></code> instead.</p>
+<p><span class="versionmodified deprecated">Deprecated since version forever: </span>Use <code class="docutils literal notranslate"><span class="pre">supervisor.pip</span></code> instead.</p>
 </div>
 <p>Install and run supervisor using its Debian/Ubuntu package.</p>
 <p>No configuration.</p>
@@ -612,15 +610,15 @@ notify someone of the results.</p>
 packages.</p>
 <p>Pillar configuration:</p>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">admin_email</span></code> (string): Required; email address to send notifications of
-the update results to</li>
-<li><code class="docutils literal notranslate"><span class="pre">unattended_upgrade_blacklist</span></code> (list of strings and regexes): Optional package name
+<li><p><code class="docutils literal notranslate"><span class="pre">admin_email</span></code> (string): Required; email address to send notifications of
+the update results to</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unattended_upgrade_blacklist</span></code> (list of strings and regexes): Optional package name
 not to ever upgrade this way. Can include both exact names of packages and regexes
-that match package names.</li>
+that match package names.</p></li>
 </ul>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#syslog"><span class="std std-ref">syslog</span></a></li>
+<li><p><a class="reference internal" href="#syslog"><span class="std std-ref">syslog</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="users-groups">
@@ -635,7 +633,7 @@ with our updated configuration for <code class="docutils literal notranslate"><s
 can still login and do things as root.</p>
 <p>Dependencies:</p>
 <ul class="simple">
-<li><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></li>
+<li><p><a class="reference internal" href="#users-groups"><span class="std std-ref">users.groups</span></a></p></li>
 </ul>
 <p>No configuration.</p>
 </div>
@@ -711,12 +709,18 @@ can still login and do things as root.</p>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -725,8 +729,8 @@ can still login and do things as root.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/margarita/states.rst.txt"

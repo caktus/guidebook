@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Developer Machine Setup &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Developer Machine Security" href="security.html" />
@@ -51,7 +49,8 @@ default in OSX. You may need to re-install this package after major upgrades to 
 </div>
 <p>Get more information about the Command Line Tools directly from Apple:</p>
 <blockquote>
-<div><a class="reference external" href="https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/">https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/</a><a href="#id1"><span class="problematic" id="id2">DTS40014588-CH1-WHAT_IS_THE_COMMAND_LINE_TOOLS_PACKAGE_</span></a></div></blockquote>
+<div><p><a class="reference external" href="https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/">https://developer.apple.com/library/ios/technotes/tn2339/_index.html#//apple_ref/doc/uid/</a><a href="#id1"><span class="problematic" id="id2">DTS40014588-CH1-WHAT_IS_THE_COMMAND_LINE_TOOLS_PACKAGE_</span></a></p>
+</div></blockquote>
 </div>
 <div class="section" id="homebrew">
 <h3>Homebrew<a class="headerlink" href="#homebrew" title="Permalink to this headline">¶</a></h3>
@@ -64,8 +63,8 @@ of developer and console tools for the Mac.</p>
 <p>You can receive more information in the Homebrew documentation or see a full list of packages
 available once you’ve installed it.</p>
 <ul class="simple">
-<li>Homebrew Docs: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme">https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme</a></li>
-<li>Package List: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/Library/Formula">https://github.com/Homebrew/homebrew/tree/master/Library/Formula</a></li>
+<li><p>Homebrew Docs: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme">https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme</a></p></li>
+<li><p>Package List: <a class="reference external" href="https://github.com/Homebrew/homebrew/tree/master/Library/Formula">https://github.com/Homebrew/homebrew/tree/master/Library/Formula</a></p></li>
 </ul>
 </div>
 <div class="section" id="openssl">
@@ -104,40 +103,53 @@ launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 </div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
-<p>Install pyenv and the pyenv-virtualenv plugin via brew:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">pyenv</span>
-<span class="n">brew</span> <span class="n">install</span> <span class="n">pyenv</span><span class="o">-</span><span class="n">virtualenv</span>
-<span class="n">cat</span> <span class="o">&lt;&lt;</span> <span class="n">EOF</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">bash_profile</span>
-<span class="nb">eval</span> <span class="s2">&quot;$(pyenv init -)&quot;</span>
-<span class="nb">eval</span> <span class="s2">&quot;$(pyenv virtualenv-init -)&quot;</span>
-<span class="n">EOF</span>
-<span class="n">source</span> <span class="o">~/.</span><span class="n">bash_profile</span>
+<p>Mac OS X installers for all the latest Python versions can be downloaded from:
+<a class="reference external" href="https://www.python.org/downloads/mac-osx/">https://www.python.org/downloads/mac-osx/</a></p>
+<p>Practically speaking (as of February 2019, at least), it is helpful to have Python 2.7, 3.5, 3.6,
+and 3.7 all installed locally (soon, probably 3.8 as well).</p>
+<p>On the Mac OS X installer download page, find the “macOS 64-bit installer” link for the latest
+point release of the Python major version that you want to install. Download it, and open the
+<code class="docutils literal notranslate"><span class="pre">.pkg</span></code> file to start the installer.</p>
+<p>When done, you’ll have a new Python version in <code class="docutils literal notranslate"><span class="pre">/Library/Frameworks/Python.framework/Versions/</span></code>
+that has also been added to your path by the installer.</p>
+</div>
+<div class="section" id="uninstalling-pyenv">
+<h3>Uninstalling pyenv<a class="headerlink" href="#uninstalling-pyenv" title="Permalink to this headline">¶</a></h3>
+<p>If you used <code class="docutils literal notranslate"><span class="pre">pyenv</span></code> previously, you might want to uninstall the versions you had previously:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">versions</span>
+<span class="n">pyenv</span> <span class="n">uninstall</span> <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span>  <span class="c1"># for each installed version</span>
 </pre></div>
 </div>
-<p>Different projects require different versions of Python. Some older projects will still be using
-Python 2.7, and newer projects are eiter on 3.5 or 3.6, so we’ll install the latest versions of all
-three:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pyenv install $(pyenv install -l | grep &quot; 2.7&quot; | tail -n 1)
-pyenv install $(pyenv install -l | grep &quot; 3.5&quot; | tail -n 1)
-pyenv install $(pyenv install -l | grep &quot; 3.6&quot; | tail -n 1)
+<p>You’ll also want to comment out any lines including <code class="docutils literal notranslate"><span class="pre">pyenv</span></code> in your <code class="docutils literal notranslate"><span class="pre">~/.bash_profile</span></code>.</p>
+</div>
+<div class="section" id="installing-virtualenvwrapper">
+<h3>Installing virtualenvwrapper<a class="headerlink" href="#installing-virtualenvwrapper" title="Permalink to this headline">¶</a></h3>
+<p>We use <code class="docutils literal notranslate"><span class="pre">virtualenvwrapper</span></code> to help manage Python virtual environments. Install it and set it up
+like so:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.7/bin/pip3.7 install virtualenvwrapper
+cat &lt;&lt;EOF &gt;&gt; ~/.bash_profile
+# to keep stray Python versions from causing problems on Mac OS, we are very explicit about the
+# Python we want to use:
+export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.7/bin/
+export VIRTUALENVWRAPPER_PYTHON=$PYTHON_BIN/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=$PYTHON_BIN/virtualenv
+source $PYTHON_BIN/virtualenvwrapper.sh
+EOF
 </pre></div>
 </div>
-<p>And link them so they’ll be in your path:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ln -s ~/.pyenv/versions/$(pyenv install -l | grep &quot; 2.7&quot; | tail -n 1 | sed &#39;s/^ *//g&#39;)/bin/python /usr/local/bin/python2.7
-ln -s ~/.pyenv/versions/$(pyenv install -l | grep &quot; 3.5&quot; | tail -n 1 | sed &#39;s/^ *//g&#39;)/bin/python /usr/local/bin/python3.5
-ln -s ~/.pyenv/versions/$(pyenv install -l | grep &quot; 3.6&quot; | tail -n 1 | sed &#39;s/^ *//g&#39;)/bin/python /usr/local/bin/python3.6
-</pre></div>
-</div>
+<p>Note that if you had virtualenv and/or virtualenvwrapper installed for a different Python version
+previously, you may need to track it down and remove it (and remove the corresponding <code class="docutils literal notranslate"><span class="pre">source</span></code>
+line from your <code class="docutils literal notranslate"><span class="pre">~/.bash_profile</span></code>).</p>
 </div>
 <div class="section" id="creating-a-python-virtual-environment">
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
-<p>You can create a virtual environment using a version of Python as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">virtualenv</span> <span class="mf">3.5</span><span class="o">.</span><span class="mi">3</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
+<p>You can now create a virtual environment using a version of Python as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span><span class="o">.</span><span class="mi">7</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
 </pre></div>
 </div>
-<p>For whatever version of Python your project requires. When you need to run anything in this project
+<p>for whatever version of Python your project requires. When you need to run anything in this project
 simply activate the virtual environment first:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pyenv</span> <span class="n">activate</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workon</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
 </pre></div>
 </div>
 </div>
@@ -200,12 +212,18 @@ simply activate the virtual environment first:</p>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -214,8 +232,8 @@ simply activate the virtual environment first:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/dev-setup.rst.txt"

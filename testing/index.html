@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Testing &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Front-end JavaScript Testing Practices" href="frontend.html" />
@@ -55,12 +53,12 @@ both define what any one application is responsible for and also to
 know what we need to test within it.</p>
 <p>Application boundaries exist as many things:</p>
 <ul class="simple">
-<li>URLs handled by the application</li>
-<li>The views mapped by those URLs and the different ways they could be hit</li>
-<li>Public methods on Manager and Model classes</li>
-<li>Template tags</li>
-<li>Utility functions</li>
-<li>Application-specific Settings</li>
+<li><p>URLs handled by the application</p></li>
+<li><p>The views mapped by those URLs and the different ways they could be hit</p></li>
+<li><p>Public methods on Manager and Model classes</p></li>
+<li><p>Template tags</p></li>
+<li><p>Utility functions</p></li>
+<li><p>Application-specific Settings</p></li>
 </ul>
 <p>It usually makes sense to roughly group these different kinds of
 boundaries into different sets of test cases for each application.</p>
@@ -173,9 +171,9 @@ mysteriously.</p>
 <h4>Bug fixes and testing<a class="headerlink" href="#bug-fixes-and-testing" title="Permalink to this headline">¶</a></h4>
 <p>When addressing a bug, use this workflow:</p>
 <ul class="simple">
-<li>Add a test that fails due to the bug, but should pass
-once the bug is fixed.</li>
-<li>Make the necessary changes to make the test pass.</li>
+<li><p>Add a test that fails due to the bug, but should pass
+once the bug is fixed.</p></li>
+<li><p>Make the necessary changes to make the test pass.</p></li>
 </ul>
 <p>This ensures that you understand the problem, that it’s a real problem,
 that the fix solves the problem, and that this particular bug won’t come back.</p>
@@ -194,26 +192,26 @@ below.</p>
 <p>A test that is too slow will not be run by developers, making it pointless.
 If tests seem to be taking too long, here are some things to look for:</p>
 <ul class="simple">
-<li>In Django 1.8 and up, use the
+<li><p>In Django 1.8 and up, use the
 <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-option---keepdb">–keepdb</a>
-test option to re-use the test database across test runs.</li>
-<li>Avoid fixtures.</li>
-<li>Use <a class="reference external" href="https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests">subtests</a>
-in Python 3.4+ to run many similar tests with a single setup and teardown.</li>
-<li>Mock out expensive processing that isn’t the actual behavior being tested.</li>
-<li>See if you can move logic out of views and test it without having to call the views.</li>
-<li>Keep the size of test data to the minimum needed for the test.</li>
-<li>Model methods can sometimes be tested without ever saving the model instance
-to the database.</li>
-<li>Use
+test option to re-use the test database across test runs.</p></li>
+<li><p>Avoid fixtures.</p></li>
+<li><p>Use <a class="reference external" href="https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests">subtests</a>
+in Python 3.4+ to run many similar tests with a single setup and teardown.</p></li>
+<li><p>Mock out expensive processing that isn’t the actual behavior being tested.</p></li>
+<li><p>See if you can move logic out of views and test it without having to call the views.</p></li>
+<li><p>Keep the size of test data to the minimum needed for the test.</p></li>
+<li><p>Model methods can sometimes be tested without ever saving the model instance
+to the database.</p></li>
+<li><p>Use
 <a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/#speeding-up-the-tests">faster password hashing algorithms</a>
-when testing.</li>
-<li>Use Continuous Integration to automatically run the whole test suite when changes are
-made, even if developers might have skipped it.</li>
-<li>In Django 1.8 and up, consider using
+when testing.</p></li>
+<li><p>Use Continuous Integration to automatically run the whole test suite when changes are
+made, even if developers might have skipped it.</p></li>
+<li><p>In Django 1.8 and up, consider using
 <a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.TestCase.setUpTestData">setUpTestData</a>
 to set up your test data for an entire TestCase class one time.  Just be very careful not to
-modify any of that data during the tests.</li>
+modify any of that data during the tests.</p></li>
 </ul>
 </div>
 </div>
@@ -250,7 +248,7 @@ most views to little more than glue connecting simpler components you
 can separately test much easier.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/#module-django.test.client">Django: Writing and running tests</a></li>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/#module-django.test.client">Django: Writing and running tests</a></p></li>
 </ul>
 </div>
 <div class="section" id="testing-forms">
@@ -303,12 +301,12 @@ easier to setup, and in most cases continue to function during schema
 changes.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/">Django: Writing and running tests</a></li>
-<li>Carl J Meyer: Testing and Django <a class="reference external" href="http://carljm.github.com/django-testing-slides/">slides</a>
+<li><p><a class="reference external" href="https://docs.djangoproject.com/en/stable/topics/testing/overview/">Django: Writing and running tests</a></p></li>
+<li><p>Carl J Meyer: Testing and Django <a class="reference external" href="http://carljm.github.com/django-testing-slides/">slides</a>
 and <a class="reference external" href="http://www.youtube.com/watch?v=ickNQcNXiS4">video</a>. Unfortunately,
 the first part (slides 2-12) is
 out-of-date with behavior of current versions of Django (1.9 as I write this), so
-skip ahead to slide 13 and continue from there.</li>
+skip ahead to slide 13 and continue from there.</p></li>
 </ul>
 </div>
 <div class="section" id="testing-django-template-tags">
@@ -318,8 +316,8 @@ but they need to be tested too.  These references go into detail
 about how to test template tags.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-1.html">How To Test Django Template Tags - Part 1</a></li>
-<li><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-2.html">How To Test Django Template Tags - Part 2</a></li>
+<li><p><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-1.html">How To Test Django Template Tags - Part 1</a></p></li>
+<li><p><a class="reference external" href="http://techblog.ironfroggy.com/2008/10/how-to-test-django-template-tags-part-2.html">How To Test Django Template Tags - Part 2</a></p></li>
 </ul>
 </div>
 <div class="section" id="what-to-mock-and-when">
@@ -337,11 +335,11 @@ cover, and a failing test is a much more narrow path to the code it
 alerts you to.</p>
 <p>Good things to mock include:</p>
 <ul class="simple">
-<li>Routines which do anything with network or IO access. This also speeds up tests considerably!</li>
-<li>3rd party libraries</li>
-<li>Other applications</li>
-<li>Routines depending on the time of day</li>
-<li>Logging (at least to test that it is happening correctly)</li>
+<li><p>Routines which do anything with network or IO access. This also speeds up tests considerably!</p></li>
+<li><p>3rd party libraries</p></li>
+<li><p>Other applications</p></li>
+<li><p>Routines depending on the time of day</p></li>
+<li><p>Logging (at least to test that it is happening correctly)</p></li>
 </ul>
 <p>Similar to mocking, you can override Django settings for a single test
 or test case using the
@@ -349,9 +347,9 @@ or test case using the
 decorator.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://www.voidspace.org.uk/python/mock/">Mock - Mocking and Testing Library</a> (standalone Mock library for Python pre-3.3)</li>
-<li><a class="reference external" href="http://sinonjs.org/">Testing Javascript</a></li>
-<li><a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html#module-unittest.mock">unittest.mock — mock object library</a> (Mock in Python 3.3+)</li>
+<li><p><a class="reference external" href="http://www.voidspace.org.uk/python/mock/">Mock - Mocking and Testing Library</a> (standalone Mock library for Python pre-3.3)</p></li>
+<li><p><a class="reference external" href="http://sinonjs.org/">Testing Javascript</a></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/unittest.mock.html#module-unittest.mock">unittest.mock — mock object library</a> (Mock in Python 3.3+)</p></li>
 </ul>
 </div>
 <div class="section" id="factories">
@@ -426,10 +424,10 @@ deployed to, this can be invaluable when preparing for dependency
 upgrades, such as migrating to a new Django release.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://docs.python.org/2/library/unittest.html">unittest — Unit testing framework</a></li>
-<li><a class="reference external" href="http://docs.python.org/2/library/unittest.html#test-discovery">Test Discovery</a></li>
-<li><a class="reference external" href="https://nose.readthedocs.org/en/latest/">Nose</a></li>
-<li><a class="reference external" href="https://github.com/jbalogh/django-nose">django-nose</a></li>
+<li><p><a class="reference external" href="http://docs.python.org/2/library/unittest.html">unittest — Unit testing framework</a></p></li>
+<li><p><a class="reference external" href="http://docs.python.org/2/library/unittest.html#test-discovery">Test Discovery</a></p></li>
+<li><p><a class="reference external" href="https://nose.readthedocs.org/en/latest/">Nose</a></p></li>
+<li><p><a class="reference external" href="https://github.com/jbalogh/django-nose">django-nose</a></p></li>
 </ul>
 </div>
 <div class="section" id="continuous-integration">
@@ -469,8 +467,8 @@ which will fail the test if coverage drops below 80%. That number can
 be gradually increased over the life of the project.</p>
 <p>References:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://pypi.python.org/pypi/coverage">coverage tool for Python</a></li>
-<li><a class="reference external" href="https://django-testing-docs.readthedocs.org/en/latest/coverage.html">Measuring Coverage</a></li>
+<li><p><a class="reference external" href="https://pypi.python.org/pypi/coverage">coverage tool for Python</a></p></li>
+<li><p><a class="reference external" href="https://django-testing-docs.readthedocs.org/en/latest/coverage.html">Measuring Coverage</a></p></li>
 </ul>
 </div>
 <div class="section" id="manual-testing">
@@ -482,29 +480,25 @@ time by asking them to test things that aren’t ready yet.</p>
 <h3>When is a ticket ready for QA?<a class="headerlink" href="#when-is-a-ticket-ready-for-qa" title="Permalink to this headline">¶</a></h3>
 <p>The cycle between development and QA can be very time-consuming, and the earlier bugs are caught and fixed, the less impact they will have on the project’s timeline and budget. It’s up to the individual developer to define what he/she thinks is a reasonable amount of testing to do as part of code review, but here are some questions you should ask before sending a ticket to QA, in order to avoid unnecessary iterations:</p>
 <ul>
-<li><p class="first">Does this feature/change load on staging, in at least 1 browser (or 1 device if on mobile)?</p>
-</li>
-<li><p class="first">Does the task/story meet all the acceptance criteria?</p>
-</li>
-<li><p class="first">Does it match the design/mockup to the expected level for the project?</p>
-</li>
-<li><p class="first">Are best practices being followed?</p>
+<li><p>Does this feature/change load on staging, in at least 1 browser (or 1 device if on mobile)?</p></li>
+<li><p>Does the task/story meet all the acceptance criteria?</p></li>
+<li><p>Does it match the design/mockup to the expected level for the project?</p></li>
+<li><p>Are best practices being followed?</p>
 <blockquote>
 <div><ul class="simple">
-<li>examples: interactive elements have hover states, links to external sites open in new tabs, everything is responsive!</li>
+<li><p>examples: interactive elements have hover states, links to external sites open in new tabs, everything is responsive!</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Are deviations from design, expected functionality, or other information needed for testing documented in JIRA?</p>
-</li>
+<li><p>Are deviations from design, expected functionality, or other information needed for testing documented in JIRA?</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="further-reading">
 <h2>Further reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Harry J. W. Percival: <a class="reference external" href="http://shop.oreilly.com/product/0636920029533.do">Test-Driven Development With Python</a></li>
-<li>Karen M. Tracey: <a class="reference external" href="https://www.packtpub.com/web-development/django-11-testing-and-debugging">Django 1.1 Testing and Debugging</a></li>
+<li><p>Harry J. W. Percival: <a class="reference external" href="http://shop.oreilly.com/product/0636920029533.do">Test-Driven Development With Python</a></p></li>
+<li><p>Karen M. Tracey: <a class="reference external" href="https://www.packtpub.com/web-development/django-11-testing-and-debugging">Django 1.1 Testing and Debugging</a></p></li>
 </ul>
 </div>
 </div>
@@ -569,12 +563,18 @@ time by asking them to test things that aren’t ready yet.</p>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -583,8 +583,8 @@ time by asking them to test things that aren’t ready yet.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/testing/index.rst.txt"

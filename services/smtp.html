@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>SMTP &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Deploying Django projects" href="../deploy/index.html" />
@@ -48,28 +46,28 @@ provider. We will discuss both options.</p>
 <div class="section" id="direct-smtp-connection">
 <h2>Direct SMTP connection<a class="headerlink" href="#direct-smtp-connection" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Find the instructions page for the SMTP service that you are setting up. Here are some examples:</p>
+<li><p>Find the instructions page for the SMTP service that you are setting up. Here are some examples:</p>
 <ol class="upperalpha simple">
-<li><a class="reference external" href="https://sendgrid.com/docs/Integrate/Frameworks/django.html">Sendgrid</a></li>
-<li><a class="reference external" href="https://mandrillapp.com/settings/index">Mandrill</a> (Need to be logged in to see.)</li>
-<li><a class="reference external" href="http://support.postmarkapp.com/article/811-what-are-the-smtp-details-credentials-i-should-be-using">Postmark</a></li>
+<li><p><a class="reference external" href="https://sendgrid.com/docs/Integrate/Frameworks/django.html">Sendgrid</a></p></li>
+<li><p><a class="reference external" href="https://mandrillapp.com/settings/index">Mandrill</a> (Need to be logged in to see.)</p></li>
+<li><p><a class="reference external" href="http://support.postmarkapp.com/article/811-what-are-the-smtp-details-credentials-i-should-be-using">Postmark</a></p></li>
 </ol>
 </li>
-<li><p class="first">From those instructions you should be able to find values for some or all of the following Django
+<li><p>From those instructions you should be able to find values for some or all of the following Django
 settings. These are <a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-EMAIL_HOST">explained in the Django docs</a>, but a couple need
 clarification. <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code> actually means to establish an unencrypted connection and then
 use STARTTLS to convert to an SSL/TLS encrypted connection, while <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code> means to
 start right off with the SSL/TLS handshake.</p>
 <ol class="upperalpha simple">
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code> (string)</li>
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code> (integer)</li>
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST_USER</span></code> (string)</li>
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST_PASSWORD</span></code> (string)</li>
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code> (Boolean)</li>
-<li><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code> (Boolean)</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST</span></code> (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code> (integer)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST_USER</span></code> (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_HOST_PASSWORD</span></code> (string)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code> (Boolean)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code> (Boolean)</p></li>
 </ol>
 </li>
-<li><p class="first">Set these variables in <code class="docutils literal notranslate"><span class="pre">conf/pillar/&lt;environment&gt;.sls</span></code>. Some of these might be OK to be public,
+<li><p>Set these variables in <code class="docutils literal notranslate"><span class="pre">conf/pillar/&lt;environment&gt;.sls</span></code>. Some of these might be OK to be public,
 and those can go in the <code class="docutils literal notranslate"><span class="pre">env:</span></code> dictionary. If they are private, they should be encrypted and
 then placed in the <code class="docutils literal notranslate"><span class="pre">secrets:</span></code> dictionary. Include only the variables that your service needs.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:EMAIL_HOST_PASSWORD<span class="o">=</span><span class="s1">&#39;password-provided-by-smtp-service&#39;</span>
@@ -87,19 +85,18 @@ then placed in the <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </li>
-<li><p class="first">NOTE: Only one of <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code> and <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code> should be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
-</li>
-<li><p class="first">Here is an example <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging.sls</span></code> file:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">EMAIL_HOST</span><span class="p p-Indicator">:</span> <span class="s">&#39;smtp.postmarkapp.com&#39;</span>
-  <span class="l l-Scalar l-Scalar-Plain">EMAIL_PORT</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">587</span>
-  <span class="l l-Scalar l-Scalar-Plain">EMAIL_USE_TLS</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+<li><p>NOTE: Only one of <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code> and <code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code> should be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p></li>
+<li><p>Here is an example <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging.sls</span></code> file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">env</span><span class="p">:</span>
+  <span class="nt">EMAIL_HOST</span><span class="p">:</span> <span class="s">&#39;smtp.postmarkapp.com&#39;</span>
+  <span class="nt">EMAIL_PORT</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">587</span>
+  <span class="nt">EMAIL_USE_TLS</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
 
-<span class="l l-Scalar l-Scalar-Plain">secrets</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">EMAIL_HOST_USER</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
+<span class="nt">secrets</span><span class="p">:</span>
+  <span class="nt">EMAIL_HOST_USER</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
     <span class="no">-----BEGIN PGP MESSAGE-----</span>
     <span class="no">-----END PGP MESSAGE-----</span>
-  <span class="l l-Scalar l-Scalar-Plain">EMAIL_HOST_PASSWORD</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
+  <span class="nt">EMAIL_HOST_PASSWORD</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
     <span class="no">-----BEGIN PGP MESSAGE-----</span>
     <span class="no">-----END PGP MESSAGE-----</span>
 </pre></div>
@@ -110,19 +107,20 @@ then placed in the <code class="docutils literal notranslate"><span class="pre">
 <div class="section" id="local-postfix-relay">
 <h2>Local Postfix Relay<a class="headerlink" href="#local-postfix-relay" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>As mentioned above, without any configuration, Django will send your messages to your local
+<li><p>As mentioned above, without any configuration, Django will send your messages to your local
 Postfix instance. You can therefore leave out all of the Django <code class="docutils literal notranslate"><span class="pre">EMAIL_*</span></code> settings from your
-pillar.</li>
-<li>Review the documentation from the SMTP provider and edit the Postfix configuration file on each
-of your web and worker machines as instructed. Here are some examples:<ol class="upperalpha">
-<li><a class="reference external" href="https://sendgrid.com/docs/Integrate/Mail_Servers/postfix.html">Sendgrid</a></li>
-<li><a class="reference external" href="https://mandrill.zendesk.com/hc/en-us/articles/205582187-How-to-Use-Postfix-to-Send-Email-with-Mandrill">Mandrill</a></li>
-<li><a class="reference external" href="http://support.postmarkapp.com/article/832-can-i-configure-postfix-to-send-through-postmark">Postmark</a></li>
-<li><a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html">Amazon SES</a></li>
+pillar.</p></li>
+<li><p>Review the documentation from the SMTP provider and edit the Postfix configuration file on each
+of your web and worker machines as instructed. Here are some examples:</p>
+<ol class="upperalpha simple">
+<li><p><a class="reference external" href="https://sendgrid.com/docs/Integrate/Mail_Servers/postfix.html">Sendgrid</a></p></li>
+<li><p><a class="reference external" href="https://mandrill.zendesk.com/hc/en-us/articles/205582187-How-to-Use-Postfix-to-Send-Email-with-Mandrill">Mandrill</a></p></li>
+<li><p><a class="reference external" href="http://support.postmarkapp.com/article/832-can-i-configure-postfix-to-send-through-postmark">Postmark</a></p></li>
+<li><p><a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html">Amazon SES</a></p></li>
 </ol>
 </li>
-<li>We currently don’t have support for making these configuration changes in Margarita, so these
-need to be done manually.</li>
+<li><p>We currently don’t have support for making these configuration changes in Margarita, so these
+need to be done manually.</p></li>
 </ol>
 </div>
 </div>
@@ -193,12 +191,18 @@ need to be done manually.</li>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -207,8 +211,8 @@ need to be done manually.</li>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/services/smtp.rst.txt"

@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>New Relic &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Read The Docs" href="read-the-docs.html" />
@@ -38,15 +36,14 @@
 <h1>New Relic<a class="headerlink" href="#new-relic" title="Permalink to this headline">¶</a></h1>
 <p>To enable New Relic monitoring for an environment:</p>
 <ol class="arabic">
-<li><p class="first">Get a license key. This can be found in the New Relic web interface. We have multiple
+<li><p>Get a license key. This can be found in the New Relic web interface. We have multiple
 subaccounts, some of which are free and some of which cost money to use, so make sure you first
 select the correct subaccount. Log in to New Relic and click on the dropdown menu in the upper
 right corner. Use the ‘Switch account’ submenu to choose your subaccount. Once you have
 switched to your subaccount, go back to the dropdown menu and click on ‘Account settings’. The
 license key will be listed on that page. If you don’t have access to New Relic or are unsure of
-which New Relic subaccount to use, create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a></p>
-</li>
-<li><p class="first">Generate an encrypted variable <code class="docutils literal notranslate"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code> containing the license key for each
+which New Relic subaccount to use, create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a></p></li>
+<li><p>Generate an encrypted variable <code class="docutils literal notranslate"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code> containing the license key for each
 environment:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:NEW_RELIC_LICENSE_KEY<span class="o">=</span><span class="s1">&#39;abc123&#39;</span>
 <span class="s2">&quot;NEW_RELIC_LICENSE_KEY&quot;</span>: <span class="p">|</span>-
@@ -63,28 +60,28 @@ environment:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Put that in the proper environment’s SLS file, in the <code class="docutils literal notranslate"><span class="pre">secrets</span></code> dictionary:</p>
+<li><p>Put that in the proper environment’s SLS file, in the <code class="docutils literal notranslate"><span class="pre">secrets</span></code> dictionary:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># &lt;environment&gt;.sls</span>
-<span class="l l-Scalar l-Scalar-Plain">secrets</span><span class="p p-Indicator">:</span>
-  <span class="s">&quot;NEW_RELIC_LICENSE_KEY&quot;</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">|-</span>
+<span class="nt">secrets</span><span class="p">:</span>
+  <span class="nt">&quot;NEW_RELIC_LICENSE_KEY&quot;</span><span class="p">:</span> <span class="p p-Indicator">|-</span>
     <span class="no">-----BEGIN PGP MESSAGE-----</span>
     <span class="no">-----END PGP MESSAGE-----</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add any other custom <a class="reference external" href="https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables">New Relic configuration variables</a>
+<li><p>Add any other custom <a class="reference external" href="https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables">New Relic configuration variables</a>
 under <code class="docutils literal notranslate"><span class="pre">env:</span></code>. The default values for most will probably work well for most projects, but you should
 definitely include a setting for NEW_RELIC_APP_NAME, as failure to provide a value for this may result
 in your project unexpectedly showing up under some other pre-existing application being monitored by the
 license key’s account. Here are some examples of how to set new relic configuration variables:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># project.sls</span>
-<span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_MONITOR_MODE</span><span class="p p-Indicator">:</span> <span class="s">&quot;false&quot;</span>
+<span class="nt">env</span><span class="p">:</span>
+  <span class="nt">NEW_RELIC_MONITOR_MODE</span><span class="p">:</span> <span class="s">&quot;false&quot;</span>
 
 <span class="c1"># &lt;environment&gt;.sls</span>
-<span class="l l-Scalar l-Scalar-Plain">env</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_APP_NAME</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">myproject &lt;environment&gt;</span>
-  <span class="l l-Scalar l-Scalar-Plain">NEW_RELIC_MONITOR_MODE</span><span class="p p-Indicator">:</span> <span class="s">&quot;true&quot;</span>
+<span class="nt">env</span><span class="p">:</span>
+  <span class="nt">NEW_RELIC_APP_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myproject &lt;environment&gt;</span>
+  <span class="nt">NEW_RELIC_MONITOR_MODE</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
 </pre></div>
 </div>
 <p>Be sure to quote “true” and “false” as above, to avoid Salt/YAML turning these into real Booleans;
@@ -96,28 +93,27 @@ consistent for a given key; if the same key is present in both <code class="docu
 Relic configuration, so it’s safe to put other settings in <code class="docutils literal notranslate"><span class="pre">project.sls</span></code> even if you’re not
 using New Relic in every environment.</p>
 </li>
-<li><p class="first">If you are using elasticsearch and would like New Relic monitoring of that as well, add to the
+<li><p>If you are using elasticsearch and would like New Relic monitoring of that as well, add to the
 pillar somewhere.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># project.sls or &lt;environment&gt;.sls</span>
-<span class="l l-Scalar l-Scalar-Plain">elasticsearch_newrelic</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">elasticsearch_newrelic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <p>The plugin will get set up automatically if that pillar setting is present, and you are
 using the <code class="docutils literal notranslate"><span class="pre">elasticsearch</span></code> margarita state in your <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> file.</p>
 </li>
-<li><p class="first">Add state <code class="docutils literal notranslate"><span class="pre">newrelic_sysmon</span></code> to your Salt <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> in the <code class="docutils literal notranslate"><span class="pre">base</span></code> section (for all servers).
+<li><p>Add state <code class="docutils literal notranslate"><span class="pre">newrelic_sysmon</span></code> to your Salt <code class="docutils literal notranslate"><span class="pre">top.sls</span></code> in the <code class="docutils literal notranslate"><span class="pre">base</span></code> section (for all servers).
 It’s safe to add that unconditionally for all environments; it’s a no-op if no New Relic
 license key has been defined:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">base</span><span class="p p-Indicator">:</span>
-  <span class="s">&#39;*&#39;</span><span class="p p-Indicator">:</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">base</span><span class="p">:</span>
+  <span class="nt">&#39;*&#39;</span><span class="p">:</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">...</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">newrelic_sysmon</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Be sure <code class="docutils literal notranslate"><span class="pre">newrelic</span></code> is in the Python requirements of the project (likely in
-<code class="docutils literal notranslate"><span class="pre">requirements/production.txt</span></code>): <a class="reference external" href="https://pypi.python.org/pypi/newrelic">https://pypi.python.org/pypi/newrelic</a></p>
-</li>
+<li><p>Be sure <code class="docutils literal notranslate"><span class="pre">newrelic</span></code> is in the Python requirements of the project (likely in
+<code class="docutils literal notranslate"><span class="pre">requirements/production.txt</span></code>): <a class="reference external" href="https://pypi.python.org/pypi/newrelic">https://pypi.python.org/pypi/newrelic</a></p></li>
 </ol>
 </div>
 
@@ -187,12 +183,18 @@ license key has been defined:</p>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -201,8 +203,8 @@ license key has been defined:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/services/new-relic.rst.txt"

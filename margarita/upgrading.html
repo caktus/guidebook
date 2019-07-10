@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Upgrading Margarita &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Django Project Template Testing Plans" href="../project-template-testing.html" />
@@ -49,7 +47,7 @@ you’ll have to repeat that command once for each IP address in your fleet.</p>
 <div class="section" id="prepare-repository">
 <h2>Prepare Repository<a class="headerlink" href="#prepare-repository" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">The new project template does not ‘reconcile’ secrets because it assumes that you have
+<li><p>The new project template does not ‘reconcile’ secrets because it assumes that you have
 committed the encrypted versions to the repo, so syncing back-and-forth is not necessary. We
 haven’t yet done that step for our project, so we need to be very careful about our secrets.
 Make sure to sync them (by doing a deploy or running <code class="docutils literal notranslate"><span class="pre">fab</span> <span class="pre">get_secrets</span></code>) before going any
@@ -59,14 +57,14 @@ further.</p>
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Different projects have different ways of getting secrets (i.e. the <code class="docutils literal notranslate"><span class="pre">get_secrets</span></code>
+<p class="admonition-title">Note</p>
+<p>Different projects have different ways of getting secrets (i.e. the <code class="docutils literal notranslate"><span class="pre">get_secrets</span></code>
 function has changed over time), so if the above doesn’t work, you can always ssh onto
 the servers and fetch the <code class="docutils literal notranslate"><span class="pre">secrets.sls</span></code> files. They should be somewhere under
 <code class="docutils literal notranslate"><span class="pre">/srv/pillar</span></code>)</p>
 </div>
 </li>
-<li><p class="first">Get useful files from the new project template. Clone the <a class="reference external" href="https://github.com/caktus/django-project-template">Django Project Template</a> repo  into a directory adjacent to ours, so
+<li><p>Get useful files from the new project template. Clone the <a class="reference external" href="https://github.com/caktus/django-project-template">Django Project Template</a> repo  into a directory adjacent to ours, so
 we can easily copy files we need:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev$ git clone git@github.com:caktus/django-project-template.git
 ~/dev$ ls
@@ -76,7 +74,7 @@ django-project-template myproject
 </pre></div>
 </div>
 </li>
-<li><p class="first">Copy some important files and directory to our project:</p>
+<li><p>Copy some important files and directory to our project:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ mv fabfile.py fabfile.py.old
 ~/dev/myproject$ cp ../django-project-template/fabfile.py .
 ~/dev/myproject$ cp ../django-project-template/Vagrantfile .
@@ -87,11 +85,11 @@ django-project-template myproject
 </pre></div>
 </div>
 </li>
-<li><p class="first">Edit fabfile.py:</p>
+<li><p>Edit fabfile.py:</p>
 <ol class="arabic simple">
-<li>Make sure <code class="docutils literal notranslate"><span class="pre">SALT_VERSION</span></code> is <code class="docutils literal notranslate"><span class="pre">2015.5.8</span></code>. (We know Margarita 1.5.0 works with Salt 2015.5.8).</li>
-<li>Change <code class="docutils literal notranslate"><span class="pre">env.master</span></code> in both the <code class="docutils literal notranslate"><span class="pre">staging()</span></code> and <code class="docutils literal notranslate"><span class="pre">production()</span></code> functions to be
-correct (get the value from fabfile.py.old).</li>
+<li><p>Make sure <code class="docutils literal notranslate"><span class="pre">SALT_VERSION</span></code> is <code class="docutils literal notranslate"><span class="pre">2015.5.8</span></code>. (We know Margarita 1.5.0 works with Salt 2015.5.8).</p></li>
+<li><p>Change <code class="docutils literal notranslate"><span class="pre">env.master</span></code> in both the <code class="docutils literal notranslate"><span class="pre">staging()</span></code> and <code class="docutils literal notranslate"><span class="pre">production()</span></code> functions to be
+correct (get the value from fabfile.py.old).</p></li>
 </ol>
 </li>
 </ol>
@@ -99,28 +97,27 @@ correct (get the value from fabfile.py.old).</li>
 <div class="section" id="upgrade-margarita">
 <h2>Upgrade Margarita<a class="headerlink" href="#upgrade-margarita" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Add to <code class="docutils literal notranslate"><span class="pre">conf/pillar/project.sls</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">margarita_version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.5.0</span>
-<span class="l l-Scalar l-Scalar-Plain">less_version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">1.5.1</span>   <span class="c1"># or whatever you&#39;re currently using</span>
-<span class="l l-Scalar l-Scalar-Plain">postgres_version</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">9.1</span> <span class="c1"># or whatever you&#39;re currently using</span>
+<li><p>Add to <code class="docutils literal notranslate"><span class="pre">conf/pillar/project.sls</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">margarita_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.5.0</span>
+<span class="nt">less_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.5.1</span>   <span class="c1"># or whatever you&#39;re currently using</span>
+<span class="nt">postgres_version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9.1</span> <span class="c1"># or whatever you&#39;re currently using</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Move the old states out of the way (don’t leave them in the conf directory), and copy in the
+<li><p>Move the old states out of the way (don’t leave them in the conf directory), and copy in the
 minimal new list:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ mv conf/salt salt.old
 ~/dev/myproject$ cp -r ../django-project-template/conf/salt conf/
 </pre></div>
 </div>
 </li>
-<li><p class="first">Compare <code class="docutils literal notranslate"><span class="pre">salt.old/top.sls</span></code> to <code class="docutils literal notranslate"><span class="pre">conf/salt/top.sls</span></code>. If the old version has states not
+<li><p>Compare <code class="docutils literal notranslate"><span class="pre">salt.old/top.sls</span></code> to <code class="docutils literal notranslate"><span class="pre">conf/salt/top.sls</span></code>. If the old version has states not
 mentioned in the new version, then check if each of those missing states is available in
 <a class="reference external" href="https://github.com/caktus/margarita">Margarita</a>. If it is, add the state name to
 <code class="docutils literal notranslate"><span class="pre">conf/salt/top.sls</span></code>, and your project will use the Margarita state. You may need to configure
 the state in the pillar. If it is not available in Margarita, add the state name to
 <code class="docutils literal notranslate"><span class="pre">conf/salt/top.sls</span></code> and move the old project’s custom state file(s) from <code class="docutils literal notranslate"><span class="pre">salt.old/</span></code> to
-<code class="docutils literal notranslate"><span class="pre">conf/salt/</span></code>.</p>
-</li>
+<code class="docutils literal notranslate"><span class="pre">conf/salt/</span></code>.</p></li>
 </ol>
 </div>
 <div class="section" id="single-deploy-settings">
@@ -146,7 +143,7 @@ The easiest way is to create a new file called <code class="docutils literal not
 to syslog. Therefore we need to tell Django to stop logging to files, but instead to log to the
 console, which will then get picked up by supervisord and sent to syslog.</p>
 <ol class="arabic">
-<li><p class="first">In <code class="docutils literal notranslate"><span class="pre">myproject/settings/base.py</span></code>, add a <code class="docutils literal notranslate"><span class="pre">console</span></code> handler to the <code class="docutils literal notranslate"><span class="pre">LOGGING['handlers']</span></code>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">myproject/settings/base.py</span></code>, add a <code class="docutils literal notranslate"><span class="pre">console</span></code> handler to the <code class="docutils literal notranslate"><span class="pre">LOGGING['handlers']</span></code>
 setting:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
@@ -156,7 +153,7 @@ setting:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">In <code class="docutils literal notranslate"><span class="pre">myproject/settings/base.py</span></code>, add a <code class="docutils literal notranslate"><span class="pre">root</span></code> handler to the <code class="docutils literal notranslate"><span class="pre">LOGGING</span></code> setting to use the
+<li><p>In <code class="docutils literal notranslate"><span class="pre">myproject/settings/base.py</span></code>, add a <code class="docutils literal notranslate"><span class="pre">root</span></code> handler to the <code class="docutils literal notranslate"><span class="pre">LOGGING</span></code> setting to use the
 console handler. Note that <code class="docutils literal notranslate"><span class="pre">root</span></code> should be a top level key in the <code class="docutils literal notranslate"><span class="pre">LOGGING</span></code> dictionary:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">&#39;root&#39;</span><span class="p">:</span> <span class="p">{</span>
     <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="p">],</span>
@@ -165,18 +162,16 @@ console handler. Note that <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 </li>
-<li><p class="first">Remove any loggers which are logging to the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler and remove the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler
-itself.</p>
-</li>
-<li><p class="first">Check the other settings files (<code class="docutils literal notranslate"><span class="pre">staging.py</span></code>, <code class="docutils literal notranslate"><span class="pre">production.py</span></code>, <code class="docutils literal notranslate"><span class="pre">dev.py</span></code> and <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code>)
-and make sure that none of them alter the <code class="docutils literal notranslate"><span class="pre">LOGGING</span></code> setting to use the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler.</p>
-</li>
+<li><p>Remove any loggers which are logging to the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler and remove the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler
+itself.</p></li>
+<li><p>Check the other settings files (<code class="docutils literal notranslate"><span class="pre">staging.py</span></code>, <code class="docutils literal notranslate"><span class="pre">production.py</span></code>, <code class="docutils literal notranslate"><span class="pre">dev.py</span></code> and <code class="docutils literal notranslate"><span class="pre">deploy.py</span></code>)
+and make sure that none of them alter the <code class="docutils literal notranslate"><span class="pre">LOGGING</span></code> setting to use the <code class="docutils literal notranslate"><span class="pre">file</span></code> handler.</p></li>
 </ol>
 </div>
 <div class="section" id="dotenv">
 <h2>Dotenv<a class="headerlink" href="#dotenv" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Add <code class="docutils literal notranslate"><span class="pre">myproject/load_env.py</span></code> (same dir as root <code class="docutils literal notranslate"><span class="pre">urls.py</span></code>):</p>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">myproject/load_env.py</span></code> (same dir as root <code class="docutils literal notranslate"><span class="pre">urls.py</span></code>):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">join</span>
 <span class="kn">import</span> <span class="nn">dotenv</span>
 
@@ -188,7 +183,7 @@ and make sure that none of them alter the <code class="docutils literal notransl
 </pre></div>
 </div>
 </li>
-<li><p class="first">Modify <code class="docutils literal notranslate"><span class="pre">myproject/celery.py</span></code>:</p>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">myproject/celery.py</span></code>:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   myproject/celery.py
 <span class="gh">diff --git a/myproject/celery.py b/myproject/celery.py</span>
 <span class="gh">index d9a4e87..4f5a199 100644</span>
@@ -202,7 +197,7 @@ and make sure that none of them alter the <code class="docutils literal notransl
 </pre></div>
 </div>
 </li>
-<li><p class="first">Modify <code class="docutils literal notranslate"><span class="pre">myproject/wsgi.py</span></code>:</p>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">myproject/wsgi.py</span></code>:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   myproject/wsgi.py
 <span class="gh">diff --git a/myproject/wsgi.py b/myproject/wsgi.py</span>
 <span class="gh">index 69e0323..28cb28d 100644</span>
@@ -216,7 +211,7 @@ and make sure that none of them alter the <code class="docutils literal notransl
 </pre></div>
 </div>
 </li>
-<li><p class="first">Modify <code class="docutils literal notranslate"><span class="pre">manage.py</span></code>:</p>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">manage.py</span></code>:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   manage.py
 <span class="gh">diff --git a/manage.py b/manage.py</span>
 <span class="gh">index cb48c9e..8bc2fce 100644</span>
@@ -231,7 +226,7 @@ and make sure that none of them alter the <code class="docutils literal notransl
 </pre></div>
 </div>
 </li>
-<li><p class="first">Modify <code class="docutils literal notranslate"><span class="pre">requirements/base.txt</span></code>:</p>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">requirements/base.txt</span></code>:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   requirements/base.txt
 <span class="gh">diff --git a/requirements/base.txt b/requirements/base.txt</span>
 <span class="gh">index 2bb6ff2..ca74917 100644</span>
@@ -242,7 +237,7 @@ and make sure that none of them alter the <code class="docutils literal notransl
 </pre></div>
 </div>
 </li>
-<li><p class="first">Modify <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> (and follow those instructions for your local setup):</p>
+<li><p>Modify <code class="docutils literal notranslate"><span class="pre">README.rst</span></code> (and follow those instructions for your local setup):</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   README.rst
 <span class="gh">diff --git a/README.rst b/README.rst</span>
 <span class="gh">index c45b564..8c456be 100644</span>
@@ -309,13 +304,11 @@ repo which can be updated later. Until it is updated, the frontend improvements 
 <p>Technically, you can skip the steps in this section and come back to them later. Even without them,
 you should be able to get a server upgraded, but they <strong>will</strong> have to be done at some point.</p>
 <ol class="arabic">
-<li><p class="first">Port any useful functions in <code class="docutils literal notranslate"><span class="pre">fabfile.py.old</span></code> to the new fabfile, then remove the old one.</p>
-</li>
-<li><p class="first">Get a copy of the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> from the project template, porting any functions in your existing
+<li><p>Port any useful functions in <code class="docutils literal notranslate"><span class="pre">fabfile.py.old</span></code> to the new fabfile, then remove the old one.</p></li>
+<li><p>Get a copy of the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> from the project template, porting any functions in your existing
 one to the new one, if needed. Replace any instance of <code class="docutils literal notranslate"><span class="pre">{{</span> <span class="pre">project_name</span> <span class="pre">}}</span></code> in the Makefile
-with your actual project name (e.g. <code class="docutils literal notranslate"><span class="pre">myproject</span></code>).</p>
-</li>
-<li><p class="first">Review everything in <code class="docutils literal notranslate"><span class="pre">salt.old</span></code> to see which pieces are specific to your project and need to
+with your actual project name (e.g. <code class="docutils literal notranslate"><span class="pre">myproject</span></code>).</p></li>
+<li><p>Review everything in <code class="docutils literal notranslate"><span class="pre">salt.old</span></code> to see which pieces are specific to your project and need to
 be added back into salt. If any of it is generally useful (i.e. setting up a service that
 might be used on another project), then consider adding a PR to margarita so this config can
 be completely removed from your project.</p>
@@ -324,27 +317,27 @@ make sure that service is properly accounted for in the new Margarita system. On
 helped me find customizations was to use the Github ‘Compare Changes’ functionality to see what
 had changed in the <code class="docutils literal notranslate"><span class="pre">conf</span></code> directory since the initial commit.</p>
 <ol class="upperalpha simple">
-<li>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/commits/develop/conf and find the initial commit.
-Copy that commit hash to your clipboard.</li>
-<li>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/compare?expand=1 and enter that commit hash as
-the ‘base’, leaving the ‘compare’ value as develop.</li>
-<li>Depending on the size of your project, it may take a few seconds for the comparison to show up
-and Github may complain that it can’t show you all files. That should be ok…</li>
-<li>Click on ‘Files changed’ to see all the changes and note any changes in files in the <code class="docutils literal notranslate"><span class="pre">conf</span></code>
+<li><p>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/commits/develop/conf and find the initial commit.
+Copy that commit hash to your clipboard.</p></li>
+<li><p>Go to <a class="reference external" href="https://github.com">https://github.com</a>/&lt;orgname&gt;/myproject/compare?expand=1 and enter that commit hash as
+the ‘base’, leaving the ‘compare’ value as develop.</p></li>
+<li><p>Depending on the size of your project, it may take a few seconds for the comparison to show up
+and Github may complain that it can’t show you all files. That should be ok…</p></li>
+<li><p>Click on ‘Files changed’ to see all the changes and note any changes in files in the <code class="docutils literal notranslate"><span class="pre">conf</span></code>
 directory. Those are the changes that <em>may</em> be custom to your project and will need to be
 re-enabled in the new <code class="docutils literal notranslate"><span class="pre">conf/salt</span></code> directory. Not all of them will need to be, so again,
 you’ll need to be somewhat familiar with what the current Margarita states do to see if you
-actually do need to customize your project.</li>
+actually do need to customize your project.</p></li>
 </ol>
 </li>
-<li><p class="first">Look at the following files in django-project-template to see if your project could benefit
+<li><p>Look at the following files in django-project-template to see if your project could benefit
 from any changes:</p>
 <ul class="simple">
-<li>.coveragerc</li>
-<li>.gitignore</li>
-<li>README.rst</li>
-<li>setup.cfg</li>
-<li>.travis.yml (look at project.travis.yml)</li>
+<li><p>.coveragerc</p></li>
+<li><p>.gitignore</p></li>
+<li><p>README.rst</p></li>
+<li><p>setup.cfg</p></li>
+<li><p>.travis.yml (look at project.travis.yml)</p></li>
 </ul>
 </li>
 </ol>
@@ -354,43 +347,42 @@ from any changes:</p>
 <p>Now, we’re going to create a fresh Vagrant VM just to make sure that our current repository deploys
 correctly.</p>
 <ol class="arabic">
-<li><p class="first">Edit <code class="docutils literal notranslate"><span class="pre">conf/pillar/local.sls</span></code> to look like this:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">environment</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">local</span>
-<span class="l l-Scalar l-Scalar-Plain">domain</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">margarita.example.com</span>
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">conf/pillar/local.sls</span></code> to look like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">environment</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">local</span>
+<span class="nt">domain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">margarita.example.com</span>
 
-<span class="l l-Scalar l-Scalar-Plain">secrets</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">DB_PASSWORD</span><span class="p p-Indicator">:</span> <span class="s">&quot;dbPassword&quot;</span>
-  <span class="l l-Scalar l-Scalar-Plain">BROKER_PASSWORD</span><span class="p p-Indicator">:</span> <span class="s">&quot;brokerPassword&quot;</span>
+<span class="nt">secrets</span><span class="p">:</span>
+  <span class="nt">DB_PASSWORD</span><span class="p">:</span> <span class="s">&quot;dbPassword&quot;</span>
+  <span class="nt">BROKER_PASSWORD</span><span class="p">:</span> <span class="s">&quot;brokerPassword&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add the following line to your laptop’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file:</p>
+<li><p>Add the following line to your laptop’s <code class="docutils literal notranslate"><span class="pre">/etc/hosts</span></code> file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">33.33</span><span class="o">.</span><span class="mf">33.10</span> <span class="n">margarita</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Make sure we’re starting from a fresh VM:</p>
+<li><p>Make sure we’re starting from a fresh VM:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ vagrant destroy
 ~/dev/myproject$ vagrant up
 </pre></div>
 </div>
 </li>
-<li><p class="first">Deploy!</p>
+<li><p>Deploy!</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab vagrant setup_master
 ~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 ~/dev/myproject$ fab vagrant deploy
 </pre></div>
 </div>
 </li>
-<li><p class="first">If that works, you should see your site at <a class="reference external" href="https://margarita.example.com">https://margarita.example.com</a>.</p>
-</li>
+<li><p>If that works, you should see your site at <a class="reference external" href="https://margarita.example.com">https://margarita.example.com</a>.</p></li>
 </ol>
 </div>
 <div class="section" id="update-repo-code">
 <span id="update-repo"></span><h2>Update Repo Code<a class="headerlink" href="#update-repo-code" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">We will upgrade Salt on the staging machine. Once you have completed the upgrade process
+<p class="admonition-title">Note</p>
+<p>We will upgrade Salt on the staging machine. Once you have completed the upgrade process
 and verified that it is working perfectly, you’ll need to repeat the process for <a class="reference internal" href="#updating-production">updating
 production</a>. When you get to that point, our instructions will point you back here to
 repeat the process for production. Just follow these instructions, replacing <em>staging</em>
@@ -399,47 +391,47 @@ with <em>production</em>, and <em>develop</em> with <em>master</em>.</p>
 <p>Once you have gotten the smoke test to work successfully, we’ll need to get all of these changes
 into a branch that salt will be able to checkout on the staging server.</p>
 <ol class="arabic simple">
-<li>Commit your changes locally.</li>
-<li>Push your changes to a feature branch (<em>your-feature-branch</em>) on Github.</li>
-<li>Update <code class="docutils literal notranslate"><span class="pre">repo.branch</span></code> in <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code> from <em>develop</em> to
+<li><p>Commit your changes locally.</p></li>
+<li><p>Push your changes to a feature branch (<em>your-feature-branch</em>) on Github.</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">repo.branch</span></code> in <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code> from <em>develop</em> to
 <em>your-feature-branch</em>. Remember to change this back to its original value when this entire
-process is successful. The default is <em>develop</em> for staging and <em>master</em> for production.</li>
+process is successful. The default is <em>develop</em> for staging and <em>master</em> for production.</p></li>
 </ol>
 </div>
 <div class="section" id="upgrade-salt">
 <span id="id1"></span><h2>Upgrade Salt<a class="headerlink" href="#upgrade-salt" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Fetch a copy of <code class="docutils literal notranslate"><span class="pre">/etc/salt/minion</span></code> from the server. We’ll need which roles are currently being
+<li><p>Fetch a copy of <code class="docutils literal notranslate"><span class="pre">/etc/salt/minion</span></code> from the server. We’ll need which roles are currently being
 used, so we can setup the same roles when we call <code class="docutils literal notranslate"><span class="pre">setup_minion</span></code> in step 5.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ scp <span class="m">1</span>.2.3.4:/etc/salt/minion old-minion.conf
 </pre></div>
 </div>
 </li>
-<li><p class="first">Uninstall salt. We’re using the <code class="docutils literal notranslate"><span class="pre">--force-yes</span></code> parameter because salt packages are <em>held</em> on
+<li><p>Uninstall salt. We’re using the <code class="docutils literal notranslate"><span class="pre">--force-yes</span></code> parameter because salt packages are <em>held</em> on
 some of our servers, so this is needed to allow uninstallation. <strong>Make sure you are using the new
 fabfile!</strong></p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo apt-get remove salt-master salt-minion salt-common -y --force-yes
 </pre></div>
 </div>
 </li>
-<li><p class="first">If you are on Ubuntu 12.04, run this command to enable backports, needed for python-gnupg:</p>
+<li><p>If you are on Ubuntu 12.04, run this command to enable backports, needed for python-gnupg:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging -- sudo sed -i <span class="s1">&#39;/precise-backports/s/^#//g&#39;</span> /etc/apt/sources.list
 </pre></div>
 </div>
 </li>
-<li><p class="first">Set up the salt master.</p>
+<li><p>Set up the salt master.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging setup_master
 </pre></div>
 </div>
 </li>
-<li><p class="first">Set up the salt minion. Get the list of roles from the <code class="docutils literal notranslate"><span class="pre">old-minion.conf</span></code> you saved in step 1.
+<li><p>Set up the salt minion. Get the list of roles from the <code class="docutils literal notranslate"><span class="pre">old-minion.conf</span></code> you saved in step 1.
 The example below shows all possible roles being assigned to this minion.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">1</span>.2.3.4 staging setup_minion:salt-master,web,worker,balancer,db-master,queue,cache
 </pre></div>
 </div>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Make sure <code class="docutils literal notranslate"><span class="pre">salt-master</span></code> is in there. It seems to be absent in some projects, but
+<p class="admonition-title">Note</p>
+<p>Make sure <code class="docutils literal notranslate"><span class="pre">salt-master</span></code> is in there. It seems to be absent in some projects, but
 if you’re running everything on a single box it should be there.</p>
 </div>
 </li>
@@ -448,7 +440,7 @@ if you’re running everything on a single box it should be there.</p>
 <div class="section" id="sync">
 <h2>Sync<a class="headerlink" href="#sync" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
-<li><p class="first">Sync these states over to the server. We do this separately from the actual deploy so that
+<li><p>Sync these states over to the server. We do this separately from the actual deploy so that
 failures can be caught before actually trying to deploy.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging sync
 </pre></div>
@@ -472,14 +464,13 @@ developers <strong>will likely</strong> stomp on each others secrets. Encrypting
 <code class="docutils literal notranslate"><span class="pre">setup_master</span></code> has run successfully. We’ll do staging now, but we can’t do production until we’ve
 run <code class="docutils literal notranslate"><span class="pre">setup_master</span></code> on production.</p>
 <ol class="arabic">
-<li><p class="first">Add this declaration to the top of <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code>:</p>
+<li><p>Add this declaration to the top of <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!yaml|gpg</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Copy everything from <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/secrets.sls</span></code> to <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code>.</p>
-</li>
-<li><p class="first">For each key that you’ve just added to the file, encrypt the value and replace the value in
+<li><p>Copy everything from <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/secrets.sls</span></code> to <code class="docutils literal notranslate"><span class="pre">conf/pillar/staging/env.sls</span></code>.</p></li>
+<li><p>For each key that you’ve just added to the file, encrypt the value and replace the value in
 <code class="docutils literal notranslate"><span class="pre">env.sls</span></code> with the encrypted value. (See the <a class="reference external" href="https://github.com/caktus/django-project-template/blob/master/docs/provisioning.rst#managing-secrets">docs</a>
 for more details):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:DB_PASSWORD<span class="o">=</span><span class="s1">&#39;superSecretPassword&#39;</span>
@@ -498,7 +489,7 @@ for more details):</p>
 </div>
 <p>Replace the key and value in <code class="docutils literal notranslate"><span class="pre">env.sls</span></code> with the output of that command.</p>
 </li>
-<li><p class="first">For the github deploy key (if present) or any other multi-line values, it’s better to copy the
+<li><p>For the github deploy key (if present) or any other multi-line values, it’s better to copy the
 unencrypted key data to its own file, (named <code class="docutils literal notranslate"><span class="pre">github_key.priv</span></code> in this example), remove any
 indentation, and then run:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging encrypt:github_key.priv
@@ -507,18 +498,18 @@ indentation, and then run:</p>
 <p>The encrypted version will then be in <code class="docutils literal notranslate"><span class="pre">github_key.priv.asc</span></code>. Copy the content from that file
 into <code class="docutils literal notranslate"><span class="pre">env.sls</span></code>.</p>
 </li>
-<li><p class="first">Move the <code class="docutils literal notranslate"><span class="pre">secrets.sls</span></code> file out of the way:</p>
+<li><p>Move the <code class="docutils literal notranslate"><span class="pre">secrets.sls</span></code> file out of the way:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ mv conf/pillar/staging/secrets.sls staging-secrets.sls
 </pre></div>
 </div>
 </li>
-<li><p class="first">Rename <code class="docutils literal notranslate"><span class="pre">env.sls</span></code>:</p>
+<li><p>Rename <code class="docutils literal notranslate"><span class="pre">env.sls</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ mv conf/pillar/staging/env.sls conf/pillar/staging.sls
 ~/dev/myproject$ rmdir conf/pillar/staging
 </pre></div>
 </div>
 </li>
-<li><p class="first">Update the <code class="docutils literal notranslate"><span class="pre">conf/pillar/top.sls</span></code> file:</p>
+<li><p>Update the <code class="docutils literal notranslate"><span class="pre">conf/pillar/top.sls</span></code> file:</p>
 <div class="highlight-diff notranslate"><div class="highlight"><pre><span></span>Modified   conf/pillar/top.sls
 <span class="gh">diff --git a/conf/pillar/top.sls b/conf/pillar/top.sls</span>
 <span class="gh">index 720b942..0db9e8a 100644</span>
@@ -533,7 +524,7 @@ into <code class="docutils literal notranslate"><span class="pre">env.sls</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Commit, push, and redeploy:</p>
+<li><p>Commit, push, and redeploy:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab staging deploy
 </pre></div>
 </div>
@@ -555,20 +546,17 @@ that <code class="docutils literal notranslate"><span class="pre">repo.branch</s
 should update the docs above (if they are general), or add them here, if they aren’t general or
 we’re not sure.</p>
 <ul>
-<li><p class="first"><code class="docutils literal notranslate"><span class="pre">newrelic_license_key</span></code> must be capitalized. Some projects have a secret for
-<code class="docutils literal notranslate"><span class="pre">newrelic_license_key</span></code>, but the current margarita uses <code class="docutils literal notranslate"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code></p>
-</li>
-<li><p class="first">New Relic settings may need adjusting, which you can do via environment variables (see
-other documentation in this repo for details).</p>
-</li>
-<li><p class="first">If you get timeout errors during the first deploy, it may be because of a few different issues.</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">newrelic_license_key</span></code> must be capitalized. Some projects have a secret for
+<code class="docutils literal notranslate"><span class="pre">newrelic_license_key</span></code>, but the current margarita uses <code class="docutils literal notranslate"><span class="pre">NEW_RELIC_LICENSE_KEY</span></code></p></li>
+<li><p>New Relic settings may need adjusting, which you can do via environment variables (see
+other documentation in this repo for details).</p></li>
+<li><p>If you get timeout errors during the first deploy, it may be because of a few different issues.</p>
 <ul>
-<li><p class="first">Low CPU/RAM servers might need the salt timeouts extended. Add <code class="docutils literal notranslate"><span class="pre">timeout:</span> <span class="pre">600</span></code> to
+<li><p>Low CPU/RAM servers might need the salt timeouts extended. Add <code class="docutils literal notranslate"><span class="pre">timeout:</span> <span class="pre">600</span></code> to
 <code class="docutils literal notranslate"><span class="pre">/etc/salt/master</span></code> and <code class="docutils literal notranslate"><span class="pre">/etc/salt/minion</span></code> (or edit the value if already present) and then
 restart both the <code class="docutils literal notranslate"><span class="pre">salt-master</span></code> and <code class="docutils literal notranslate"><span class="pre">salt-minion</span></code>. Wait a <strong>full minute</strong> or so before
-starting any salt command. My salt-minions took a loooong time to start on a low-powered box.</p>
-</li>
-<li><p class="first">There might be a chicken/egg problem with the firewall. Do a grep for <code class="docutils literal notranslate"><span class="pre">UFW</span> <span class="pre">BLOCK</span></code> in
+starting any salt command. My salt-minions took a loooong time to start on a low-powered box.</p></li>
+<li><p>There might be a chicken/egg problem with the firewall. Do a grep for <code class="docutils literal notranslate"><span class="pre">UFW</span> <span class="pre">BLOCK</span></code> in
 <code class="docutils literal notranslate"><span class="pre">/var/log/syslog</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Jan</span> <span class="mi">13</span> <span class="mi">21</span><span class="p">:</span><span class="mi">19</span><span class="p">:</span><span class="mi">48</span> <span class="n">ip</span><span class="o">-&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">kernel</span><span class="p">:</span> <span class="p">[</span><span class="mf">78350448.038946</span><span class="p">]</span> <span class="p">[</span><span class="n">UFW</span> <span class="n">BLOCK</span><span class="p">]</span> <span class="n">IN</span><span class="o">=</span><span class="n">eth0</span> <span class="n">OUT</span><span class="o">=</span> <span class="n">MAC</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">SRC</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">DST</span><span class="o">=&lt;</span><span class="n">deleted</span><span class="o">&gt;</span> <span class="n">LEN</span><span class="o">=</span><span class="mi">60</span> <span class="n">TOS</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">PREC</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">TTL</span><span class="o">=</span><span class="mi">45</span> <span class="n">ID</span><span class="o">=</span><span class="mi">33808</span> <span class="n">DF</span> <span class="n">PROTO</span><span class="o">=</span><span class="n">TCP</span> <span class="n">SPT</span><span class="o">=</span><span class="mi">53084</span> <span class="n">DPT</span><span class="o">=</span><span class="mi">4506</span> <span class="n">WINDOW</span><span class="o">=</span><span class="mi">14600</span> <span class="n">RES</span><span class="o">=</span><span class="mh">0x00</span> <span class="n">SYN</span> <span class="n">URGP</span><span class="o">=</span><span class="mi">0</span>
 </pre></div>
@@ -584,7 +572,7 @@ that too, but if the firewall is already running, then our salt state can’t ru
 confused how this problem happened on a server which had already been running salt successfully,
 but ¯\_(ツ)_/¯.</p>
 </li>
-<li><p class="first"><em>VAGRANT NOTE</em>: Make sure to undo the <code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code> setting which syncs the conf folder to
+<li><p><em>VAGRANT NOTE</em>: Make sure to undo the <code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code> setting which syncs the conf folder to
 <code class="docutils literal notranslate"><span class="pre">/srv</span></code> on the VM, because the project no longer expects that folder to be synced, so will run
 into problems trying to change permissions on the files there.</p>
 <p>Change this:</p>
@@ -597,19 +585,19 @@ into problems trying to change permissions on the files there.</p>
 </div>
 <p>and then restart the VM. If you are using the new <code class="docutils literal notranslate"><span class="pre">Vagrantfile</span></code>, you shouldn’t need to do that.</p>
 </li>
-<li><p class="first"><em>VAGRANT NOTE</em>: Remove the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">public</span></code> symlinks as we rsync now rather than symlink.</p>
+<li><p><em>VAGRANT NOTE</em>: Remove the <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">public</span></code> symlinks as we rsync now rather than symlink.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/source
 ~/dev/myproject$ fab -H <span class="m">127</span>.0.0.1:2222 vagrant -- sudo rm /var/www/myproject/public
 </pre></div>
 </div>
 </li>
-<li><p class="first">If you see an error like the following, it means that your local <code class="docutils literal notranslate"><span class="pre">conf</span></code> directory has contents
+<li><p>If you see an error like the following, it means that your local <code class="docutils literal notranslate"><span class="pre">conf</span></code> directory has contents
 that it shouldn’t. Remove the file/directory in question locally and then rerun the sync command.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">54</span>.234.112.22<span class="o">]</span> out: mv: cannot move <span class="sb">`</span>/tmp/salt/local<span class="s1">&#39; to `/srv/local&#39;</span>: Directory not empty
 </pre></div>
 </div>
 </li>
-<li><p class="first">After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
+<li><p>After deploying, watch your supervisor logs. If you see that celery or celery-beat has trouble
 connecting to RabbitMQ:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Feb</span> <span class="mi">11</span> <span class="mi">14</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">39</span> <span class="n">myproject</span> <span class="n">supervisord</span><span class="p">:</span>  <span class="n">myproject</span><span class="o">-</span><span class="n">celery</span><span class="o">-</span><span class="n">beat</span> <span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">11</span> <span class="mi">14</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="mi">811</span><span class="p">:</span>
 <span class="n">ERROR</span><span class="o">/</span><span class="n">MainProcess</span><span class="p">]</span> <span class="n">beat</span><span class="p">:</span> <span class="n">Connection</span> <span class="n">error</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">104</span><span class="p">]</span> <span class="n">Connection</span> <span class="n">reset</span> <span class="n">by</span> <span class="n">peer</span><span class="o">.</span> <span class="n">Trying</span> <span class="n">again</span>
@@ -714,12 +702,18 @@ Total states run:     <span class="m">12</span>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -728,8 +722,8 @@ Total states run:     <span class="m">12</span>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/margarita/upgrading.rst.txt"

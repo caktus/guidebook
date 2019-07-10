@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Travis CI &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="SMTP" href="smtp.html" />
@@ -39,36 +37,31 @@
 <p>The project template now has a Travis CI template that you can copy for your project. Once you have
 completed the initial project setup (i.e. the items in README.rst), do the following:</p>
 <ol class="arabic">
-<li><p class="first">Rename the template to <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code>. (Note: The existing file named <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> in the
+<li><p>Rename the template to <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code>. (Note: The existing file named <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> in the
 project template is for testing the template itself, so it is fine to overwrite it):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ mv project.travis.yml .travis.yml
 </pre></div>
 </div>
 </li>
-<li><p class="first">If you don’t have one already, <a class="reference external" href="https://travis-ci.org">create a Travis CI account</a>, being sure
-to link it to your Caktus github account.</p>
-</li>
-<li><p class="first">Find your project on your <a class="reference external" href="https://travis-ci.org/profile/">profile page</a>. Any repos that you
+<li><p>If you don’t have one already, <a class="reference external" href="https://travis-ci.org">create a Travis CI account</a>, being sure
+to link it to your Caktus github account.</p></li>
+<li><p>Find your project on your <a class="reference external" href="https://travis-ci.org/profile/">profile page</a>. Any repos that you
 have admin access to, across organizations, should be visible there. You may need to refresh your
 list by clicking the ‘Sync account’ button, especially if the repo was created very recently.
-Enable your repo on this page.</p>
-</li>
-<li><p class="first">Review the <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> template that you copied. Update it to match the specifics of your
+Enable your repo on this page.</p></li>
+<li><p>Review the <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> template that you copied. Update it to match the specifics of your
 project (e.g. Python version, PostgreSQL version). Some settings are commented out and can be
 uncommented if they apply to your project. The one section that WILL need to be updated is the
-notifications section. See below.</p>
-</li>
-<li><p class="first">Set up HipChat notifications.</p>
+notifications section. See below.</p></li>
+<li><p>Set up HipChat notifications.</p>
 <ol class="upperalpha">
-<li><p class="first">Obtain a HipChat API token and Room ID. You may be able to get this by clicking on the ‘…’
+<li><p>Obtain a HipChat API token and Room ID. You may be able to get this by clicking on the ‘…’
 button in the upper right-hand corner of your HipChat room page, and then clicking on
 ‘Integrations…’ and then clicking on the ‘Travis CI’ button. If you don’t have access,
 create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to
-get one.</p>
-</li>
-<li><p class="first">Install the <code class="docutils literal notranslate"><span class="pre">travis</span></code> command line tool: <a class="reference external" href="https://github.com/travis-ci/travis.rb#installation">https://github.com/travis-ci/travis.rb#installation</a></p>
-</li>
-<li><p class="first">Use the HipChat API token and Room ID obtained in step A to generate an encrypted token:</p>
+get one.</p></li>
+<li><p>Install the <code class="docutils literal notranslate"><span class="pre">travis</span></code> command line tool: <a class="reference external" href="https://github.com/travis-ci/travis.rb#installation">https://github.com/travis-ci/travis.rb#installation</a></p></li>
+<li><p>Use the HipChat API token and Room ID obtained in step A to generate an encrypted token:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/dev/myproject$ travis encrypt &lt;api_token@room_id&gt;
 Please add the following to your .travis.yml file:
 
@@ -76,15 +69,12 @@ Please add the following to your .travis.yml file:
 </pre></div>
 </div>
 </li>
-<li><p class="first">Copy that value into the place indicated in the template <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> file.</p>
-</li>
-<li><p class="first">Since the value is encrypted, it is safe for this to be in a public github repo.</p>
-</li>
+<li><p>Copy that value into the place indicated in the template <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> file.</p></li>
+<li><p>Since the value is encrypted, it is safe for this to be in a public github repo.</p></li>
 </ol>
 </li>
-<li><p class="first">Commit the changes to your <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> file and push that commit to github. That should
-trigger a build and you should see the result of that build in your HipChat room, once complete.</p>
-</li>
+<li><p>Commit the changes to your <code class="docutils literal notranslate"><span class="pre">.travis.yml</span></code> file and push that commit to github. That should
+trigger a build and you should see the result of that build in your HipChat room, once complete.</p></li>
 </ol>
 </div>
 
@@ -154,12 +144,18 @@ trigger a build and you should see the result of that build in your HipChat room
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -168,8 +164,8 @@ trigger a build and you should see the result of that build in your HipChat room
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/services/travis.rst.txt"

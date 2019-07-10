@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Deploying to a Dokku server &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Margarita" href="margarita/margarita.html" />
@@ -41,7 +39,7 @@
 can be deployed to a Dokku server as follows.</p>
 <p>These instructions assume</p>
 <ul>
-<li><p class="first">that <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">dokku</span></code> will connect you to your dokku server as the dokku user.
+<li><p>that <code class="docutils literal notranslate"><span class="pre">ssh</span> <span class="pre">dokku</span></code> will connect you to your dokku server as the dokku user.
 You can add something like this to your <code class="docutils literal notranslate"><span class="pre">~/.ssh/config</span></code> file to
 achieve that:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Host</span> <span class="n">dokku</span>
@@ -50,20 +48,17 @@ achieve that:</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">the <a class="reference external" href="https://github.com/dokku/dokku-postgres">Postgres plugin</a>
-is installed on the dokku server (follow link for instructions)</p>
-</li>
-<li><p class="first">the <a class="reference external" href="https://github.com/dokku/dokku-letsencrypt">Lets Encrypt plugin</a>
-is installed on the dokku server  (follow link for instructions)</p>
-</li>
-<li><p class="first">an admin has
+<li><p>the <a class="reference external" href="https://github.com/dokku/dokku-postgres">Postgres plugin</a>
+is installed on the dokku server (follow link for instructions)</p></li>
+<li><p>the <a class="reference external" href="https://github.com/dokku/dokku-letsencrypt">Lets Encrypt plugin</a>
+is installed on the dokku server  (follow link for instructions)</p></li>
+<li><p>an admin has
 <a class="reference external" href="http://dokku.viewdocs.io/dokku~v0.11.2/advanced-usage/persistent-storage/">created</a>
 a directory on the dokku server named
 <code class="docutils literal notranslate"><span class="pre">/var/lib/dokku/data/storage/{{</span> <span class="pre">project_name</span> <span class="pre">}}</span></code> that we can use for
 storage that persists across deploys, and that is writable by the
-<code class="docutils literal notranslate"><span class="pre">dokku</span></code> user.  (follow link for instructions)</p>
-</li>
-<li><p class="first">your new project is checked into git (required by dokku). If you
+<code class="docutils literal notranslate"><span class="pre">dokku</span></code> user.  (follow link for instructions)</p></li>
+<li><p>your new project is checked into git (required by dokku). If you
 haven’t done that, you can cd into the project directory and run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git init &amp;&amp; git add . &amp;&amp; git commit -m &quot;Initial commit&quot;
 </pre></div>
@@ -329,12 +324,18 @@ the database somewhere:</p>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -343,8 +344,8 @@ the database somewhere:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="_sources/dokku.rst.txt"

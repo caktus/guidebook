@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Github &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Amazon S3" href="s3.html" />
@@ -40,26 +38,25 @@
 that you’ll be creating the repo in the Caktus organization, but the process is the same for any
 other organization… you’ll just need the permissions to do so.</p>
 <ol class="arabic">
-<li><p class="first">Once you have your project set up locally, initialize your git repository and commit your files:</p>
+<li><p>Once you have your project set up locally, initialize your git repository and commit your files:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/myproject$ git init
 ~/myproject$ git commit -m <span class="s2">&quot;Initial project setup&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">You’ll need a Github account and your account must have been added to the <a class="reference external" href="https://github.com/orgs/caktus/teams/developers">Developers</a> team in the Caktus organization. Ask another
-developer, or create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to accomplish that.</p>
-</li>
-<li><p class="first"><a class="reference external" href="https://github.com/organizations/caktus/repositories/new">Create a new repo</a>. This will walk
+<li><p>You’ll need a Github account and your account must have been added to the <a class="reference external" href="https://github.com/orgs/caktus/teams/developers">Developers</a> team in the Caktus organization. Ask another
+developer, or create a <a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to accomplish that.</p></li>
+<li><p><a class="reference external" href="https://github.com/organizations/caktus/repositories/new">Create a new repo</a>. This will walk
 you through creating a repo.</p>
 <ol class="upperalpha simple">
-<li>Leave the ‘Initialize this repository with a README’ checkbox <strong>unchecked</strong>, as you’ll most likely
-be importing a repo.</li>
-<li>Don’t worry about the .gitignore and LICENSE dropdowns. Our project template has its own
+<li><p>Leave the ‘Initialize this repository with a README’ checkbox <strong>unchecked</strong>, as you’ll most likely
+be importing a repo.</p></li>
+<li><p>Don’t worry about the .gitignore and LICENSE dropdowns. Our project template has its own
 .gitignore and while it’s convenient to add a LICENSE here, it would be easier to just add
-that to your existing repo.</li>
+that to your existing repo.</p></li>
 </ol>
 </li>
-<li><p class="first">Click the ‘Create repo’ button, which will take you to a page with various instructions depending
+<li><p>Click the ‘Create repo’ button, which will take you to a page with various instructions depending
 on your situation. We’ll use the second set of instructions, labelled, ‘…or push an existing
 repository from the command line’. Replace <code class="docutils literal notranslate"><span class="pre">myproject</span></code> with the name of your newly created
 project.</p>
@@ -68,13 +65,13 @@ project.</p>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Review the ‘Settings’ tab to configure the repository to your preferences:</p>
+<li><p>Review the ‘Settings’ tab to configure the repository to your preferences:</p>
 <ol class="upperalpha simple">
-<li>Manage outside collaborators.</li>
-<li>Link Github to other services (such as HipChat, Travis CI, etc.)</li>
-<li>Manage branches. You can set the default branch to ‘develop’ and enable branch protection
+<li><p>Manage outside collaborators.</p></li>
+<li><p>Link Github to other services (such as HipChat, Travis CI, etc.)</p></li>
+<li><p>Manage branches. You can set the default branch to ‘develop’ and enable branch protection
 which can prevent force pushes to certain branches, or require Travis CI to run successfully
-on a PR before it gets merged, for example.</li>
+on a PR before it gets merged, for example.</p></li>
 </ol>
 </li>
 </ol>
@@ -152,12 +149,18 @@ setting up the deploy key</a>.</p>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -166,8 +169,8 @@ setting up the deploy key</a>.</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/services/github.rst.txt"

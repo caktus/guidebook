@@ -1,11 +1,9 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Circle CI &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +11,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Travis CI" href="travis.html" />
@@ -40,32 +38,33 @@
 benefit over Travis CI is that it works for private non-Caktus repos. Once you have
 completed the initial project setup (i.e. the items in README.rst), do the following:</p>
 <ol class="arabic simple">
-<li>If you don’t have one already, <a class="reference external" href="https://circleci.com/">create a Circle CI account.</a> Circle CI
+<li><p>If you don’t have one already, <a class="reference external" href="https://circleci.com/">create a Circle CI account.</a> Circle CI
 uses Github accounts for authentication, so when you sign up, be sure to sign up with your Caktus
-github account.</li>
-<li>Find your project on the <a class="reference external" href="https://circleci.com/add-projects">projects page</a>. Any repos that you
+github account.</p></li>
+<li><p>Find your project on the <a class="reference external" href="https://circleci.com/add-projects">projects page</a>. Any repos that you
 have admin access to, across organizations, should be visible there. You may need to refresh your
 list by clicking the ‘Reload repositories’ button, especially if the repo was created very recently.
 Enable your repo on this page. This will kick off a build of the default branch of the repo,
 which will most likely fail, since that branch doesn’t yet have a <code class="docutils literal notranslate"><span class="pre">circle.yml</span></code> file. Don’t
-worry… we’ll fix it.</li>
-<li>Review the <code class="docutils literal notranslate"><span class="pre">circle.yml</span></code> file at the top level of the repo. Update it to match the specifics of
-your project.</li>
-<li>Set up HipChat notifications.<ol class="upperalpha">
-<li>Get the Hipchat Room Number. This is the number in the URL bar when you are looking at the
-room in Hipchat.</li>
-<li>Obtain the HipChat API token for Circle CI. Click on the ‘…’ button in the upper right-hand
+worry… we’ll fix it.</p></li>
+<li><p>Review the <code class="docutils literal notranslate"><span class="pre">circle.yml</span></code> file at the top level of the repo. Update it to match the specifics of
+your project.</p></li>
+<li><p>Set up HipChat notifications.</p>
+<ol class="upperalpha simple">
+<li><p>Get the Hipchat Room Number. This is the number in the URL bar when you are looking at the
+room in Hipchat.</p></li>
+<li><p>Obtain the HipChat API token for Circle CI. Click on the ‘…’ button in the upper right-hand
 corner of your HipChat room page, then click on ‘Integrations…’, then click on the
 ‘Installed’ button to filter by already-installed integrations. You should see Circle CI
 listed there. Click on it and you will find the Token. If you don’t have access, create a
-<a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to get one.</li>
-<li>Navigate in Circle CI to your project and then click on the ‘settings’ icon in the upper
+<a class="reference external" href="https://caktus.atlassian.net/servicedesk/customer/portal/3">support request</a> to get one.</p></li>
+<li><p>Navigate in Circle CI to your project and then click on the ‘settings’ icon in the upper
 right which should take you to project settings. Click on ‘Chat Notifications’ and fill in the
-Room Number and API Token from the above 2 steps. Click ‘Save’.</li>
+Room Number and API Token from the above 2 steps. Click ‘Save’.</p></li>
 </ol>
 </li>
-<li>Commit the changes to your <code class="docutils literal notranslate"><span class="pre">circle.yml</span></code> file and push that commit to github. That should
-trigger a build and you should see the result of that build in your HipChat room, once complete.</li>
+<li><p>Commit the changes to your <code class="docutils literal notranslate"><span class="pre">circle.yml</span></code> file and push that commit to github. That should
+trigger a build and you should see the result of that build in your HipChat room, once complete.</p></li>
 </ol>
 </div>
 
@@ -135,12 +134,18 @@ trigger a build and you should see the result of that build in your HipChat room
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
     </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
         </div>
       </div>
       <div class="clearer"></div>
@@ -149,8 +154,8 @@ trigger a build and you should see the result of that build in your HipChat room
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
       <a href="../_sources/services/circle-ci.rst.txt"
