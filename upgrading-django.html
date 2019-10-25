@@ -49,10 +49,11 @@ different projects</p></li>
 <div class="section" id="upgrade-from-lts-version-to-lts-version">
 <h3>Upgrade from LTS version to LTS version<a class="headerlink" href="#upgrade-from-lts-version-to-lts-version" title="Permalink to this headline">¶</a></h3>
 <p>Django’s deprecation policy makes it manageable to upgrade from one
-long-term support (LTS) release to the next LTS release. First, fix
-the deprecation warnings on your current LTS version, then work on
-upgrading to the next LTS release. For the Django roadmap of LTS
-releases, see <a class="reference external" href="https://www.djangoproject.com/weblog/2015/jun/25/roadmap/">https://www.djangoproject.com/weblog/2015/jun/25/roadmap/</a>.</p>
+long-term support (LTS) release to the next LTS release. We recommend
+first upgrading to an LTS release, then fixing the deprecation
+warnings on that LTS release, then working on upgrading to the next
+LTS release. For the Django roadmap of LTS releases, see
+<a class="reference external" href="https://www.djangoproject.com/weblog/2015/jun/25/roadmap/">https://www.djangoproject.com/weblog/2015/jun/25/roadmap/</a>.</p>
 </div>
 <div class="section" id="release-notes">
 <h3>Release notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h3>
@@ -164,9 +165,10 @@ by running:</p>
 <li><p>Once all of the deprecation warnings have been resolved,
 update the requirements file with the new version of Django
 and run <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</p></li>
-<li><p>Try to run the server locally with <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code>,
-and navigate to the site locally. If something is broken,
-look into fixing it.</p></li>
+<li><p>Try to run the server locally (with <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">dev</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">runserver</span></code>, or whatever is relevant
+for your project), and navigate to the site locally. If
+something is broken, look into fixing it.</p></li>
 <li><p>Once everything seems to run locally, run the test suite and
 make sure all of the tests pass. If something is broken,
 look into fixing it.</p>

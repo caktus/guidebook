@@ -20,10 +20,11 @@ Upgrade from LTS version to LTS version
 .......................................
 
 Django's deprecation policy makes it manageable to upgrade from one
-long-term support (LTS) release to the next LTS release. First, fix
-the deprecation warnings on your current LTS version, then work on
-upgrading to the next LTS release. For the Django roadmap of LTS
-releases, see https://www.djangoproject.com/weblog/2015/jun/25/roadmap/.
+long-term support (LTS) release to the next LTS release. We recommend
+first upgrading to an LTS release, then fixing the deprecation
+warnings on that LTS release, then working on upgrading to the next
+LTS release. For the Django roadmap of LTS releases, see
+https://www.djangoproject.com/weblog/2015/jun/25/roadmap/.
 
 Release notes
 .............
@@ -147,9 +148,10 @@ We recommend following these steps when upgrading Django versions:
    update the requirements file with the new version of Django
    and run ``pip install -r requirements.txt``.
 
-5. Try to run the server locally with ``python manage.py runserver``,
-   and navigate to the site locally. If something is broken,
-   look into fixing it.
+5. Try to run the server locally (with ``npm run dev``, or
+   ``python manage.py runserver``, or whatever is relevant
+   for your project), and navigate to the site locally. If
+   something is broken, look into fixing it.
 
 6. Once everything seems to run locally, run the test suite and
    make sure all of the tests pass. If something is broken,
