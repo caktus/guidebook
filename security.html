@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Developer Machine Security &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Branching Strategy" href="branching.html" />
@@ -57,7 +57,7 @@ your SSH keys on every server today.</p>
 <p>List your current keys, their lengths, and whether or not your keys do <em>not</em> have a passphrase (per
 <a class="reference external" href="https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase">Stack Exchange</a>), by running the following <code class="docutils literal notranslate"><span class="pre">bash</span></code> script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">shopt</span> -s extglob
-<span class="k">for</span> keyfile in ~/.ssh/id_!<span class="o">(</span>*.sock<span class="p">|</span>*.pub<span class="o">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
+<span class="k">for</span> keyfile <span class="k">in</span> ~/.ssh/id_!<span class="o">(</span>*.sock<span class="p">|</span>*.pub<span class="o">)</span><span class="p">;</span> <span class="k">do</span> <span class="se">\</span>
   ssh-keygen -l -f <span class="s2">&quot;</span><span class="si">${</span><span class="nv">keyfile</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">;</span> <span class="se">\</span>
   ssh-keygen -p -P <span class="s1">&#39;&#39;</span> -N <span class="s1">&#39;&#39;</span> -f <span class="s2">&quot;</span><span class="nv">$keyfile</span><span class="s2">&quot;</span> &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;WARNING: </span><span class="nv">$keyfile</span><span class="s2"> has no passphrase&quot;</span><span class="p">;</span> <span class="se">\</span>
 <span class="k">done</span> <span class="p">|</span> uniq
@@ -183,15 +183,15 @@ $ ssh-add -K ~/.ssh/<a href="#id1"><span class="problematic" id="id2">id_</span>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -208,7 +208,7 @@ $ ssh-add -K ~/.ssh/<a href="#id1"><span class="problematic" id="id2">id_</span>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

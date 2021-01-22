@@ -14,6 +14,7 @@ Then additional steps are required to update the published
 documentation:
 
 * Check out the latest ``gh-pages`` branch.
+* Create a virtualenv and install requirements.txt into it.
 * ``make html``.
 * Use ``git status`` and see if there are any new output files.
   If so, ``git add`` them.

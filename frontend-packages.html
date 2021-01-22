@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Frontend Packaging &#8212; Caktus Developer Documentation 0.0.1 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="External Services" href="services/index.html" />
@@ -178,7 +178,7 @@ move this JS out of the template in a future improvement.</p>
 modules, then jQuery can be a dependency imported by the new system. If you want to do
 this, remove the jQuery <code class="docutils literal notranslate"><span class="pre">&lt;script&gt;</span></code> tag and then install jQuery (whatever version is
 appropriate for you):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">jquery</span><span class="nd">@2</span><span class="o">.</span><span class="mf">2.0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">dev</span> <span class="n">jquery</span><span class="o">@</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">0</span>
 </pre></div>
 </div>
 <p>If you need jQuery to be globally available, you can add this line to the top of your
@@ -188,7 +188,7 @@ appropriate for you):</p>
 </div>
 <p>Any modules which use jQuery <em>should</em> avoid the global and import the library within
 that module.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="s1">&#39;jQuery&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;jQuery&#39;</span><span class="p">;</span>
 
 <span class="nx">jQuery</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">plugin</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
@@ -222,7 +222,7 @@ very basic initialization.</p>
 the hoisting nature of ES2015 import statements, it can be very difficult to import
 jQuery in a way that makes it easily available to other scripts, such as plugins.
 We have found a double import method as follows works around these issues:</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span>
 <span class="cm">/* ... additional imports ... */</span>
 
 <span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;jquery&#39;</span><span class="p">)</span>
@@ -240,7 +240,7 @@ judgement here, but consider the same sort of reasoning we use to draw lines bet
 functionality in Python. You can also group related modules into a package, by placing
 them in a directory.</p>
 <p>You can import your module to load it from the <code class="docutils literal notranslate"><span class="pre">index.js</span></code></p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="s1">&#39;./utils.js&#39;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="s1">&#39;./utils.js&#39;</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">./</span></code> is necessary to distinguish from modules that would be loaded from the
@@ -249,11 +249,11 @@ the location of the module.</p>
 <p>You only need to include modules you might consider “top-level” in <code class="docutils literal notranslate"><span class="pre">index.js</span></code>. For
 example, if you defined a helper function <code class="docutils literal notranslate"><span class="pre">get_csrf_token()</span></code> in that <code class="docutils literal notranslate"><span class="pre">utils.js</span></code>
 and only needed to use that one function in another module, you would import it there,</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">import</span> <span class="nx">get_csrf_token</span> <span class="nx">from</span> <span class="s1">&#39;utils.js&#39;</span><span class="p">;</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">import</span> <span class="nx">get_csrf_token</span> <span class="nx">from</span> <span class="s1">&#39;utils.js&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>This would assume that, in <code class="docutils literal notranslate"><span class="pre">utils.js</span></code>, the function had been exported.</p>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="kr">export</span> <span class="kd">function</span> <span class="nx">get_csrf_token</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="k">export</span> <span class="kd">function</span> <span class="nx">get_csrf_token</span><span class="p">()</span> <span class="p">{</span>
     <span class="p">...</span>
 <span class="p">}</span>
 </pre></div>
@@ -387,15 +387,15 @@ you’ll need to update both backend and frontend packages:</p>
 </ul>
 </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
 
 
 
@@ -412,7 +412,7 @@ you’ll need to update both backend and frontend packages:</p>
       &copy;2015, Caktus Group.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
