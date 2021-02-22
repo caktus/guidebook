@@ -90,6 +90,10 @@ point release of the Python major version that you want to install. Download it,
 When done, you'll have a new Python version in ``/Library/Frameworks/Python.framework/Versions/``
 that has also been added to your path by the installer.
 
+Note: in order to avoid errors like ``<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer``
+in during development in the future, find the Python installation's ``Install Certificates.command``,
+and run it. It is likey found in the ``/Applications/Python 3.X`` directory.
+
 Uninstalling pyenv
 ''''''''''''''''''
 
