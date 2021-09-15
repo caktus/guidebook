@@ -80,8 +80,8 @@ Python
 Mac OS X installers for all the latest Python versions can be downloaded from:
 https://www.python.org/downloads/mac-osx/
 
-Practically speaking (as of February 2019, at least), it is helpful to have Python 2.7, 3.5, 3.6,
-and 3.7 all installed locally (soon, probably 3.8 as well).
+Practically speaking (as of September 2021, at least), it is helpful to have Python 3.7, 3.8,
+and 3.9 all installed locally (soon, probably 3.10 as well).
 
 On the Mac OS X installer download page, find the "macOS 64-bit installer" link for the latest
 point release of the Python major version that you want to install. Download it, and open the
@@ -106,11 +106,11 @@ Installing virtualenvwrapper
 We use ``virtualenvwrapper`` to help manage Python virtual environments. Install it and set it up
 like so::
 
-    /Library/Frameworks/Python.framework/Versions/3.7/bin/pip3.7 install virtualenvwrapper
+    /Library/Frameworks/Python.framework/Versions/3.9/bin/pip3.9 install virtualenvwrapper
     cat <<EOF >> ~/.bash_profile
     # to keep stray Python versions from causing problems on Mac OS, we are very explicit about the
     # Python we want to use:
-    export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.7/bin/
+    export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.9/bin/
     export VIRTUALENVWRAPPER_PYTHON=$PYTHON_BIN/python3
     export VIRTUALENVWRAPPER_VIRTUALENV=$PYTHON_BIN/virtualenv
     source $PYTHON_BIN/virtualenvwrapper.sh
@@ -125,7 +125,7 @@ Creating a Python Virtual Environment
 
 You can now create a virtual environment using a version of Python as follows::
 
-    mkvirtualenv -p python3.7 my-virtualenv-name
+    mkvirtualenv -p python3.9 my-virtualenv-name
 
 for whatever version of Python your project requires. When you need to run anything in this project
 simply activate the virtual environment first::
