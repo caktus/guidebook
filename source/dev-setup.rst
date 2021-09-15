@@ -32,7 +32,7 @@ of developer and console tools for the Mac.
 
 A self-executing install script can be fetched and run simply, from the Homebrew documentation::
 
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 You can receive more information in the Homebrew documentation or see a full list of packages
 available once you've installed it.
