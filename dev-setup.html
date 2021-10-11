@@ -57,7 +57,7 @@ default in OSX. You may need to re-install this package after major upgrades to 
 <p>Homebrew is a project that provides automated download, compilation, and install of a wide range
 of developer and console tools for the Mac.</p>
 <p>A self-executing install script can be fetched and run simply, from the Homebrew documentation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ruby</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;</span>
 </pre></div>
 </div>
 <p>You can receive more information in the Homebrew documentation or see a full list of packages
@@ -89,7 +89,7 @@ developers:</p>
 <h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this headline">¶</a></h3>
 <p>The first important package to install from Homebrew is the PostgreSQL database and the PostGIS
 extensions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">postgres</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">postgresql</span>
 <span class="n">brew</span> <span class="n">install</span> <span class="n">postgis</span>
 </pre></div>
 </div>
@@ -105,8 +105,8 @@ launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>Mac OS X installers for all the latest Python versions can be downloaded from:
 <a class="reference external" href="https://www.python.org/downloads/mac-osx/">https://www.python.org/downloads/mac-osx/</a></p>
-<p>Practically speaking (as of February 2019, at least), it is helpful to have Python 2.7, 3.5, 3.6,
-and 3.7 all installed locally (soon, probably 3.8 as well).</p>
+<p>Practically speaking (as of September 2021, at least), it is helpful to have Python 3.7, 3.8,
+and 3.9 all installed locally (soon, probably 3.10 as well).</p>
 <p>On the Mac OS X installer download page, find the “macOS 64-bit installer” link for the latest
 point release of the Python major version that you want to install. Download it, and open the
 <code class="docutils literal notranslate"><span class="pre">.pkg</span></code> file to start the installer.</p>
@@ -126,11 +126,11 @@ that has also been added to your path by the installer.</p>
 <h3>Installing virtualenvwrapper<a class="headerlink" href="#installing-virtualenvwrapper" title="Permalink to this headline">¶</a></h3>
 <p>We use <code class="docutils literal notranslate"><span class="pre">virtualenvwrapper</span></code> to help manage Python virtual environments. Install it and set it up
 like so:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.7/bin/pip3.7 install virtualenvwrapper
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/Library/Frameworks/Python.framework/Versions/3.9/bin/pip3.9 install virtualenvwrapper
 cat &lt;&lt;EOF &gt;&gt; ~/.bash_profile
 # to keep stray Python versions from causing problems on Mac OS, we are very explicit about the
 # Python we want to use:
-export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.7/bin/
+export PYTHON_BIN=/Library/Frameworks/Python.framework/Versions/3.9/bin/
 export VIRTUALENVWRAPPER_PYTHON=$PYTHON_BIN/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=$PYTHON_BIN/virtualenv
 source $PYTHON_BIN/virtualenvwrapper.sh
@@ -144,7 +144,7 @@ line from your <code class="docutils literal notranslate"><span class="pre">~/.b
 <div class="section" id="creating-a-python-virtual-environment">
 <h3>Creating a Python Virtual Environment<a class="headerlink" href="#creating-a-python-virtual-environment" title="Permalink to this headline">¶</a></h3>
 <p>You can now create a virtual environment using a version of Python as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span><span class="o">.</span><span class="mi">7</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkvirtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="n">python3</span><span class="o">.</span><span class="mi">9</span> <span class="n">my</span><span class="o">-</span><span class="n">virtualenv</span><span class="o">-</span><span class="n">name</span>
 </pre></div>
 </div>
 <p>for whatever version of Python your project requires. When you need to run anything in this project
