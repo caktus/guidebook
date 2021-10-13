@@ -184,3 +184,17 @@ Update the ``.zshrc`` file::
     export NVM_DIR="$HOME/.nvm"
     [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
     [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+Docker
+''''''
+
+We use docker to run containerized application in deployed environments and sometimes locally.
+To Setup
+
+- Click **About This Mac** and see if your machine has an Intel or Apple CPU
+- Download the `Docker Desktop <https://www.docker.com/products/docker-desktop>`_. version that corresponds to your machine's CPU
+
+Open a new shell instance once installation has completed. Run::
+
+    % docker --version
+    Docker version 20.10.8, build 3967b7d
