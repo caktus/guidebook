@@ -6,3 +6,4 @@ doctrees
 __pycache**
 *.pyc
 .idea
+site
