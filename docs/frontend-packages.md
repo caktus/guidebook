@@ -33,9 +33,6 @@ for NPM, and defining the initial set of package dependencies.
 
 You can download and add these from this documentation:
 
--   [gulpfile.js](_static/files/gulpfile.js)
--   [package.json](_static/files/package.json)
-
 and add them to the top level of your project. You\'ll need to modify
 both with the correct project name.
 

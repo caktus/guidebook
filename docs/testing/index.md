@@ -371,7 +371,7 @@ Django support.
 
 Part of testing front-end code is writing unit tests for front-end
 JavaScript. For details on how to do that, see the [front-end JS
-docs](./frontend.html).
+docs](./frontend.md).
 
 Another part of testing is making sure the site works right in a
 browser. If a site is purely HTML and CSS with no Javascript in the
