@@ -44,3 +44,4 @@ plugins:
 
 repo_url: https://github.com/caktus/developer-documentation
 repo_name: developer-documentation
+edit_uri: edit/main/docs/

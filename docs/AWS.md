@@ -1,4 +1,4 @@
-Amazon Web Services (AWS) {#aws}
+Amazon Web Services (AWS)
 =========================
 
 We often deploy to Amazon Web Services. Here are some tips on getting
@@ -146,14 +146,10 @@ of the site's users. If we can't pick a region that way, we usually
 end up in "US East (N. Virginia)" just because it seems to be the
 default.
 
-::: {.warning}
-::: {.admonition-title}
-Warning
-:::
+**Warning**
 
 Not every service is available in every region. Before you start setting
 up a great big infrastructure in some region, it's a good idea to
 verify that all the services you will need are available there. You
 don't want the services that make up your site to have to communicate
 between regions if you can help it.
-:::
