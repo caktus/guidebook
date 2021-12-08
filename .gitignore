@@ -5,3 +5,4 @@ doctrees
 .direnv
 __pycache**
 *.pyc
+.idea
