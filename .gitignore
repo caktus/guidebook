@@ -3,3 +3,5 @@ _sources
 doctrees
 .envrc
 .direnv
+__pycache**
+*.pyc

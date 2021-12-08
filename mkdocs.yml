@@ -1,0 +1,47 @@
+site_name: Caktus Dev Docs
+
+copyright: "&copy; 2015 - <script>document.write(new Date().getFullYear())</script> <a href='https://www.caktusgroup.com' target='_blank'>Caktus Group</a>"
+
+theme:
+  # Main site theme
+  name: material
+  logo: assets/logo.svg
+  # Enable dark-mode
+  palette:
+    - media: "(prefers-color-scheme: light)" # 
+      scheme: default
+      # Customize primary color
+      primary: teal
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)" # 
+      scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/caktus-consulting-group-llc/
+    - icon: fontawesome/brands/github
+      link: https://github.com/caktus
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/caktusgroup
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/CaktusGroup/
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets    
+
+plugins:
+  - git-revision-date
+  - macros
+  - search
+
+repo_url: https://github.com/caktus/developer-documentation
+repo_name: developer-documentation
