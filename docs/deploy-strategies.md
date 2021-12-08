@@ -12,8 +12,8 @@ Strategies that manage most of the details
 
 For some of our earliest projects, we just did everything in a
 [Fabric](http://www.fabfile.org/) script, without the assistance of any
-other tools. That\'s error-prone and a lot of work. We would never do
-that for a new project, and I\'m not sure any project we still maintain
+other tools. That's error-prone and a lot of work. We would never do
+that for a new project, and I'm not sure any project we still maintain
 does that.
 
 ### FabulAWS
@@ -24,14 +24,14 @@ redundant projects to Amazon Web Services. Its primary advantage is
 built-in support for autoscaling: adding and removing servers as the
 load on the site changes.
 
-Two projects use FabulAWS that I\'m aware of: CCSR and OpenDebates. Both
+Two projects use FabulAWS that I'm aware of: CCSR and OpenDebates. Both
 can experience heavy loads at times, with significant load changes over
 time.
 
 These days, [Elastic
 Beanstalk](https://aws.amazon.com/elasticbeanstalk/) is a credible
 alternative to FabuLAWS. It also supports autoscaling, using the same
-underlying AWS mechanisms as FabulAWS, and we\'re not responsible for
+underlying AWS mechanisms as FabulAWS, and we're not responsible for
 maintaining it ourselves.
 
 Both FabulAWS and Elastic Beanstalk are tied to AWS.
@@ -44,20 +44,20 @@ for deployment, which uses the [Salt](https://saltstack.com/)
 configuration management system to deploy the site.
 
 This has worked reasonably well (well enough that we keep using it), but
-over time we\'ve discovered a number of shortcomings:
+over time we've discovered a number of shortcomings:
 
 -   Difficulty debugging deploy problems
 -   Fragility of Salt updates - many new updates seem to introduce new
     bugs, and the next update that fixes those might have its own new
     bugs. It can be tricky figuring out a version of Salt that works.
 -   Resource usage - the Salt master process seems to grow over time to
-    use a lot of memory on the server, even though it shouldn\'t be
-    doing anything at all when we\'re not deploying. This ties up memory
+    use a lot of memory on the server, even though it shouldn't be
+    doing anything at all when we're not deploying. This ties up memory
     our site could be using.
 
 ### Tequila
 
-Tequila (see [tequila-\*]{.title-ref} projects on Caktus github) is a
+Tequila (see [tequila-*]{.title-ref} projects on Caktus github) is a
 successor project to Margarita, which uses
 [Ansible](http://docs.ansible.com/) instead of Salt. It is hoped that
 Tequila will avoid some of the problems of Margarita.
@@ -85,7 +85,7 @@ post](https://www.caktusgroup.com/blog/2017/03/23/hosting-django-sites-amazon-el
 gave a quick overview.
 
 A big advantage of EB over Margarita, Tequila, and FabulAWS is that it
-provides a *higher level of abstraction*, so developers don\'t have to
+provides a *higher level of abstraction*, so developers don't have to
 concern themselves with as many details about the deploy when they just
 want something that works.
 
@@ -96,7 +96,7 @@ load balancer), and the autoscaling currently ramps servers up and down
 during each day as traffic levels vary.
 
 We have not yet worked out a simple way to use something like Celery
-(background tasks) with Elastic Beanstalk. There doesn\'t seem to be a
+(background tasks) with Elastic Beanstalk. There doesn't seem to be a
 simple way to run something only on one server.
 
 If you needed to dig down into the details more, for example to change
@@ -107,20 +107,20 @@ Elastic Beanstalk is tied to AWS.
 
 ### Heroku
 
-We\'ve had a few projects use [Heroku](https://heroku.com). Heroku is a
+We've had a few projects use [Heroku](https://heroku.com). Heroku is a
 well-designed and robust service that makes it easy to deploy projects
 to the Internet. It provides for easy deploy and scaling like Elastic
 Beanstalk. The only drawback is that running a site on Heroku incurs a
 premium cost compared to the run-time costs of most of these other
 alternatives. Of course, that does not take into account the high cost
 of our own labor in developing and maintaining some of these other
-solutions. Still, we haven\'t used Heroku much. Mostly we use it for
+solutions. Still, we haven't used Heroku much. Mostly we use it for
 quick prototypes, or if a client specifically requests it.
 
 ### Dokku
 
 [Dokku](http://dokku.viewdocs.io/dokku/) is an open-source alternative
-to Heroku. It takes the same approach to deploys, but doesn\'t (yet)
+to Heroku. It takes the same approach to deploys, but doesn't (yet)
 offer all the services of Heroku. We are currently trialing Dokku with
 some internal projects and one client project.
 
@@ -130,20 +130,20 @@ our responsibility, as they are with our Salt, Ansible, and FabulAWS
 frameworks. So we would spend fewer of our hours keeping up the deploy
 machinery.
 
-Dokku appears best suited to smaller projects, ones where we\'d be
+Dokku appears best suited to smaller projects, ones where we'd be
 comfortable running on a single server.
 
-That\'s just because it manages things on a per-server level, though;
-there\'s no inherent reason you couldn\'t run multiple servers behind a
+That's just because it manages things on a per-server level, though;
+there's no inherent reason you couldn't run multiple servers behind a
 load balancer, with each server managed using Dokku. Dokku itself just
-doesn\'t help you there. (It might not even be that hard to use Ansible
+doesn't help you there. (It might not even be that hard to use Ansible
 to manage a set of identical dokku servers plus a load balancer; maybe a
 Shipit Day project?)
 
 Choosing a deploy strategy
 --------------------------
 
-As of this writing (June 2017), here\'s how I\'d recommend choosing a
+As of this writing (June 2017), here's how I'd recommend choosing a
 strategy:
 
 ``` {.sourceCode .text}
@@ -168,6 +168,6 @@ Else
     Come up with something new because we've run out of options
 ```
 
-This should come up with something for most projects. We\'d only have
-trouble if we had a project needing a lot of scaling that couldn\'t use
+This should come up with something for most projects. We'd only have
+trouble if we had a project needing a lot of scaling that couldn't use
 AWS for some reason.

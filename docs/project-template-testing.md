@@ -15,17 +15,17 @@ further improvements. You will find both of these documented here.
 Testing Changes
 ---------------
 
-If you make any change to the project template you\'ll need to test it
-before submitting a pull request and you\'ll want reviewers of your pull
+If you make any change to the project template you'll need to test it
+before submitting a pull request and you'll want reviewers of your pull
 request to be able to test it consistently, as well.
 
-To test changes, you\'ll want to use the `startproject` command to
+To test changes, you'll want to use the `startproject` command to
 create a new test project based on your current changes. Run this from
 the same directory you have your local copy of hte template.
 
-    django-admin.py startproject \
-      --template=django-project-template \
-      --extension=py,rst,yml \
+    django-admin.py startproject 
+      --template=django-project-template 
+      --extension=py,rst,yml 
       --name=Makefile,gulpfile.js,package.json
       dpttest
 
@@ -41,7 +41,7 @@ project based on the template.
 You should be able to bring up a blank page at
 [http://localhost:8000/](http://localhost:8000) successfully.
 
-If you\'ve made changes affecting deployment, you should also test this
+If you've made changes affecting deployment, you should also test this
 by following the vagrant setup instructions in this test project.
 
 When you are done testing, you should clean up the project.
@@ -56,7 +56,7 @@ Future Improvements
 -------------------
 
 The changes that make testing the project template faster are a start,
-but there\'s still a lot we can do to make this process better in the
+but there's still a lot we can do to make this process better in the
 future.
 
 ### Automation
@@ -72,7 +72,7 @@ deploy to a new vagrant box, and cleaned that box up as well.
 ### Expanding Testable Surface
 
 Right now it is feasible to do basic tests that a new project from the
-template can be setup and runs, but that doesn\'t really exercise a lot
+template can be setup and runs, but that doesn't really exercise a lot
 about the setup. It would be ideal if we could perform deeper
 integration testing on the components we rely on, such as the database,
 cache, and celery.

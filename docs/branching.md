@@ -6,12 +6,12 @@ an equal citizen. This can create issues unless the team agrees on a
 branching strategy.
 
 We use a combination of long-term and short-term branches, and recognize
-origin as the \"central\" repository. This approach is neatly summarized
+origin as the "central" repository. This approach is neatly summarized
 in the blog post [A successful Git branching
 model](http://nvie.com/posts/a-successful-git-branching-model/) by
 Vincent Driessen.
 
-The following branching strategy is based on Vincent Driessen\'s
+The following branching strategy is based on Vincent Driessen's
 outline. Under this strategy, all developers pull and push from a shared
 remote server named `origin`. For most projects this shared remote
 server is hosted on Github and that is the assumption throughout this
@@ -73,13 +73,13 @@ with the parent branch and have a reason to branch from it. However, all
 feature branches must eventually merge back into `develop` or be
 deleted.
 
-It\'s recommended practice to prefix the branch name with the issue
+It's recommended practice to prefix the branch name with the issue
 number which it addresses. For example:
 
     $ git checkout -b 42-my-new-feature develop
 
 Now that your branch is created, develop against it. Make as many
-commits as you\'d like, and even as many pushes to origin as you\'d
+commits as you'd like, and even as many pushes to origin as you'd
 like. For example:
 
     $ git add .
@@ -88,7 +88,7 @@ like. For example:
 
 Commit messages should be descriptive. Where practical, note changed
 files, why you changed them, and other metadata (WIP, not yet tested,
-addresses issue \#42, etc.)
+addresses issue #42, etc.)
 
 Pull Requests
 -------------
@@ -104,10 +104,10 @@ When you are certain of the following:
 -   The server runs as expected
 
 then you can do a final push and create a pull request. GitHub makes
-this simple. There is a green button that reads \"Review and create pull
-request.\" You should look over the diff of the code and make sure it
+this simple. There is a green button that reads "Review and create pull
+request." You should look over the diff of the code and make sure it
 reads as you intend. If so, add a comment to the pull request that it
-addresses issue \#42.
+addresses issue #42.
 
 It is then incumbent on another member of the team to do the following:
 
@@ -158,7 +158,7 @@ branches. Every other branch should be as short-lived as possible while
 still accomplishing its purpose. Dead branches (exploratory, or failed
 attempts to address an issue), or feature branches that drag on a long
 time, cloud the picture for other developers. Since this feature branch
-is no longer needed, it can be deleted via the \"delete this branch\"
+is no longer needed, it can be deleted via the "delete this branch"
 button on GitHub, or via the command line:
 
     # Delete the remote branch

@@ -12,8 +12,8 @@ by most or all projects.
 
 ### Command Line Tools
 
-Before you install anything else you\'ll need to install Apple\'s own
-\'Command Line Tools\' package. This includes a base set of common
+Before you install anything else you'll need to install Apple's own
+'Command Line Tools' package. This includes a base set of common
 command line programs used by developers, but not shipped by default in
 OSX. You may need to re-install this package after major upgrades to
 OSX.
@@ -38,7 +38,7 @@ Homebrew documentation:
     % /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 You can receive more information in the Homebrew documentation or see a
-full list of packages available once you\'ve installed it.
+full list of packages available once you've installed it.
 
 -   Homebrew Docs:
     <https://github.com/Homebrew/homebrew/tree/master/share/doc/homebrew#readme>
@@ -74,7 +74,7 @@ database and the PostGIS extensions:
     % brew install postgresql
     % brew install postgis
 
-With PostgreSQL installed, you\'ll want to make sure it runs every time
+With PostgreSQL installed, you'll want to make sure it runs every time
 your machine comes up, and to start it running immediately:
 
     % mkdir -p ~/Library/LaunchAgents
@@ -109,12 +109,12 @@ Practically speaking (as of September 2021, at least), it is helpful to
 have Python 3.7, 3.8, and 3.9 all installed locally (soon, probably 3.10
 as well).
 
-On the Mac OS X installer download page, find the \"macOS 64-bit
-installer\" link for the latest point release of the Python major
+On the Mac OS X installer download page, find the "macOS 64-bit
+installer" link for the latest point release of the Python major
 version that you want to install. Download it, and open the `.pkg` file
 to start the installer.
 
-When done, you\'ll have a new Python version in
+When done, you'll have a new Python version in
 `/Library/Frameworks/Python.framework/Versions/` that has also been
 added to your path by the installer.
 
@@ -126,7 +126,7 @@ you had previously:
     % pyenv versions
     % pyenv uninstall <version>  # for each installed version
 
-You\'ll also want to comment out any lines including `pyenv` in your
+You'll also want to comment out any lines including `pyenv` in your
 `~/.zshrc`.
 
 ### Installing virtualenvwrapper
@@ -176,7 +176,7 @@ first:
 
 to deactivate run::
 
-:   \% deactivate
+:   % deactivate
 
 ### NVM
 

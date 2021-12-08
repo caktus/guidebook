@@ -13,11 +13,11 @@ Requires.io
 
 Our Python dependencies can be tracked with the requires.io tool.
 
-You\'ll need to register for an API account at <https://requires.io/>
+You'll need to register for an API account at <https://requires.io/>
 and pass a request to the sysadmin team to add the new username to our
 enterprise Requires.io account.
 
-To add your project to requires.io you\'ll need to register it, and you
+To add your project to requires.io you'll need to register it, and you
 can find [instructions and an authentication
 token](https://requires.io/enterprise/Caktus/api/) for the Caktus
 account.
@@ -34,7 +34,7 @@ account.
 
 5.  Register the new repository with the Caktus token:
 
-        requires.io update-repo -t $REQUIRES_IO_TOKEN \
+        requires.io update-repo -t $REQUIRES_IO_TOKEN 
           -r <PROJECT_NAME> --private
 
 BitHound
@@ -45,22 +45,22 @@ Our Javascript dependencies can be tracked with BitHound.
 To setup a new project with BitHound, first [log into
 service](https://www.bithound.io/) with your Caktus GitHub account.
 Navigate to your list of repositories by clicking on your avatar in the
-upper right corner and clicking on \"Repositories\". Click the button
-labeled \"Add Projects\", which will take you to a list of all
+upper right corner and clicking on "Repositories". Click the button
+labeled "Add Projects", which will take you to a list of all
 organizations you have access to and their repositories.
 
 Select the appropriate organization first and then enter the name of the
-repository in the filter box. Click \"Add Project\".
+repository in the filter box. Click "Add Project".
 
-You\'ll be taken to the project Dashboard, where you\'ll see an analysis
+You'll be taken to the project Dashboard, where you'll see an analysis
 of the project running. This step might take some time to complete,
 depending on work load and the size of the project.
 
-When the analysis is complete go to the \"Dependencies\" section and
-you\'ll find a report of all NPM dependencies in the project. Snippets
+When the analysis is complete go to the "Dependencies" section and
+you'll find a report of all NPM dependencies in the project. Snippets
 to add a badge reporting the current analysis of the project can be
 found on the right hand side. Copy and paste the appropriate snippet
-into the project\'s README file at the top, preferably beside the badge
+into the project's README file at the top, preferably beside the badge
 from the Requires.io service.
 
 GitHub Project Badges

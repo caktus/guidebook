@@ -7,10 +7,10 @@ To enable New Relic monitoring for an environment:
     We have multiple subaccounts, some of which are free and some of
     which cost money to use, so make sure you first select the correct
     subaccount. Log in to New Relic and click on the dropdown menu in
-    the upper right corner. Use the \'Switch account\' submenu to choose
+    the upper right corner. Use the 'Switch account' submenu to choose
     your subaccount. Once you have switched to your subaccount, go back
-    to the dropdown menu and click on \'Account settings\'. The license
-    key will be listed on that page. If you don\'t have access to New
+    to the dropdown menu and click on 'Account settings'. The license
+    key will be listed on that page. If you don't have access to New
     Relic or are unsure of which New Relic subaccount to use, create a
     [support
     request](https://caktus.atlassian.net/servicedesk/customer/portal/3)
@@ -32,7 +32,7 @@ To enable New Relic monitoring for an environment:
       -----END PGP MESSAGE-----
     ```
 
-3.  Put that in the proper environment\'s SLS file, in the `secrets`
+3.  Put that in the proper environment's SLS file, in the `secrets`
     dictionary:
 
     ``` {.sourceCode .yaml}
@@ -47,9 +47,9 @@ To enable New Relic monitoring for an environment:
     variables](https://docs.newrelic.com/docs/agents/python-agent/installation-configuration/python-agent-configuration#environment-variables)
     under `env:`. The default values for most will probably work well
     for most projects, but you should definitely include a setting for
-    NEW\_RELIC\_APP\_NAME, as failure to provide a value for this may
+    NEW_RELIC_APP_NAME, as failure to provide a value for this may
     result in your project unexpectedly showing up under some other
-    pre-existing application being monitored by the license key\'s
+    pre-existing application being monitored by the license key's
     account. Here are some examples of how to set new relic
     configuration variables:
 
@@ -64,19 +64,19 @@ To enable New Relic monitoring for an environment:
       NEW_RELIC_MONITOR_MODE: "true"
     ```
 
-    Be sure to quote \"true\" and \"false\" as above, to avoid Salt/YAML
-    turning these into real Booleans; we want the strings \"true\" or
-    \"false\" in the environment.
+    Be sure to quote "true" and "false" as above, to avoid Salt/YAML
+    turning these into real Booleans; we want the strings "true" or
+    "false" in the environment.
 
     You can put some values in `project.sls` and others in
     `<environment>.sls`. Just be consistent for a given key; if the same
     key is present in both `project.sls` and the current
     `<environment>.sls` file, Salt makes no guarantees about which value
-    you\'ll end up with.
+    you'll end up with.
 
     Note that any environment where `NEW_RELIC_LICENSE_KEY` is not set
-    will not include any New Relic configuration, so it\'s safe to put
-    other settings in `project.sls` even if you\'re not using New Relic
+    will not include any New Relic configuration, so it's safe to put
+    other settings in `project.sls` even if you're not using New Relic
     in every environment.
 
 5.  If you are using elasticsearch and would like New Relic monitoring
@@ -92,8 +92,8 @@ To enable New Relic monitoring for an environment:
     your `top.sls` file.
 
 6.  Add state `newrelic_sysmon` to your Salt `top.sls` in the `base`
-    section (for all servers). It\'s safe to add that unconditionally
-    for all environments; it\'s a no-op if no New Relic license key has
+    section (for all servers). It's safe to add that unconditionally
+    for all environments; it's a no-op if no New Relic license key has
     been defined:
 
     ``` {.sourceCode .yaml}

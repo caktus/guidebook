@@ -11,7 +11,7 @@ Writing tests
 #### Small, well-defined applications
 
 Small applications lend themselves to more coherent test suites. When
-each application solves a specific problem, you can verify it\'s done
+each application solves a specific problem, you can verify it's done
 correctly with a smaller set of specific tests across that application.
 A large monolithic app is much harder to test, as it makes the lines
 between components less defined and the interactions you need to test
@@ -47,8 +47,8 @@ higher-level behavior, often something visible to a user. For example,
 you might test that after a user has voted on an issue, they are not
 allowed to vote again.
 
-Both kinds of tests are important and should be included. But it\'s
-important to be aware when writing a test whether it\'s supposed to be a
+Both kinds of tests are important and should be included. But it's
+important to be aware when writing a test whether it's supposed to be a
 unit test or functional test. Tests that are hybrids of the two types
 tend not to be very good at either role.
 
@@ -58,45 +58,45 @@ When coding, keep testing in mind. For example, break functionality down
 into small, more easily tested functions. This is similar to the advice
 above to keep applications small, only on a smaller scale.
 
-Don\'t be afraid to refactor code if you find it hard to write tests for
+Don't be afraid to refactor code if you find it hard to write tests for
 it.
 
 #### Test the behavior, not the implementation
 
 Try to treat the code being tested as a black box with an API, and only
-test the behavior of that API, not the details of what\'s inside the
-black box. If that\'s difficult, consider whether that code\'s interface
+test the behavior of that API, not the details of what's inside the
+black box. If that's difficult, consider whether that code's interface
 could be improved.
 
-Unfortunately, it\'s difficult to both follow this advice, and use
-techniques like mocking to isolate what\'s being tested. Each case is a
+Unfortunately, it's difficult to both follow this advice, and use
+techniques like mocking to isolate what's being tested. Each case is a
 judgment call.
 
 #### Test the failure cases
 
-Don\'t just test that the code works when everything is fine. Verify
+Don't just test that the code works when everything is fine. Verify
 that it does something sane when problems occur.
 
-If you\'re testing an API, give it invalid arguments. If you\'re testing
+If you're testing an API, give it invalid arguments. If you're testing
 a form submission, provide bad input and make sure the followup page has
 the right error messages. If you have code that sends email, what
 happens if the mail server is temporarily unreachable? Think about how
 things can fail.
 
 Use some judgment, of course. When accepting input from humans, we can
-almost guarantee they won\'t always provide valid input, and we
+almost guarantee they won't always provide valid input, and we
 definitely want to test that our code behaves reasonably. On the other
 hand, you might decide that the only way your database might be
 unavailable would be if there was a major problem at the data center, in
-which case it\'s unlikely any requests can get to your site anyway, so
-there\'s no point testing that case.
+which case it's unlikely any requests can get to your site anyway, so
+there's no point testing that case.
 
-#### Only test your project\'s own code
+#### Only test your project's own code
 
-There\'s no need to write tests in your own project that could only fail
-if some code external to your project doesn\'t work correctly. Assume
+There's no need to write tests in your own project that could only fail
+if some code external to your project doesn't work correctly. Assume
 that the Python standard library, Django, and other Python packages you
-might be depending on do work correctly. It\'s enough work writing
+might be depending on do work correctly. It's enough work writing
 comprehensive tests for your own project.
 
 #### Output from tests
@@ -111,7 +111,7 @@ As for any programming, consider factoring out common code from tests.
 But keep in mind that the best tests are short and simple. If you find
 yourself doing a lot of refactoring, building utility libraries, etc,
 the tests might be overdesigned. See if they can be simplified. Of
-course, that\'s not always possible.
+course, that's not always possible.
 
 Keep in mind that common code can easily be moved to `setUp` and
 `tearDown`.
@@ -127,26 +127,26 @@ passes and other data fails.
 Unlike database changes, changes to files on the test system are not
 automatically cleaned up after a test.
 
-If your test is creating files explicitly, it\'s not hard to clean up in
+If your test is creating files explicitly, it's not hard to clean up in
 the `tearDown` method. But when testing things like file uploads, Django
 is creating files that your test is not directly aware of. You might
 want to use a custom test runner to set up a temporary media directory
-when testing starts and clean it up when done. See [MEDIA\_ROOT and
+when testing starts and clean it up when done. See [MEDIA_ROOT and
 Django
 Tests](https://www.caktusgroup.com/blog/2013/06/26/media-root-and-django-tests/)
 
 #### Debugging when tests fail
 
-When a test assertion fails, sometimes it\'s not obvious why. Most
+When a test assertion fails, sometimes it's not obvious why. Most
 assertion methods have an optional argument you can use to add output
 when the assertion fails. For example:
 
     self.assertTrue(form.is_valid(), form.errors)
 
 will not only assert that your form is valid, but print the errors as
-part of the failure message if it\'s not.
+part of the failure message if it's not.
 
-I wouldn\'t spend the time to add this kind of failure output to every
+I wouldn't spend the time to add this kind of failure output to every
 assertion, but it can be incredibly useful to add this temporarily when
 a test is failing mysteriously.
 
@@ -158,18 +158,18 @@ When addressing a bug, use this workflow:
     is fixed.
 -   Make the necessary changes to make the test pass.
 
-This ensures that you understand the problem, that it\'s a real problem,
-that the fix solves the problem, and that this particular bug won\'t
+This ensures that you understand the problem, that it's a real problem,
+that the fix solves the problem, and that this particular bug won't
 come back.
 
 #### Test-Driven Development
 
-There\'s a school of thought that writing tests first and then the code
-to make them pass is a good way to develop all the time. It\'s called
+There's a school of thought that writing tests first and then the code
+to make them pass is a good way to develop all the time. It's called
 Test-Driven Development. That is a vast oversimplification, of course.
 
-Caktus does not mandate TDD, but if you\'re interested, there\'s a link
-to a whole book about it in the \"Further reading\" section below.
+Caktus does not mandate TDD, but if you're interested, there's a link
+to a whole book about it in the "Further reading" section below.
 
 #### Speeding up tests
 
@@ -178,14 +178,14 @@ pointless. If tests seem to be taking too long, here are some things to
 look for:
 
 -   In Django 1.8 and up, use the
-    [\--keepdb](https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-option---keepdb)
+    [--keepdb](https://docs.djangoproject.com/en/stable/ref/django-admin/#django-admin-option---keepdb)
     test option to re-use the test database across test runs.
 -   Avoid fixtures.
 -   Use
     [subtests](https://docs.python.org/3/library/unittest.html#distinguishing-test-iterations-using-subtests)
     in Python 3.4+ to run many similar tests with a single setup and
     teardown.
--   Mock out expensive processing that isn\'t the actual behavior being
+-   Mock out expensive processing that isn't the actual behavior being
     tested.
 -   See if you can move logic out of views and test it without having to
     call the views.
@@ -209,7 +209,7 @@ look for:
 Unfortunately, there isn't really a good way to separate the testing of
 URL routing and the actual views, but thankfully that works out fine in
 practice. When you look at a view, you should be able to enumerate each
-type of request it\'s going to receive, and you can probably cover each
+type of request it's going to receive, and you can probably cover each
 of these in a separate small test.
 
 The test client is a very helpful utility Django provides to simulate a
@@ -220,7 +220,7 @@ template rendering used in the view, which can be very helpful in
 testing exactly what went into rendering the response, without resorting
 to messy and error prone tests against the rendered HTML.
 
-Another useful tool is Django\'s
+Another useful tool is Django's
 [RequestFactory](https://docs.djangoproject.com/en/stable/topics/testing/advanced/#the-request-factory),
 which can be used to create a Request object that can be passed directly
 to any view, bypassing the URL routing & middleware processes to speed
@@ -243,8 +243,8 @@ References:
 
 #### Testing forms
 
-Testing views will inherently test some of your forms, but it\'s an
-expensive way to do it. It\'s much better to do the thorough testing of
+Testing views will inherently test some of your forms, but it's an
+expensive way to do it. It's much better to do the thorough testing of
 your forms using separate tests.
 
 #### How to test database behaviors
@@ -274,15 +274,15 @@ help you speed up your test run time, and also better frame which areas
 of your application are responsible for database behaviors and which are
 not.
 
-Be aware, though, that if database access creeps into a test that isn\'t
+Be aware, though, that if database access creeps into a test that isn't
 using `django.test.TestCase`, it will make permanent changes to the test
 database and often break unrelated tests that assume a pristine
-database. This can be very hard to debug. It\'s a good idea to add some
-protection against this. For example, see [slide 29 of Carl Meyer\'s
+database. This can be very hard to debug. It's a good idea to add some
+protection against this. For example, see [slide 29 of Carl Meyer's
 talk on django
 testing](http://carljm.github.io/django-testing-slides/#29) for a way to
 immediately cause tests to fail if they access the database when they
-weren\'t expected to.
+weren't expected to.
 
 A note on data fixtures: Django provides a feature for adding test data
 from JSON or other formats, but in practice we've found this to be an
@@ -306,7 +306,7 @@ References:
 
 #### Testing Django template tags
 
-It\'s easy to overlook testing any custom template tags in the project,
+It's easy to overlook testing any custom template tags in the project,
 but they need to be tested too. These references go into detail about
 how to test template tags.
 
@@ -343,7 +343,7 @@ Good things to mock include:
 
 Similar to mocking, you can override Django settings for a single test
 or test case using the
-[override\_settings](https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.override_settings)
+[override_settings](https://docs.djangoproject.com/en/stable/topics/testing/tools/#django.test.override_settings)
 decorator.
 
 References:
@@ -383,7 +383,7 @@ without Javascript.
 real or simulated browser, drive interaction with our site, and verify
 the correct behavior.
 
-Selenium has problems, admittedly. It\'s hard to write Selenium tests
+Selenium has problems, admittedly. It's hard to write Selenium tests
 that pass consistently, partly because you always have to keep in mind
 that it takes time for an action taken on the test browser, like
 clicking an element, to finish with whatever behavior it triggered
@@ -401,26 +401,26 @@ writing a Django test using Selenium.
 
 #### Testing management commands
 
-Don\'t overlook testing your management commands. You can call them from
+Don't overlook testing your management commands. You can call them from
 tests using
-[call\_command()](https://docs.djangoproject.com/en/stable/topics/testing/tools/#topics-testing-management-commands).
+[call_command()](https://docs.djangoproject.com/en/stable/topics/testing/tools/#topics-testing-management-commands).
 
-Keep in mind that the logic for a management command doesn\'t need to
-live in the command\'s handler method. I often write a utility method
-that\'s part of the project, and then the management command just calls
+Keep in mind that the logic for a management command doesn't need to
+live in the command's handler method. I often write a utility method
+that's part of the project, and then the management command just calls
 it. That kind of management command hardly needs testing, so long as the
 underlying utility is well tested.
 
 #### Testing migrations
 
-Do migrations need to be tested? Sometimes. Your typical \"add another
-field\" migration probably doesn\'t need testing. But data migrations do
+Do migrations need to be tested? Sometimes. Your typical "add another
+field" migration probably doesn't need testing. But data migrations do
 need to be tested. One approach is to migrate back to the migration
 preceding the migration we want to test, set up some data, migrate
 forward to the migration under test, then verify the data has been
 migrated correctly.
 
-Here\'s a blog post with code and more detailed explanations:
+Here's a blog post with code and more detailed explanations:
 
 [Testing Django
 Migrations](https://www.caktusgroup.com/blog/2016/02/02/writing-unit-tests-django-migrations/).
@@ -433,7 +433,7 @@ Running tests
 Both Django and Python's standard library include test runners, and
 there are numerous others available from the community. The most popular
 third party runner is probably Nose, which also has a Django-specific
-extension, django\_nose.
+extension, django_nose.
 
 Regardless of the runner you use, an increasingly popular step is to run
 all your tests with the tox utility, which allows you to define a number
@@ -472,11 +472,11 @@ as much of your code as possible is being tested. Rather than guessing,
 the coverage.py tool makes tracking test coverage easy. It runs any
 command, usually your test runner, and creates a report of every line of
 code executed, and the percentage of each module that was actually run
-during your test execution. You can monitor your project\'s test
+during your test execution. You can monitor your project's test
 coverage, and make sure added new code doesn't reduce your coverage. A
 good strategy with existing code bases is to find your current coverage
-rating and set this as a requirement for any new code \-- no change is
-allowed which reduces test coverage. Over time, you\'ll your project's
+rating and set this as a requirement for any new code -- no change is
+allowed which reduces test coverage. Over time, you'll your project's
 code coverage to a reasonable level.
 
 An easy approach is to use a script to run your tests:
@@ -503,15 +503,15 @@ Manual testing
 --------------
 
 In addition to automated testing, we also want to run the site and make
-sure it works right from the end user\'s point of view. But we don\'t
-want to waste our testers\' time by asking them to test things that
-aren\'t ready yet.
+sure it works right from the end user's point of view. But we don't
+want to waste our testers' time by asking them to test things that
+aren't ready yet.
 
 ### When is a ticket ready for QA?
 
 The cycle between development and QA can be very time-consuming, and the
 earlier bugs are caught and fixed, the less impact they will have on the
-project\'s timeline and budget. It's up to the individual developer to
+project's timeline and budget. It's up to the individual developer to
 define what he/she thinks is a reasonable amount of testing to do as
 part of code review, but here are some questions you should ask before
 sending a ticket to QA, in order to avoid unnecessary iterations:

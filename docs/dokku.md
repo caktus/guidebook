@@ -27,7 +27,7 @@ These instructions assume
     storage that persists across deploys, and that is writable by the
     `dokku` user. (follow link for instructions)
 -   your new project is checked into git (required by dokku). If you
-    haven\'t done that, you can cd into the project directory and run:
+    haven't done that, you can cd into the project directory and run:
 
         $ git init && git add . && git commit -m "Initial commit"
 
@@ -44,7 +44,7 @@ Create a new app:
     Creating {{ project_name }}... done
 
 Mount the persistent storage at `/storage` inside the container, and set
-a config variable to tell Django where we\'re going to store our media:
+a config variable to tell Django where we're going to store our media:
 
     $ ssh dokku storage:mount {{ project_name }} /var/lib/dokku/data/storage/{{ project_name }}:/storage
     $ ssh dokku config:set {{ project_name }} MEDIA_ROOT=/storage/media MEDIA_URL=/media
@@ -211,7 +211,7 @@ Deploy:
     To dokku:test_template
      * [new branch]      master -> master
 
-Notice that when the deploy finishes, the application\'s URL is shown.
+Notice that when the deploy finishes, the application's URL is shown.
 
 Now that the application is running on port 80, we can add SSL:
 

@@ -9,6 +9,6 @@ In this section, we talk about two things:
     other.
 
 Our deploy system follows many (but not all) of the principles of [the
-Twelve-Factor App](http://12factor.net/). If you haven\'t come across
+Twelve-Factor App](http://12factor.net/). If you haven't come across
 those before, I suggest you take a look, think through the implications,
 then come back here.

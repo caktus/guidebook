@@ -3,17 +3,17 @@ SMTP
 
 By default, email is sent via Postfix on the same server housing the
 Django application. This might be OK for low volume uses, but often
-you\'ll want to use an external SMTP service (e.g. Sendgrid, Mailgun,
+you'll want to use an external SMTP service (e.g. Sendgrid, Mailgun,
 Postmark, SES, etc.). Some of these services offer both an SMTP server
 in addition to an HTTP API. This document will describe only how to set
-up the SMTP connection. If you want to use HTTP APIs, you\'ll need to
+up the SMTP connection. If you want to use HTTP APIs, you'll need to
 read the documentation for the service in question. Often there are
 third party Django packages which can help with this.
 
 Which SMTP service should I choose?
 -----------------------------------
 
-If the client doesn\'t require a specific SMTP service, then you\'ll
+If the client doesn't require a specific SMTP service, then you'll
 have to make a decision. As of January 2021, here is some info to help
 you with that decision. Current Caktus team members are most familiar
 with Amazon SES, Mailgun and Sendgrid.
@@ -23,18 +23,18 @@ the SAM project recommend it over Amazon SES, though I am not sure how
 it compares with Mailgun.
 
 If your project is already fully on AWS, then it might make sense to use
-Amazon SES so that you can stay with one provider. It\'s also very
-cheap. [AWS\'s current pricing](https://aws.amazon.com/ses/pricing/)
+Amazon SES so that you can stay with one provider. It's also very
+cheap. [AWS's current pricing](https://aws.amazon.com/ses/pricing/)
 allows 62,000 free messages per month if you are sending from an EC2
-instance, and then just \$0.10 per 1000 messages after that. The
+instance, and then just $0.10 per 1000 messages after that. The
 downside is that sending might be more complicated because AWS
-automatically puts all projects in a \"sandbox\" which limits the number
+automatically puts all projects in a "sandbox" which limits the number
 of messages that can be sent, and the allowed recipients. There is a
 process to remove those limits, but it is an extra step that developers
 have to take.
 
 [Mailgun](https://www.mailgun.com/pricing/) is not as cheap as SES, but
-it is pretty close (\$0.80 per 1000 messages). It\'s generally easier to
+it is pretty close ($0.80 per 1000 messages). It's generally easier to
 set up than SES, but you still may need to verify your domain by setting
 some DNS records.
 

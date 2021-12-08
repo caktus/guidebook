@@ -20,7 +20,7 @@ Papertrail
 2.  Create a [support
     request](https://caktus.atlassian.net/servicedesk/customer/portal/3)
     to get a Papertrail account.
-3.  Once you have an account, find out our Papertrail instance\'s
+3.  Once you have an account, find out our Papertrail instance's
     [hostname and port](https://papertrailapp.com/systems/setup).
 4.  Encrypt those values as a `LOG_DESTINATION` secret:
 

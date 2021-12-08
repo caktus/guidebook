@@ -8,8 +8,8 @@ Policies
 
 ### RDS instances
 
--   We host each client\'s data on RDS instances under the client\'s own
-    AWS account. Different clients\' data is never hosted on the same
+-   We host each client's data on RDS instances under the client's own
+    AWS account. Different clients' data is never hosted on the same
     RDS instance.
 -   We use RDS instances in the same region as the servers that will
     access them.
@@ -17,7 +17,7 @@ Policies
     the staging instances can be smaller.)
 -   We need a different RDS instance for each Postgres version we are
     using.
--   We can host multiple sites\' and projects\' data for the same client
+-   We can host multiple sites' and projects' data for the same client
     on the same RDS instance, as long as the preceding requirements are
     met.
 
@@ -31,15 +31,15 @@ For each site or project, we create a separate Postgres user used for
 accessing its databases. That user does not have privileges to create
 databases or users, or to access other databases. The goal is that even
 if a server of that site or project is compromised, there should not be
-any credentials on that server that could access any other site\'s or
-project\'s data, or mess up anything else on the RDS instance.
+any credentials on that server that could access any other site's or
+project's data, or mess up anything else on the RDS instance.
 
-We also store each of these separate Postgres user\'s credentials in
+We also store each of these separate Postgres user's credentials in
 Lastpass in a shared folder associated with the corresponding client and
 project.
 
 If a single site/project uses multiple databases, it is up to the
-developers\' discretion whether to set up multiple users or a single
+developers' discretion whether to set up multiple users or a single
 user. However, using multiple users from the same site does not appear
 to add any security over using a single user, since all the credentials
 in use will be available on the servers.
@@ -49,8 +49,8 @@ in use will be available on the servers.
 We configure RDS servers to not be accessible from the Internet, but
 only from the EC2 instances hosting the servers that need to access them
 when running. That can be done by putting the EC2 servers in a common
-security group, and setting up the RDS server\'s security group to only
-allow port 5432 access from the EC2 servers\' security group.
+security group, and setting up the RDS server's security group to only
+allow port 5432 access from the EC2 servers' security group.
 
 This implies that developers and admins will not be able to do Postgres
 administration from their own machines, but will have to ssh to one of
@@ -58,14 +58,14 @@ the permitted EC2 instances and do it from there.
 
 ### Provisioning databases for projects
 
-When we\'re deploying a project that hosts its own Postgres server,
-often we\'ll create the database user and database for the project
+When we're deploying a project that hosts its own Postgres server,
+often we'll create the database user and database for the project
 during the initial deploy. We will not be able to do that when the
 database is on RDS, as the deploy will not have the credentials of the
 master Postgres user.
 
-As a corollary, since we\'ll typically remove that part of the deploy
-configuration for the project, we\'ll have to use the Postgres server on
+As a corollary, since we'll typically remove that part of the deploy
+configuration for the project, we'll have to use the Postgres server on
 the host server (or elsewhere) for any Vagrant instance we might want to
 run the project in.
 
@@ -88,9 +88,9 @@ have a maximum lifetime of 45 days.)
 
 One wrinkle is that RDS backups are of the entire cluster, not a single
 database, and the only way to restore is to create a new RDS instance
-running the backup\'s data.
+running the backup's data.
 
-So to restore a database, we\'d restore the backup to create a new
+So to restore a database, we'd restore the backup to create a new
 temporary RDS instance, dump the database(s) we want, restore the dumps
 to the actual RDS instances, then remove the temporary RDS instance.
 
@@ -103,15 +103,15 @@ RDS](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html)
 and pay special attention to [Appendix: Common DBA Tasks for
 PostgreSQL](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.html).
 
-It\'ll save you a lot of headaches in the long run.
+It'll save you a lot of headaches in the long run.
 
 ### Postgres on RDS
 
 The master user that RDS gives you is *not* a Postgres superuser. Though
-it has a lot of permissions, there are a few things that you just won\'t
+it has a lot of permissions, there are a few things that you just won't
 be able to do quite the way you could if you were a superuser.
 
-In the examples below, for readability I\'m omitting most of the common
+In the examples below, for readability I'm omitting most of the common
 arguments to specify where the Postgres server is, what the database
 name is, etc. You can set some environment variables to use as defaults
 for things:
@@ -124,7 +124,7 @@ for things:
 PGPASSWORD behaves the same as password connection parameter. Use of
 this environment variable is not recommended for security reasons (some
 operating systems allow non-root users to see process environment
-variables via ps); instead consider using the \~/.pgpass file (see
+variables via ps); instead consider using the ~/.pgpass file (see
 Section 30.14 of the PG docs).
 
 ### Create user
@@ -138,12 +138,12 @@ password `$password`:
     $ psql -c "ALTER USER $username WITH PASSWORD '$password';"
 
 Yes, none of the options in `-DERS` are strictly required, but if you
-don\'t mention them explicitly, createuser asks you about them one at a
+don't mention them explicitly, createuser asks you about them one at a
 time.
 
 ### Create database
 
-If you need a database owned by `project_user`, you\'ll need to create
+If you need a database owned by `project_user`, you'll need to create
 it as `master` and then modify the ownership and permissions:
 
     $ export PGUSER=master
@@ -158,7 +158,7 @@ done, then:
     $ psql -c "alter database $dbname owner to $project_user;"
 
 A superuser could create the database already owned by a specific user,
-but RDS\'s master user cannot.
+but RDS's master user cannot.
 
 ### PostGIS
 
@@ -207,7 +207,7 @@ user:
 
 Note that you might get some errors during the restore if it tries to
 create extensions that already exist and that kind of thing, but those
-are harmless. It does mean you can\'t use `--one-transaction` or
+are harmless. It does mean you can't use `--one-transaction` or
 `--exit-on-error` for the restore though, because they abort on the
 first error.
 
@@ -222,7 +222,7 @@ This is pretty standard and can be done by the project user:
 
 When it comes time to drop a database, only master has the permission,
 but master can only drop databases it owns, so it takes two steps. Also,
-you can\'t drop the database you\'re connected to, so you need to
+you can't drop the database you're connected to, so you need to
 connect to a different database for the `dropdb`. The `postgres`
 database is as good as any:
 
@@ -239,4 +239,4 @@ This is standard too. Just beware that you cannot drop a user if
 anything they own still exists, including things like permissions on
 databases.
 
-> \$ export PGUSER=master \$ dropuser \$user
+> $ export PGUSER=master $ dropuser $user

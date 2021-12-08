@@ -20,14 +20,14 @@ Testing Libraries: Overview
 ### Mocha
 
 [Mocha](https://mochajs.org/#features) is a simple and modular test
-library. Unlike [Jasmine](http://jasmine.github.io/), Mocha doesn\'t
+library. Unlike [Jasmine](http://jasmine.github.io/), Mocha doesn't
 come with an assertion library, facilities for mocks and spies, and so
 on. Instead it provides a framework for writing and executing tests and
 lets you choose other libraries to meet those needs.
 
 To create a Mocha test that will be recognized by our Gulp build
 process, create a file with a filename in the form `test_*.js` and place
-it in a `test/` subdir of the project\'s JS dir (i.e. in
+it in a `test/` subdir of the project's JS dir (i.e. in
 `project_name/static/js/test/`).
 
 Tests describing some value are wrapped in a callback passed to
@@ -80,7 +80,7 @@ library.
 ### Chai
 
 To make assertions within our tests, we use the library
-[Chai](http://chaijs.com/). The main benefit of Chai is that we don\'t
+[Chai](http://chaijs.com/). The main benefit of Chai is that we don't
 really have to choose between any of the various assertion styles that
 are popular in the JS world. Chai makes them all available:
 
@@ -135,7 +135,7 @@ Sinon is an extremely feature-rich library, including:
 -   much, much more
 
 In fact, Sinon is so feature-rich (and its abilities are still so
-untested in real-world Caktus projects) that we can\'t cover its
+untested in real-world Caktus projects) that we can't cover its
 features here. Please consult the Sinon docs for details.
 
 ### babel-plugin-rewire
@@ -172,7 +172,7 @@ Say, for example, that we want to test the behavior of
 
 Using `babel-plugin-rewire`, we can write our test as follows, using the
 rewire API to change the value of the name `ChildComponent` and to
-return it to its \"real\" value afterwards:
+return it to its "real" value afterwards:
 
     import ComponentToTest from 'my-fancy-wrapper-component-module'
 
@@ -196,8 +196,8 @@ For test coverage, we use the libraries
 [isparta](https://www.npmjs.com/package/isparta).
 
 This is handled inside the Gulp build process included in the project
-template. It will check your tests\' coverage of statements, branches,
-functions, and lines found in the `app/` subdir of the project\'s JS dir
+template. It will check your tests' coverage of statements, branches,
+functions, and lines found in the `app/` subdir of the project's JS dir
 (i.e. in `project_name/static/js/app/`).
 
 You can set the desired coverage thresholds inside the `gulpfile.js`.
@@ -223,15 +223,15 @@ represents our basic stack for future projects:
 -   [ECMAScript 2015](http://es6-features.org/), transpiled into
     JavaScript with [Babel](https://babeljs.io/)
 -   [React](https://facebook.github.io/react/), a library covering
-    roughly the \"view\" and \"controller\" aspects of a MVC-architected
-    user interface \*
+    roughly the "view" and "controller" aspects of a MVC-architected
+    user interface *
     [JSX](https://facebook.github.io/react/docs/jsx-in-depth.html), a JS
     syntax extension that makes it easier to create React components
 -   [Flux](https://facebook.github.io/flux/), a library and design
     pattern for managing UI application state and building UIs in a
-    \"data flow\" style \*
+    "data flow" style *
     [Immutable.js](https://facebook.github.io/immutable-js/), an
-    immutable data structure library used under the hood in Flux\'s
+    immutable data structure library used under the hood in Flux's
     utilities
 
 This section of the documentation will walk through the process of
@@ -244,7 +244,7 @@ setting up tests that take these technologies into account:
 
 ### ES2015 Mocha Tests With Gulp and Babel
 
-Transpiling ES2015 code is already a standard part of Caktus\'s
+Transpiling ES2015 code is already a standard part of Caktus's
 front-end process. We can take advantage of the hard work that goes into
 this code preprocessing to reuse parts of the process and layer new
 steps in without serious difficulty.
@@ -287,9 +287,9 @@ React and the [React test
 utilities](https://facebook.github.io/react/docs/test-utils.html) are a
 good example of libraries in our stack that raise this issue. Both of
 these assume that the global name `document` points to a DOM. In fact,
-if `document` doesn\'t already point to a DOM when the libraries are
+if `document` doesn't already point to a DOM when the libraries are
 imported, all attempts to use them in the module that imports them will
-fail: they need that DOM to be there when they\'re loaded.
+fail: they need that DOM to be there when they're loaded.
 
 [jsdom](https://www.npmjs.com/package/jsdom) to the rescue! jsdom is a
 JavaScript implementation of the DOM API. It allows us to create a fake
@@ -340,9 +340,9 @@ React encourages you to define your React components as plain JavaScript
 functions with no side effects. These are called [stateless functional
 components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions).
 
-But because stateless functions don\'t provide an imperative API, the
-React test utilities don\'t know how to do certain important things with
-them (e.g. locate their DOM node). They also don\'t have lifecycle
+But because stateless functions don't provide an imperative API, the
+React test utilities don't know how to do certain important things with
+them (e.g. locate their DOM node). They also don't have lifecycle
 methods, making it hard to test certain behaviors (e.g. checking their
 output after a state update).
 
@@ -360,9 +360,9 @@ component. Then you can test it with the test utils as usual:
 
 #### Avoid Race Conditions by Using Callbacks
 
-If you\'re testing whether a React component updates in some way after
-some state change happens, in general you won\'t be able to check for
-the update right after running the code that\'s supposed to trigger it,
+If you're testing whether a React component updates in some way after
+some state change happens, in general you won't be able to check for
+the update right after running the code that's supposed to trigger it,
 because that update will happen asynchronously.
 
 To check for changes like that, you should use an async test and inject
@@ -371,7 +371,7 @@ method.
 
 An easy way to do that is to create a utility function that wraps your
 React component and provides access to an EventEmitter that fires an
-event whenever your component\'s lifecycle methods are called:
+event whenever your component's lifecycle methods are called:
 
     import React from 'react'
     import { EventEmitter } from 'events'
@@ -450,8 +450,8 @@ utilities](https://facebook.github.io/flux/docs/flux-utils.html) use
 [Immutable.js](https://facebook.github.io/immutable-js/) data structures
 under the hood.
 
-If you want to test data stores created with the Flux utils, you\'ll
-have to import from `immutable` and use the immutable.js data types\'
+If you want to test data stores created with the Flux utils, you'll
+have to import from `immutable` and use the immutable.js data types'
 APIs appropriately.
 
 Here, for example, you can use the `count` method of immutable
@@ -473,7 +473,7 @@ Example: testing a React component
 To show how this all hangs together, here is a fully worked-through
 example of a test spec for a simple React component.
 
-Let\'s write a test for a very simple React component: a stateless
+Let's write a test for a very simple React component: a stateless
 functional component called `AppList` that takes a list of data and
 renders a `<ul>` with a `<li>` for each data point.
 
@@ -489,12 +489,12 @@ The code for this component looks like:
       )
     }
 
-We\'re going to be interested in verifying that this function renders
-data correctly. Because this is a unit test, we\'re testing this in
+We're going to be interested in verifying that this function renders
+data correctly. Because this is a unit test, we're testing this in
 isolation from whatever it is that generates the data, increments the
 app state in a way that sends data down the pipeline, and so on.
 
-So first, let\'s create some fake data and put it in a `constants.js`
+So first, let's create some fake data and put it in a `constants.js`
 file in a directory adjoining our tests. Our component will expect to
 see an immutable List value, so we create the fake data like so:
 
@@ -524,7 +524,7 @@ some basic, predictable setup:
 
     :   -   This test will use JSX and will test a React component, so
             we need to import React and the React test utils.
-        -   We\'re testing a stateless functional component, so we need
+        -   We're testing a stateless functional component, so we need
             to import `react-functional` to wrap it in order to be able
             to test it.
         -   The fake data we just created.
@@ -563,7 +563,7 @@ This gives us the skeleton of a test module:
       })
     })
 
-Now we can write a test. Let\'s check that when our fake data is passed
+Now we can write a test. Let's check that when our fake data is passed
 to the component, the result is a list with three items (corresponding
 to the three data points):
 
