@@ -1,4 +1,4 @@
-Amazon Web Services (AWS) {#aws}
+Amazon Web Services (AWS)
 =========================
 
 We often deploy to Amazon Web Services. Here are some tips on getting
