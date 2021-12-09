@@ -1,4 +1,4 @@
-# Developer On-boarding Documentation
+# Developer On-boarding
 
 This documentation is meant for new developers at Caktus Consulting Group. It describes our particular
 setup and development workflow. It is not meant as a prescription but as a path that is well tested and
@@ -9,21 +9,23 @@ fresh-faced and apple cheeked, best to follow exactly.
 
 See you on the other side and happy coding.
 
-## Caktus' Golden Path Tech Stack
+## Caktus' "Golden Path"
 
-We have stolen the idea of the Golden Path from a Spotify [blog post](https://engineering.atspotify.com/2020/08/17/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/). The idea is as they put it in their post.
+
+!!! note
+
+    Assumptions about what is or is not "Golden Path", or even if it is a good idea to have a Golden Path, were made solely by me (Jeremy Gibson). Today. During shipit.
+
+We (okay I) have stolen the idea of the Golden Path from a Spotify [blog post](https://engineering.atspotify.com/2020/08/17/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/). The idea is, as they put it in their post, that:
 
 !!! quote
 
     This is the way we support an easy and streamlined way of working. If you are an adventurer you can of course leave the Golden Path and do your own thing, but then you will not have the same support.
 
 
-!!! note
-
-    Assumptions about what is or is not "Golden Path" were made solely by me (Jeremy Gibson). Today. During shipit. We should probably come together as a company wide team and hammer this out.
-
 ## Core Stack
-The following list are the primary technologies that we use right now.
+
+The following are the primary technologies that we use right now.
 
 1. [Python](https://www.python.org/ "Readability counts")
 1. [Django](https://www.djangoproject.com/ "The web framework for perfectionists with deadlines")
