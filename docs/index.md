@@ -6,7 +6,8 @@ hide:
 
 # Welcome
 
-<div><img src="assets/images/DSC06509.jpg" alt='logo'></div>
+[comment]: <> (<div><img src="assets/images/DSC06509.jpg" alt='logo'></div>)
+![Sharp Apps Now!](assets/images/DSC06509.jpg "We are Caktus Group")
 
 We are [Caktus Group](https://www.caktusgroup.com/).
 
