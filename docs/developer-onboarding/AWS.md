@@ -6,7 +6,7 @@ AWS is a core component of our deployment and management stack. We use it for ju
 
 ### Obtain an AWS account from Tech Support
 
-You can go about this in various ways. Politely request a user for AWS.
+You can go about this in various ways. Politely request to be given an AWS use account.
 
 1. Email: `support@caktusgroup.com`
 1. Slack: `#sysadmin` channel.
@@ -29,11 +29,11 @@ You can go about this in various ways. Politely request a user for AWS.
 
     Some projects have the AWS cli installed as a pip dependency. If so, you will have `1.n.n` version of AWS cli. If you install using the below instructions, you will have `2.n.n` version. This is not a problem both are supported. V2 has some extra sugar that's all.
 
-??? note "Install the CLI" 
+#### Install the CLI 
 
     Follow the [Install the CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) instructions for your machine. Are you on an M1? Have you followed the [blog post](M1.md) yet?
 
-??? note "Verify your installation"
+#### Verify your installation
 
     ```shell
        (prompt)$ which aws
