@@ -1,18 +1,57 @@
-# Developer Onboarding Documentation
-This documentation is meant for new developers at Caktus Group to follow. It describes our particular
-setup and development workflow. It is not meant as a prescription but as a path that is well tested and is 
+# Developer On-boarding Documentation
+
+This documentation is meant for new developers at Caktus Consulting Group. It describes our particular
+setup and development workflow. It is not meant as a prescription but as a path that is well tested and
 known to work. Of course there are some steps, which if not followed, will result in an inability to use or 
 access services, or result in a difficult time seeking help from your fellow developers. So if you know the consequences of straying from the Golden Path feel free to play around
-with these setup steps. If you are fresh faced and apple cheeked, best to follow exactly.
+with these setup steps. If you are fresh-faced and apple cheeked, best to follow exactly.
 
 See you on the other side and happy coding.
 
-## Recommended Path
+## Caktus' Golden Path Tech Stack
+
+Caktus is a Django shop on the backend and primarily a React with some Vue for the front end.
+
+We have stolen the idea of the Golden Path from a Spotify [blog post](https://engineering.atspotify.com/2020/08/17/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/). The idea is as they put it in their post.
+
+!!! quote
+
+    This is the way we support an easy and streamlined way of working. If you are an adventurer you can of course leave the Golden Path and do your own thing, but then you will not have the same support.
+
+
+!!! note
+
+    Assumptions about what is or is not "Golden Path" were made solely by me, today, during shipit. We should probably come together as a company wide team and hammer this out.
+
+## Core Stack
+The following list are the primary technologies that we use right now.
+
+1. [Python](https://www.python.org/ "Readability counts")
+1. [Django](https://www.djangoproject.com/ "The web framework for perfectionists with deadlines")
+1. [Wagtail](https://wagtail.io/ "Wagtail, the powerful CMS for modern websites")
+1. [PostgreSQL](https://www.postgresql.org/ "An open source object-relational database system")
+1. [Ansible](https://www.ansible.com/ "A foundation for building and operating automation across an organization")
+1. [React](https://reactjs.org/ "A JavaScript library for building user interfaces")
+1. [Vue.js](https://vuejs.org/ "The Progressive JavaScript Framework") 
+1. [Docker](https://www.docker.com/ "Build, share, and run any app, anywhere")
+1. [Kubernetes](https://kubernetes.io/ "An open-source system for automating deployment, scaling, and management of containerized applications")
+1. [AWS](https://aws.amazon.com/ "Amazon Web Services Cloud Services")
+
+## Support Stack
+This stack is more fungible than the core stack and may change, or may not apply to older projects. If you are working on a project that comes from [jade-truffle](https://github.com/caktus/jade-truffle "The smallest Caktus project") then 
+
+1. [direnv](https://direnv.net/ "Unclutter your profile")
+1. [pyenv](https://github.com/pyenv/pyenv "pyenv lets you easily switch between multiple versions of Python")
+1. [nvm](https://github.com/nvm-sh/nvm "Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions")
+1. [invoke-kubesae](https://github.com/caktus/invoke-kubesae, "For running tasks in projects")
+
+
+## Recommended Setup Path
 
 !!! note
 
     If you have an M1 start there.
 
-1. M1
-1. AWS Setup
-1. Kubernetes Setup
+1. [M1](./M1.md)
+1. [AWS Setup](./AWS.md)
+1. [Kubernetes Setup](./kubernetes.md)
