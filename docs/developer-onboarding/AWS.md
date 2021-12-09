@@ -76,5 +76,16 @@ You will need a primary profile named `caktus` in your `config` and `credentials
     aws_secret_access_key = <SECRET ACCESS KEY FROM THE CSV YOU DOWNLOADED>
 ```
 
+#### Project Profiles
+
+Each project will have an [Role ARN](https://github.com/caktus/caktus-hosting-services/blob/main/docs/aws-assumerole.md#aws-accounts) that you will use
+to access your projects.  For each project you work on you will need a `config` and `credentials` entry.
+
+```bash
+    # ~/.aws/config
+
+    [profile my-caktus-project]
+    region = <region>
+
 
 
