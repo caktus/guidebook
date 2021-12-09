@@ -33,6 +33,9 @@ extra:
       link: https://twitter.com/caktusgroup
     - icon: fontawesome/brands/facebook
       link: https://www.facebook.com/CaktusGroup/
+  analytics:
+    provider: google
+    property: G-HVXWC9MZN5
 
 markdown_extensions:
   - meta
