@@ -86,6 +86,6 @@ to access your projects.  For each project you work on you will need a `config` 
 
     [profile my-caktus-project]
     region = <region>
-
+```
 
 
