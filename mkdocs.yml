@@ -6,6 +6,8 @@ theme:
   # Main site theme
   name: material
   logo: assets/logo.svg
+  features:
+    - navigation.tabs
   # Enable dark-mode
   palette:
     - media: "(prefers-color-scheme: light)" # 
