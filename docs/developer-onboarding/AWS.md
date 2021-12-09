@@ -21,7 +21,7 @@ You can go about this in various ways. Politely request a user for AWS.
 
 !!! warning
 
-    Be sure that you download the csv file in the modal, otherwise you will need to re-do it as you won't have another opportunity to read the secret key.
+    Be sure that you download the csv offered to you in the confirmation modal, otherwise you will need to re-do it as you won't have another opportunity to read the secret key.
 
 ### Setup AWS command line
 
@@ -63,13 +63,13 @@ You can go about this in various ways. Politely request a user for AWS.
 
 You will need a primary profile named `caktus` in your `config` and `credentials` file
 
-```bash
+```shell
     # ~/.aws/config
     [profile caktus]
     region = us-east-1
 ```
 
-```bash
+```shell
     # ~/.aws/credentials
     [caktus]
     aws_access_key_id = <SECRET KEY FROM THE CSV YOU DOWNLOADED>
@@ -81,11 +81,34 @@ You will need a primary profile named `caktus` in your `config` and `credentials
 Each project will have an [Role ARN](https://github.com/caktus/caktus-hosting-services/blob/main/docs/aws-assumerole.md#aws-accounts) that you will use
 to access your projects.  For each project you work on you will need a `config` and `credentials` entry.
 
-```bash
+```shell
     # ~/.aws/config
 
     [profile my-caktus-project]
-    region = <region>
+    region = <project-region> 
 ```
 
+```shell
+    # ~/.aws/credentials
+    [caktus]
+    aws_access_key_id = <SECRET KEY FROM THE CSV YOU DOWNLOADED>
+    aws_secret_access_key = <SECRET ACCESS KEY FROM THE CSV YOU DOWNLOADED>
+    
+    ...
+
+    [my-caktus-project]
+    role_arn = <ARN FROM THE ABOVE "Role Arn" LINK>
+    source_profile = caktus
+```
+
+#### Test your access
+
+To make sure you have everything set up correctly, test your access:
+
+```shell
+    (prompt)$ export AWS_PROFILE=my-caktus-project
+    (prompt)$ aws s3 ls
+```
+
+Depending on whether or not the project has S3 buckets you should see a list of them. Regardless you should not see an error.
 
