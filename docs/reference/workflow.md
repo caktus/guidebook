@@ -22,7 +22,7 @@ At a high level, we focus on:
 Workflow Diagram
 ----------------
 
-![](assets/caktus_design_dev_workflow.png)
+![](/assets/images/caktus_design_dev_workflow.png)
 
 The above diagram illustrates the evolution of a typical project
 workflow:
