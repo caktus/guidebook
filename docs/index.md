@@ -1,8 +1,7 @@
-<p align="right">
-  <img width="300px" src="assets/caktus-logo-notag.png" alt='logo'>
-</p>
+# Welcome!
 
-# Introduction
+<div><img src="assets/images/DSC06509.jpg" alt='logo'></div>
+
 
 We are [Caktus Group](https://www.caktusgroup.com/).
 
