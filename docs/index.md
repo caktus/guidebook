@@ -1,5 +1,5 @@
 <p align="right">
-  <img width="300px" src="/assets/caktus-logo-notag.png" alt='logo'>
+  <img width="300px" src="assets/caktus-logo-notag.png" alt='logo'>
 </p>
 
 # Introduction
