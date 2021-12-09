@@ -24,6 +24,7 @@ Workflow Diagram
 
 ![](../assets/images/caktus_design_dev_workflow.png "A workflow diagram.")
 
+
 The above diagram illustrates the evolution of a typical project
 workflow:
 
