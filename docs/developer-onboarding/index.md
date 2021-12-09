@@ -38,7 +38,7 @@ The following list are the primary technologies that we use right now.
 1. [AWS](https://aws.amazon.com/ "Amazon Web Services Cloud Services")
 
 ## Support Stack
-This stack is more fungible than the core stack and may change, or may not apply to older projects. If you are working on a project that comes from [jade-truffle](https://github.com/caktus/jade-truffle "The smallest Caktus project") then 
+This stack is more fungible than the core stack and may change, or may not apply to older projects. If you are working on a project that comes from [jade-truffle](https://github.com/caktus/jade-truffle "The smallest Caktus project") then these will be assumed.
 
 1. [direnv](https://direnv.net/ "Unclutter your profile")
 1. [pyenv](https://github.com/pyenv/pyenv "pyenv lets you easily switch between multiple versions of Python")

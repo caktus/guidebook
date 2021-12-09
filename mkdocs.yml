@@ -8,7 +8,10 @@ theme:
   logo: assets/logo.svg
   features:
     - navigation.tabs
-  # Enable dark-mode
+    # Avoids the navbar from collapsing when scrolling down
+    - navigation.tabs
+    - navigation.tabs.sticky
+  # Enables dark-mode
   palette:
     - media: "(prefers-color-scheme: light)" # 
       scheme: default
@@ -24,6 +27,7 @@ theme:
         name: Switch to light mode
 
 extra:
+  # Social media links 
   social:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/company/caktus-consulting-group-llc/
@@ -33,9 +37,24 @@ extra:
       link: https://twitter.com/caktusgroup
     - icon: fontawesome/brands/facebook
       link: https://www.facebook.com/CaktusGroup/
+  # Google analytics - uses Universal Analytics
   analytics:
     provider: google
-    property: G-HVXWC9MZN5
+    property: UA-15492387-4
+    # Collects user feedback at bottom of page
+    feedback:
+      title: Was the content helpful?
+      ratings:
+        - icon: material/heart
+          name: Helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/heart-broken
+          name: Could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback!
 
 markdown_extensions:
   - meta
@@ -45,6 +64,7 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.superfences
   - pymdownx.snippets
+  - pymdownx.details
 
 plugins:
   - git-revision-date
