@@ -33,6 +33,7 @@ extra:
       link: https://www.facebook.com/CaktusGroup/
 
 markdown_extensions:
+  - meta
   - pymdownx.highlight
   - pymdownx.inlinehilite
   - pymdownx.superfences

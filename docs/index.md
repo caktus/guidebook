@@ -1,7 +1,12 @@
-# Welcome!
+---
+hide:
+  - navigation
+  - toc
+---
+
+# Welcome
 
 <div><img src="assets/images/DSC06509.jpg" alt='logo'></div>
-
 
 We are [Caktus Group](https://www.caktusgroup.com/).
 
