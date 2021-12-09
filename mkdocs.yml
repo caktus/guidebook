@@ -37,24 +37,23 @@ extra:
       link: https://twitter.com/caktusgroup
     - icon: fontawesome/brands/facebook
       link: https://www.facebook.com/CaktusGroup/
-  # Google analytics - uses Universal Analytics
-  # analytics:
-  #   provider: google
-  #   property: UA-15492387-4
-  #   # Collects user feedback at bottom of page
-  #   feedback:
-  #     title: Was the content helpful?
-  #     ratings:
-  #       - icon: material/heart
-  #         name: Helpful
-  #         data: 1
-  #         note: >-
-  #           Thanks for your feedback!
-  #       - icon: material/heart-broken
-  #         name: Could be improved
-  #         data: 0
-  #         note: >- 
-  #           Thanks for your feedback!
+  analytics:
+    provider: google
+    property: UA-15492387-4
+    # Collects user feedback at bottom of page
+    feedback:
+      title: Was the content helpful?
+      ratings:
+      - icon: material/heart
+        name: Helpful
+        data: 1
+        note: >-
+          Thanks for your feedback!
+      - icon: material/heart-broken
+        name: Could be improved
+        data: 0
+        note: >- 
+          Thanks for your feedback!
 
 markdown_extensions:
   - meta

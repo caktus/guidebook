@@ -2,7 +2,7 @@
 
 AWS is a core component of our deployment and management stack. We use it for just about everything.
 
-<!-- ## Steps
+## Steps
 
 ### Obtain an AWS account from Tech Support
 
@@ -86,6 +86,6 @@ to access your projects.  For each project you work on you will need a `config` 
 
     [profile my-caktus-project]
     region = <region>
-``` -->
+```
 
 
