@@ -37,19 +37,22 @@ The following list are the primary technologies that we use right now.
 ## Support Stack
 
 !!! warning "hic sunt dracones"
-    This is also the point where those of you who feel like striking off from the Golden Path would typically do so. 
+    This is where those of you who feel like striking off from the Golden Path would typically do so. 
 
-This stack is more fungible than the core stack and may change, or may not apply to older projects. If you are working on a project that comes from [jade-truffle](https://github.com/caktus/jade-truffle "The smallest Caktus project") then these will be assumed.  
+This stack is more fungible than the core stack and may change, or may not even apply. 
+
+If you are working on a project that comes from [jade-truffle](https://github.com/caktus/jade-truffle "The smallest Caktus project"), then these will be assumed.  
 
 
 1. [direnv](https://direnv.net/ "Unclutter your profile")
+1. [pip-tools](https://github.com/jazzband/pip-tools "command line tools to help you keep your pip-based packages fresh") 
 1. [pyenv](https://github.com/pyenv/pyenv "pyenv lets you easily switch between multiple versions of Python")
 1. [nvm](https://github.com/nvm-sh/nvm "Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions")
 1. [invoke-kubesae](https://github.com/caktus/invoke-kubesae, "For running tasks in projects")
 1. [Docker](https://www.docker.com/ "Build, share, and run any app, anywhere")
 
 
-## Tech We Are Experimenting with
+## Experimental Stack
 
 1. [Poetry](https://python-poetry.org/ "Python Packaging and Dependency Mangement made easy")
 1. [PDM](https://github.com/pdm-project/pdm "A modern Python package manager with PEP 582 support")
