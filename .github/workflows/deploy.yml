@@ -11,5 +11,27 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached dependencies
+        id: cached-python-dependencies
+        uses: actions/cache@v2
+        with:
+          path: ./env
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-python-dependencies.outputs.cache-hit != 'true'
+        run: |
+          python3 -m venv env
+          . env/bin/activate
+          pip install -r requirements.txt
+      - name: Deploy docs to GH Pages
+        run: |
+          . env/bin/activate
+          mkdocs gh-deploy --force
