@@ -35,15 +35,17 @@ You can go about this in various ways. Politely request to be given an AWS use a
 
 #### Verify your installation
 
-    ```shell
-       (prompt)$ which aws
-    ```
-    That should read something like `/usr/local/bin/aws`
-
-    ```shell
-        (prompt)$ aws --version
-    ```
-    That should be something like `aws-cli/2.n.n ...`
+```shell
+    (prompt)$ which aws
+```
+    
+That should read something like `/usr/local/bin/aws`
+    
+```shell
+    (prompt)$ aws --version
+```
+    
+That should be something like `aws-cli/2.n.n ...`
 
 ### Configure AWS command line
 
