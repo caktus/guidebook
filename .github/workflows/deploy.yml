@@ -22,16 +22,14 @@ jobs:
           key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      #----------------------------------------------
-      # install dependencies if cache does not exist
-      #----------------------------------------------
+      #--------------------------------------------------------
+      # install dependencies if cache does not exist and deploy
+      #--------------------------------------------------------
       - name: Install dependencies
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true'
         run: |
           python3 -m venv env
           . env/bin/activate
           pip install -r requirements.txt
-      - name: Deploy docs to GH Pages
-        run: |
-          . env/bin/activate
           mkdocs gh-deploy --force
+          
