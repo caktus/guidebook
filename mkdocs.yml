@@ -39,7 +39,7 @@ extra:
       link: https://www.facebook.com/CaktusGroup/
   analytics:
     provider: google
-    property: UA-15492387-4
+    property: G-HVXWC9MZN5
     # Collects user feedback at bottom of page
     feedback:
       title: Was the content helpful?
