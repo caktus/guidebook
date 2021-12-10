@@ -9,4 +9,4 @@ To keep people aware of new documentation submissions, we created ** insert_slac
 
 <br><br>
 # From Caktus with Love
-The internet has a lot of content, but not all of it is great. However, sometimes we stumble upon content that is just exceptional, that is where the idea of [From Caktus with Love](from-caktus-with-love.md) came in. It is a place to display suggetion for other cakti on the exeptional content we find, be it technical or non-technical.
+The internet has a lot of content, but not all of it is great. However, sometimes we stumble upon content that is just exceptional, that is where the idea of [From Caktus with Love](from-caktus-with-love.md) came in. It is a place to display suggestion for other cakti on the exceptional content we find, be it technical or non-technical.
