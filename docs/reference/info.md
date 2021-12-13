@@ -5,7 +5,7 @@ Just in case you need it, here's a quick overview and some helpful tips on the [
 <br><br>
 
 # Slack Channel
-To keep people aware of new documentation submissions, we created ** insert_slack_channel_name**. Join the slack channel to stay on the ➰.
+To keep people aware of new documentation submissions, we created ** #caktus-documentation **. Join the slack channel to stay on the ➰.
 
 <br><br>
 # From Caktus with Love
