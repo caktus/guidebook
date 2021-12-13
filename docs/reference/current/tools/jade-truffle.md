@@ -1,4 +1,4 @@
-# Jade-Truffle (the smallest caktus)
+# Jade-Truffle
 
 Get it here: (jade-truffle)(https://github.com/caktus/jade-truffle)
 
