@@ -1,4 +1,6 @@
-# [Jade-Truffle (the smallest caktus)](https://github.com/caktus/jade-truffle)
+# Jade-Truffle (the smallest caktus)
+
+Get it here: (jade-truffle)(https://github.com/caktus/jade-truffle)
 
 Jade Truffle is the Mandarin traslation of the cacti species
 *blossfeldia liliputana*. The smallest of all cacti.
