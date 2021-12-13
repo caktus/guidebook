@@ -30,7 +30,7 @@ reset all your SSH keys on every server today.
 List your current keys, their lengths, and whether or not your keys do
 *not* have a passphrase (per [Stack
 Exchange](https://unix.stackexchange.com/questions/500/how-can-i-determine-if-someones-ssh-key-contains-an-empty-passphrase)),
-by running the following `bash` script:
+by running the following `bash` script: (For zsh replace shopt -s extglob with setopt -s kshglob)
 
 ``` {.sourceCode .bash}
 shopt -s extglob
