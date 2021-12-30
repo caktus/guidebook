@@ -11,6 +11,7 @@ See you on the other side and happy coding.
 
 ## Caktus' "Golden Path"
 
+![Dev Environment Summary](assets/images/Dev-Environment-Summary.svg)
 
 !!! note
 
