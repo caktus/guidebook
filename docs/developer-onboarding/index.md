@@ -24,8 +24,6 @@ We (okay I) have stolen the idea of the Golden Path from a Spotify [blog post](h
 
 ## Core Stack
 
-![Dev Environment Summary](../assets/images/Dev-Environment-Summary.svg)
-
 The following are the primary technologies that we use right now.
 
 1. [Python](https://www.python.org/ "Readability counts")
@@ -36,6 +34,9 @@ The following are the primary technologies that we use right now.
 1. [React](https://reactjs.org/ "A JavaScript library for building user interfaces") 
 1. [Kubernetes](https://kubernetes.io/ "An open-source system for automating deployment, scaling, and management of containerized applications")
 1. [AWS](https://aws.amazon.com/ "Amazon Web Services Cloud Services")
+
+![Dev Environment Summary](../assets/images/Dev-Environment-Summary.svg)
+([Google Drawing](https://docs.google.com/drawings/d/1IG7rKIeL4pMTatbbHLivdzByaUUIjKpY7Q96pZ6B_V0/edit))
 
 ## Support Stack
 
