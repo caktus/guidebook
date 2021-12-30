@@ -11,8 +11,6 @@ See you on the other side and happy coding.
 
 ## Caktus' "Golden Path"
 
-![Dev Environment Summary](../assets/images/Dev-Environment-Summary.svg)
-
 !!! note
 
     Assumptions about what is or is not "Golden Path", or even if it is a good idea to have a Golden Path, were made solely by me (Jeremy Gibson). Today. During shipit.
@@ -25,6 +23,8 @@ We (okay I) have stolen the idea of the Golden Path from a Spotify [blog post](h
 
 
 ## Core Stack
+
+![Dev Environment Summary](../assets/images/Dev-Environment-Summary.svg)
 
 The following are the primary technologies that we use right now.
 
