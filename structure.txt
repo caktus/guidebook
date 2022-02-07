@@ -9,6 +9,8 @@
         - Google Cloud
         - Blog posts
         - Kadence processes? (Backup verification)
+    - Front End Development
+        - Resources
 
 
 Perks of the new docs
