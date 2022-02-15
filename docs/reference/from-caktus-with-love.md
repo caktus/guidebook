@@ -14,3 +14,11 @@ If you use a *nix* style command line with any frequency and especially if you t
 * [Mac](https://formulae.brew.sh/formula/trash-cli)
 
 Jeremy 🌵
+
+** Disable Homebrew auto updates ** <br>
+Have you ever inocently tried install a package using [Homebrew](https://brew.sh/) and before you know it, Homebrew updates all of your dependecies? The result, all of your virtual environments are broken & much more. 
+Well, there is a way to avoid that - rather than `brew install <formula>`, run `HOMEBREW_NO_AUTO_UPDATE=1 brew install <formula>`
+   
+Click [here](https://computingforgeeks.com/prevent-homebrew-auto-update-on-macos/) for more info. Credit to Dmitriy for the discovery.
+
+Ronard 🌵
