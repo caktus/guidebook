@@ -124,8 +124,8 @@ Caktus is committed to protecting its employees, clients, and the company from i
 ### Sharing secrets with Caktus
 Whenever possible, we try to avoid communicating passwords (or other secrets) directly. Some ways to avoid it:
 
-    * Grant access to us via our existing accounts. For example, give our Github accounts access to your repositories on Github, or share Google Drive documents with our Google accounts (our xxx@caktusgroup.com addresses).
-    - Create new accounts under our email addresses, then let us set our own passwords, possibly using the usual “reset password” mechanism.
+* Grant access to us via our existing accounts. For example, give our Github accounts access to your repositories on Github, or share Google Drive documents with our Google accounts (our xxx@caktusgroup.com addresses).
+* Create new accounts under our email addresses, then let us set our own passwords, possibly using the usual “reset password” mechanism.
 
 Both of these methods preserve security by not sharing a password at all.
 
@@ -211,7 +211,7 @@ The following best practices are specific to projects handling PHI in addition t
 ### Purpose
 Security can take many forms: from PCI compliance, server firewalls, and encryption to security patches and incident response guidelines. Best practices and procedures can guide development to build secure web applications. The Caktus Security Team creates team best practices and procedures, facilitates knowledge sharing, and helps with responding to security incidents. We strive to:
 
-Proactively research and implement improvements to further Caktus’ security procedures
+* Proactively research and implement improvements to further Caktus’ security procedures
 * Maintain the Caktus Security Policy and best practices
 * Monitor for security exploits, review severity, and inform teams
 * Recommend solutions to team-raised security questions
