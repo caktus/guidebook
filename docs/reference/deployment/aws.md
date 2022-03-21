@@ -4,6 +4,7 @@
 ## Encryption by default
 
 Configure your AWS account to enforce the encryption of new EBS volumes and snapshots. A few notes:
+
 * You can launch an instance only if the instance type supports EBS encryption when you enable encryption by default.
 * Encryption by default is a region-specific setting.
 
