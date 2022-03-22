@@ -39,4 +39,12 @@ after they are done with creating it. [Follow these instructions](https://docs.a
 1. Click `Next`
 1. Click `Next` again.
 
+### Choose versions and instance types
 
+#### PostgreSQL RDS
+
+Choose the latest version of PostgreSQL RDS [here](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.DBVersions). You can also run:
+
+```shell
+aws rds describe-db-engine-versions --default-only --engine postgres
+```
