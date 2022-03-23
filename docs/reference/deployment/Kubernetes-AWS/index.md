@@ -1,4 +1,4 @@
-# Setting up AWS and project for a Kubernetes Deployment
+# Index
 
 ## Sections
 
