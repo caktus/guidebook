@@ -1,4 +1,4 @@
-# Configure A Secret for Ansible Vault
+# Configure Secrets
 
 ## On AWS
 
