@@ -24,7 +24,7 @@ The second part goes in `k8s_container_image` under [App Pod Configuration](#app
 # ----------------------------------------------------------------------------
 ...Defaults
 
-k8s_container_image: "{{ RepositoryURL }}/<SECOND_PART_OF_REPOSITORY_URL"
+k8s_container_image: "{{ RepositoryURL }}/<SECOND_PART_OF_REPOSITORY_URL>"
 
 ...End Defaults
 ```
