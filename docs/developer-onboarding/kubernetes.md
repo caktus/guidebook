@@ -1,7 +1,7 @@
 # Kubernetes
 
 
-# Helm
+## Helm
 
 Helm is a package manager for Kubernetes and we use various Helm charts at Caktus. To install `helm`, follow the [From Script](https://helm.sh/docs/intro/install/#from-script) instructions in docs:
 
