@@ -91,6 +91,23 @@ After cloudformation has run, it will have created a bunch of services within th
 2. An ECR repository.
 3. An RDS database.
 
+the ansible process will print into the terminal a list of resources that you will use to populate
+variables in the `deploy` files.
+
+```shell
+TASK [caktus.aws-web-stacks : print cf_stack_outputs] ****************************************************************************************************************************************************************************************************
+ok: [aws.amazon.com] => 
+  cloudformation_stack_result.stack_outputs:
+    AssetsBucketDomainName: <VALUE>
+    ClusterEndpoint: https://<VALUE>.eks.amazonaws.com
+    DatabaseAddress: <VALUE>.rds.amazonaws.com
+    DatabasePort: '5432'
+    DatabaseURL: postgres://<VALUE>.rds.amazonaws.com:5432/<APP_NAME>
+    PrivateAssetsBucketDomainName: <VALUE>-privateassetsbucket-y1hs1zsetsnc.s3.amazonaws.com
+    RepositoryURL: <VALUE>-us-east-2.amazonaws.com/<VALUE>-applicationrepository-wh5tljkspmgv
+```
+
+Now you can take this information and [Configure your services](006_service_configuration.md)
 
 ## Appendix
 
@@ -120,5 +137,13 @@ decision-making process for this is well beyond the scope of this doc, but if yo
 1. In the top right click `Add a Key`.
 1. Leave `Symmetric` checked and click `Next`.
 1. Add an `Alias` for the CMK, and click `Next`.
-1. 
+1. For `Key administrators` check `CaktusAccountAccessRole-Admins` and click `Next`.
+1. For `Define key usage permissions` check `AWSServiceRoleForAmazonEKS` and `AWSServiceRoleForRDS`
+1. Click `Next`, and `Next`
+
+Now the key will be created, and you will need to copy the `arn` for the key into the `CustomerManagedCmkArn`
+entry.
+
+1. Click into the detail for key you created.
+1. Copy the ARN from the `General Information` section.
 
