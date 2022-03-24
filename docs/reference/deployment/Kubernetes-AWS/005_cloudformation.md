@@ -54,6 +54,11 @@ cloudformation_stack_template_parameters:
 
 ```
 
+**Note**: You may ask yourself, what is going on with that `BastionKeyName` variable, I don't need a bastion server. That
+may be true but head to the appendix to find out why it is needed. [The Trouble With Bastion](#the-trouble-with-bastion)
+
+**Note**: If you need to encrypt cluster secrets follow head on down to [Envelope encryption](#envelope-encryption-of-cluster-secrets)
+
 ## Add ansible role to the deployment
 
 To use WebStacks we need to install [Caktus AWS Web Stacks Role](https://github.com/caktus/ansible-role-aws-web-stacks) into the project.
@@ -66,26 +71,36 @@ Add the following to `deploy/requirements.yaml`:
   version: ''
 ```
 
-## Install the role
+### Install the role
 
 ```shell
 $ ansible-galaxy install -f -r deploy/requirements.yaml
 ```
 
-## Run the CloudFormation Stack Playbook
+### Run the CloudFormation Stack Playbook
 
 ```shell
 $ ansible-playbook deploy/deploy-cf-stack.yaml
 ```
 
+## Configure Services
 
-## The trouble with Bastion
+After cloudformation has run, it will have created a bunch of services within the AWS account.
+
+1. An EKS cluster.
+2. An ECR repository.
+3. An RDS database.
+
+
+## Appendix
+
+### The trouble with Bastion
 Currently, [there is a known limitation with WebStacks and Bastion](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-specific-parameter-types) Even if your project
 does not need a Bastion server, the cloudformation process will fail because of a Type
 validation check. So a workaround is to create a key pair in EC2, and use the keyname in 
 the `BastionKeyName` variable.
 
-### Create a Key Pair
+## Create a Key Pair
 1. Navigate to EC2 in the AWS console. 
    
     **NOTE**: Make sure you are in the same region the cluster will be created in.
@@ -95,5 +110,15 @@ the `BastionKeyName` variable.
 1. Select `ED25519` type.
 1. Click `Create Key Pair`
 
+### Envelope Encryption of Cluster Secrets
 
+One of the considerations for the security of the cluster is whether you want to encrypt the Cluster secrets. The
+decision-making process for this is well beyond the scope of this doc, but if you do, you will need to add a 
+`Customer Managed Key` to the account.
+
+1. In the AWS console, navigate to `Key Management Service (KMS)`.
+1. In the top right click `Add a Key`.
+1. Leave `Symmetric` checked and click `Next`.
+1. Add an `Alias` for the CMK, and click `Next`.
+1. 
 
