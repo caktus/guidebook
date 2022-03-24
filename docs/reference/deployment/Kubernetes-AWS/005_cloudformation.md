@@ -118,9 +118,9 @@ validation check. So a workaround is to create a key pair in EC2, and use the ke
 the `BastionKeyName` variable.
 
 ## Create a Key Pair
-1. Navigate to EC2 in the AWS console. 
-   
-    **NOTE**: Make sure you are in the same region the cluster will be created in.
+**NOTE**: Make sure you are in the same region the cluster will be created in.
+
+1. Navigate to EC2 in the AWS console.
 1. Under `Network and Security` menu on the left select `Key Pairs`
 1. Click the `Create Pair` button in the top right.
 1. Enter the Key name you wish to use.
