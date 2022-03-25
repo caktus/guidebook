@@ -37,7 +37,7 @@ inv production pod.restore-db-from-dump --db-var="DATABASE_URL" --filename=myweb
 
 1. Wagtail:
     1. Update `Site` object with correct domain.
-3. Manually run migrations:
+2. Manually run migrations:
 
     ```shell
     kubectl -n mywebapp-production exec -it deploy/app -- python manage.py migrate
