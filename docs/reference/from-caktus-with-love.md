@@ -22,3 +22,11 @@ Well, there is a way to avoid that - rather than `brew install <formula>`, run `
 Click [here](https://computingforgeeks.com/prevent-homebrew-auto-update-on-macos/) for more info. Credit to Dmitriy for the discovery.
 
 Ronard 🌵
+
+** Google Meet and Macs ** <br>
+For anybody on a Mac who has had problems sharing their screen on a google meet, the following fixed it for me. I had to disallow Chrome's access to record my screen, then allow it again.
+
+* Go to settings --> Security & Privacy --> Privacy tab --> Camera on left side
+* There you can disallow, then allow again.
+
+Michael 🌵
