@@ -18,8 +18,11 @@ Run once replicas are scaled down:
 ```sql
 DROP DATABASE mywebapp_production;
 CREATE DATABASE mywebapp_production;
-GRANT CONNECT ON DATABASE mywebapp_production TO mywebapp_production;
-GRANT ALL PRIVILEGES ON DATABASE mywebapp_production TO mywebapp_production;
+
+-- Connect to recreated DB and create extensions if needed
+\c mywebapp_production;
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS hstore;
 ```
 
 ### Restore instructions
