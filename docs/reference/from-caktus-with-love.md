@@ -30,3 +30,10 @@ For anybody on a Mac who has had problems sharing their screen on a google meet,
 * There you can disallow, then allow again.
 
 Michael 🌵
+
+** The extension for YAML files is .yaml ** <br>
+In the great YAML debate of 2022 Cakti agreed that .yaml was the correct extension for YAML files. 
+
+Henceforth new projects at Caktus will use .yaml and old projects will be converted to .yaml as time allows.
+
+Scott 🌵
