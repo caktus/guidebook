@@ -110,12 +110,12 @@ source_profile=caktus-mfa
 region=us-east-1 output=json
  ```
 
-Setting `mfa_serial` for the caktus-mfa profile: \* Copy your IAM ARN for your
-user: `arn:aws:iam::<caktus-account-id>:user/<username>` \* Replace `user` with
-`mfa`: `arn:aws:iam::<caktus-account-id>:mfa/<username>`
+Setting `mfa_serial` for the caktus-mfa profile:
+- Copy your IAM ARN for your
+user: `arn:aws:iam::<caktus-account-id>:user/<username>`
+- Replace `user` with `mfa`: `arn:aws:iam::<caktus-account-id>:mfa/<username>`
 
-The `caktus-mfa`'s `source profile` should be set to the
-`caktus`.
+The `caktus-mfa` profile's `source profile` should be set to `caktus`.
 
 `caktus-mfa` can just be added to the aws config file.
 `aws-vault add caktus-mfa` is not used.
