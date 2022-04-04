@@ -39,15 +39,15 @@ Getting Started - A Quick Look at the AWS Config File
 Open `~/.aws/config`.
 
 ```config
-; Main Account setup
+; Caktus Managed AWS
+[profile caktus]
+credential_process=aws-vault exec --no-session --json caktus
 
-; IAM user account [profile <default-profile>]
-credential_process=aws-vault exec --no-session --json
-<default-profile>
-
-; MFA account [profile <default-profile-mfa>]
-mfa_serial=arn:aws:iam::<account-id>:mfa/<iam-username>
-source_profile=<default-profile> region=us-east-1 output=json
+[profile caktus-mfa]
+mfa_serial=arn:aws:iam::112250541543:mfa/<username>
+source_profile=caktus
+region=us-east-1
+output=json
 
 ; Assume Role setup
 
