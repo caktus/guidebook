@@ -38,7 +38,7 @@ Getting Started - A Quick Look at the AWS Config File
 
 Open `~/.aws/config`.
 
-```config
+```ini
 ; Caktus Managed AWS
 [profile caktus]
 credential_process=aws-vault exec --no-session --json caktus
