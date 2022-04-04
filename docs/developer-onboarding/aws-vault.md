@@ -38,27 +38,28 @@ Getting Started - A Quick Look at the AWS Config File
 
 Open `~/.aws/config`.
 
-::
+```config
+; Main Account setup
 
-:   ; Main Account setup
+; IAM user account [profile <default-profile>]
+credential_process=aws-vault exec --no-session --json
+<default-profile>
 
-    ; IAM user account \[profile \<default-profile\>\]
-    credential_process=aws-vault exec \--no-session \--json
-    \<default-profile\>
+; MFA account [profile <default-profile-mfa>]
+mfa_serial=arn:aws:iam::<account-id>:mfa/<iam-username>
+source_profile=<default-profile> region=us-east-1 output=json
 
-    ; MFA account \[profile \<default-profile-mfa\>\]
-    mfa_serial=arn:aws:iam::\<account-id\>:mfa/\<iam-username\>
-    source_profile=\<default-profile\> region=us-east-1 output=json
+; Assume Role setup
 
-    ; Assume Role setup
+[profile <role-profile>]
+role_arn=arn:aws:iam::<role-profile-account-id\>:role/<assumed-role>
+source_profile=<default-profile-mfa\> region=us-east-1
 
-    \[profile \<role-profile\>\]
-    role_arn=arn:aws:iam::\<role-profile-account-id\>:role/\<assumed-role\>
-    source_profile=\<default-profile-mfa\> region=us-east-1
+[profile <role-profile>]
+role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
+source_profile=<default-profile-mfa>
+```
 
-    \[profile \<role-profile\>\]
-    role_arn=arn:aws:iam::\<role-profile-account-id\>:role/\<assumed-role\>
-    source_profile=\<default-profile-mfa\>
 
 At the end of this setup you should have both a default profile and mfa
 profile for main account access listed in your aws config file. Assuming
