@@ -81,7 +81,7 @@ Added credentials to profile "caktus" in vault
 ```
 
 After providing your aws keys you will be prompted by KeyChain on MacOS
-to set a password or provide your apple id password. If you are on another operating system
+to set a password. If you are on another operating system
 or would like to change the behavior of the vaulting backend please
 refer to [this](https://github.com/99designs/aws-vault#vaulting-backends) section
 of the docs.
