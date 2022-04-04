@@ -79,7 +79,7 @@ $ aws-vault add caktus
 Enter Access Key ID: <aws-access-key-id> 
 Enter Secret Access Key: <aws-secret-access-key> 
 Added credentials to profile "caktus" in vault
- ```
+```
 
 After providing your aws keys you will be prompted by KeyChain on MacOS
 to set a password or provide your apple id password. If you are on another operating system
