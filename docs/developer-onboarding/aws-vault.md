@@ -112,7 +112,7 @@ mfa_serial=arn:aws:iam::<account-id>:mfa/<username>
 source_profile=caktus
 region=us-east-1
 output=json
- ```
+```
 
 Setting `mfa_serial` for the caktus-mfa profile:
 - Copy your IAM ARN for your
@@ -136,6 +136,55 @@ AWS_VAULT=caktus-mfa
 ...
 ...
 ```
+
+5. Assuming Roles from the Caktus Account
+
+```
+[profile <role-profile>]
+role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
+source_profile=caktus-mfa
+region=us-east-1
+```
+
+Asumming roles will follow the above pattern. Check with the lead developer for the particular project you are joining
+to get the `<role-profile-account-id>` and `<assumed-role>` that you will be assuming. For example, here is
+how you would update `~/.aws/config` to assume the role assoicated with the `saguaro-cluster`.
+
+```
+[profile saguaro-cluster]
+role_arn=arn:aws:iam::<saugaro-cluster-account-id>:role/CaktusAccountAccessRole-Admins
+source_profile=caktus-mfa
+region=us-east-1
+```
+
+6. Assume the Role
+
+```
+# Assumption: You have already authenticated by running "aws-vault exec caktus-mfa".
+# Let's check
+$ env | grep AWS
+AWS_VAULT=caktus-mfa
+...
+...
+# Let's unset the AWS_VAULT environment variable
+$ unset AWS_VAULT
+# let's switch to the saguaro-cluster role
+$ aws-vault exec saguaro-cluster
+# Ensure that you have access to the AWS Account
+$ aws s3 ls
+<list of s3 buckets within this account>
+```
+
+* If you are switching profiles, make sure to run `unset AWS_VAULT` before running `aws-vault exec <role_profile>`.
+* If `AWS_VAULT` is not set then you can assume what ever mfa-enabled profile you would like.
+
+7. Caktus CI/CD Pipeline
+
+AWS Vault does not replace the need to set `AWS_PROFILE` as well when running manual deployments or ansible scripts locally.
+Make sure to `export AWS_PROFILE` when deploying resources.
+
+
+
 
 ## Recommended Background Reading
 
