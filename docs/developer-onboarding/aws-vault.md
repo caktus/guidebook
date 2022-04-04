@@ -45,7 +45,6 @@ region=us-east-1
 output=json
 
 ; Assume Role setup
-
 [profile <role-profile>]
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
 source_profile=caktus-mfa
