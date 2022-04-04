@@ -176,12 +176,12 @@ $ aws s3 ls
 ```
 
 * If you are switching profiles, make sure to run `unset AWS_VAULT` before running `aws-vault exec <role_profile>`.
-* If `AWS_VAULT` is not set then you can assume what ever mfa-enabled profile you would like.
+* If `AWS_VAULT` is not set then you can assume whichever mfa-enabled profile you would like.
 
 7. Caktus CI/CD Pipeline
 
-AWS Vault does not replace the need to set `AWS_PROFILE` as well when running manual deployments or ansible scripts locally.
-Make sure to `export AWS_PROFILE` when deploying resources.
+AWS Vault does not replace the need to set `AWS_PROFILE` when running manual deployments, ansible scripts, or developing locally.
+Make sure to `export AWS_PROFILE` when deploying/scripting resources.
 
 
 
