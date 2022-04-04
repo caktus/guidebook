@@ -48,7 +48,8 @@ output=json
 
 [profile <role-profile>]
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
-source_profile=caktus-mfa region=us-east-1
+source_profile=caktus-mfa
+region=us-east-1
 
 [profile <role-profile>]
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
@@ -108,7 +109,7 @@ credential_process=aws-vault exec --no-session --json caktus
 
 [profile caktus-mfa]
 mfa_serial=arn:aws:iam::<account-id>:mfa/<username>
-source_profile=caktus-mfa
+source_profile=caktus
 region=us-east-1
 output=json
  ```
