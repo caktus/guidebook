@@ -1,4 +1,4 @@
-# AWS Vault (CLI MFA for AWS) Setup
+# AWS Multi-factor Authentication on the Command Line using AWS-Vault
 
 ## Slow Your Scroll - The Introduction
 
