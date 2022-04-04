@@ -97,17 +97,20 @@ In the `~/.aws/config` file, you should see the newly created
     expose the `caktus` profile's access keys to the terminal.
 ```
 [profile caktus]
-credential_process=aws-vault exec --no-session --json test
+credential_process=aws-vault exec --no-session --json caktus
 ```
 
 3.  Setup `caktus-mfa` in `~/.aws/config` file
 
 ```
 [profile caktus]
-credential_process=aws-vault exec --no-session --json test
+credential_process=aws-vault exec --no-session --json caktus
+
+[profile caktus-mfa]
 mfa_serial=arn:aws:iam::<account-id>:mfa/<username>
 source_profile=caktus-mfa
-region=us-east-1 output=json
+region=us-east-1
+output=json
  ```
 
 Setting `mfa_serial` for the caktus-mfa profile:
