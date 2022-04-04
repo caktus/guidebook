@@ -139,9 +139,8 @@ If you would like to have a fuller understanding of what\'s going on
 under the hood, I recommended these resources.
 
 **Resources:** 
-- Kyle Knapp\'s [2017 AWS Reinvent
+* Kyle Knapp\'s [2017 AWS Reinvent
 talk](https://youtu.be/W8IyScUGuGI?t=1251)
-- [AWS Knowledge Center: How do I use an MFA token to authenticate access to my AWS resources through
+* [AWS Knowledge Center: How do I use an MFA token to authenticate access to my AWS resources through
 the AWS CLI?](https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
-- [Sourcing credentials with an external
-process](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sourcing-external.html)
+* [Sourcing credentials with an external process](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sourcing-external.html)
