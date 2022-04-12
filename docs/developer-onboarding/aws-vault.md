@@ -124,7 +124,7 @@ user: `arn:aws:iam::<caktus-account-id>:user/<username>`
 The `caktus-mfa` profile's `source profile` should be set to `caktus`.
 
 `caktus-mfa` can just be added to the aws config file.
-`aws-vault add caktus-mfa` is not used.
+`aws-vault add caktus-mfa` is not used. (This is also true for `<role-profile>`s).
 
 4.  Test the configuration
 
