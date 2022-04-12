@@ -46,21 +46,24 @@ output=json
 
 ; Assume Role setup
 [profile <role-profile>]
+mfa_serial=arn:aws:iam::<caktus-account-id>:mfa/<username>
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
-source_profile=caktus-mfa
+source_profile=caktus
 region=us-east-1
 
 [profile <role-profile>]
+mfa_serial=arn:aws:iam::<caktus-account-id>:mfa/<username>
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
-source_profile=caktus-mfa
+source_profile=caktus
 ```
 
 
 At the end of this setup you should have both a caktus profile and mfa
 profile for main account access listed in your aws config file. Assuming
 roles in other accounts should follow the above syntax that sets
-`caktus-mfa` as the `source_profile` for the
-`<role_profile>`. Both `Main Account setup` and `Assume Role setup` can
+`caktus` as the `source_profile` for the
+`<role_profile>`. All MFA protected profiles need to have your `mfa_serial` specified for it.
+Both `Main Account setup` and `Assume Role setup` can
 be repeated as many times as needed. 
 
 You will need to comment out (`;`)
@@ -140,8 +143,9 @@ AWS_VAULT=caktus-mfa
 
 ```
 [profile <role-profile>]
+mfa_serial=arn:aws:iam::<caktus-account-id>:mfa/<username>
 role_arn=arn:aws:iam::<role-profile-account-id>:role/<assumed-role>
-source_profile=caktus-mfa
+source_profile=caktus
 region=us-east-1
 ```
 
@@ -151,8 +155,9 @@ how you would update `~/.aws/config` to assume the role assoicated with the `sag
 
 ```
 [profile saguaro-cluster]
-role_arn=arn:aws:iam::<saugaro-cluster-account-id>:role/CaktusAccountAccessRole-Admins
-source_profile=caktus-mfa
+mfa_serial=arn:aws:iam::<caktus-account-id>:mfa/<username>
+role_arn=arn:aws:iam::<saguaro-cluster-account-id>:role/CaktusAccountAccessRole-Admins
+source_profile=caktus
 region=us-east-1
 ```
 
@@ -167,14 +172,18 @@ AWS_VAULT=caktus-mfa
 ...
 # Let's unset the AWS_VAULT environment variable
 $ unset AWS_VAULT
+# Let's clearn the aws-vault's session
+$ aws-vault clear
+Cleared 1 sessions.
 # let's switch to the saguaro-cluster role
 $ aws-vault exec saguaro-cluster
+Enter MFA code for arn:aws:iam::<saguaro-cluster-account-id>:mfa/<username>
 # Ensure that you have access to the AWS Account
 $ aws s3 ls
-<list of s3 buckets within this account>
+<list of s3 buckets within the saguaro-cluster account>
 ```
 
-* If you are switching profiles, make sure to run `unset AWS_VAULT` before running `aws-vault exec <role_profile>`.
+* If you are switching profiles, make sure to run `unset AWS_VAULT`, and `aws-vault clear` before running `aws-vault exec <role_profile>`.
 * If `AWS_VAULT` is not set then you can assume whichever mfa-enabled profile you would like.
 
 7. Caktus CI/CD Pipeline
@@ -191,8 +200,6 @@ If you would like to have a fuller understanding of what\'s going on
 under the hood, I recommended these resources.
 
 **Resources:** 
-* Kyle Knapp\'s [2017 AWS Reinvent
-talk](https://youtu.be/W8IyScUGuGI?t=1251)
-* [AWS Knowledge Center: How do I use an MFA token to authenticate access to my AWS resources through
-the AWS CLI?](https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
-* [Sourcing credentials with an external process](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sourcing-external.html)
+- Kyle Knapp\'s [2017 AWS Reinvent talk](https://youtu.be/W8IyScUGuGI?t=1251)
+- [AWS Knowledge Center: How do I use an MFA token to authenticate access to my AWS resources through the AWS CLI?](https://aws.amazon.com/premiumsupport/knowledge-center/authenticate-mfa-cli/)
+- [Sourcing credentials with an external process](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-sourcing-external.html)
