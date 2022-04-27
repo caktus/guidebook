@@ -1,5 +1,25 @@
 # Kubernetes
 
+The current Caktus Kubernetes version target is **v1.22** for projects under Hosting Services.
+
+
+## Install kubectl
+
+The Kubernetes command-line tool, kubectl, allows you to run commands against
+Kubernetes clusters. 
+
+kubectl is installable on a
+[variety of platforms](https://kubernetes.io/docs/tasks/tools/). See [Patch Releases](https://kubernetes.io/releases/patch-releases/) for the lastest release versions. Follow the instructions below to install kubectl.
+
+
+### Apple Silicon (ARM)
+
+```shell
+curl -LO "https://dl.k8s.io/release/v1.22.9/bin/darwin/amd64/kubectl"
+chmod +x ./kubectl
+mv ./kubectl /usr/local/bin/kubectl
+```
+
 
 ## Helm
 
