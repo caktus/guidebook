@@ -53,7 +53,7 @@ Re-deploy:
 inv staging deploy --tag=<insert tag here>
 ```
 
-### Commandline updates for AWS EKS
+## Commandline updates for AWS EKS
 This command updates an EKS cluster
 ```sh
 aws eks update-cluster-version --region <AWS Region> --name <cluster name> --kubernetes-version <K8s version to update to>
