@@ -53,6 +53,11 @@ Re-deploy:
 inv staging deploy --tag=<insert tag here>
 ```
 
+### Production
+
+Repeate these steps for the production namespace.
+
+
 ## Commandline updates for AWS EKS
 This command updates an EKS cluster
 ```sh
