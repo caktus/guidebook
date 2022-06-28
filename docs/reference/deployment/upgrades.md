@@ -14,7 +14,22 @@ git checkout -B k8s-upgrades
 
 ## Ingress controller and cert-manager
 
-TBD
+### Pin to latest versions
+
+Update `k8s_ingress_nginx_chart_version` and `k8s_cert_manager_chart_version` to the target versions, typically in `deploy/group_vars/k8s.yaml`:
+
+```yaml
+k8s_ingress_nginx_chart_version: "4.0.19"
+k8s_cert_manager_chart_version: "v1.7.2"
+```
+
+### Deploy the upgrades
+
+```sh
+# using kubesae
+inv deploy.install deploy.playbook deploy-cluster.yml
+```
+
 
 ## Re-deploy app
 
