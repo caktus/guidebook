@@ -76,7 +76,6 @@ Repeate these steps for the production namespace.
 
 This section manages database backups, monitoring, and log aggregation.
 
-
 ### Update Galaxy requirements
 
 Update [caktus.k8s-hosting-services](https://github.com/caktus/ansible-role-k8s-hosting-services) to the latest version in `deploy/requirements.yml`:
@@ -86,6 +85,10 @@ Update [caktus.k8s-hosting-services](https://github.com/caktus/ansible-role-k8s-
   name: caktus.k8s-hosting-services
   version: v0.7.0
 ```
+
+!!! warning
+
+    Make sure the PostgreSQL client version matches the project's database cluster version. Projects should set [k8s_hosting_services_image_tag](https://github.com/caktus/ansible-role-k8s-hosting-services/blob/main/defaults/main.yml#L46) accordingly to use an [image tag with the corresponding PostgreSQL version](https://github.com/caktus/k8s-caktus-backup/pkgs/container/k8s-caktus-backup).
 
 ### Update chart versions
 
