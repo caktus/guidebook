@@ -30,6 +30,21 @@ k8s_cert_manager_chart_version: "v1.7.2"
 inv deploy.install deploy.playbook deploy-cluster.yml
 ```
 
+#### Troubleshooting
+
+If any Ansible tasks fail to run, check for a **failed** status of the Helm charts in the respective namespaces:
+
+```sh
+helm -n ingress-nginx list
+helm -n cert-manager list
+```
+
+Rollback and re-deploy as needed. For example, **cert-manager**:
+
+```sh
+helm -n cert-manager rollback cert-manager
+inv deploy.install deploy.playbook deploy-cluster.yml
+```
 
 ## Re-deploy app
 
