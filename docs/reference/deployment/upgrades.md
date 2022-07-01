@@ -72,6 +72,39 @@ inv staging deploy --tag=<insert tag here>
 
 Repeate these steps for the production namespace.
 
+## Hosting Services
+
+This section manages database backups, monitoring, and log aggregation.
+
+
+### Update Galaxy requirements
+
+Update [caktus.k8s-hosting-services](https://github.com/caktus/ansible-role-k8s-hosting-services) to the latest version in `deploy/requirements.yml`:
+
+```yaml
+- src: https://github.com/caktus/ansible-role-k8s-hosting-services
+  name: caktus.k8s-hosting-services
+  version: v0.7.0
+```
+
+### Update chart versions
+
+Update the hosting services chart versions to the target versions, typically in `deploy/group_vars/k8s.yaml`:
+
+```yaml
+# https://github.com/newrelic/helm-charts/releases
+k8s_newrelic_chart_version: "4.6.2"
+# https://hub.docker.com/r/gliderlabs/logspout/tags
+k8s_papertrail_logspout_image_tag: v3.2.14
+```
+
+### Deploy
+
+Run the `deploy-hosting-services.yml` to deploy the latest hosting services:
+
+```sh
+inv deploy.install deploy.playbook deploy-hosting-services.yml
+```
 
 ## Commandline updates for AWS EKS
 This command updates an EKS cluster
