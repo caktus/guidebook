@@ -60,7 +60,7 @@ mv ./darwin-amd64/helm /usr/local/bin
 ```shell
 curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz"
 tar -zxf helm*.tar.gz
-mv ./linux-amd64/helm /usr/local/bin
+sudo mv ./linux-amd64/helm /usr/local/bin
 ```
 
 Verify it's installed correctly. You should see something like this:
