@@ -31,12 +31,36 @@ mv ./kubectl /usr/local/bin/kubectl
 
 ## Helm
 
-Helm is a package manager for Kubernetes and we use various Helm charts at Caktus. To install `helm`, follow the [From Script](https://helm.sh/docs/intro/install/#from-script) instructions in docs:
+Helm is a package manager for Kubernetes and we use various Helm charts at Caktus. To install, follow the instructions below.
+
+Caktus Hosting Services currently recommends this version:
+
+```sh
+export HELM_VERSION=3.8.2
+```
+
+### Apple Silicon (ARM)
 
 ```shell
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
+curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-darwin-arm64.tar.gz"
+tar -zxf helm*.tar.gz
+mv ./darwin-arm64/helm /usr/local/bin
+```
+
+### Apple Intel (x86)
+
+```shell
+curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-darwin-amd64.tar.gz"
+tar -zxf helm*.tar.gz
+mv ./darwin-amd64/helm /usr/local/bin
+```
+
+### Linux (x86)
+
+```shell
+curl -LO "https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz"
+tar -zxf helm*.tar.gz
+mv ./linux-amd64/helm /usr/local/bin
 ```
 
 Verify it's installed correctly. You should see something like this:
