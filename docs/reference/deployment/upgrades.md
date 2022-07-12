@@ -65,12 +65,14 @@ kubectl -n trafficstops-staging get deploy/app -o yaml | grep image:
 Re-deploy:
 
 ```sh
-inv staging deploy --tag=<insert tag here>
+inv [staging/production] deploy --tag=<insert tag here>
 ```
 
+### Site is up
+Verify that the site is up by visiting it on your browser.
 ### Production
 
-Repeate these steps for the production namespace.
+Repeate these steps for the other namespace(staging/production).
 
 ## Hosting Services
 
