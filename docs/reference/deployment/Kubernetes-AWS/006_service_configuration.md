@@ -2,7 +2,7 @@
 
 The configuration of services for your deployment will occur almost entirely in the `deploy/group_vars/all.yaml` file.
 
-## Global
+## (all.yaml) Global configuration
 
 ```yaml
 # ----------------------------------------------------------------------------
@@ -29,10 +29,16 @@ The second part goes in `k8s_container_image` under [App Pod Configuration](#app
 
 k8s_container_image: "{{ RepositoryURL }}/<SECOND_PART_OF_REPOSITORY_URL>"
 
+# Sentry
+
+# Papertrail
+k8s_papertrail_logspout_destination: <ENCRYPTED_PAPERTRAIL_ENDPOINT>
+k8s_papertrail_logspout_memory_limit: 128Mi
+
 ...End Defaults
 ```
 
-## Shared Environment Variables
+## (k8s.yaml) Shared Environment Variables
 
 Shared variables is a section in the `k8s.yaml` file where you can configure some items that
 would most likely be shared between all of your environments.
@@ -62,5 +68,12 @@ env_default_from_email:
 env_default_from_email# New Relic APM: Caktus Free Account
 env_new_relic_app_name: "{{ k8s_namespace }}"
 env_new_relic_license_key: 
-env_sentry_dsn:
+  
+# Sentry
+env_sentry_dsn: <UNENCRYPTED_SENTRY_DSN>
 ```
+
+### Papertrail
+
+To set up a system for your project in sentry you will need access to Caktus' papertrail account.
+
