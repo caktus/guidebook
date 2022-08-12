@@ -4,8 +4,6 @@
 
 This server has 4 bays, only 3 active disks. You can use the spare to load a new drive before removing the old one.
 
-https://blog.dalydays.com/post/2021-10-13-how-to-hot-swap-zfs-disk-in-proxmox/
-
 1. Install the new drive.
 2. SSH to the server:
    ```
