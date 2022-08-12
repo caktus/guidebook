@@ -12,7 +12,7 @@ apt update && apt install postgresql-client -y
 export DATABASE_URL=...
 psql $DATABASE_URL
 ```
-**NOTE (requires invoke-kubsaea>=0.0.20)**: If you need a differenct version of debian so that you have the right postgressql-client you can specify it with `inv pod.debian --debian-flavor \<bullseye:buster:stretch\>.
+**NOTE (requires invoke-kubsaea>=0.0.20)**: If you need a differenct version of debian so that you have the right postgressql-client you can specify it with `inv pod.debian --debian-flavor \<bullseye:buster:stretch\>`.
 
 Run once replicas are scaled down:
 
