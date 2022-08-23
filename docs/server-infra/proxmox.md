@@ -9,7 +9,7 @@ This server has 4 bays, only 3 active disks. You can use the spare to load a new
    ```
    ssh root@172.20.1.40
    ```
-3. To identify the new disk (e.g., `/dev/sdd`), run `dmesg` and look for the "Attached scsi generic" message.
+3. To identify the new disk (e.g., `/dev/sdd`), run `dmesg` and look for the "Attached scsi generic" message. `lsblk` (list block devices) will also provide useful summary information.
 4. Run a short smartctl test on the device:
    ```
    smartctl -t short /dev/sdd
