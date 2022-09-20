@@ -18,7 +18,7 @@ To get started, make sure you have:
 
 * Git and SSH keys configured as documented in [Generating a new SSH key](M1.md#generating-a-new-ssh-key).
 * Container runtime like [Docker Desktop on Mac](https://docs.docker.com/desktop/install/mac-install/) or [Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/).
-* Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWD.md).
+* Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWS.md).
 * (Optional) [Visual Studio Code](https://code.visualstudio.com/) with the [Remote Development extension pack](https://aka.ms/vscode-remote/download/extension). See [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers) for additional information.
 
 ## Project Setup
