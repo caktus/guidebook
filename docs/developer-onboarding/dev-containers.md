@@ -2,6 +2,8 @@
 
 Development containers provide a local environment setup option for Mac and Linux at Caktus. Alternatively, if you'd prefer a more customized experience, you'll likely want to follow the general [Developer On-boarding](index.md) docs instead.
 
+:fontawesome-regular-face-laugh-wink:
+
 ## Goals
 
 Development containers will:
