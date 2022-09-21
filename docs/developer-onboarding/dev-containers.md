@@ -10,7 +10,7 @@ Development containers will:
 * Install base and development Python/Node/etc. packages automatically without having to use homebrew, pyenv, nvm, etc.
 * Streamline database and media sync from staging environments to ease initial setup.
 * Provide aws-cli and kubectl tools so you can access deployed environments.
-* (Hopefully) Allow developers to perform Git pulls, commits, pushes, from within the container.
+* Allow Git pull, commit, and push from within the container if using VS Code devcontainer.
 
 ## Prerequisites
 
