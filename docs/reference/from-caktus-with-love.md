@@ -37,3 +37,11 @@ In the great YAML debate of 2022 Cakti agreed that .yaml was the correct extensi
 Henceforth new projects at Caktus will use .yaml and old projects will be converted to .yaml as time allows.
 
 Scott 🌵
+
+** If changing from a Mac to another Mac ** <br>
+The Migration Assistant tool on Mac is extremely easy. Most files will be transfered, but there may be some stragglers that don't make the move. Use the M1 and M2 setup in documentation to make sure all the files you need are present. You will likely need to create and manually move your SSH Key, but we recomend you generate a new one as it is best practice to rotate these keys over time. You will have to update your Key with your projects as well. 
+
+Follow the instructions here to use the [Migration Assitant Tool]
+(https://support.apple.com/en-us/HT204350).
+
+Follow the instructions here for generating a new [SSH Key] (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
