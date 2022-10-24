@@ -28,49 +28,32 @@ To get started, make sure you have:
 
 ## Project Setup
 
-### Build
+A project's documentation is the canonical setup documentation. Please refer to your project docs for detailed setup instructions.
 
-Build and run development container:
+However, most projects should roughly follow this pattern:
 
-```sh
-docker compose up --build -d
-```
-
-### Restore database archive
-
-Restore database from latest production backup:
-
-```sh
-docker compose exec django bash
-/code# dropdb myproject && createdb myproject
-/code# inv utils.get-db-backup
-/code# pg_restore -Ox -d $DATABASE_URL < *.pgdump
-/code# rm *.pgdump
-```
-
-### Sync staging media
-
-Restore media from production S3 bucket:
-
-```sh
-/code# inv production aws.sync-media -s local --bucket-path="media/"
-```
-
-### Start Development Server(s)
-
-Start your Django development server in Terminal 1:
-
-```sh
-docker compose exec django bash
-/code# python manage.py runserver 0.0.0.0:8000
-```
-
-Start your Node development server in Terminal 2:
-
-```sh
-docker compose exec django bash
-/code# npm run dev:dashboard
-```
+1. **Build and start dev container:** Using the [VS Code Command Pallete (`⇧⌘P`)](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette), select `Dev Containers: Reopen in Container`.
+2. **Setup pre-commit:** Insetall pre-commit to enforce a variety of community standards:
+   ```sh
+   pre-commit clean
+   pre-commit install
+   ```
+3. **Reset local database:** Download copy of staging database and restore it locally:
+   ```sh
+   inv aws.configure-eks-kubeconfig
+   inv staging pod.get-db-dump
+   dropdb --if-exists DATABASENAME && createdb DATABASENAME
+   pg_restore -Ox -d $DATABASE_URL < *.dump
+   ```
+4. **Reset local media:** Download copy of staging media:
+   ```sh
+   mkdir -p /code/media && sudo chown -R appuser:appuser /code/media
+   inv staging aws.sync-media --sync-to local --bucket-path="media/"
+   ```
+5. **Start dev server:**: Start the Django development server:
+   ```sh
+   python manage.py runserver 0.0.0.0:8000
+   ```
 
 ## Troubleshooting
 
