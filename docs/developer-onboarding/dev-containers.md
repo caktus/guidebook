@@ -71,3 +71,21 @@ Start your Node development server in Terminal 2:
 docker compose exec django bash
 /code# npm run dev:dashboard
 ```
+
+## FAQ/Troubleshooting
+
+### `Bad configuration option: usekeychain`
+
+If you're on a Mac, you may see an error like this:
+
+```sh
+/home/appuser/.ssh/config: line 3: Bad configuration option: usekeychain
+/home/appuser/.ssh/config: terminating, 1 bad configuration options
+fatal: Could not read from remote repository.
+```
+
+This is due to a special config option available on the Mac ssh-agent. To allow the dev container ssh-agent to ignore it, add this line to the top of `~/.ssh/config`:
+
+```config
+IgnoreUnknown AddKeysToAgent,UseKeychain
+```
