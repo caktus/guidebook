@@ -72,7 +72,7 @@ docker compose exec django bash
 /code# npm run dev:dashboard
 ```
 
-## FAQ/Troubleshooting
+## Troubleshooting
 
 ### `Bad configuration option: usekeychain`
 
