@@ -39,26 +39,36 @@ A project's documentation is the canonical setup documentation. Please refer to 
 However, most projects should roughly follow this pattern:
 
 1. **Build and start dev container:** Using the [VS Code Command Pallete (`⇧⌘P`)](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette), select `Dev Containers: Reopen in Container`.
-2. **Setup pre-commit:** Insetall pre-commit to enforce a variety of community standards:
+2. **Install Python and Node requirements:** 
+   ```sh
+   python3 -m venv /code/venv
+   make setup
+   npm install
+   ```
+3. **Setup pre-commit:** Insetall pre-commit to enforce a variety of community standards:
    ```sh
    pre-commit clean
    pre-commit install
    ```
-3. **Reset local database:** Download copy of staging database and restore it locally:
+4. **Reset local database:** Download copy of staging database and restore it locally:
    ```sh
    inv aws.configure-eks-kubeconfig
    inv staging pod.get-db-dump
    dropdb --if-exists DATABASENAME && createdb DATABASENAME
    pg_restore -Ox -d $DATABASE_URL < *.dump
    ```
-4. **Reset local media:** Download copy of staging media:
+6. **Reset local media:** Download copy of staging media:
    ```sh
    mkdir -p /code/media && sudo chown -R appuser:appuser /code/media
    inv staging aws.sync-media --sync-to local --bucket-path="media/"
    ```
-5. **Start dev server:**: Start the Django development server:
+7. **Start dev server:**: Start the Django development server:
    ```sh
    python manage.py runserver 0.0.0.0:8000
+   ```
+7. **Start Node dev server:** Start the Node development server in a separate terminal:
+   ```sh
+   npm run dev
    ```
 
 ## Troubleshooting
