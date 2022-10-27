@@ -22,15 +22,16 @@ To get started, make sure you have:
 
     * [BuildKit enabled](https://docs.docker.com/develop/develop-images/build_enhancements/) to support features provided by BuildKit builder toolkit.
 
-    !!! info ":fontawesome-brands-linux: Quirks with local filesystem (bind) mounts on Linux"
+    !!! info "Quirks with local filesystem (bind) mounts on Linux :fontawesome-brands-linux:"
 
-        Inside the container on Linux, any mounted files/folders will have the exact same permissions as outside the container - including the owner user ID (UID) and group ID (GID). Because of this, your container user will either need to have the same UID or be in a group with the same GID. If your user does not have a UID of 1000, then you should specify `USER_UID` and `USER_GID` in a `.env` file at the root of your repo:
+        Inside a container on Linux, any mounted files/folders will have the exact same permissions as outside the container - including the owner user ID (UID) and group ID (GID). Because of this, your container user will either need to have the same UID or be in a group with the same GID. If your user does not have a UID of 1000 (run `id` in your terminal to check), then you should specify `USER_UID` and `USER_GID` in a `.env` file at the root of your repo:
         
-        ```
-        # file: .env
+        ```sh
         USER_UID=1001
         USER_GID=1001
         ```
+        
+        See [Add a non-root user to a container](https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user) for more information.
 
 * :fontawesome-brands-aws: Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWS.md).
 
