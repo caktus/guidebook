@@ -22,11 +22,21 @@ To get started, make sure you have:
 
     * [BuildKit enabled](https://docs.docker.com/develop/develop-images/build_enhancements/) to support features provided by BuildKit builder toolkit.
 
+    !!! info ":fontawesome-brands-linux: Quirks with local filesystem (bind) mounts on Linux"
+
+        Inside the container on Linux, any mounted files/folders will have the exact same permissions as outside the container - including the owner user ID (UID) and group ID (GID). Because of this, your container user will either need to have the same UID or be in a group with the same GID. If your user does not have a UID of 1000, then you should specify `USER_UID` and `USER_GID` in a `.env` file at the root of your repo:
+        
+        ```
+        # file: .env
+        USER_UID=1001
+        USER_GID=1001
+        ```
+
 * :fontawesome-brands-aws: Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWS.md).
 
 * (Optional) [Visual Studio Code](https://code.visualstudio.com/) with the [Remote Development extension pack](https://aka.ms/vscode-remote/download/extension). See [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers) for additional information.
 
-!!! info ":material-apple: Apple Silicon (M1/M2) and VS Code Live Share"
+!!! warning ":material-apple: Apple Silicon (M1/M2) and VS Code Live Share"
 
     VS Code Live Share's `vsls-agent` does not support M1/arm64 yet, so Apple Silicon users cannot start a share from within a Dev Container. See [MicrosoftDocs/live-share#4060](https://github.com/MicrosoftDocs/live-share/issues/4060) for more information.
     
