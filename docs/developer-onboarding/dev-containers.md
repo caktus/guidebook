@@ -82,6 +82,10 @@ However, most projects should roughly follow this pattern:
    npm run dev
    ```
 
+## Published ports
+
+Containers are separate environments, so if you want to access a server, service, or other resource inside your container, you will need to either "forward" or "publish" the port to your host. Where possible, containers will publish ports according to [:fontawesome-brands-google-drive: Development Containers: Port Mappings](https://docs.google.com/spreadsheets/d/11NCiDh7wTqVepw04JI1U4kn8dcRF4VtB9aIE-QEm1Sg/edit#gid=0) to avoid collisions. You may [temporarily forward a port](https://code.visualstudio.com/docs/devcontainers/containers#_temporarily-forwarding-a-port) as a fallback or workaround.
+
 ## Troubleshooting
 
 ### `Bad configuration option: usekeychain`
