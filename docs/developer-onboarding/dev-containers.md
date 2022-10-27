@@ -24,7 +24,7 @@ To get started, make sure you have:
 
     !!! info "Quirks with local filesystem (bind) mounts on Linux :fontawesome-brands-linux:"
 
-        Inside a container on Linux, any mounted files/folders will have the exact same permissions as outside the container - including the owner user ID (UID) and group ID (GID). Because of this, your container user will either need to have the same UID or be in a group with the same GID. If your user does not have a UID of 1000 (run `id` in your terminal to check), then you should specify `USER_UID` and `USER_GID` in a `.env` file at the root of your repo:
+        Inside a container on Linux, any mounted files/folders will have the exact same permissions as outside the container - including the owner user ID (UID) and group ID (GID). Because of this, your container user will either need to have the same UID or be in a group with the same GID. **If your user does not have a UID of 1000** (run `id` in your terminal to check), then you should specify `USER_UID` and `USER_GID` in a `.env` file at the root of your repo:
         
         ```sh
         USER_UID=1001
