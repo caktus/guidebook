@@ -26,7 +26,7 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS hstore;
 ```
 
-### Restore instructions
+### Restore instructions (kubectl)
 
 ```sh
 # scale down (to release DB connections) and drop DB above
@@ -35,6 +35,25 @@ kubectl -n mywebapp-production scale deployment/app --replicas=0
 kubectl -n mywebapp-production scale deployment/app --replicas=2
 # restore DB
 inv production pod.restore-db-from-dump --db-var="DATABASE_URL" --filename=mywebapp-archive.dump
+```
+
+**NOTE:**
+
+If your stack has celery installed then you will need to scale those down as well to free resources:
+
+### Restore instructions (invoke-kubesae)
+
+As of version `0.0.21` invoke-kubesae, has a utility command `utils.scale-app` to help with this.
+
+#### Usage Examples
+
+```shell
+ > inv staging utils.scale-app --down  # Scales the containers to 0.
+ > inv staging utils.scale-app --down --celery  # Scales the containers, celery-worker, and celery-beat to 0.
+ > inv staging utils.scale-app  # Scales the containers to 2.
+ > inv staging utils.scale-app --celery  # Scales the containers to 2, and celery-worker/celery-beat to 1.
+ > inv staging utils.scale-app --container-count 4  # Scales the containers to 4.
+ > inv staging utils.scale-app --container-count 4 --celery  # Scales the containers to 4, and celery-worker/celery-beat to 1.
 ```
 
 ### Post-restore tasks
