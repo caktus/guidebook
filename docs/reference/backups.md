@@ -114,7 +114,7 @@ k8s_hosting_services_namespace: "{{ k8s_hosting_services_project_name }}-hosting
 # this particular variable name.
 k8s_hosting_services_database_url: "{{ env_database_url }}"
 # This is the name of the S3 bucket. The `k8s_hosting_services_namespace` folder will be in here.
-k8s_hosting_services_backup_base_bucket: investigator-portal-production-backups
+k8s_hosting_services_backup_base_bucket: <WHATEVERYOUWANTTHENAMEOFTHEBUCKETTOBE>-backups
 # This is the name of the image that hosting services is using to do the backups.
 k8s_hosting_services_image_tag: 0.4.0-postgres14
 # The region your project is hosted in.
