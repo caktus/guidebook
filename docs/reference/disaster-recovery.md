@@ -24,3 +24,12 @@ Caktus provides managed hosting services for many projects, which include period
 3. After clicking Save, choose to replicate existing objects on the modal window:
     * **Completion report:** s3://`PROJECTNAME`/replication-reports
     * **Permissions:** Choose from existing IAM roles and Create a new role
+
+### Add DNS Record
+
+Create a CNAME record, for example dr.`PROJECTNAME`.com and point it to the cluster Load Balancer DNS name or alias. 
+
+### Create `dr` Ansible configuration
+
+1. Create `group_vars/staging_shared.yaml` with common configuration between `staging` and `dr`
+2. Create `host_vars/dr.yaml` with domain name, basic auth password, etc.
