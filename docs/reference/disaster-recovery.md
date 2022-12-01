@@ -8,6 +8,12 @@ Caktus provides managed hosting services for many projects, which include period
 * **Recoverability:** We perform periodic backup verifications to ensure the integrity of our backups by restoring them to a freshly deployed environment.
 * **Not Staging:** Backups are restored to a dedicated environment to not impact active development on staging and production.
 
+## Prerequisites
+
+To get started, make sure you have:
+
+* :fontawesome-brands-aws: Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWS.md).
+
 ## Backup verification workflow
 
 A project's documentation contains the canonical backup instructions. Please refer to your project docs for detailed setup instructions.
