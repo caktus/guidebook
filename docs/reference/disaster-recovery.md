@@ -12,7 +12,7 @@ Caktus provides managed hosting services for many projects, which include period
 
 To get started, make sure you have:
 
-* :fontawesome-brands-aws: Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](AWS.md).
+* :fontawesome-brands-aws: Caktus AWS account and AWS Command Line Interface (AWS CLI) [configured for your development projects](../developer-onboarding/AWS.md).
 
 ## Backup verification workflow
 
