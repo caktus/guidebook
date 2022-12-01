@@ -30,8 +30,8 @@ However, most projects should roughly follow this pattern:
    inv dr deploy --tag=<TAG>
    ```
 4. Visit deployed site in your browser, log in, update Site object, and perform basic smoke tests:
-   * Create new pages
-   * Upload images
+    * Create new pages
+    * Upload images
 5. Once complete, turn off disaster recovery environment:
    ```sh
    kubectl -n <NAMESPACE> scale deployments --replicas=0 --all
