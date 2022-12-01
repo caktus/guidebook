@@ -6,6 +6,7 @@ Caktus provides managed hosting services for many projects, which include period
 
 * **Redundancy:** We back up or replicate data (database, uploaded files, etc.) to a separate location or region from the deployed environment. For example, if the site is deployed to `us-east-1`, backup data to `us-east-2`.
 * **Recoverability:** We perform periodic backup verifications to ensure the integrity of our backups by restoring them to a freshly deployed environment.
+* **Not Staging:** Backups are restored to a dedicated environment to not impact active development on staging and production.
 
 ## Initial setup
 
