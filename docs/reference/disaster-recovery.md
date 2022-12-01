@@ -8,6 +8,35 @@ Caktus provides managed hosting services for many projects, which include period
 * **Recoverability:** We perform periodic backup verifications to ensure the integrity of our backups by restoring them to a freshly deployed environment.
 * **Not Staging:** Backups are restored to a dedicated environment to not impact active development on staging and production.
 
+## Backup verification workflow
+
+A project's documentation contains the canonical backup instructions. Please refer to your project docs for detailed setup instructions.
+
+However, most projects should roughly follow this pattern:
+
+1. Obtain latest production backup archive:
+   ```sh
+   inv utils.get-db-backup
+   ```
+2. Restore database archive into disaster recovery environment:
+   ```sh
+   inv dr deploy.db-restore --filename=<FILENAME>
+   ```
+3. Deploy a recent application image to the disaster recovery environment:
+   ```sh
+   # Find current deployed tag
+   kubectl -n <NAMESPACE> get deployments -o wide
+   # Deploy
+   inv dr deploy --tag=<TAG>
+   ```
+4. Visit deployed site in your browser, log in, update Site object, and perform basic smoke tests:
+   * Create new pages
+   * Upload images
+5. Once complete, turn off disaster recovery environment:
+   ```sh
+   kubectl -n <NAMESPACE> scale deployments --replicas=0 --all
+   ```
+
 ## Initial setup
 
 ### AWS - Replicated object bucket
