@@ -57,6 +57,7 @@ However, most projects should roughly follow this pattern:
 2. In the [AWS S3 console](https://s3.console.aws.amazon.com/s3/buckets), navigate to the source bucket, click the Management tab, and then select Create replication rule: 
     * **Replication rule name:** DR Replication
     * **Destination:** Select the bucket you created above
+    * **IAM Role:** Select Create new role
 3. After clicking Save, choose to replicate existing objects on the modal window:
     * **Completion report:** s3://`PROJECTNAME`/replication-reports
     * **Permissions:** Choose from existing IAM roles and Create a new role
