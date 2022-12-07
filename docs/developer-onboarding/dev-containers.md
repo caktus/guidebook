@@ -63,7 +63,7 @@ However, most projects should roughly follow this pattern:
    ```
 4. **Reset local database:** Download copy of staging database and restore it locally:
    ```sh
-   inv aws.configure-eks-kubeconfig
+   inv staging aws.configure-eks-kubeconfig
    inv staging pod.get-db-dump
    dropdb --if-exists DATABASENAME && createdb DATABASENAME
    pg_restore -Ox -d $DATABASE_URL < *.dump
