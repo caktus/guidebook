@@ -50,7 +50,7 @@ However, most projects should roughly follow this pattern:
 1. Create a new bucket in the [AWS S3 console](https://s3.console.aws.amazon.com/s3/bucket/create) with:
     * **Bucket name:** `PROJECTNAME`-dr-assets
     * **AWS Region:** A region other than the source bucket for Cross-Region Replication
-    * **Object Ownership:** Same as the source bucket
+    * **Object Ownership:** Same as the source bucket (most like **ACLs enabled**)
     * **Block Public Access settings for this bucket:** Same as the source bucket
     * **Bucket Versioning:** Same as the source bucket
     * **Default encryption:** Same as the source bucket
