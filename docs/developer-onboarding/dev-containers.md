@@ -37,12 +37,6 @@ To get started, make sure you have:
 
 * (Optional) [Visual Studio Code](https://code.visualstudio.com/) with the [Remote Development extension pack](https://aka.ms/vscode-remote/download/extension). See [Developing inside a Container](https://code.visualstudio.com/docs/remote/containers) for additional information.
 
-    !!! warning ":material-apple: Apple Silicon (M1/M2) and VS Code Live Share"
-
-        VS Code Live Share's `vsls-agent` does not support M1/arm64 yet, so Apple Silicon users cannot start a share from within a Dev Container. See [MicrosoftDocs/live-share#4060](https://github.com/MicrosoftDocs/live-share/issues/4060) for more information.
-    
-        However, Apple Silicon users can start a Live Share session outside of a Dev Container and use `docker compose exec django` to run commands.
-
 ## Project Setup
 
 A project's documentation is the canonical setup documentation. Please refer to your project docs for detailed setup instructions.
