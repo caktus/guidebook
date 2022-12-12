@@ -59,7 +59,7 @@ However, most projects should roughly follow this pattern:
     * **Destination:** Select the bucket you created above
     * **IAM Role:** Select Create new role
 3. After clicking Save, choose to replicate existing objects on the modal window:
-    * **Completion report:** s3://`PROJECTNAME`/replication-reports
+    * **Completion report:** s3://`PROJECTNAME`-dr-assets/replication-reports
     * **Permissions:** Choose from existing IAM roles and Create a new role
 
 ### Add DNS Record
