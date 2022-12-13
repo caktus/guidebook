@@ -62,6 +62,18 @@ However, most projects should roughly follow this pattern:
     * **Completion report:** s3://`PROJECTNAME`-dr-assets/replication-reports
     * **Permissions:** Choose from existing IAM roles and Create a new role
 
+### AWS - Hosting Services bucket
+
+This private bucket will store database archives.
+
+1. Create a new bucket in the [AWS S3 console](https://s3.console.aws.amazon.com/s3/bucket/create) with:
+    * **Bucket name:** `PROJECTNAME`-hosting-services
+    * **AWS Region:** A region other than the source bucket for Cross-Region Replication
+    * **Object Ownership:** ACLs disabled
+    * **Block Public Access settings for this bucket:** Block all public access
+    * **Bucket Versioning:** Enable
+    * **Default encryption:** Enable
+
 ### Add DNS Record
 
 Create a CNAME record, for example dr.`PROJECTNAME`.com and point it to the cluster Load Balancer DNS name or alias. 
