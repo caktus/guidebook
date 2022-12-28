@@ -97,3 +97,27 @@ This is due to a special config option available on the Mac ssh-agent. To allow 
 ```config
 IgnoreUnknown AddKeysToAgent,UseKeychain
 ```
+
+### `An error occured setting up the container.`
+
+If you're on a Mac, you may see an error like this:
+
+```sh
+Stop (69 ms): Inspecting container
+Start: Run in container: /bin/sh
+Start: Run in container: uname -m
+Stop (91 ms): Run in container: /bin/sh
+Shell server terminated (code: 126, signal: null)
+unable to find user appuser: no matching entries in passwd file
+Start: Run in container: cat /etc/passwd
+Stdin closed!
+Error: An error occurred setting up the container.
+```
+
+To fix it:
+
+While on VSCode press `command` + `shift` + `P` on your keyboard
+Once the popup displays, select `Rebuild and Reopen in Container`
+`Press command + shift + P`
+Once the popup displays, select and Rebuild and Reopen in Container
+```
