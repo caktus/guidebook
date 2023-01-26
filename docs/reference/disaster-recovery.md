@@ -95,7 +95,7 @@ This private bucket will store database archives.
     *  Download and save the access credentials CSV file.
 2. Click on the newly created user in the [AWS IAM console](https://us-east-1.console.aws.amazon.com/iamv2/home#/users) and click **Add inline policy**:
     ```json
-        {
+    {
         "Version": "2012-10-17",
         "Statement": [
             {
