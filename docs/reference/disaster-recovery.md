@@ -113,7 +113,7 @@ This private bucket will store database archives.
                 "Effect": "Allow",
                 "Action": "s3:PutObject",
                 "Resource": [
-                    "arn:aws:s3:::PROJECTNAME-hosting-services"
+                    "arn:aws:s3:::PROJECTNAME-hosting-services/*"
                 ]
             }
         ]
