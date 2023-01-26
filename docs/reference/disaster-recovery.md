@@ -43,9 +43,11 @@ However, most projects should roughly follow this pattern:
    kubectl -n <NAMESPACE> scale deployments --replicas=0 --all
    ```
 
-## Initial setup - DR deployed environment
+## Initial setup
 
-### AWS - Replicated object bucket
+### DR provisioning
+
+#### AWS - Replicated object bucket
 
 1. Create a new bucket in the [AWS S3 console](https://s3.console.aws.amazon.com/s3/bucket/create) with:
     * **Bucket name:** `PROJECTNAME`-dr-assets
@@ -62,18 +64,18 @@ However, most projects should roughly follow this pattern:
     * **Completion report:** s3://`PROJECTNAME`-dr-assets/replication-reports
     * **Permissions:** Choose from existing IAM roles and Create a new role
 
-### Add DNS Record
+#### Add DNS Record
 
 Create a CNAME record, for example dr.`PROJECTNAME`.com and point it to the cluster Load Balancer DNS name or alias. 
 
-### Create `dr` Ansible configuration
+#### Create `dr` Ansible configuration
 
 1. Create `group_vars/staging_shared.yaml` with common configuration between `staging` and `dr`
 2. Create `host_vars/dr.yaml` with domain name, basic auth password, etc.
 
-## Initial setup - Database backups
+### Database backups
 
-### AWS - Hosting Services bucket
+#### AWS - Hosting Services bucket
 
 This private bucket will store database archives.
 
@@ -85,7 +87,7 @@ This private bucket will store database archives.
     * **Bucket Versioning:** Enable
     * **Default encryption:** Enable
 
-### Backup user
+#### Backup user
 
 1. Create a new user in the [AWS IAM console](https://us-east-1.console.aws.amazon.com/iam/home#/users$new?step=details) with:
     *  **User name:** `PROJECTNAME`-backups
