@@ -82,7 +82,7 @@ Containers are separate environments, so if you want to access a server, service
 
 ## Troubleshooting
 
-### `Bad configuration option: usekeychain`
+### Bad configuration option: usekeychain
 
 If you're on a Mac, you may see an error like this:
 
@@ -98,7 +98,7 @@ This is due to a special config option available on the Mac ssh-agent. To allow 
 IgnoreUnknown AddKeysToAgent,UseKeychain
 ```
 
-### `An error occured setting up the container.`
+### An error occured setting up the container
 
 If you're on a Mac, you may see an error like this:
 
@@ -120,4 +120,13 @@ While on VSCode press `command` + `shift` + `P` on your keyboard
 Once the popup displays, select `Rebuild and Reopen in Container`
 `Press command + shift + P`
 Once the popup displays, select and Rebuild and Reopen in Container
+
+### Unix file permissions modes show in `git diff`
+
+From this [Stack Overlow post](https://stackoverflow.com/a/1257613/277364), **git** thinks that it can correctly set the executable bit on checked out files, but when it attempts to do so it doesn't work. When it then reads back the status of those files it looks like the executable bit has been deliberately unset.
+
+Until we figure out why this occurs, you can tell git to ignore any executable bit changes on the filesystem:
+
+```
+git config core.filemode false
 ```
