@@ -15,7 +15,7 @@ kubectl is installable on a
 ### Apple Silicon (ARM)
 
 ```shell
-curl -LO "https://dl.k8s.io/release/v1.22.9/bin/darwin/arm64/kubectl"
+curl -LO "https://dl.k8s.io/release/v1.22.17/bin/darwin/arm64/kubectl"
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
@@ -23,7 +23,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ### Apple Intel (x86)
 
 ```shell
-curl -LO "https://dl.k8s.io/release/v1.22.9/bin/darwin/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v1.22.17/bin/darwin/amd64/kubectl"
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 ```
