@@ -1,6 +1,6 @@
 # Kubernetes
 
-The current Caktus Kubernetes version target is **v1.22** for projects under Hosting Services.
+The current Caktus Kubernetes version target is **v1.24** for projects under Hosting Services.
 
 
 ## Install kubectl
@@ -11,11 +11,16 @@ Kubernetes clusters.
 kubectl is installable on a
 [variety of platforms](https://kubernetes.io/docs/tasks/tools/). See [Patch Releases](https://kubernetes.io/releases/patch-releases/) for the lastest release versions. Follow the instructions below to install kubectl.
 
+Caktus Hosting Services currently recommends this version:
+
+```sh
+export KUBECTL_VERSION=1.24.11
+```
 
 ### Apple Silicon (ARM)
 
 ```shell
-curl -LO "https://dl.k8s.io/release/v1.22.17/bin/darwin/arm64/kubectl"
+curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/darwin/arm64/kubectl"
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
@@ -23,7 +28,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ### Apple Intel (x86)
 
 ```shell
-curl -LO "https://dl.k8s.io/release/v1.22.17/bin/darwin/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/darwin/amd64/kubectl"
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 ```
@@ -31,7 +36,7 @@ mv ./kubectl /usr/local/bin/kubectl
 ### Linux (x86)
 
 ```shell
-curl -LO "https://dl.k8s.io/release/v1.22.17/bin/linux/amd64/kubectl"
+curl -LO "https://dl.k8s.io/release/v$KUBECTL_VERSION/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 ```
@@ -43,7 +48,7 @@ Helm is a package manager for Kubernetes and we use various Helm charts at Caktu
 Caktus Hosting Services currently recommends this version:
 
 ```sh
-export HELM_VERSION=3.8.2
+export HELM_VERSION=3.11.2
 ```
 
 However, you may browse the [Helm releases](https://github.com/helm/helm/releases) to find a desired version.
