@@ -46,6 +46,8 @@ Caktus Hosting Services currently recommends this version:
 export HELM_VERSION=3.8.2
 ```
 
+However, you may browse the [Helm releases](https://github.com/helm/helm/releases) to find a desired version.
+
 ### Apple Silicon (ARM)
 
 ```shell
