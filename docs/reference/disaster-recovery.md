@@ -73,6 +73,26 @@ Create a CNAME record, for example dr.`PROJECTNAME`.com and point it to the clus
 1. Create `group_vars/staging_shared.yaml` with common configuration between `staging` and `dr`
 2. Create `host_vars/dr.yaml` with domain name, basic auth password, etc.
 
+#### Update IAM assets management policy
+1. Go to IAM > Roles > and search for the  `ContainerInstanceRole`
+2. Edit the AssetsManagementPolicy to include the newly-created DR bucket
+    ```json
+        {
+            "Action": [
+                "s3:ListBucket"
+            ],
+            "Resource": "arn:aws:s3:::BUCKETNAME",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "arn:aws:s3:::BUCKETNAME/*",
+            "Effect": "Allow"
+        }
+    ```
+
 ### Database backups
 
 #### AWS - Hosting Services bucket
