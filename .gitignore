@@ -7,3 +7,8 @@ __pycache**
 *.pyc
 .idea
 site
+.bin
+.lib
+.pyvenv.cfg
+lib
+bin/
