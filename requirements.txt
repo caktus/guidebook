@@ -1,2 +1,4 @@
-mkdocs-material==8.2.4
-mkdocs-git-revision-date-plugin==0.3.1
+mkdocs-material==9.1.4
+mkdocs-git-revision-date-plugin==0.3.2
+mkdocs-minify-plugin==0.6.4
+mkdocs-redirects==1.2.0
