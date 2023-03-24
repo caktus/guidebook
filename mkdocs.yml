@@ -1,4 +1,4 @@
-site_name: Caktus Documentation
+site_name: Caktus Guidebook
 
 copyright: "&copy; 2015 - <script>document.write(new Date().getFullYear())</script> <a href='https://www.caktusgroup.com' target='_blank'>Caktus Group</a>"
 
@@ -11,6 +11,7 @@ theme:
     # Avoids the navbar from collapsing when scrolling down
     - navigation.tabs
     - navigation.tabs.sticky
+    - navigation.sections
   # Enables dark-mode
   palette:
     - media: "(prefers-color-scheme: light)" # 
