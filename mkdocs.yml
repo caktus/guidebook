@@ -5,13 +5,13 @@ copyright: "&copy; 2015 - <script>document.write(new Date().getFullYear())</scri
 theme:
   # Main site theme
   name: material
-  logo: assets/logo.svg
+  custom_dir: overrides
+  icon:
+    logo: logo
   features:
     - navigation.tabs
-    # Avoids the navbar from collapsing when scrolling down
-    - navigation.tabs
-    - navigation.tabs.sticky
     - navigation.sections
+    - navigation.tracking
   # Enables dark-mode
   palette:
     - media: "(prefers-color-scheme: light)" # 
