@@ -58,6 +58,12 @@ markdown_extensions:
 plugins:
   - git-revision-date
   - search
+  - redirects:
+      redirect_maps:
+        'developer-onboarding/dev-containers.md': 'getting-started/dev-containers.md'
+        'reference/backups.md': 'infrastructure/hosting-services/backups.md'
+        'reference/disaster-recovery.md': 'infrastructure/hosting-services/disaster-recovery.md'
+        'reference/security-policy.md': 'policies/security-policy.md'
 
 repo_url: https://github.com/caktus/developer-documentation
 repo_name: developer-documentation
