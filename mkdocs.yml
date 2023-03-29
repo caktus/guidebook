@@ -1,16 +1,17 @@
-site_name: Caktus Documentation
+site_name: Caktus Guidebook
 
 copyright: "&copy; 2015 - <script>document.write(new Date().getFullYear())</script> <a href='https://www.caktusgroup.com' target='_blank'>Caktus Group</a>"
 
 theme:
   # Main site theme
   name: material
-  logo: assets/logo.svg
+  custom_dir: overrides
+  icon:
+    logo: logo
   features:
     - navigation.tabs
-    # Avoids the navbar from collapsing when scrolling down
-    - navigation.tabs
-    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.tracking
   # Enables dark-mode
   palette:
     - media: "(prefers-color-scheme: light)" # 
@@ -57,6 +58,12 @@ markdown_extensions:
 plugins:
   - git-revision-date
   - search
+  - redirects:
+      redirect_maps:
+        'developer-onboarding/dev-containers.md': 'getting-started/dev-containers.md'
+        'reference/backups.md': 'infrastructure/hosting-services/backups.md'
+        'reference/disaster-recovery.md': 'infrastructure/hosting-services/disaster-recovery.md'
+        'reference/security-policy.md': 'policies/security-policy.md'
 
 repo_url: https://github.com/caktus/developer-documentation
 repo_name: developer-documentation

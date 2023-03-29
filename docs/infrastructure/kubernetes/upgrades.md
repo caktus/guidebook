@@ -1,3 +1,7 @@
+---
+title: Upgrade Guide
+---
+
 # Kubernetes Upgrades
 
 Caktus routinely performs Kubernetes and related service upgrades as part of our hosting services.

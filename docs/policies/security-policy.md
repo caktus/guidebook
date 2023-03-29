@@ -18,11 +18,11 @@ Caktus is committed to protecting its employees, clients, and the company from i
     1. Employees and Contractors may need to undergo client-specific security trainings.
 
 ## Security Incident Response
-1. General ongoing security related concerns and immediate security incidents should be shared via email with [security@caktusgroup.com](security@caktusgroup.com "security@caktusgroup.com") as soon as they have been identified. These may include security incidents and concerns on Caktus maintained projects, software applications and libraries used at Caktus, third party services we utilize, and the Caktus office space.
+1. General ongoing security related concerns and immediate security incidents should be shared via email with [security@caktusgroup.com](mailto:security@caktusgroup.com) as soon as they have been identified. These may include security incidents and concerns on Caktus maintained projects, software applications and libraries used at Caktus, third party services we utilize, and the Caktus office space.
 2. Project Security Incidents
     1. In case of a security incident on a Caktus project, the Lead Developer is responsible for leading the security [Incident Response](http://caktus.github.io/caktus-security/topics/incidents.html) with input from Tech Support, third parties, and other relevant Caktii.
-    1. A [Security Incident Response document](https://docs.google.com/document/d/1L6YiDJzujNSM4AcvlA7ShUutxhGMzq7ZI6Y0OUvB_y0/edit) will be created and shared with the client via the Project Manager within 48 hours of the incident and once the initial assessment has been made.
-    1. This document will document all compromises, what data may have been compromised, what steps were taken, and are ongoing to remedy the situation.
+    2. A [Security Incident Response document](https://docs.google.com/document/d/1L6YiDJzujNSM4AcvlA7ShUutxhGMzq7ZI6Y0OUvB_y0/edit) will be created and shared with the client via the Project Manager within 48 hours of the incident and once the initial assessment has been made.
+    3. This document will document all compromises, what data may have been compromised, what steps were taken, and are ongoing to remedy the situation.
 
 ## Physical Facilities Security
 1. Access Control and Security System
