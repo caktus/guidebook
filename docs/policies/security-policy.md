@@ -13,8 +13,9 @@ Caktus is committed to protecting its employees, clients, and the company from i
 1. This policy applies to employees, contractors, consultants, interns, and other workers at Caktus.
 1. This policy applies to all equipment that is owned or leased by Caktus and all equipment owned or leased by contractors and consultants used while performing work for Caktus.
 1. It is the responsibility of the individual to know these guidelines, and to conduct their activities accordingly.
+1. Employees, contractors, consultants, and interns must complete training assigned in KnowBe4 (https://training.knowbe4.com/ui/dashboard/)
 1. High Security Projects
-    1. Employees and Contractors must submit the [Security Policy Acknowledgement Form](https://docs.google.com/a/caktusgroup.com/forms/d/e/1FAIpQLSdGeclFe_NtKKasJ7u9q-q49IfAceYGNcKTq4Q1HLqp8wYF9A/viewform?c=0&w=1 "Security Policy Acknowledgement Form") acknowledging understanding of this policy.
+    1. Employees and Contractors must read and accept the Security Policy in the KnowBe4 console (https://training.knowbe4.com/ui/training/policies) acknowledging understanding of this policy.
     1. Employees and Contractors may need to undergo client-specific security trainings.
 
 ## Security Incident Response
