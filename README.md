@@ -1,3 +1,3 @@
 # Caktus Developer Documentation
 
-See https://caktus.github.io/developer-documentation/
+See https://guidebook.caktusgroup.com
