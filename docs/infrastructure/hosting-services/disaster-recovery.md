@@ -30,9 +30,9 @@ However, most projects should roughly follow this pattern:
    ```
 3. Deploy a recent application image to the disaster recovery environment:
    ```sh
-   # Find current deployed tag
+   # Find current deployed tag, where <NAMESPACE> is the production namespace.
    kubectl -n <NAMESPACE> get deployments -o wide
-   # Deploy
+   # Deploy (<TAG> is at the end of the app image string after the colon.)
    inv dr deploy --tag=<TAG>
    ```
 4. Visit deployed site in your browser, log in, update Site object, and perform basic smoke tests:
