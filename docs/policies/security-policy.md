@@ -112,9 +112,9 @@ Caktus is committed to protecting its employees, clients, and the company from i
         1. If a service offers multiple MFA options, we recommend choosing either a Yubikey or Authenticator app rather than SMS.
     1. When possible, accounts should be created for each individual person who uses a system, rather than using shared authentication credentials.
 1. Passwords
-    1. Passwords used for Caktus-related accounts should be generated programmatically (LastPass, pwgen, etc.) by tools that create random passwords and should be at least eight characters long. Here’s an example using the command line tool: pwgen --secure --symbols --numerals 12
-    1. Passwords should be stored in Caktus’ Enterprise LastPass account. If this isn’t possible, then Keepass or written on paper is acceptable. If they are written down on paper, the password should be kept in a secure location and should not be kept with other authentication information such as what the password is for or a user name.
-    1. Passwords should only be communicated via secure channels of communication (LastPass) or in person, and with other authentication information (e.g. user name) sent via a second means of secure communication.
+    1. Passwords used for Caktus-related accounts should be generated programmatically (1password, pwgen, etc.) by tools that create random passwords and should be at least eight characters long. Here’s an example using the command line tool: pwgen --secure --symbols --numerals 12
+    1. Passwords should be stored in Caktus’ Enterprise 1password account. If this isn’t possible, then Keepass or written on paper is acceptable. If they are written down on paper, the password should be kept in a secure location and should not be kept with other authentication information such as what the password is for or a user name.
+    1. Passwords should only be communicated via secure channels of communication (1Password) or in person, and with other authentication information (e.g. user name) sent via a second means of secure communication.
     1. Passwords should never be stored or transmitted in plain text.
 1. Personal account and data restrictions
     1. Accessing Caktus data from personal accounts is prohibited. Data and account privileges should never be shared with personal accounts. For example, never share Caktus Google Drive data with your personal Google account.
@@ -132,7 +132,7 @@ Both of these methods preserve security by not sharing a password at all.
 
 But sometimes it’s unavoidable that you need to send us information that needs to be kept secret. Here are our preferred ways of doing that, in order:
 
-1. Share with us through a secure system like LastPass (our preference), PassPack, or anything similar to those. If you don't have an account yet, you can share a secret with us via LastPass as follows:
+1. Share with us through a secure system like 1Password (our preference), PassPack, or anything similar to those. If you don't have an account yet, you can share a secret with us via LastPass as follows:
     1. Navigate to [https://lastpass.com/create_account.php](https://lastpass.com/create_account.php) and create a new account
     1. Once you're logged in, create a new "Secure Note" via the button in the bottom right corner
     1. Copy and paste your secret into the note (this is generally easier than attaching the file, which requires a "binary extension" on some computers)
