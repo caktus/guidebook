@@ -112,8 +112,8 @@ Caktus is committed to protecting its employees, clients, and the company from i
         1. If a service offers multiple MFA options, we recommend choosing either a Yubikey or Authenticator app rather than SMS.
     1. When possible, accounts should be created for each individual person who uses a system, rather than using shared authentication credentials.
 1. Passwords
-    1. Passwords used for Caktus-related accounts should be generated programmatically (1password, pwgen, etc.) by tools that create random passwords and should be at least eight characters long. Here’s an example using the command line tool: pwgen --secure --symbols --numerals 12
-    1. Passwords should be stored in Caktus’ Enterprise 1password account. If this isn’t possible, then Keepass or written on paper is acceptable. If they are written down on paper, the password should be kept in a secure location and should not be kept with other authentication information such as what the password is for or a user name.
+    1. Passwords used for Caktus-related accounts should be generated programmatically (1Password, pwgen, etc.) by tools that create random passwords and should be at least eight characters long. Here’s an example using the command line tool: pwgen --secure --symbols --numerals 12
+    1. Passwords should be stored in Caktus’ Enterprise 1Password account. If this isn’t possible, then Keepass or written on paper is acceptable. If they are written down on paper, the password should be kept in a secure location and should not be kept with other authentication information such as what the password is for or a user name.
     1. Passwords should only be communicated via secure channels of communication (1Password) or in person, and with other authentication information (e.g. user name) sent via a second means of secure communication.
     1. Passwords should never be stored or transmitted in plain text.
 1. Personal account and data restrictions
@@ -122,6 +122,7 @@ Caktus is committed to protecting its employees, clients, and the company from i
     1. Web access to personal accounts (e.g. Gmail) is only allowed from a separate browser profile to help mitigate accidental cross-pollination of data.
     1. Storing Caktus and personal data within the same 3rd party account (e.g. Dropbox) is prohibited, except for open source repositories, package managers, and CI tools.
     1. You may use personal accounts to facilitate auxiliary business processes, such as booking a reimbursable flight on Delta, so long as the account will never have access to client or Caktus IP.
+
 ### Sharing secrets with Caktus
 Whenever possible, we try to avoid communicating passwords (or other secrets) directly. Some ways to avoid it:
 
@@ -132,15 +133,7 @@ Both of these methods preserve security by not sharing a password at all.
 
 But sometimes it’s unavoidable that you need to send us information that needs to be kept secret. Here are our preferred ways of doing that, in order:
 
-1. Share with us through a secure system like 1Password (our preference), PassPack, or anything similar to those. If you don't have an account yet, you can share a secret with us via LastPass as follows:
-    1. Navigate to [https://lastpass.com/create_account.php](https://lastpass.com/create_account.php) and create a new account
-    1. Once you're logged in, create a new "Secure Note" via the button in the bottom right corner
-    1. Copy and paste your secret into the note (this is generally easier than attaching the file, which requires a "binary extension" on some computers)
-    1. Under "Advanced Settings," check the box titled "Require Password Reprompt"
-    1. Give the note a name and save it
-    1. Click on the share/people icon on the new note
-    1. Share it with the email address of the individual at Caktus you are corresponding with
-    1. You may be prompted to verify your own email address, if you haven't yet
+1. Share with us through a secure system like 1Password (our preference), PassPack, or anything similar to those.
 1. Share with us using the site [https://onetimesecret.com](https://onetimesecret.com/) (for passwords or other secrets) or[ https://send.firefox.com](https://www.mozilla.org/en-US/) (for files). It works like this:
     1. Go to the site, type anything you want in a text field (e.g. password, secret key, whatever) or upload a file, and save it. A link will be displayed on the next page that you can email to us. We immediately click on the link when we get it, and the secret (or file) will be shown to us and immediately deleted from the site. Since it’s deleted as soon as we read it, nobody else can read it, even if they somehow get access to the email message with the link. Or if someone does that and beats us to it, when we try to read it we’ll find that it’s already deleted, know that something bad has happened, and let you know to immediately change the password.
     1. It’s still a good idea to put in just the password or secret, and not enough other information for someone who got hold of what you put on the site to know what that password is for.
