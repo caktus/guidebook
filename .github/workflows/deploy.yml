@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - switch-to-uv
 jobs:
   deploy:
     runs-on: ubuntu-latest
