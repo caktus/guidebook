@@ -1,10 +1,10 @@
 [project]
 name = "developer-documentation"
 version = "0.1.0"
-requires-python = ">=3.9"
+requires-python = ">=3.14"
 dependencies = [
-    "mkdocs-git-revision-date-plugin==0.3.2",
-    "mkdocs-material==9.1.4",
-    "mkdocs-minify-plugin==0.6.4",
-    "mkdocs-redirects==1.2.0",
+    "mkdocs-git-revision-date-plugin",
+    "mkdocs-material",
+    "mkdocs-minify-plugin",
+    "mkdocs-redirects",
 ]
