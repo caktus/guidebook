@@ -11,4 +11,4 @@ site
 .lib
 .pyvenv.cfg
 lib
-bin/
+bin/.venv/
