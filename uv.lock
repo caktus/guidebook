@@ -110,6 +110,7 @@ dependencies = [
     { name = "mkdocs-material" },
     { name = "mkdocs-minify-plugin" },
     { name = "mkdocs-redirects" },
+    { name = "properdocs" },
 ]
 
 [package.metadata]
@@ -118,6 +119,7 @@ requires-dist = [
     { name = "mkdocs-material" },
     { name = "mkdocs-minify-plugin" },
     { name = "mkdocs-redirects" },
+    { name = "properdocs" },
 ]
 
 [[package]]

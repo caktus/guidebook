@@ -17,4 +17,4 @@ jobs:
 
       - name: Install Python dependencies
         run: uv sync --locked
-      - run: uv run mkdocs gh-deploy --force
+      - run: uv run properdocs gh-deploy --force -f properdocs.yml
